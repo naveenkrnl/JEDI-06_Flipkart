@@ -6,7 +6,7 @@ public enum ModeOfPayment {
 
 	public static ModeOfPayment getModeofPayment(int value) {
 		System.out.println("Function ModeOfPayment called from ModeOfPayment");
-		return null;
+		return ModeOfPayment.CREDIT_CARD;
 	}
 
 }
