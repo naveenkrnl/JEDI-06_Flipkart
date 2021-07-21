@@ -1,28 +1,22 @@
 package com.flipkart.client;
 
-import java.sql.SQLException;
 import java.util.*;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
 
+import com.flipkart.application.MainApplication;
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Notification;
-import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
-import com.flipkart.exception.CourseLimitExceedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.SeatNotAvailableException;
-import com.flipkart.service.NotificationInterface;
-import com.flipkart.service.NotificationOperation;
-import com.flipkart.service.ProfessorInterface;
-import com.flipkart.service.ProfessorOperation;
-import com.flipkart.service.RegistrationInterface;
-import com.flipkart.service.RegistrationOperation;
+import com.flipkart.business.NotificationInterface;
+import com.flipkart.business.NotificationOperation;
+import com.flipkart.business.ProfessorInterface;
+import com.flipkart.business.ProfessorOperation;
+import com.flipkart.business.RegistrationInterface;
+import com.flipkart.business.RegistrationOperation;
 
 
-public class StudentCRSMenu {
+public class StudentMenu {
 	Scanner sc = new Scanner(System.in);
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
@@ -33,7 +27,7 @@ public class StudentCRSMenu {
 	{
 
 		is_registered = getRegistrationStatus(studentId);
-		while (CRSApplication.loggedin) 
+		while (MainApplication.loggedin)
 		{
 			System.out.println("*****************************");
 			System.out.println("**********Student Menu*********");
