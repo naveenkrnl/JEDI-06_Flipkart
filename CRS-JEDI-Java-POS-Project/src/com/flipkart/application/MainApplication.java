@@ -73,7 +73,7 @@ public class MainApplication {
         }
         catch(Exception ex)
         {
-            logger.error("Error occured "+ex);
+            System.out.println("Error occured "+ex);
         }
         finally
         {
