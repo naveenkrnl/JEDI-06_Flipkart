@@ -2,13 +2,13 @@ package com.flipkart.bean;
 
 import com.flipkart.constant.Grade;
 
-public class StudentGrade {
+public class GradeCard {
 	
 	private String courseCode;
 	private String courseName;
 	private Grade grade;
 
-	public StudentGrade(String courseCode, String courseName, Grade grade) {
+	public GradeCard(String courseCode, String courseName, Grade grade) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.setGrade(grade);
