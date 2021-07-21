@@ -61,7 +61,7 @@ public class ProfessorMenu {
 
     public void viewRegisteredCourseStudents(String profId)
     {
-        System.out.println("View registered courses called");
+        System.out.println("View enrolled students called");
 
     }
 

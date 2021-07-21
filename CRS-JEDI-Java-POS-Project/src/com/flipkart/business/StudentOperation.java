@@ -10,7 +10,7 @@ public class StudentOperation implements StudentInterface {
 
 	public static StudentOperation getInstance() {
 		System.out.println("Function getInstance called from StudentOperation");
-		return null;
+		return new StudentOperation();
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class StudentOperation implements StudentInterface {
 	@Override
 	public boolean isApproved(int studentId) {
 		System.out.println("Function isApproved called from StudentOperation");
-		return false;
+		return true;
 
 	}
 

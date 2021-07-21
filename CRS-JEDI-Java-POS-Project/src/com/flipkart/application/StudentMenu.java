@@ -1,11 +1,12 @@
-package com.flipkart.client;
+package com.flipkart.application;
 
 import java.util.*;
-import java.util.Scanner;
+
 
 
 import com.flipkart.application.MainApplication;
 import com.flipkart.bean.Course;
+import com.flipkart.bean.GradeCard;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.business.NotificationInterface;
@@ -21,12 +22,10 @@ public class StudentMenu {
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 	NotificationInterface notificationInterface=NotificationOperation.getInstance();
-	private boolean is_registered;
 	
 	public void create_menu(int studentId)
 	{
 
-		is_registered = getRegistrationStatus(studentId);
 		while (MainApplication.loggedin)
 		{
 			System.out.println("*****************************");
@@ -75,7 +74,7 @@ public class StudentMenu {
 						break;
 						
 				case 8: 
-						CRSApplication.loggedin = false;
+						MainApplication.loggedin = false;
 						return;
 						
 				default:
@@ -90,19 +89,14 @@ public class StudentMenu {
         
         System.out.println("Enter Course Code : ");
         String courseCode = sc.next();
-
-        registrationInterface.addCourse(courseCode,studentId,courseList)
-        
         System.out.println("Course " + courseCode + " registered sucessfully.");            
     
 	}
 	
 	private void addCourse(int studentId)	
 	{
-		
         System.out.println("Enter Course Code : " );
         String courseCode = sc.next();
-        
         System.out.println(" You have successfully registered for Course : " + courseCode);
 		
 	}
@@ -114,72 +108,38 @@ public class StudentMenu {
 	
 	private void dropCourse(int studentId)
 	{
-		
 			System.out.println("Enter the Course Code : ");
 			String courseCode = sc.next();
-			
 			System.out.println("You have successfully dropped Course : " + courseCode);
 
 	}
 	
 	private List<Course> viewCourse(int studentId)
 	{
-		List<Course> course_available = registrationInterface.viewCourses(studentId);
-	
+//		List<Course> course_available = registrationInterface.viewCourses(studentId);
         System.out.println("The following courses are available:");
         return null;
-		
-		return course_available;
-
 	}
 	
 	private List<Course> viewRegisteredCourse(int studentId)
 	{
 		
-		List<Course> course_registered = registrationInterface.viewRegisteredCourses(studentId);
+//		List<Course> course_registered = registrationInterface.viewRegisteredCourses(studentId);
 
 		System.out.println("The following courses are registered:");
-		return course_registered;
+		return null;
 	}
 	
 	private void viewGradeCard(int studentId)
 	{
-		
-		
-		List<StudentGrade> grade_card=null;
-		
-        grade_card = registrationInterface.viewGradeCard(studentId);
-		
-        System.out.println("You haven't registered for the following courses:");
+//		List<GradeCard> grade_card=null;
+//        grade_card = registrationInterface.viewGradeCard(studentId);
+        System.out.println("View Grade card called");
 	}
 	
 	private void make_payment(int studentId)
 	{
-		
-		double fee =0.0;
-		
-        fee=registrationInterface.calculateFee(studentId);
-        
-        System.out.println("Your total fee  = " + fee);
-        System.out.println("Want to continue Fee Payment(y/n)");
-        String ch = sc.next();
-        if(ch.equals("y"))
-        {
-            System.out.println("Select Mode of Payment:");
-            
-            int index = 1;
-            for(ModeOfPayment mode : ModeOfPayment.values())
-            {
-                System.out.println(index + " " + mode);
-                index = index + 1;
-            }
-            
-            ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
-            notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
-			
-		}
-		
+		System.out.println("Make Payment called");
 	}
-	
-	
+
 }

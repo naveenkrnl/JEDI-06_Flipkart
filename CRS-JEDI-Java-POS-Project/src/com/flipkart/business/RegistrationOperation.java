@@ -54,7 +54,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	@Override
 	public boolean getRegistrationStatus(int studentId) {
 		System.out.println("Function getRegistrationStatus called RegistrationOperation");
-		return false;
+		return true;
 	}
 
 	@Override

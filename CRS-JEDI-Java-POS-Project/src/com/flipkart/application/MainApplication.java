@@ -28,7 +28,7 @@ public class MainApplication {
 
     public static void createMainMenu()
     {
-        System.out.println("----------Welcome to Course Management System---------");
+        System.out.println("+++++Welcome to Course Management System+++++");
         System.out.println("1. Login");
         System.out.println("2. Student Registration");
         System.out.println("3. Update password");
@@ -91,7 +91,7 @@ public class MainApplication {
         String userId,password;
         try
         {
-            System.out.println("-----------------Login------------------");
+            System.out.println("+++++++++Login+++++++++");
             System.out.println("Email:");
             userId=sc.next();
             System.out.println("Password:");
@@ -101,23 +101,18 @@ public class MainApplication {
             //true->role->student->approved
             if(loggedin)
             {
-                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-
-                LocalDateTime myDateObj = LocalDateTime.now();
-
-                String formattedDate = myDateObj.format(myFormatObj);
-
                 String role=userInterface.getRole(userId);
                 Role userRole=Role.stringToName(role);
+                System.out.println(userRole);
                 switch(userRole)
                 {
                     case ADMIN:
-                        System.out.println(formattedDate + " Login Successful");
+                        System.out.println("Login Successful for admin");
                         AdminMenu adminMenu=new AdminMenu();
                         adminMenu.createMenu();
                         break;
                     case PROFESSOR:
-                        System.out.println(formattedDate + " Login Successful");
+                        System.out.println("Login Successful for professor");
                         ProfessorMenu professorMenu=new ProfessorMenu();
                         professorMenu.createMenu(userId);
 
@@ -128,8 +123,8 @@ public class MainApplication {
                         boolean isApproved=studentInterface.isApproved(studentId);
                         if(isApproved)
                         {
-                            System.out.println(formattedDate + " Login Successful");
-                            StudentCMenu studentMenu=new StudentMenu();
+                            System.out.println("Login Successful for student");
+                            StudentMenu studentMenu=new StudentMenu();
                             studentMenu.create_menu(studentId);
 
                         }
@@ -163,34 +158,29 @@ public class MainApplication {
         String userId,name,password,address,country,branchName;
         Gender gender;
         int genderV, batch;
-        try
-        {
-            //input all the student details
-            System.out.println("---------------Student Registration-------------");
-            System.out.println("Name:");
-            name=sc.nextLine();
-            System.out.println("Email:");
-            userId=sc.next();
-            System.out.println("Password:");
-            password=sc.next();
-            System.out.println("Gender: \t 1: Male \t 2.Female\t 3.Other");
-            genderV=sc.nextInt();
-            sc.nextLine();
-            System.out.println("Branch:");
-            branchName=sc.nextLine();
-            System.out.println("Batch:");
-            batch=sc.nextInt();
-            sc.nextLine();
-            System.out.println("Address:");
-            address=sc.nextLine();
-            System.out.println("Country");
-            country=sc.next();
-            gender=Gender.getName(genderV);
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Something went wrong! "+ex.getStudentName() +" not registered. Please try again");
-        }
+        //input all the student details
+        System.out.println("++++++++Student Registration+++++++");
+        System.out.println("Name:");
+        name=sc.nextLine();
+        System.out.println("Email:");
+        userId=sc.next();
+        System.out.println("Password:");
+        password=sc.next();
+        System.out.println("Gender: \t 1: Male \t 2.Female\t 3.Other");
+        genderV=sc.nextInt();
+        sc.nextLine();
+        System.out.println("Branch:");
+        branchName=sc.nextLine();
+        System.out.println("Batch:");
+        batch=sc.nextInt();
+        sc.nextLine();
+        System.out.println("Address:");
+        address=sc.nextLine();
+        System.out.println("Country");
+        country=sc.next();
+        gender=Gender.getName(genderV);
+        System.out.println("++++++++Student Registration SuccessFull+++++++");
+
     }
 
 
@@ -198,20 +188,12 @@ public class MainApplication {
     {
         Scanner sc=new Scanner(System.in);
         String userId,newPassword;
-        try
-        {
-            System.out.println("------------------Update Password--------------------");
-            System.out.println("Email");
-            userId=sc.next();
-            System.out.println("New Password:");
-            newPassword=sc.next();
-            boolean isUpdated=true;
-            if(isUpdated)
-                System.out.println("Password updated successfully!");
-
-            else
-                System.out.println("Something went wrong, please try again!");
-
+        System.out.println("+++++++++Update Password++++++++++");
+        System.out.println("Email");
+        userId=sc.next();
+        System.out.println("New Password:");
+        newPassword=sc.next();
+        System.out.println("Password updated successfully!");
     }
 
 

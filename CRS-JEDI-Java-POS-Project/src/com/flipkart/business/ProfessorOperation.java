@@ -12,7 +12,7 @@ public class ProfessorOperation implements ProfessorInterface {
 
 	public static ProfessorOperation getInstance() {
 		System.out.println("Function getInstance called from ProfessorOperation");
-		return null;
+		return new ProfessorOperation();
 	}
 
 	@Override

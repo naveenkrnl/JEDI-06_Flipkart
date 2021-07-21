@@ -20,7 +20,7 @@ import com.flipkart.business.NotificationOperation;
 public class AdminMenu {
 
 
-    AdminInterface adminOperation =AdminOperation.getInstance();
+    AdminInterface adminOperation = new AdminOperation();
     Scanner scanner = new Scanner(System.in);
     NotificationInterface notificationInterface=NotificationOperation.getInstance();
 
@@ -131,11 +131,12 @@ public class AdminMenu {
 
     private List<Student> viewPendingAdmissions() {
         System.out.println("viewPendingAdmission called");
+        return null;
     }
 
 
     private void approveStudent() {
-        System.out.println("viewPendingAdmission called");
+        System.out.println("approveStudent called");
     }
 
 

@@ -9,7 +9,7 @@ public class UserOperation implements UserInterface {
 
 	public static UserOperation getInstance() {
 		System.out.println("Function getInstance called from UserOperation");
-		return null;
+		return new UserOperation();
 	}
 
 	@Override
@@ -27,6 +27,13 @@ public class UserOperation implements UserInterface {
 	@Override
 	public String getRole(String userId) {
 		System.out.println("Function getRole called from UserOperation");
+
+		if(userId.contains("admin"))
+			return "ADMIN";
+		else if(userId.contains("professor"))
+			return "PROFESSOR";
+		else if(userId.contains("student"))
+			return "STUDENT";
 		return "STUDENT";
 	}
 
