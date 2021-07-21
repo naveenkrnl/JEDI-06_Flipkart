@@ -1,15 +1,12 @@
 package com.flipkart.business;
 
-
 import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 
-
 public interface AdminInterface {
-	
 
 	public void deleteCourse(String courseCode, List<Course> courseList);
 
