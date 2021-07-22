@@ -5,13 +5,16 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
 public abstract class User {
-	private String userId;
-	private String name;
-	private Role role;
-	private String password;
-	private Gender gender;
-	private String address;
-	private String country;
+
+	public String name;
+	public Gender gender;
+	public String address;
+	public String country;
+
+	public String userId;
+	public Role role;
+	public String password;
+	public String email;
 
 	public User(String userId, String name, Role role, String password, Gender gender, String address, String country) {
 		super();
