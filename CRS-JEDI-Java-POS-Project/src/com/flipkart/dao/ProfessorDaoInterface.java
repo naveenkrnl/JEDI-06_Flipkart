@@ -3,7 +3,6 @@ package com.flipkart.dao;
 import java.util.*;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourseStudent;
-import com.flipkart.bean.Student;
 
 /**
  * 

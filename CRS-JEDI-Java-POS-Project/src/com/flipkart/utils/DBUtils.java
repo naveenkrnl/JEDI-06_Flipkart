@@ -25,8 +25,8 @@ public class DBUtils {
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                return conn;
+                connection = DriverManager.getConnection(DB_URL, USER, PASS);
+                return connection;
 
             } catch (SQLException se) {
                 se.printStackTrace();
@@ -34,5 +34,6 @@ public class DBUtils {
                 e.printStackTrace();
             }
         }
+        return connection;
     }
 }

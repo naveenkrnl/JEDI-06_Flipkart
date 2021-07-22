@@ -9,9 +9,7 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourseStudent;
-import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
@@ -43,7 +41,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
 		Connection connection=DBUtils.getConnection();
-		List<Course> courseList=new ArrayList<Course>();
+		List<Course> courseList= new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_COURSES);
 			
@@ -55,7 +53,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 				courseList.add(new Course(results.getString("courseCode"),results.getString("courseName"),results.getString("professorId"),results.getInt("seats")));
 			}
 		}
-		catch(SQLException e)
+		catch(Exception e)
 		{
 			System.err.println(e.getMessage());
 		}
@@ -75,7 +73,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	@Override
 	public List<RegisteredCourseStudent> getEnrolledStudents(String profId) {
 		Connection connection=DBUtils.getConnection();
-		List<RegisteredCourseStudent> enrolledStudents=new ArrayList<RegisteredCourseStudent>();
+		List<RegisteredCourseStudent> enrolledStudents= new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
 			statement.setString(1, profId);
@@ -83,11 +81,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			ResultSet results = statement.executeQuery();
 			while(results.next())
 			{
-				//public EnrolledStudent(String courseCode, String courseName, int studentId) 
-				enrolledStudents.add(new RegisteredCourseStudent(results.getString("courseCode"),results.getString("courseName"),results.getInt("studentId")));
+				//public EnrolledStudent(String courseCode, String courseName, int studentId)
+				enrolledStudents.add(new RegisteredCourseStudent(results.getString("courseCode"),results.getString("courseName"),results.getString("studentId")));
 			}
 		}
-		catch(SQLException e)
+		catch(Exception e)
 		{
 			System.err.println(e.getMessage());
 		}
@@ -113,7 +111,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			statement.setInt(3, studentId);
 			
 			int row = statement.executeUpdate();
-			
+
 			if(row==1)
 				return true;
 			else

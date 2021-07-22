@@ -45,6 +45,6 @@ public class SQLQueriesConstants {
     public static final String GET_REGISTRATION_STATUS=" select isRegistered from student where studentId = ? ";
     public static final String SET_REGISTRATION_STATUS="update student set isRegistered = true  where studentId=?";
     public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,registeredcourse.studentId from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where course.professorId = ? order by course.courseCode";
-    public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
+    public static final String NUMBER_OF_REGISTERED_COURSES="  select enrolled_course.courseCode,course.courseName, enrolled_course.studentId From enrolled_course inner join course on enrolled_course.courseCode = course.courseCode where course.professorId = ? order by course.courseCode";
     public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
 }
