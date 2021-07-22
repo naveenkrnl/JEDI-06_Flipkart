@@ -30,7 +30,7 @@ public class RegisteredCourseStudent {
 		this.courseName = courseName;
 	}
 
-	public int getrollNumber() {
+	public String getrollNumber() {
 		System.out.println("Function getrollNumber called from RegisteredCourseStudent");
 		return rollNumber;
 	}
