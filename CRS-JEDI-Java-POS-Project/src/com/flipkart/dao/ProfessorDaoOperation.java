@@ -1,4 +1,4 @@
-package com.flipkart.DAO;
+package com.flipkart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,7 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourseStudent;
-import com.flipkart.bean.Student;
-import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
@@ -85,7 +82,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			while(results.next())
 			{
 				//public EnrolledStudent(String courseCode, String courseName, int studentId)
-				enrolledStudents.add(new RegisteredCourseStudent(results.getString("courseCode"),results.getString("courseName"),results.getInt("studentId")));
+				enrolledStudents.add(new RegisteredCourseStudent(results.getString("courseCode"),results.getString("courseName"),results.getString("studentId")));
 			}
 		}
 		catch(Exception e)
