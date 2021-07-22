@@ -4,13 +4,13 @@ import com.flipkart.constant.NotificationType;
 
 public class Notification {
 	private int notificationId;
-	private int studentId;
+	private int rollNumber;
 	private NotificationType type;
 	private String referenceId;
 
-	public Notification(int notificationId, int studentId, NotificationType type, String referenceId) {
+	public Notification(int notificationId, int rollNumber, NotificationType type, String referenceId) {
 		this.notificationId = notificationId;
-		this.studentId = studentId;
+		this.rollNumber = rollNumber;
 		this.type = type;
 		this.referenceId = referenceId;
 	}
@@ -20,14 +20,14 @@ public class Notification {
 		return notificationId;
 	}
 
-	public int getStudentId() {
-		System.out.println("Function getStudentId called from Notification");
-		return studentId;
+	public int getrollNumber() {
+		System.out.println("Function getrollNumber called from Notification");
+		return rollNumber;
 	}
 
-	public void setStudentId(int studentId) {
-		System.out.println("Function setStudentId called from Notification");
-		this.studentId = studentId;
+	public void setrollNumber(int rollNumber) {
+		System.out.println("Function setrollNumber called from Notification");
+		this.rollNumber = rollNumber;
 	}
 
 	public NotificationType getType() {

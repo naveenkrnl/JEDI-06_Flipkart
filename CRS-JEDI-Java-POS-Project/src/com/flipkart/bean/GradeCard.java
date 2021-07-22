@@ -8,10 +8,12 @@ public class GradeCard {
 	private String courseCode;
 	private String courseName;
 	private Grade grade;
+	private int semester;
 
-	public GradeCard(String courseCode, String courseName, Grade grade) {
+	public GradeCard(String courseCode, String courseName, Grade grade, int semester) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
+		this.semester = semester;
 		this.setGrade(grade);
 		System.out.println("Function setGrade called from StudentGrade");
 	}
@@ -34,6 +36,14 @@ public class GradeCard {
 	public void setCourseName(String courseName) {
 		System.out.println("Function setCourseName called from StudentGrade");
 		this.courseName = courseName;
+	}
+
+	public void setSemester(int semester) {
+		this.semester = semester;
+	}
+
+	public int getSemester() {
+		return semester;
 	}
 
 	public Grade getGrade() {
