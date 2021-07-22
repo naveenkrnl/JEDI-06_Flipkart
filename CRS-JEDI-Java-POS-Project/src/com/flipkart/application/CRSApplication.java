@@ -30,8 +30,8 @@ public class CRSApplication {
         System.out.println("             3. Student Updation                       ");
         System.out.println("             4. Student Deletion                       ");
         // System.out.println(" 5. Update password ");
-        System.out.println("             6. Show All Students                      ");
-        System.out.println("             7. Exit                                   ");
+        System.out.println("             5. Show All Students                      ");
+        System.out.println("             6. Exit                                   ");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("\nEnter user input\n");
@@ -60,11 +60,11 @@ public class CRSApplication {
                         break;
                     case 3:
                         // student updation
-                        // crsApplication.registerStudent();
+                        crsApplication.updateStudent();
                         break;
                     case 4:
                         // student deletion
-                        crsApplication.registerStudent();
+                        crsApplication.deleteStudent();
                         break;
                     case 5:
                         crsApplication.updatePassword();
@@ -173,6 +173,76 @@ public class CRSApplication {
         studentManager.createStudent(userId, name, password, address, country, branchName);
         System.out.println("++++++++Student Registration SuccessFull+++++++");
 
+    }
+
+    
+
+    public void updateStudentInfo() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter email id:");
+        String emailID = sc.next().trim();
+        System.out.println("Enter password:");
+        String password = sc.next().trim();
+
+        Student student = studentManager.getStudentfromemailID(emailID);
+
+        int validateStatus = studentManager.validateStudent(emailID, password);
+
+        if (validateStatus == -1)
+        {
+            System.out.println("Student does not exist.");
+            return;
+        }
+        else if (validateStatus == 0)
+        {
+            System.out.println("Wrong password entered.");
+            return;
+        }
+
+        // String name, String address, String country
+
+        String userId, newPassword;
+        System.out.println("+++++++++Update Details (Press enter to skip)++++++++++");
+
+        System.out.println("Enter new name (existing name: " + student.name + "):");
+        String newName = sc.nextLine();
+
+        System.out.println("Enter new address (existing address: " + student.address + "):");
+        String newAddress = sc.nextLine();
+
+        System.out.println("Enter new country (existing country: " + student.country + "):");
+        String newCountry = sc.nextLine();
+
+        studentManager.updateStudent(emailID, newName, newAddress, newCountry);
+
+        System.out.println("Details updated successfully!");
+    }
+
+    public void deleteStudent() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter email id:");
+        String emailID = sc.next().trim();
+        System.out.println("Enter password:");
+        String password = sc.next().trim();
+
+        Student student = studentManager.getStudentfromemailID(emailID);
+
+        int validateStatus = studentManager.validateStudent(emailID, password);
+
+        if (validateStatus == -1)
+        {
+            System.out.println("Student does not exist.");
+            return;
+        }
+        else if (validateStatus == 0)
+        {
+            System.out.println("Wrong password entered.");
+            return;
+        }
+
+        studentManager.deleteStudent(emailID);
+
+        System.out.println("Student info deleted successfully!");
     }
 
     public void updatePassword() {

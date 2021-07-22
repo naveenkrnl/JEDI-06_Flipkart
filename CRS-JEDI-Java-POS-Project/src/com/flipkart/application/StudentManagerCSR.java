@@ -42,7 +42,7 @@ public class StudentManagerCSR {
         // address,String country, String branchName, int studentId, int batch, boolean
         // isApproved
 
-        Student student = new Student(emailID, name, Role.STUDENT, password, gender, address, country, branchName,
+        Student student = new Student(emailID.trim(), name.trim(), Role.STUDENT, password.trim(), gender, address.trim(), country.trim(), branchName,
                 minIdNotUsedYet, batch, true);
 
         StudentIDToStudentObject.put(minIdNotUsedYet, student);
@@ -50,7 +50,18 @@ public class StudentManagerCSR {
         return true;
     }
 
-    public boolean updateStudent(String emailID, String name, String address, String country, String branchName) {
+    public int validateStudent(String emailID, String password)
+    {
+        Student student = getStudentfromemailID(emailID);
+        if (student == null)
+        {
+            return -1; // does not exist
+        }
+
+        return password.equals(student.password); // 0 --> wrong password
+    }
+
+    public boolean updateStudent(String emailID, String name, String address, String country) {
         Student student = getStudentfromemailID(emailID);
 
         if (student == null) {
