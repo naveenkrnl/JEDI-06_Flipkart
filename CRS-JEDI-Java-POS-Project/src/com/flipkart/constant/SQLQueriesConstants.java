@@ -40,7 +40,7 @@ public class SQLQueriesConstants {
     public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
     public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
     public static final String GET_NOTIFICATION = "select * from notification where referenceId = ?;";
-    public static final String ADD_GRADE="update registeredcourse set Grade=? where courseCode=? and studentId=?";
+    public static final String ADD_GRADE="update enrolled_course set grade=? where courseCode=? and studentId=?";
     public static final String GET_COURSES="select * from course where professorId=?";
     public static final String GET_REGISTRATION_STATUS=" select isRegistered from student where studentId = ? ";
     public static final String SET_REGISTRATION_STATUS="update student set isRegistered = true  where studentId=?";
