@@ -41,7 +41,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
 		Connection connection=DBUtils.getConnection();
-		List<Course> courseList=new ArrayList<Course>();
+		List<Course> courseList= new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_COURSES);
 			
@@ -73,7 +73,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	@Override
 	public List<RegisteredCourseStudent> getEnrolledStudents(String profId) {
 		Connection connection=DBUtils.getConnection();
-		List<RegisteredCourseStudent> enrolledStudents=new ArrayList<RegisteredCourseStudent>();
+		List<RegisteredCourseStudent> enrolledStudents= new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
 			statement.setString(1, profId);
@@ -111,7 +111,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			statement.setInt(3, studentId);
 			
 			int row = statement.executeUpdate();
-			
+
 			if(row==1)
 				return true;
 			else
