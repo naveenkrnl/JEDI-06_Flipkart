@@ -4,15 +4,15 @@ package com.flipkart.bean;
 import java.util.Date;
 
 public class Admin extends User {
-	private Date dateOfJoining;
+	private Date doj;
 
-	public Date getDateOfJoining() {
-		System.out.println("Function getDateOfJoining called from Admin");
-		return dateOfJoining;
+	public Date getDoj() {
+		System.out.println("Function getDoj called from Admin");
+		return doj;
 	}
 
-	public void setDateOfJoining(Date dateOfJoining) {
-		System.out.println("Function setDateOfJoining called from Admin");
-		this.dateOfJoining = dateOfJoining;
+	public void setDoj(Date doj) {
+		System.out.println("Function setDoj called from Admin");
+		this.doj = doj;
 	}
 }

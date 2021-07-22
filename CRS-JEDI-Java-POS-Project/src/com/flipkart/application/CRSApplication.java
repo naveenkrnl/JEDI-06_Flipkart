@@ -98,6 +98,7 @@ public class CRSApplication {
             loggedin = userInterface.verifyCredentials(userId, password);
             // 2 cases
             // true->role->student->approved
+
             if (loggedin) {
                 String role = userInterface.getRole(userId);
                 Role userRole = Role.stringToName(role);

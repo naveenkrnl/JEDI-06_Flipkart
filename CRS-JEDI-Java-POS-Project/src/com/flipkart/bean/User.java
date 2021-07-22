@@ -14,6 +14,7 @@ public abstract class User {
 	public String userId;
 	public Role role;
 	public String password;
+	public String email;
 
 	public User(String userId, String name, Role role, String password, Gender gender, String address, String country) {
 		super();
