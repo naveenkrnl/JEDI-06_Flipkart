@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 public class CryptoUtils {
-    public static String getRandomSatl() {
+    public static String getRandomSalt() {
         byte[] salt = new byte[16];
         SecureRandom secure_random = new SecureRandom();
         secure_random.nextBytes(salt);
@@ -20,5 +20,4 @@ public class CryptoUtils {
         int hashcode = str.hashCode();
         return Integer.toString(hashcode);
     }
-
 }
