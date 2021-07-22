@@ -21,8 +21,8 @@ public class Student extends User {
 
 	@Override
 	public String toString() {
-		return "Student [name = " + name + "\ncountry = " + country + "\ngender = " + gender + "\naddress = " + address
-				+ "\nbranchName = " + branchName + "\nbatch = " + batch + "]";
+		return "Student Details \nName = " + name + "\nCountry = " + country + "\nGender = " + gender + "\nAddress = " + address
+				+ "\nBranchName = " + branchName + "\nBatch = " + batch +"\n";
 	}
 
 	public Student() {

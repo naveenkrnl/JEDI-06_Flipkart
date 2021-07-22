@@ -11,6 +11,7 @@ import com.flipkart.business.NotificationOperation;
 import com.flipkart.business.StudentInterface;
 import com.flipkart.business.StudentOperation;
 import com.flipkart.business.UserInterface;
+import com.flipkart.bean.Student;
 
 public class CRSApplication {
 
@@ -18,7 +19,7 @@ public class CRSApplication {
     StudentInterface studentInterface = StudentOperation.getInstance();
     UserInterface userInterface = UserOperation.getInstance();
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    StudentManagerCSR studentManager = new StudentManagerCSR();
+    static StudentManagerCSR studentManager = new StudentManagerCSR();
 
     public static void createMainMenu() {
         // Format the content
@@ -39,6 +40,7 @@ public class CRSApplication {
 
     public static void main(String[] args) {
 
+        studentManager.createDummy();
         Scanner sc = new Scanner(System.in);
         CRSApplication crsApplication = new CRSApplication();
         int userInput;
@@ -60,14 +62,14 @@ public class CRSApplication {
                         break;
                     case 3:
                         // student updation
-                        crsApplication.updateStudent();
+                        crsApplication.updateStudentInfo();
                         break;
                     case 4:
                         // student deletion
                         crsApplication.deleteStudent();
                         break;
                     case 5:
-                        crsApplication.updatePassword();
+                        crsApplication.listAllStudents();
                         break;
                     case 6:
 
@@ -95,9 +97,9 @@ public class CRSApplication {
         try {
             System.out.println("+++++++++Login+++++++++");
             System.out.println("Email:");
-            userId = sc.next();
+            userId = sc.nextLine();
             System.out.println("Password:");
-            password = sc.next();
+            password = sc.nextLine();
             loggedin = userInterface.verifyCredentials(userId, password);
             // 2 cases
             // true->role->student->approved
@@ -153,9 +155,9 @@ public class CRSApplication {
         System.out.println("Name:");
         name = sc.nextLine();
         System.out.println("Email:");
-        userId = sc.next();
+        userId = sc.nextLine();
         System.out.println("Password:");
-        password = sc.next();
+        password = sc.nextLine();
         System.out.println("Gender: \t 1: Male \t 2.Female\t 3.Other");
         genderV = sc.nextInt();
         sc.nextLine();
@@ -167,22 +169,23 @@ public class CRSApplication {
         System.out.println("Address:");
         address = sc.nextLine();
         System.out.println("Country");
-        country = sc.next();
+        country = sc.nextLine();
         gender = Gender.getName(genderV);
         // Student student = new Student();
-        studentManager.createStudent(userId, name, password, address, country, branchName);
-        System.out.println("++++++++Student Registration SuccessFull+++++++");
+       boolean ifSuccess = studentManager.createStudent(userId, name, password, address, country, branchName, gender, batch);
 
+       if(ifSuccess)
+        System.out.println("++++++++Student Registration SuccessFull+++++++");
+       else
+           System.out.println("             Email Id already registered!!               ");
     }
 
-    
-
-    public void updateStudentInfo() {
+    public Student loginStudent(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter email id:");
-        String emailID = sc.next().trim();
+        String emailID = sc.nextLine().trim();
         System.out.println("Enter password:");
-        String password = sc.next().trim();
+        String password = sc.nextLine().trim();
 
         Student student = studentManager.getStudentfromemailID(emailID);
 
@@ -191,17 +194,27 @@ public class CRSApplication {
         if (validateStatus == -1)
         {
             System.out.println("Student does not exist.");
-            return;
+            return null;
         }
         else if (validateStatus == 0)
         {
             System.out.println("Wrong password entered.");
-            return;
+            return null;
         }
+        System.out.println("                Student Login Successful                ");
+        sc.nextLine();
+
+        return student;
+    }
+
+    public void updateStudentInfo() {
 
         // String name, String address, String country
+        Student student = loginStudent();
+        if(student == null)
+            return;
+        Scanner sc = new Scanner(System.in);
 
-        String userId, newPassword;
         System.out.println("+++++++++Update Details (Press enter to skip)++++++++++");
 
         System.out.println("Enter new name (existing name: " + student.name + "):");
@@ -213,35 +226,18 @@ public class CRSApplication {
         System.out.println("Enter new country (existing country: " + student.country + "):");
         String newCountry = sc.nextLine();
 
-        studentManager.updateStudent(emailID, newName, newAddress, newCountry);
+        studentManager.updateStudent(student.userId, newName, newAddress, newCountry);
 
         System.out.println("Details updated successfully!");
     }
 
     public void deleteStudent() {
+        Student student = loginStudent();
+        if(student == null)
+            return;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter email id:");
-        String emailID = sc.next().trim();
-        System.out.println("Enter password:");
-        String password = sc.next().trim();
 
-        Student student = studentManager.getStudentfromemailID(emailID);
-
-        int validateStatus = studentManager.validateStudent(emailID, password);
-
-        if (validateStatus == -1)
-        {
-            System.out.println("Student does not exist.");
-            return;
-        }
-        else if (validateStatus == 0)
-        {
-            System.out.println("Wrong password entered.");
-            return;
-        }
-
-        studentManager.deleteStudent(emailID);
-
+        studentManager.deleteStudent(student.userId);
         System.out.println("Student info deleted successfully!");
     }
 
@@ -250,10 +246,14 @@ public class CRSApplication {
         String userId, newPassword;
         System.out.println("+++++++++Update Password++++++++++");
         System.out.println("Email");
-        userId = sc.next();
+        userId = sc.nextLine();
         System.out.println("New Password:");
-        newPassword = sc.next();
+        newPassword = sc.nextLine();
         System.out.println("Password updated successfully!");
+    }
+
+    public void listAllStudents(){
+        studentManager.listStudentInfo();
     }
 
 }

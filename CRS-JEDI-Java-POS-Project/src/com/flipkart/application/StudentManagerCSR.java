@@ -6,9 +6,9 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
-import org.graalvm.compiler.nodes.memory.address.AddressNode.Address;
+//import org.graalvm.compiler.nodes.memory.address.AddressNode.Address;
 
-import com.flipkart.constant.Role;
+//import com.flipkart.constant.Role;
 
 public class StudentManagerCSR {
     HashMap<String, Integer> emailIDToStudentID = new HashMap<>();
@@ -58,7 +58,11 @@ public class StudentManagerCSR {
             return -1; // does not exist
         }
 
-        return password.equals(student.password); // 0 --> wrong password
+        if(password.equals(student.password)){
+            return 1;
+        }
+        else
+            return 0;// 0 --> wrong password
     }
 
     public boolean updateStudent(String emailID, String name, String address, String country) {
@@ -107,6 +111,11 @@ public class StudentManagerCSR {
         System.out.println();
     }
 
+    public void createDummy(){
+        createStudent("123", "pam", "123", "address", "country", "branchName", Gender.getName(1), 2016);
+        createStudent("124", "pam", "124", "address", "country", "branchName", Gender.getName(1), 2016);
+        createStudent("125", "pam", "125", "address", "country", "branchName", Gender.getName(1), 2016);
+    }
     // public boolean printStudentFromId(int id) {
     // Student Student = getStudentById(id);
     // if (Student == null) {
