@@ -8,7 +8,7 @@ package com.flipkart.bean;
 public class RegisteredCourseStudent {
 	private String courseCode;
 	private String courseName;
-	private int studentId;
+	private int rollNumber;
 
 	public String getCourseCode() {
 		System.out.println("Function getCourseCode called from RegisteredCourseStudent");
@@ -30,21 +30,21 @@ public class RegisteredCourseStudent {
 		this.courseName = courseName;
 	}
 
-	public int getStudentId() {
-		System.out.println("Function getStudentId called from RegisteredCourseStudent");
-		return studentId;
+	public int getrollNumber() {
+		System.out.println("Function getrollNumber called from RegisteredCourseStudent");
+		return rollNumber;
 	}
 
-	public void setStudentId(int studentId) {
-		System.out.println("Function setStudentId called from RegisteredCourseStudent");
-		this.studentId = studentId;
+	public void setrollNumber(int rollNumber) {
+		System.out.println("Function setrollNumber called from RegisteredCourseStudent");
+		this.rollNumber = rollNumber;
 	}
 
-	public RegisteredCourseStudent(String courseCode, String courseName, int studentId) {
+	public RegisteredCourseStudent(String courseCode, String courseName, int rollNumber) {
 		super();
 		System.out.println("Function RegisteredCourseStudent called from RegisteredCourseStudent");
 		this.courseCode = courseCode;
 		this.courseName = courseName;
-		this.studentId = studentId;
+		this.rollNumber = rollNumber;
 	}
 }
