@@ -111,11 +111,10 @@ public class StudentManagerCSR {
     public void createDummy() {
         // String emailID, String name, String password, String address, String country,
         // String branchName, Gender gender, int batch
-        createStudent("amitBalyan@gmail.com", "amitBalyan", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2002);
-        createStudent("naveen@gmail.com", "naveen", "pwd", "Haryana", "India", "CS", Gender.getName(1), 2021);
-        createStudent("pranjal@gmail.com", "pranjal", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
-        createStudent("vivek@gmail.com", "vivek", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
-        createStudent("email@email.com", "easy", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
+        createStudent("naveen@gmail.com", "Naveen", "pwd", "Haryana", "India", "CS", Gender.getName(1), 2021);
+        createStudent("pranjal@gmail.com", "Pranjal", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
+        createStudent("vivek@gmail.com", "Vivek", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
+        createStudent("email@email.com", "Easy", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
 
     }
     // public boolean printStudentFromId(int id) {

@@ -70,8 +70,6 @@ public class CRSApplication {
                     case 5:
                         crsApplication.listAllStudents();
                         break;
-                    case 6:
-                        break;
                     default:
                         System.out.println("Invalid Input");
                 }
