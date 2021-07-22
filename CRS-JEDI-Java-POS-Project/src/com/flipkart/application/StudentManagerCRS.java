@@ -10,7 +10,7 @@ import com.flipkart.constant.Role;
 
 //import com.flipkart.constant.Role;
 
-public class StudentManagerCSR {
+public class StudentManagerCRS {
     HashMap<String, Integer> emailIDToStudentID = new HashMap<>();
     HashMap<Integer, Student> StudentIDToStudentObject = new HashMap<>();
     int minIdNotUsedYet = 0;
@@ -31,8 +31,14 @@ public class StudentManagerCSR {
         return StudentIDToStudentObject.get(StudentID);
     }
 
-    public boolean createStudent(String emailID, String name, String password, String address, String country,
-            String branchName, Gender gender, int batch) {
+    public boolean createStudent(String emailID,
+                                 String name,
+                                 String password,
+                                 String address,
+                                 String country,
+                                 String branchName,
+                                 Gender gender,
+                                 int batch) {
         if (emailIDToStudentID.containsKey(emailID)) { // Login id already present
             return false;
         }
@@ -111,19 +117,41 @@ public class StudentManagerCSR {
     public void createDummy() {
         // String emailID, String name, String password, String address, String country,
         // String branchName, Gender gender, int batch
-        createStudent("naveen@gmail.com", "Naveen", "pwd", "Haryana", "India", "CS", Gender.getName(1), 2021);
-        createStudent("pranjal@gmail.com", "Pranjal", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
-        createStudent("vivek@gmail.com", "Vivek", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
-        createStudent("email@email.com", "Easy", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
+        createStudent("naveen@gmail.com",
+                "Naveen",
+                "pwd",
+                "Haryana",
+                "India",
+                "CS",
+                Gender.getName(1),
+                2021);
+
+        createStudent("pranjal@gmail.com",
+                "Pranjal",
+                "pwd",
+                "Delhi",
+                "India",
+                "CS",
+                Gender.getName(1),
+                2021);
+
+        createStudent("vivek@gmail.com",
+                "Vivek",
+                "pwd",
+                "Delhi",
+                "India",
+                "CS",
+                Gender.getName(1),
+                2021);
+
+        createStudent("email@email.com",
+                "Easy",
+                "pwd",
+                "Delhi",
+                "India",
+                "CS",
+                Gender.getName(1),
+                2021);
 
     }
-    // public boolean printStudentFromId(int id) {
-    // Student Student = getStudentById(id);
-    // if (Student == null) {
-    // System.out.println("Student not found");
-    // return true;
-    // }
-    // System.out.println(Student.toString());
-    // return false;
-    // }
 }

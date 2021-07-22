@@ -19,7 +19,7 @@ public class CRSApplication {
     StudentInterface studentInterface = StudentOperation.getInstance();
     UserInterface userInterface = UserOperation.getInstance();
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    static StudentManagerCSR studentManager = new StudentManagerCSR();
+    static StudentManagerCRS studentManager = new StudentManagerCRS();
 
     public static void createMainMenu() {
         // Format the content
