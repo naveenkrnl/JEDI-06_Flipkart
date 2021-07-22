@@ -2,24 +2,20 @@ package com.flipkart.application;
 
 import com.flipkart.business.UserOperation;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
 
 import com.flipkart.constant.Gender;
-import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.business.StudentInterface;
 import com.flipkart.business.StudentOperation;
 import com.flipkart.business.UserInterface;
-import com.flipkart.business.UserOperation;
 
 
-public class MainApplication {
+public class CRSApplication {
 
     static boolean loggedin = false;
     StudentInterface studentInterface=StudentOperation.getInstance();
@@ -28,19 +24,24 @@ public class MainApplication {
 
     public static void createMainMenu()
     {
-        System.out.println("+++++Welcome to Course Management System+++++");
-        System.out.println("1. Login");
-        System.out.println("2. Student Registration");
-        System.out.println("3. Update password");
-        System.out.println("4. Exit");
-        System.out.println("Enter user input");
+        // Format the content
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++ Hello, Welcome to Course Management System +++++ ");
+        System.out.println("             1. Login                                  ");
+        System.out.println("             2. Student Registration  (Sign Up)        ");
+        System.out.println("             3. Update password                        ");
+        System.out.println("             4. Exit                                   ");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("\nEnter user input\n");
     }
 
     public static void main(String[] args) {
 
 
         Scanner sc = new Scanner(System.in);
-        MainApplication crsApplication=new MainApplication();
+        CRSApplication crsApplication=new CRSApplication();
         int userInput;
         //create the main menu
         createMainMenu();
@@ -108,13 +109,13 @@ public class MainApplication {
                 {
                     case ADMIN:
                         System.out.println("Login Successful for admin");
-                        AdminMenu adminMenu=new AdminMenu();
-                        adminMenu.createMenu();
+                        AdminCRSMenu adminCRSMenu =new AdminCRSMenu();
+                        adminCRSMenu.createMenu();
                         break;
                     case PROFESSOR:
                         System.out.println("Login Successful for professor");
-                        ProfessorMenu professorMenu=new ProfessorMenu();
-                        professorMenu.createMenu(userId);
+                        ProfessorCRSMenu professorCRSMenu =new ProfessorCRSMenu();
+                        professorCRSMenu.createMenu(userId);
 
                         break;
                     case STUDENT:
@@ -124,8 +125,8 @@ public class MainApplication {
                         if(isApproved)
                         {
                             System.out.println("Login Successful for student");
-                            StudentMenu studentMenu=new StudentMenu();
-                            studentMenu.create_menu(studentId);
+                            StudentCRSMenu studentCRSMenu =new StudentCRSMenu();
+                            studentCRSMenu.create_menu(studentId);
 
                         }
                         else

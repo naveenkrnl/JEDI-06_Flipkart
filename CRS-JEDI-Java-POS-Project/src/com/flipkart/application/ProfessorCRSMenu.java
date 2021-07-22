@@ -1,16 +1,12 @@
 package com.flipkart.application;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.RegisteredCourseStudent;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 
-public class ProfessorMenu {
+public class ProfessorCRSMenu {
 
     ProfessorInterface professorInterface=ProfessorOperation.getInstance();
 
@@ -19,16 +15,16 @@ public class ProfessorMenu {
         Scanner sc=new Scanner(System.in);
 
         int input;
-        while(MainApplication.loggedin)
+        while(CRSApplication.loggedin)
         {
-            System.out.println("*****************************");
-            System.out.println("**********Professor Menu*********");
-            System.out.println("*****************************");
-            System.out.println("1. View Courses");
-            System.out.println("2. View Enrolled Students");
-            System.out.println("3. Add grade");
-            System.out.println("4. Logout");
-            System.out.println("*****************************");
+            System.out.println("*************************************");
+            System.out.println("*********   Professor Menu   ********");
+            System.out.println("*************************************");
+            System.out.println("      1. View Courses");
+            System.out.println("      2. View Enrolled Students");
+            System.out.println("      3. Add grade");
+            System.out.println("      4. Logout");
+            System.out.println("*************************************");
 
             //input user
             input=sc.nextInt();
@@ -49,7 +45,7 @@ public class ProfessorMenu {
                     break;
                 case 4:
                     //logout from the system
-                    MainApplication.loggedin=false;
+                    CRSApplication.loggedin=false;
                     return;
                 default:
                     System.out.println("***** Wrong Choice *****");

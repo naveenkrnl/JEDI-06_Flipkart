@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 
-import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
-import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 
 import com.flipkart.business.AdminInterface;
@@ -17,7 +15,7 @@ import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 
 
-public class AdminMenu {
+public class AdminCRSMenu {
 
 
     AdminInterface adminOperation = new AdminOperation();
@@ -29,19 +27,19 @@ public class AdminMenu {
      */
     public void createMenu(){
 
-        while(MainApplication.loggedin) {
-            System.out.println("*****************************");
-            System.out.println("**********Admin Menu*********");
-            System.out.println("*****************************");
-            System.out.println("1. View course in catalog");
-            System.out.println("2. Add Course to catalog");
-            System.out.println("3. Delete Course from catalog");
-            System.out.println("4. Approve Students");
-            System.out.println("5. View Pending Admission");
-            System.out.println("6. Add Professor");
-            System.out.println("7. Assign Courses To Professor");
-            System.out.println("8. Logout");
-            System.out.println("*****************************");
+        while(CRSApplication.loggedin) {
+            System.out.println("****************************************");
+            System.out.println("****************Admin Menu**************");
+            System.out.println("****************************************");
+            System.out.println("      1. View course in catalog");
+            System.out.println("      2. Add Course to catalog");
+            System.out.println("      3. Delete Course from catalog");
+            System.out.println("      4. Approve Students");
+            System.out.println("      5. View Pending Admission");
+            System.out.println("      6. Add Professor");
+            System.out.println("      7. Assign Courses To Professor");
+            System.out.println("      8. Logout");
+            System.out.println("****************************************");
 
             int choice = scanner.nextInt();
 
@@ -75,7 +73,7 @@ public class AdminMenu {
                     break;
 
                 case 8:
-                    MainApplication.loggedin = false;
+                    CRSApplication.loggedin = false;
                     return;
 
                 default:
