@@ -8,6 +8,7 @@ import java.util.Date;
 public class Professor extends User {
 	private String department;
 	private String designation;
+	private Date doj;
 
 	public Professor() {
 	}
