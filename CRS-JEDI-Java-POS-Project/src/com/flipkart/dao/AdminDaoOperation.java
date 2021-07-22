@@ -117,7 +117,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				user.setGender(Gender.stringToGender( resultSet.getString(5)));
 				user.setAddress(resultSet.getString(6));
 				user.setCountry(resultSet.getString(7));
-				user.setStudentId(resultSet.getInt(8));
 				userList.add(user);
 
 			}
@@ -148,11 +147,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 			System.out.println("Message -  "); System.out.println(row + " student approved.");
 			if(row == 0) {
-				//System.err.println("Student with studentId: " + studentId + " not found.");
-				throw new StudentNotFoundForApprovalException(studentId);
+				System.err.println("Student with studentId: " + studentId + " not found.");
 			}
 
-			//System.out.println("Message -  "); System.out.println("Student with studentId: " + studentId + " approved by admin.");
+			System.out.println("Message -  "); System.out.println("Student with studentId: " + studentId + " approved by admin.");
 
 		}catch(SQLException se) {
 
@@ -183,15 +181,13 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			System.out.println("Message -  "); System.out.println(row + " user added.");
 			if(row == 0) {
 				System.err.println("User with userId: " + user.getUserId() + " not added.");
-				throw new UserNotAddedException(user.getUserId());
 			}
 
 			System.out.println("Message -  "); System.out.println("User with userId: " + user.getUserId() + " added.");
 
-		}catch(SQLException se) {
+		}catch(Exception se) {
 
 			System.err.println(se.getMessage());
-			throw new UserIdAlreadyInUseException(user.getUserId());
 
 		}
 
@@ -204,16 +200,8 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 			this.addUser(professor);
 
-		}catch (UserNotAddedException e) {
-
+		}catch (Exception e) {
 			System.err.println(e.getMessage());
-			throw new ProfessorNotAddedException(professor.getUserId());
-
-		}catch (UserIdAlreadyInUseException e) {
-
-			System.err.println(e.getMessage());
-			throw e;
-
 		}
 
 
@@ -231,16 +219,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			System.out.println("Message -  "); System.out.println(row + " professor added.");
 			if(row == 0) {
 				System.err.println("Professor with professorId: " + professor.getUserId() + " not added.");
-				throw new ProfessorNotAddedException(professor.getUserId());
 			}
 
 			System.out.println("Message -  "); System.out.println("Professor with professorId: " + professor.getUserId() + " added.");
 
 		}catch(SQLException se) {
-
 			System.err.println(se.getMessage());
-			throw new UserIdAlreadyInUseException(professor.getUserId());
-
 		}
 
 	}
@@ -260,16 +244,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			System.out.println("Message -  "); System.out.println(row + " course assigned.");
 			if(row == 0) {
 				System.err.println(courseCode + " not found");
-				throw new CourseNotFoundException(courseCode);
 			}
 
 			System.out.println("Message -  "); System.out.println("Course with courseCode: " + courseCode + " is assigned to professor with professorId: " + professorId + ".");
 
 		}catch(SQLException se) {
-
 			System.err.println(se.getMessage());
-			throw new UserNotFoundException(professorId);
-
 		}
 
 	}
