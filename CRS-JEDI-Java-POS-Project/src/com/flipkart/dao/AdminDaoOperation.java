@@ -270,7 +270,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				Course course = new Course();
 				course.setCourseCode(resultSet.getString(1));
 				course.setCourseName(resultSet.getString(2));
-				course.setInstructorId(resultSet.getString(3));
+				course.setProfessorId(resultSet.getString(3));
 				courseList.add(course);
 
 			}
