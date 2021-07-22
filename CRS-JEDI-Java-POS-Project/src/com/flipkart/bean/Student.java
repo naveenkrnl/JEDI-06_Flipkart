@@ -19,6 +19,12 @@ public class Student extends User {
 		this.isApproved = isApproved;
 	}
 
+	@Override
+	public String toString() {
+		return "Student [name = " + name + "\ncountry = " + country + "\ngender = " + gender + "\naddress = " + address
+				+ "\nbranchName = " + branchName + "\nbatch = " + batch + "]";
+	}
+
 	public Student() {
 
 	}
