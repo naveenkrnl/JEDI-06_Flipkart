@@ -4,18 +4,18 @@ public class Course {
 
 	private String courseCode;
 	private String courseName;
-	private String instructorId;
+	private String professorId;
 	private int seats = 10;
 
 	public Course() {
 
 	}
 
-	public Course(String courseCode, String courseName, String instructorId, int seats) {
+	public Course(String courseCode, String courseName, String professorId, int seats) {
 		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
-		this.setInstructorId(instructorId);
+		this.setProfessorId(professorId);
 		this.seats = seats;
 	}
 
@@ -49,13 +49,13 @@ public class Course {
 		this.seats = seats;
 	}
 
-	public String getInstructorId() {
-		System.out.println("Function getInstructorId called from Course");
-		return instructorId;
+	public String getProfessorId() {
+		System.out.println("Function getProfessorId called from Course");
+		return professorId;
 	}
 
-	public void setInstructorId(String instructorId) {
-		System.out.println("Function setInstructorId called from Course");
-		this.instructorId = instructorId;
+	public void setProfessorId(String professorId) {
+		System.out.println("Function setProfessorId called from Course");
+		this.professorId = professorId;
 	}
 }

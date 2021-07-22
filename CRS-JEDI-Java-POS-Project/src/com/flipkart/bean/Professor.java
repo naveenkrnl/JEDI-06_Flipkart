@@ -3,12 +3,12 @@
  */
 package com.flipkart.bean;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Professor extends User {
 	private String department;
 	private String designation;
-	private Date doj;
+	private LocalDateTime doj;
 
 	public Professor() {
 	}

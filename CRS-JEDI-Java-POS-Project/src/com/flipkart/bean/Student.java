@@ -43,7 +43,7 @@ public class Student extends User {
 		this.branchName = branchName;
 	}
 
-	public int getrollNumber() {
+	public String getrollNumber() {
 		System.out.println("Function getrollNumber called from Student");
 		return rollNumber;
 	}

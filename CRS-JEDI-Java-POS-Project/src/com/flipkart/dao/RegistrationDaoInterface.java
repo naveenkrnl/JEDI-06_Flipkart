@@ -4,9 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Notification;
-import com.flipkart.bean.GradeCard;
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.bean.EnrolledCourse;
 
 /**
  * Interface for Registration DAO Operation
@@ -23,7 +21,7 @@ public interface RegistrationDaoInterface {
 
 	public List<Course> viewRegisteredCourses(int studentId) throws SQLException;
 
-	public List<GradeCard> viewGradeCard(int studentId) throws SQLException;
+	public List<EnrolledCourse> viewGradeCard(int studentId) throws SQLException;
 
 	public double calculateFee(int studentId) throws SQLException;
 

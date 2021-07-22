@@ -3,7 +3,7 @@ package com.flipkart.business;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
+import com.flipkart.bean.EnrolledCourse;
 
 public class RegistrationOperation implements RegistrationInterface {
 
@@ -34,7 +34,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public List<GradeCard> viewGradeCard(int studentId) {
+	public List<EnrolledCourse> viewGradeCard(int studentId) {
 		System.out.println("Function viewGradeCard called RegistrationOperation");
 		return null;
 	}

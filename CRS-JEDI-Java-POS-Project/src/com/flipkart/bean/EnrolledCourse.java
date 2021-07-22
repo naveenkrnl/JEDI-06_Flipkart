@@ -2,7 +2,7 @@ package com.flipkart.bean;
 
 import com.flipkart.constant.Grade;
 
-public class GradeCard {
+public class EnrolledCourse {
 	
 
 	private String courseCode;
@@ -10,7 +10,7 @@ public class GradeCard {
 	private Grade grade;
 	private int semester;
 
-	public GradeCard(String courseCode, String courseName, Grade grade, int semester) {
+	public EnrolledCourse(String courseCode, String courseName, Grade grade, int semester) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.semester = semester;

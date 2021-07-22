@@ -5,8 +5,12 @@ package com.flipkart.constant;
  * Enumeration class for Grade
  * 
  */
+
+//Some changes done in the Grade enum
+
 public enum Grade {
-    A(10), A_MINUS(9), B(8), B_MINUS(7), C(6), C_MINUS(5), D(4), E(3);
+
+    EX(10), A(9), B(8), C(7), D(6), E(5), F(4);
 
     final private int value;
 
@@ -26,4 +30,34 @@ public enum Grade {
         return "";
     }
 
+    public static Grade stringToGrade(String input){
+
+        Grade grade;
+        switch(input){
+            case "EX":
+                grade = Grade.EX;
+                break;
+            case "A":
+                grade = Grade.A;
+                break;
+            case "B":
+                grade = Grade.B;
+                break;
+            case "C":
+                grade = Grade.C;
+                break;
+            case "D":
+                grade = Grade.D;
+                break;
+            case "E":
+                grade = Grade.E;
+                break;
+            case "F":
+                grade = Grade.F;
+                break;
+            default:
+                return null;
+        }
+        return grade;
+    }
 }

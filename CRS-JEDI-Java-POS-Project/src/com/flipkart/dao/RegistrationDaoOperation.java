@@ -6,23 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Notification;
+import com.flipkart.bean.EnrolledCourse;
 import com.flipkart.constant.Grade;
-import com.flipkart.constant.ModeOfPayment;
-import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 
 
-/**
- * 
- * Class to implement Registration Dao Operations
- * This class communicates with the database.
- *
- */
 public class RegistrationDaoOperation implements RegistrationDaoInterface{
     
 	
@@ -98,11 +89,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 
 			System.err.println(se.getMessage());
 
-		} 
-		catch (Exception e)
-		{
-
-			System.err.println(e.getMessage());
 		}
 		finally
 		{
@@ -243,10 +229,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	}
 
 	@Override
-	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException {
+	public List<EnrolledCourse> viewGradeCard(int studentId) throws SQLException {
 		
 		Connection conn = DBUtils.getConnection();
-		List<StudentGrade> grade_List = new ArrayList<>();
+		List<EnrolledCourse> grade_List = new ArrayList<>();
 		try
 		{
 			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_GRADE);
@@ -258,15 +244,12 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 				String courseCode = rs.getString("courseCode");
 				String courseName = rs.getString("courseName");
 				String grade = rs.getString("grade");
-				StudentGrade obj = new StudentGrade(courseCode, courseName,grade);
+				int semester = rs.getInt("semester"); //Added semester
+				EnrolledCourse obj = new EnrolledCourse(courseCode, courseName,Grade.stringToGrade(grade),semester);
 				grade_List.add(obj);
 			}
 		}
 		catch(SQLException e)
-		{
-			System.out.println("Message -  "); System.out.println(e.getMessage());
-		}
-		catch(Exception e)
 		{
 			System.out.println("Message -  "); System.out.println(e.getMessage());
 		}
@@ -302,10 +285,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 
 		} 
 		catch (SQLException e) 
-		{
-			System.err.println(e.getMessage());
-		} 
-		catch (Exception e)
 		{
 			System.err.println(e.getMessage());
 		}

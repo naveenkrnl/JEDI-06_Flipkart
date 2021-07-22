@@ -4,7 +4,7 @@ package com.flipkart.business;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
+import com.flipkart.bean.EnrolledCourse;
 
 public interface RegistrationInterface {
 
@@ -16,7 +16,7 @@ public interface RegistrationInterface {
 
 	public List<Course> viewRegisteredCourses(int studentId);
 
-	public List<GradeCard> viewGradeCard(int studentId);
+	public List<EnrolledCourse> viewGradeCard(int studentId);
 
 	public double calculateFee(int studentId);
 
