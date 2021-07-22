@@ -1,4 +1,4 @@
-package com.flipkart.dao;
+package com.flipkart.DAO;
 
 import java.util.*;
 import com.flipkart.bean.Course;
