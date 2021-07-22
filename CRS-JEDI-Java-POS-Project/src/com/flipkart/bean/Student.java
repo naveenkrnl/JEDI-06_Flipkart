@@ -6,15 +6,15 @@ import com.flipkart.constant.Role;
 
 public class Student extends User {
 	private String branchName;
-	private int studentId;
+	private String rollNumber;
 	private int batch;
 	private boolean isApproved;
 
 	public Student(String userId, String name, Role role, String password, Gender gender, String address,
-			String country, String branchName, int studentId, int batch, boolean isApproved) {
+			String country, String branchName, String rollNumber, int batch, boolean isApproved) {
 		super(userId, name, role, password, gender, address, country);
 		this.branchName = branchName;
-		this.studentId = studentId;
+		this.rollNumber = rollNumber;
 		this.batch = batch;
 		this.isApproved = isApproved;
 	}
@@ -43,14 +43,14 @@ public class Student extends User {
 		this.branchName = branchName;
 	}
 
-	public int getStudentId() {
-		System.out.println("Function getStudentId called from Student");
-		return studentId;
+	public int getrollNumber() {
+		System.out.println("Function getrollNumber called from Student");
+		return rollNumber;
 	}
 
-	public void setStudentId(int studentId) {
-		System.out.println("Function setStudentId called from Student");
-		this.studentId = studentId;
+	public void setrollNumber(String rollNumber) {
+		System.out.println("Function setrollNumber called from Student");
+		this.rollNumber = rollNumber;
 	}
 
 	public int getBatch() {
