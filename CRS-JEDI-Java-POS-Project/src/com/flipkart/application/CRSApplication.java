@@ -30,7 +30,6 @@ public class CRSApplication {
         System.out.println("             2. Student Registration  (Sign Up)        ");
         System.out.println("             3. Student Updation                       ");
         System.out.println("             4. Student Deletion                       ");
-        // System.out.println(" 5. Update password ");
         System.out.println("             5. Show All Students                      ");
         System.out.println("             6. Exit                                   ");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -50,11 +49,11 @@ public class CRSApplication {
         try {
 
             // until user do not exit the application
-            while (userInput != 7) {
+            while (userInput != 6) {
                 switch (userInput) {
                     case 1:
                         // login
-                        crsApplication.loginUser();
+                        crsApplication.loginStudent();
                         break;
                     case 2:
                         // student registration
@@ -72,8 +71,6 @@ public class CRSApplication {
                         crsApplication.listAllStudents();
                         break;
                     case 6:
-
-                        // crsApplication.updatePassword();
                         break;
                     default:
                         System.out.println("Invalid Input");
@@ -172,15 +169,16 @@ public class CRSApplication {
         country = sc.nextLine();
         gender = Gender.getName(genderV);
         // Student student = new Student();
-       boolean ifSuccess = studentManager.createStudent(userId, name, password, address, country, branchName, gender, batch);
+        boolean ifSuccess = studentManager.createStudent(userId, name, password, address, country, branchName, gender,
+                batch);
 
-       if(ifSuccess)
-        System.out.println("++++++++Student Registration SuccessFull+++++++");
-       else
-           System.out.println("             Email Id already registered!!               ");
+        if (ifSuccess)
+            System.out.println("++++++++Student Registration SuccessFull+++++++");
+        else
+            System.out.println("             Email Id already registered!!               ");
     }
 
-    public Student loginStudent(){
+    public Student loginStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter email id:");
         String emailID = sc.nextLine().trim();
@@ -191,13 +189,10 @@ public class CRSApplication {
 
         int validateStatus = studentManager.validateStudent(emailID, password);
 
-        if (validateStatus == -1)
-        {
+        if (validateStatus == -1) {
             System.out.println("Student does not exist.");
             return null;
-        }
-        else if (validateStatus == 0)
-        {
+        } else if (validateStatus == 0) {
             System.out.println("Wrong password entered.");
             return null;
         }
@@ -211,7 +206,7 @@ public class CRSApplication {
 
         // String name, String address, String country
         Student student = loginStudent();
-        if(student == null)
+        if (student == null)
             return;
         Scanner sc = new Scanner(System.in);
 
@@ -233,7 +228,7 @@ public class CRSApplication {
 
     public void deleteStudent() {
         Student student = loginStudent();
-        if(student == null)
+        if (student == null)
             return;
         Scanner sc = new Scanner(System.in);
 
@@ -252,7 +247,7 @@ public class CRSApplication {
         System.out.println("Password updated successfully!");
     }
 
-    public void listAllStudents(){
+    public void listAllStudents() {
         studentManager.listStudentInfo();
     }
 

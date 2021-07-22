@@ -21,8 +21,12 @@ public class Student extends User {
 
 	@Override
 	public String toString() {
-		return "Student Details \nName = " + name + "\nCountry = " + country + "\nGender = " + gender + "\nAddress = " + address
-				+ "\nBranchName = " + branchName + "\nBatch = " + batch +"\n";
+
+		return "\n********************************************\n"
+				+ String.format("*********    Student Details of %s *********\n", name) + "Email = " + userId
+				+ "\nCountry = " + country + "\nGender = " + gender + "\nAddress = " + address + "\nBranchName = "
+				+ branchName + "\nBatch = " + batch + "\n" + "********************************************";
+		// return
 	}
 
 	public Student() {

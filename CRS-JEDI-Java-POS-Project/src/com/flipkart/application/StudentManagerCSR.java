@@ -42,26 +42,23 @@ public class StudentManagerCSR {
         // address,String country, String branchName, int studentId, int batch, boolean
         // isApproved
 
-        Student student = new Student(emailID.trim(), name.trim(), Role.STUDENT, password.trim(), gender, address.trim(), country.trim(), branchName,
-                minIdNotUsedYet, batch, true);
+        Student student = new Student(emailID.trim(), name.trim(), Role.STUDENT, password.trim(), gender,
+                address.trim(), country.trim(), branchName, minIdNotUsedYet, batch, true);
 
         StudentIDToStudentObject.put(minIdNotUsedYet, student);
         minIdNotUsedYet++;
         return true;
     }
 
-    public int validateStudent(String emailID, String password)
-    {
+    public int validateStudent(String emailID, String password) {
         Student student = getStudentfromemailID(emailID);
-        if (student == null)
-        {
+        if (student == null) {
             return -1; // does not exist
         }
 
-        if(password.equals(student.password)){
+        if (password.equals(student.password)) {
             return 1;
-        }
-        else
+        } else
             return 0;// 0 --> wrong password
     }
 
@@ -111,10 +108,15 @@ public class StudentManagerCSR {
         System.out.println();
     }
 
-    public void createDummy(){
-        createStudent("123", "pam", "123", "address", "country", "branchName", Gender.getName(1), 2016);
-        createStudent("124", "pam", "124", "address", "country", "branchName", Gender.getName(1), 2016);
-        createStudent("125", "pam", "125", "address", "country", "branchName", Gender.getName(1), 2016);
+    public void createDummy() {
+        // String emailID, String name, String password, String address, String country,
+        // String branchName, Gender gender, int batch
+        createStudent("amitBalyan@gmail.com", "amitBalyan", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2002);
+        createStudent("naveen@gmail.com", "naveen", "pwd", "Haryana", "India", "CS", Gender.getName(1), 2021);
+        createStudent("pranjal@gmail.com", "pranjal", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
+        createStudent("vivek@gmail.com", "vivek", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
+        createStudent("email@email.com", "easy", "pwd", "Delhi", "India", "CS", Gender.getName(1), 2021);
+
     }
     // public boolean printStudentFromId(int id) {
     // Student Student = getStudentById(id);
