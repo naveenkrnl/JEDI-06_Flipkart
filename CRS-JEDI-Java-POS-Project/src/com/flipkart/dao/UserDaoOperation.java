@@ -15,7 +15,6 @@ import com.flipkart.utils.DBUtils;
  */
 public class UserDaoOperation implements UserDaoInterface{
 	private static volatile UserDaoOperation instance=null;
-	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 	
 
 	private UserDaoOperation()
@@ -69,7 +68,7 @@ public class UserDaoOperation implements UserDaoInterface{
 	}
 
 	@Override
-	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException {
+	public boolean verifyCredentials(String userId, String password) {
 		Connection connection = DBUtils.getConnection();
 		try
 		{
@@ -79,7 +78,7 @@ public class UserDaoOperation implements UserDaoInterface{
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
 			if(!resultSet.next())
-				throw new UserNotFoundException(userId);
+				throw new Exception(userId);
 			else if(password.equals(resultSet.getString("password")))
 			{
 				return true;
@@ -92,7 +91,11 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 		catch(SQLException ex)
 		{
-			System.out.println("Message -  "); System.out.println("Something went wrong, please try again! "+ ex.getMessage());
+			System.err.println("Message -  "); System.out.println("Something went wrong, please try again! "+ ex.getMessage());
+		}
+		catch(Exception ex)
+		{
+			System.err.println(ex.getMessage() + ": error occurred while entering details.");
 		}
 		finally
 		{

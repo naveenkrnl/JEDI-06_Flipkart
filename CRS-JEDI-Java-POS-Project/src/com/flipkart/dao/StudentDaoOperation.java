@@ -21,7 +21,6 @@ import com.flipkart.utils.DBUtils;
 public class StudentDaoOperation implements StudentDaoInterface {
 	
 	private static volatile StudentDaoOperation instance=null;
-	private static Logger logger = Logger.getLogger(StudentOperation.class);
 
 	private StudentDaoOperation()
 	{
@@ -41,7 +40,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	}
 
 	@Override
-	public int addStudent(Student student) throws StudentNotRegisteredException{
+	public int addStudent(Student student) {
 		Connection connection=DBUtils.getConnection();
 		int studentId=0;
 		try
@@ -76,14 +75,13 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		}
 		catch(Exception ex)
 		{
-			throw new StudentNotRegisteredException(student.getName());
+			System.err.println(ex.getMessage());
 		}
 		finally
 		{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage()+"SQL error");
 				e.printStackTrace();
 			}
 		}
@@ -100,7 +98,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			
 			if(rs.next())
 			{
-				return rs.getInt("studentId");
+				return rs.getInt("studentId"); // roll no
 			}
 				
 		}
