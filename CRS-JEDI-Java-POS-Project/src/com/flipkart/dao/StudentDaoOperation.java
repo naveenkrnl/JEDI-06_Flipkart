@@ -6,18 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Student;
-import com.flipkart.client.CRSApplication;
+import com.flipkart.application.CRSApplication;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.exception.StudentNotRegisteredException;
-import com.flipkart.service.StudentOperation;
+import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
  * 
- * @author JEDI-03
  * Class to implement Student Dao Operations
  *
  */
@@ -25,19 +22,12 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	
 	private static volatile StudentDaoOperation instance=null;
 	private static Logger logger = Logger.getLogger(StudentOperation.class);
-	
-	/**
-	 * Default Constructor
-	 */
+
 	private StudentDaoOperation()
 	{
 		
 	}
-	
-	/**
-	 * Method to make StudentDaoOperation Singleton
-	 * @return
-	 */
+
 	public static StudentDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -50,12 +40,6 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return instance;
 	}
 
-	/**
-	 * Method to add student to database
-	 * @param student: student object containing all the fields
-	 * @return true if student is added, else false
-	 * @throws StudentNotRegisteredException
-	 */
 	@Override
 	public int addStudent(Student student) throws StudentNotRegisteredException{
 		Connection connection=DBUtils.getConnection();
@@ -105,12 +89,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		}
 		return studentId;
 	}
-	
-	/**
-	 * Method to retrieve Student Id from User Id
-	 * @param userId
-	 * @return Student Id
-	 */
+
 	@Override
 	public int getStudentId(String userId) {
 		Connection connection=DBUtils.getConnection();
@@ -127,17 +106,12 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		}
 		catch(SQLException e)
 		{
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		
 		return 0;
 	}
-	
-	/**
-	 * Method to check if Student is approved
-	 * @param studentId
-	 * @return boolean indicating if student is approved
-	 */
+
 	@Override
 	public boolean isApproved(int studentId) {
 		Connection connection=DBUtils.getConnection();
@@ -154,7 +128,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		}
 		catch(SQLException e)
 		{
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		
 		return false;

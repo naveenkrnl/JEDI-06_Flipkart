@@ -7,38 +7,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.bean.RegisteredCourseStudent;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.service.StudentOperation;
+import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
  * 
- * @author JEDI-03
  * Class to implement Professor Dao Operations
  *
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance=null;
-	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
-	
-	/**
-	 * Default Constructor
-	 */
+
 	private ProfessorDaoOperation()
 	{
 		
 	}
-	
-	/**
-	 * Method to make ProfessorDaoOperation Singleton
-	 * @return
-	 */
+
 	public static ProfessorDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -50,13 +39,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		return instance;
 	}
-	
-	
-	/**
-	 * Method to get Courses by Professor Id using SQL Commands
-	 * @param userId, prof id of the professor
-	 * @return get the courses offered by the professor.
-	 */
+
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
 		Connection connection=DBUtils.getConnection();
@@ -74,7 +57,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		catch(SQLException e)
 		{
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		finally
 		{
@@ -89,16 +72,10 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		
 	}
 
-	/**
-	 * Method to view list of enrolled Students using SQL Commands
-	 * @param: profId: professor id 
-	 * @param: courseCode: course code of the professor
-	 * @return: return the enrolled students for the corresponding professor and course code.
-	 */
 	@Override
-	public List<EnrolledStudent> getEnrolledStudents(String profId) {
+	public List<RegisteredCourseStudent> getEnrolledStudents(String profId) {
 		Connection connection=DBUtils.getConnection();
-		List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+		List<RegisteredCourseStudent> enrolledStudents=new ArrayList<RegisteredCourseStudent>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
 			statement.setString(1, profId);
@@ -107,12 +84,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			while(results.next())
 			{
 				//public EnrolledStudent(String courseCode, String courseName, int studentId) 
-				enrolledStudents.add(new EnrolledStudent(results.getString("courseCode"),results.getString("courseName"),results.getInt("studentId")));
+				enrolledStudents.add(new RegisteredCourseStudent(results.getString("courseCode"),results.getString("courseName"),results.getInt("studentId")));
 			}
 		}
 		catch(SQLException e)
 		{
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		finally
 		{
@@ -125,13 +102,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		return enrolledStudents;
 	}
-	
-	/**
-	 * Method to Grade a student using SQL Commands
-	 * @param: profId: professor id 
-	 * @param: courseCode: course code for the corresponding 
-	 * @return: returns the status after adding the grade
-	 */
+
 	public Boolean addGrade(int studentId,String courseCode,String grade) {
 		Connection connection=DBUtils.getConnection();
 		try {
@@ -150,7 +121,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		catch(SQLException e)
 		{
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		finally
 		{
@@ -163,13 +134,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		return false;
 	}
-	
 
-	/**
-	 * Method to Get professor name by id
-	 * @param profId
-	 * @return Professor Id in string
-	 */
 	@Override
 	public String getProfessorById(String profId)
 	{
@@ -188,7 +153,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		catch(SQLException e)
 		{
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		finally
 		{

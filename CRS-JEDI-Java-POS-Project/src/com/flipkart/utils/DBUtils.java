@@ -2,24 +2,37 @@ package com.flipkart.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class DBUtils {
+
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/CRS";
+
+    //  Database credentials
+    static final String USER = "root";
+    static final String PASS = "luicifer";
 
     public static Connection getConnection() {
         Connection connection = null;
         if (connection != null)
             return connection;
-        else
-        {
-                String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-                String DB_URL = "jdbc:mysql://localhost/CRS";
+        else {
 
-                //  Database credentials
-                String USER = "root";
-                String PASS = "luicifer";
-                connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            Connection conn = null;
+            PreparedStatement stmt = null;
 
-            return connection;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                return conn;
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
     }
 }
