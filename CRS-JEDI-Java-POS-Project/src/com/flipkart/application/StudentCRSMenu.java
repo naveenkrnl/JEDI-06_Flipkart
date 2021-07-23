@@ -280,8 +280,6 @@ public class StudentCRSMenu {
 
 	private void viewGradeCard(int studentId)
 	{
-
-
 		List<Grade> grade_card=null;
 		try
 		{
