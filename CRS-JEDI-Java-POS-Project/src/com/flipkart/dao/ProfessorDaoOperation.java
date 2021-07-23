@@ -19,108 +19,96 @@ import com.flipkart.utils.DBUtils;
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
-	private static volatile ProfessorDaoOperation instance=null;
+	private static ProfessorDaoOperation instance = null;
 
-	private ProfessorDaoOperation()
-	{
-		
+	private ProfessorDaoOperation() {
+
 	}
 
-	public static ProfessorDaoOperation getInstance()
-	{
-		if(instance==null)
-		{
-			instance=new ProfessorDaoOperation();
-
+	public static ProfessorDaoOperation getInstance() {
+		if (instance == null) {
+			instance = new ProfessorDaoOperation();
 		}
 		return instance;
 	}
 
 	@Override
-	public List<Course> getCoursesByProfessor(String profId) {
-		Connection connection=DBUtils.getConnection();
-		List<Course> courseList= new ArrayList<>();
+	public List<Course> getCoursesByProfessor(int userId) {
+		Connection connection = DBUtils.getConnection();
+		List<Course> courseList = new ArrayList<>();
+		String QueryToExecute = SQLQueriesConstants.GET_COURSES;
 		try {
-			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_COURSES);
-			
-			statement.setString(1, profId);
-			
-			ResultSet results=statement.executeQuery();
-			while(results.next())
-			{
-				courseList.add(new Course(results.getString("courseCode"),results.getString("courseName"),results.getString("professorId")));
+			PreparedStatement statement = connection.prepareStatement(QueryToExecute);
+
+			statement.setInt(1, userId);
+
+			ResultSet results = statement.executeQuery();
+			while (results.next()) {
+				courseList.add(new Course(results.getString("courseCode"), results.getString("courseName"),
+						results.getString("professorId")));
 			}
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getMessage());
-		}
-		finally
-		{
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
 			try {
 				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
 			}
 		}
 		return courseList;
-		
+
 	}
 
 	@Override
-	public List<RegisteredCourseStudent> getEnrolledStudents(String profId) {
-		Connection connection=DBUtils.getConnection();
-		List<RegisteredCourseStudent> enrolledStudents= new ArrayList<>();
+	public List<RegisteredCourseStudent> getEnrolledStudents(int profId) {
+		Connection connection = DBUtils.getConnection();
+		List<RegisteredCourseStudent> enrolledStudents = new ArrayList<>();
+		String QueryToExecute = SQLQueriesConstants.GET_ENROLLED_STUDENTS;
 		try {
-			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
-			statement.setString(1, profId);
-			
+			PreparedStatement statement = connection.prepareStatement(QueryToExecute);
+			statement.setInt(1, profId);
+
 			ResultSet results = statement.executeQuery();
-			while(results.next())
-			{
-				//public EnrolledStudent(String courseCode, String courseName, int studentId)
-				enrolledStudents.add(new RegisteredCourseStudent(results.getString("courseCode"),results.getString("courseName"),results.getString("studentId")));
+			while (results.next()) {
+				// public EnrolledStudent(String courseCode, String courseName, int studentId)
+				enrolledStudents.add(new RegisteredCourseStudent(results.getString("courseCode"),
+						results.getString("courseName"), results.getString("studentId")));
 			}
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getMessage());
-		}
-		finally
-		{
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
 			try {
 				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
 			}
 		}
 		return enrolledStudents;
 	}
 
-	public Boolean addGrade(int studentId,String courseCode,String grade) {
-		Connection connection=DBUtils.getConnection();
+	public Boolean addGrade(int studentId, String courseCode, String grade) {
+		Connection connection = DBUtils.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.ADD_GRADE);
-			
+
 			statement.setString(1, grade);
 			statement.setString(2, courseCode);
 			statement.setInt(3, studentId);
-			
+
 			int row = statement.executeUpdate();
 
-			if(row==1)
+			if (row == 1)
 				return true;
 			else
 				return false;
-		}
-		catch(SQLException e)
-		{
+		} catch (SQLException e) {
 			System.err.println(e.getMessage());
-		}
-		finally
-		{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
@@ -132,36 +120,28 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	@Override
-	public String getProfessorById(String profId)
-	{
+	public String getProfessorById(int profId) {
 		String prof_Name = null;
-		Connection connection=DBUtils.getConnection();
-		try 
-		{
+		Connection connection = DBUtils.getConnection();
+		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_PROF_NAME);
-			
-			statement.setString(1, profId);
+
+			// statement.setString(1, profId);
 			ResultSet rs = statement.executeQuery();
 			rs.next();
-			
+
 			prof_Name = rs.getString(1);
-			
-		}
-		catch(SQLException e)
-		{
+
+		} catch (SQLException e) {
 			System.err.println(e.getMessage());
-		}
-		finally
-		{
-			try 
-			{
+		} finally {
+			try {
 				connection.close();
-			} catch (SQLException e) 
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return prof_Name;
 	}
 }

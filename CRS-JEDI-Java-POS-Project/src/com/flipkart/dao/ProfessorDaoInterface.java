@@ -11,11 +11,11 @@ import com.flipkart.bean.RegisteredCourseStudent;
  */
 public interface ProfessorDaoInterface {
 
-	public List<Course> getCoursesByProfessor(String userId);
+	public List<Course> getCoursesByProfessor(int userId);
 
-	public List<RegisteredCourseStudent> getEnrolledStudents(String profId);
+	public List<RegisteredCourseStudent> getEnrolledStudents(int profId);
 
-	public Boolean addGrade(int studentId,String courseCode,String grade);
+	public Boolean addGrade(int studentId, String courseCode, String grade);
 
-	public String getProfessorById(String profId);
+	public String getProfessorById(int profId);
 }
