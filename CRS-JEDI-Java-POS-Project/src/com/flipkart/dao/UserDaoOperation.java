@@ -23,11 +23,7 @@ public class UserDaoOperation implements UserDaoInterface {
 
 	public static UserDaoOperation getInstance() {
 		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			// https://www.geeksforgeeks.org/java-singleton-design-pattern-practices-examples/
-			synchronized (UserDaoOperation.class) {
-				instance = new UserDaoOperation();
-			}
+			instance = new UserDaoOperation();
 		}
 		return instance;
 	}
