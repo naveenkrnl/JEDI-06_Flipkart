@@ -3,32 +3,37 @@ package com.flipkart.business;
 import com.flipkart.constant.Role;
 import org.apache.log4j.Logger;
 
+import com.flipkart.dao.UserDaoInterface;
+import com.flipkart.dao.UserDaoOperation;
+
 public class UserOperation implements UserInterface {
+	private static UserOperation instance = null;
+	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 	private static Logger logger = Logger.getLogger(UserOperation.class);
 
 	private UserOperation() {
 	}
 
 	public static UserOperation getInstance() {
-		logger.info("Function getInstance called from UserOperation");
+
 		return new UserOperation();
+
 	}
 
 	@Override
 	public boolean updatePassword(String userID, String newPassword) {
-		logger.info("Function updatePassword called from UserOperation");
-		return false;
+
+		return userDaoInterface.updatePassword(userID, newPassword);
 	}
 
 	@Override
 	public boolean verifyCredentials(String userID, String password) {
-		logger.info("Function verifyCredentials called from UserOperation");
-		return true;
+
+		return userDaoInterface.verifyCredentials(userID, password);
 	}
 
 	@Override
 	public String getRole(String userId) {
-		logger.info("Function getRole called from UserOperation");
 
 		if(userId.contains("admin"))
 			return "ADMIN";
@@ -36,7 +41,8 @@ public class UserOperation implements UserInterface {
 			return "PROFESSOR";
 		else if(userId.contains("student"))
 			return "STUDENT";
-		return "STUDENT";
+
+		return userDaoInterface.getRole(userId);
 	}
 
 }

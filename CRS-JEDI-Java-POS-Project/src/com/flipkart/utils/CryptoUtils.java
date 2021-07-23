@@ -32,8 +32,8 @@ public class CryptoUtils {
         String encodedPassword = databasePassword.split("\\$", 2)[1];
         String Salt = databasePassword.split("\\$", 2)[0];
         String Pepper = Secrets.getPepper();
+        // TODO : If user role Student check if approved
         return encodedPassword.equals(CryptoUtils.encodeBase64(CryptoUtils.encodeBase64(userPassword + Salt + Pepper)));
     }
-
 
 }

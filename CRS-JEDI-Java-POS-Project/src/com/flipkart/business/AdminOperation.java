@@ -1,4 +1,5 @@
 package com.flipkart.business;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -15,35 +16,32 @@ public class AdminOperation implements AdminInterface {
 	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
 	private static Logger logger = Logger.getLogger(AdminOperation.class);
 
-	public static AdminOperation getInstance()
-	{
-		if(instance == null)
-		{
-				instance = new AdminOperation();
+	public static AdminOperation getInstance() {
+		if (instance == null) {
+			instance = new AdminOperation();
 		}
 		return instance;
 	}
 
-
+	// TODO : Fix me
 	@Override
 	public void deleteCourse(String courseCode, List<Course> courseList) {
 		logger.info("Function deleteCourse called from AdminOperation");
 	}
 
+	// TODO : Fix me
 	@Override
 	public void addCourse(Course newCourse, List<Course> courseList) {
 
-		if(AdminValidator.isValidNewCourse(newCourse,courseList)){
+		if (AdminValidator.isValidNewCourse(newCourse, courseList)) {
 			System.err.println("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
 		}
 
 		try {
 			adminDaoOperation.addCourse(newCourse);
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
-
 
 	}
 
@@ -53,17 +51,17 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public void approveStudent(String studentId, List<Student> studentList) {
+	public void approveStudent(int studentId, List<Student> unapprovedStudentList) {
 
-		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
+		if (!AdminValidator.isValidUnapprovedStudent(studentId, unapprovedStudentList)) {
 			System.err.println("studentId: " + studentId + " is already approvet/not-present!");
+			// TODO : User is already approved
 			return;
 		}
 
 		try {
 			adminDaoOperation.approveStudent(studentId);
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -74,20 +72,18 @@ public class AdminOperation implements AdminInterface {
 
 		try {
 			adminDaoOperation.addProfessor(professor);
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
 
 	}
 
 	@Override
-	public void assignCourse(String courseCode, String professorId){
+	public void assignCourse(String courseCode, String professorId) {
 
 		try {
 			adminDaoOperation.assignCourse(courseCode, professorId);
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
 

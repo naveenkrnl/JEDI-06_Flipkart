@@ -7,22 +7,19 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 
-
 /**
  * Interface for Admin Dao Operations
  *
  */
 public interface AdminDaoInterface {
-	
 
 	public void deleteCourse(String courseCode);
-
 
 	public void addCourse(Course course);
 
 	public List<Student> viewPendingAdmissions();
 
-	public void approveStudent(String studentId);
+	public void approveStudent(int studentId);
 
 	public void addProfessor(Professor professor);
 
