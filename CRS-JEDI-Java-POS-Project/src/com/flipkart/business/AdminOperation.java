@@ -51,7 +51,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public void approveStudent(int studentId, List<Student> studentList) {
+	public void approveStudent(String studentId, List<Student> studentList) {
 
 		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
 			System.err.println("studentId: " + studentId + " is already approvet/not-present!");
