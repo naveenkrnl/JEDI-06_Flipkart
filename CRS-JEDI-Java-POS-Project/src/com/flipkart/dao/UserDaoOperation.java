@@ -23,9 +23,7 @@ public class UserDaoOperation implements UserDaoInterface {
 
 	public static UserDaoOperation getInstance() {
 		if (instance == null) {
-			synchronized (UserDaoOperation.class) {
-				instance = new UserDaoOperation();
-			}
+			instance = new UserDaoOperation();
 		}
 		return instance;
 	}
@@ -90,7 +88,6 @@ public class UserDaoOperation implements UserDaoInterface {
 		}
 		return false;
 	}
-
 
 	@Override
 	public boolean updatePassword(String userID) {

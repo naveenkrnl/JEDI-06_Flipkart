@@ -6,30 +6,37 @@ package com.flipkart.bean;
 import java.time.LocalDateTime;
 
 public class Professor extends User {
+
+	// private String name;
+	// private Gender gender;
+	// private String address;
+	// private String country;
+	// private int userId;
+	// private Role role;
+	// private String password;
+	// private String email;
+	// private LocalDateTime doj;
+
 	private String department;
 	private String designation;
-	private LocalDateTime doj;
 
 	public Professor() {
+
 	}
 
 	public String getDesignation() {
-		System.out.println("Function getDesignation called from Professor");
 		return designation;
 	}
 
 	public void setDesignation(String designation) {
-		System.out.println("Function setDesignation called from Professor");
 		this.designation = designation;
 	}
 
 	public String getDepartment() {
-		System.out.println("Function getDepartment called from Professor");
 		return department;
 	}
 
 	public void setDepartment(String department) {
-		System.out.println("Function setDepartment called from Professor");
 		this.department = department;
 	}
 }

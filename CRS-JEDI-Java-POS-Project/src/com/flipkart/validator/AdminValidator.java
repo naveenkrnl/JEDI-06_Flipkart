@@ -11,30 +11,30 @@ import com.flipkart.bean.Student;
  * 
  */
 public class AdminValidator {
-	
 
 	public static boolean isValidNewCourse(Course newCourse, List<Course> courseList) {
-		for(Course course : courseList) {
-			if(newCourse.getCourseCode().equalsIgnoreCase(course.getCourseCode())) {
-				return false; 
+		// Is saying false if couse in courseList else true
+		for (Course course : courseList) {
+			if (newCourse.getCourseCode().equalsIgnoreCase(course.getCourseCode())) {
+				return false;
 			}
 		}
 		return true;
 	}
-	
 
 	public static boolean isValidDropCourse(String dropCourseCode, List<Course> courseList) {
-		for(Course course : courseList) {
-			if(dropCourseCode.equalsIgnoreCase(course.getCourseCode())) {
-				return true; 
+		for (Course course : courseList) {
+			if (dropCourseCode.equalsIgnoreCase(course.getCourseCode())) {
+				return true;
 			}
 		}
 		return false;
 	}
 
-	public static boolean isValidUnapprovedStudent(String studentId, List<Student> studentList) {
-		for(Student student : studentList) {
-			if(studentId == student.getUserId()) {
+	public static boolean isValidUnapprovedStudent(int studentId, List<Student> unapprovedStudentList) {
+		// says true if student id in student list
+		for (Student student : unapprovedStudentList) {
+			if (studentId == student.getUserId()) {
 				return true;
 			}
 		}

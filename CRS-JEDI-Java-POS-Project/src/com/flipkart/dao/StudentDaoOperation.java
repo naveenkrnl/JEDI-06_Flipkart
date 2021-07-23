@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 import com.flipkart.bean.Student;
 import com.flipkart.application.CRSApplication;
 import com.flipkart.constant.SQLQueriesConstants;
@@ -18,7 +17,7 @@ import com.flipkart.utils.DBUtils;
  */
 public class StudentDaoOperation implements StudentDaoInterface {
 
-    private static volatile StudentDaoOperation instance = null;
+    private static StudentDaoOperation instance = null;
 
     private StudentDaoOperation() {
 
@@ -26,46 +25,59 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     public static StudentDaoOperation getInstance() {
         if (instance == null) {
-            // This is a synchronized block, when multiple threads will access this instance
-            synchronized (StudentDaoOperation.class) {
-                instance = new StudentDaoOperation();
-            }
+            instance = new StudentDaoOperation();
         }
         return instance;
     }
 
     @Override
+    // TODO : Why return int
     public int addStudent(Student student) {
         Connection connection = DBUtils.getConnection();
+        String QueryToExecute = SQLQueriesConstants.ADD_USER_QUERY;
         int studentId = 0;
         try {
-            //open db connection
-            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY);
-            preparedStatement.setString(1, student.getUserId());
-            preparedStatement.setString(2, student.getName());
-            preparedStatement.setString(3, student.getPassword());
-            preparedStatement.setString(4, student.getRole().toString());
-            preparedStatement.setString(5, student.getGender().toString());
-            preparedStatement.setString(6, student.getAddress());
-            preparedStatement.setString(7, student.getCountry());
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected == 1) {
-                //add the student record
-                //"insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
-                PreparedStatement preparedStatementStudent;
-                preparedStatementStudent = connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT, Statement.RETURN_GENERATED_KEYS);
-                preparedStatementStudent.setString(1, student.getUserId());
-                preparedStatementStudent.setString(2, student.getBranchName());
-                preparedStatementStudent.setInt(3, student.getBatch());
-                preparedStatementStudent.setBoolean(4, false);
-                preparedStatementStudent.executeUpdate();
-                ResultSet results = preparedStatementStudent.getGeneratedKeys();
-                if (results.next())
-                    studentId = results.getInt(1);
+            // open db connection
+            // insert into User(name,gender,address,country,role,password,email)
+
+            PreparedStatement preparedStatement = connection.prepareStatement(QueryToExecute);
+            preparedStatement.setString(1, student.getName());
+            preparedStatement.setString(2, student.getGender().toString());
+            preparedStatement.setString(3, student.getAddress());
+            preparedStatement.setString(4, student.getCountry());
+            preparedStatement.setString(5, student.getRole().toString());
+            preparedStatement.setString(6, student.getPassword());
+            preparedStatement.setString(7, student.getEmail());
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            if (rs.next()==false) {
+                return -1;
+                // TODO : Add exception User Record not created
             }
+            student.setUserId(rs.getInt("user.userId"));
+			student.setDoj(DBUtils.parseDate(rs.getString("user.doj")));
+            // insert into student (userId,branchName,batch,rollNumber,isApproved)
+
+            PreparedStatement preparedStatementStudent =connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT)
+            preparedStatementStudent.setInt(1, student.getUserId());
+            preparedStatementStudent.setString(2, student.getBranchName());
+            preparedStatementStudent.setInt(3, student.getBatch());
+            preparedStatementStudent.setString(4, student.getrollNumber());
+            preparedStatementStudent.setBoolean(5, false);
+            ResultSet results = preparedStatementStudent.executeQuery();
+            if (results.next() == false) {
+                return -1;
+                // TODO : Add exception Student Record not created
+            }
+            // TODO : logger.info user and student recode created
+            // return 
+            return 1;
 
 
-        } catch (Exception ex) {
+        } catch (
+
+        Exception ex) {
             System.err.println(ex.getMessage());
         } finally {
             try {

@@ -1,40 +1,36 @@
 package com.flipkart.business;
 
 import com.flipkart.constant.Role;
+import com.flipkart.dao.UserDaoInterface;
+import com.flipkart.dao.UserDaoOperation;
 
 public class UserOperation implements UserInterface {
+	private static UserOperation instance = null;
+	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
 	private UserOperation() {
 	}
 
 	public static UserOperation getInstance() {
-		System.out.println("Function getInstance called from UserOperation");
-		return new UserOperation();
+		if (instance == null) {
+			instance = new UserOperation();
+		}
+		return instance;
 	}
 
 	@Override
 	public boolean updatePassword(String userID, String newPassword) {
-		System.out.println("Function updatePassword called from UserOperation");
-		return false;
+		return userDaoInterface.updatePassword(userID, newPassword);
 	}
 
 	@Override
 	public boolean verifyCredentials(String userID, String password) {
-		System.out.println("Function verifyCredentials called from UserOperation");
-		return true;
+		return userDaoInterface.verifyCredentials(userID, password);
 	}
 
 	@Override
 	public String getRole(String userId) {
-		System.out.println("Function getRole called from UserOperation");
-
-		if(userId.contains("admin"))
-			return "ADMIN";
-		else if(userId.contains("professor"))
-			return "PROFESSOR";
-		else if(userId.contains("student"))
-			return "STUDENT";
-		return "STUDENT";
+		return userDaoInterface.getRole(userId);
 	}
 
 }
