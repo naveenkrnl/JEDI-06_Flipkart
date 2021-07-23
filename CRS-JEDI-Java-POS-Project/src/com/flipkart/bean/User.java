@@ -10,7 +10,6 @@ public abstract class User {
 	public Gender gender;
 	public String address;
 	public String country;
-
 	public String userId;
 	public Role role;
 	public String password;
@@ -100,4 +99,5 @@ public abstract class User {
 		System.out.println("Function setPassword called from User");
 		this.password = password;
 	}
+
 }

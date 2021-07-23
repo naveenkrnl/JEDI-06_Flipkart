@@ -23,8 +23,6 @@ public class UserDaoOperation implements UserDaoInterface {
 
 	public static UserDaoOperation getInstance() {
 		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			// https://www.geeksforgeeks.org/java-singleton-design-pattern-practices-examples/
 			synchronized (UserDaoOperation.class) {
 				instance = new UserDaoOperation();
 			}
@@ -93,19 +91,6 @@ public class UserDaoOperation implements UserDaoInterface {
 		return false;
 	}
 
-	public static String generateDatabasePassword(String userPassword) {
-		String Salt = CryptoUtils.getRandomSalt();
-		String Pepper = Secrets.getPepper();
-		return String.format("%s$%s", Salt,
-				CryptoUtils.encodeBase64(CryptoUtils.hashString(userPassword + Salt + Pepper)));
-	}
-
-	public static boolean verifyPassword(String userPassword, String databasePassword) {
-		String encodedPassword = databasePassword.split("\\$", 2)[1];
-		String Salt = databasePassword.split("\\$", 2)[0];
-		String Pepper = Secrets.getPepper();
-		return encodedPassword.equals(CryptoUtils.encodeBase64(CryptoUtils.encodeBase64(userPassword + Salt + Pepper)));
-	}
 
 	@Override
 	public boolean updatePassword(String userID) {

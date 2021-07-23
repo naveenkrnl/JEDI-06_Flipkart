@@ -1,10 +1,15 @@
 package com.flipkart.application;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.RegisteredCourseStudent;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
+import com.flipkart.validator.ProfessorValidator;
 
 public class ProfessorCRSMenu {
 
@@ -36,7 +41,7 @@ public class ProfessorCRSMenu {
                     break;
                 case 2:
                     //view all the enrolled students for the course
-                    viewRegisteredCourseStudents(profId);
+                    viewEnrolledStudents(profId);
                     break;
 
                 case 3:
@@ -55,19 +60,82 @@ public class ProfessorCRSMenu {
 
     }
 
-    public void viewRegisteredCourseStudents(String profId)
+    public void viewEnrolledStudents(String profId)
     {
-        System.out.println("View enrolled students called");
+        List<Course> coursesEnrolled=professorInterface.getCourses(profId);
+        System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
+        try
+        {
+            List<RegisteredCourseStudent> enrolledStudents=new ArrayList<RegisteredCourseStudent>();
+            enrolledStudents=professorInterface.viewEnrolledStudents(profId);
+            for(RegisteredCourseStudent obj: enrolledStudents)
+            {
+                System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getrollNumber()));
+            }
 
+        }
+        catch(Exception ex)
+        {
+            System.err.println(ex.getMessage()+"Something went wrong, please try again later!");
+        }
     }
 
     public void getCourses(String profId)
     {
-        System.out.println("Get courses called");
+        try
+        {
+            List<Course> coursesEnrolled=professorInterface.getCourses(profId);
+            System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
+            for(Course obj: coursesEnrolled)
+            {
+                System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
+            }
+        }
+        catch(Exception ex)
+        {
+            System.err.println("Something went wrong!"+ex.getMessage());
+        }
     }
 
     public void addGrade(String profId)
     {
-        System.out.println("Add Grade called");
+        Scanner sc=new Scanner(System.in);
+
+        int studentId;
+        String courseCode,grade;
+        try
+        {
+            List<RegisteredCourseStudent> enrolledStudents=new ArrayList<RegisteredCourseStudent>();
+            enrolledStudents=professorInterface.viewEnrolledStudents(profId);
+            System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
+            for(RegisteredCourseStudent obj: enrolledStudents)
+            {
+                System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getrollNumber()));
+            }
+            List<Course> coursesEnrolled=new ArrayList<Course>();
+            coursesEnrolled	=professorInterface.getCourses(profId);
+            System.out.println("----------------Add Grade--------------");
+            System.out.println("Enter student id");
+            studentId=sc.nextInt();
+            System.out.println("Enter course code");
+            courseCode=sc.next();
+            System.out.println("Enter grade");
+            grade=sc.next();
+            if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
+            {
+                professorInterface.addGrade(studentId, courseCode, grade);
+                System.out.println("Grade added successfully for "+studentId);
+            }
+            else
+            {
+                System.out.println("Invalid data entered, try again!");
+            }
+        }
+        catch(Exception ex)
+        {
+            System.err.println("Grade cannot be added  - "+ex.getMessage());
+
+        }
+
     }
 }
