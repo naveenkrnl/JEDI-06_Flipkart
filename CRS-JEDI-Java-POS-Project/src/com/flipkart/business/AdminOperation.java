@@ -46,40 +46,62 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public void addProfessor(Professor professor) {
-		System.out.println("Function addProfessor called from AdminOperation");
-	}
-
-	@Override
 	public List<Student> viewPendingAdmissions() {
-		System.out.println("Function viewPendingAdmissions called from AdminOperation");
-		return null;
+		return adminDaoOperation.viewPendingAdmissions();
 	}
 
 	@Override
 	public void approveStudent(int studentId, List<Student> studentList) {
-		System.out.println("Function approveStudent called from AdminOperation");
+
+		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
+			System.err.println("studentId: " + studentId + " is already approvet/not-present!");
+			return;
+		}
+
+		try {
+			adminDaoOperation.approveStudent(studentId);
+		}
+		catch(Exception e) {
+			throw e;
+		}
+
 	}
 
 	@Override
-	public void assignCourse(String courseCode, String professorId) {
-		System.out.println("Function assignCourse called from AdminOperation");
+	public void addProfessor(Professor professor) {
+
+		try {
+			adminDaoOperation.addProfessor(professor);
+		}
+		catch(Exception e) {
+			throw e;
+		}
+
+	}
+
+	@Override
+	public void assignCourse(String courseCode, String professorId){
+
+		try {
+			adminDaoOperation.assignCourse(courseCode, professorId);
+		}
+		catch(Exception e) {
+			throw e;
+		}
 
 	}
 
 	@Override
 	public List<Course> viewCourses(int catalogId) {
-		System.out.println("Function viewCourses called from AdminOperation");
-		return null;
+
+		return adminDaoOperation.viewCourses(catalogId);
+
 	}
 
 	@Override
 	public List<Professor> viewProfessors() {
-		System.out.println("Function viewProfessors called from AdminOperation");
-		return null;
-	}
 
-	public static void main(String[] args) {
-		addCourse()
+		return adminDaoOperation.viewProfessors();
+
 	}
 }
