@@ -1,21 +1,48 @@
 package com.flipkart.business;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.validator.AdminValidator;
 
-// import java.util.Collections;
 import java.util.List;
 
 public class AdminOperation implements AdminInterface {
+
+	private static AdminOperation instance = null;
+	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
+
+	public static AdminOperation getInstance()
+	{
+		if(instance == null)
+		{
+				instance = new AdminOperation();
+		}
+		return instance;
+	}
+
+
 	@Override
 	public void deleteCourse(String courseCode, List<Course> courseList) {
 		System.out.println("Function deleteCourse called from AdminOperation");
 	}
 
 	@Override
-	public void addCourse(Course course, List<Course> courseList) {
-		System.out.println("Function addCourse called from AdminOperation");
+	public void addCourse(Course newCourse, List<Course> courseList) {
+
+		if(AdminValidator.isValidNewCourse(newCourse,courseList)){
+			System.err.println("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
+		}
+
+		try {
+			adminDaoOperation.addCourse(newCourse);
+		}
+		catch(Exception e) {
+			throw e;
+		}
+
+
 	}
 
 	@Override
@@ -50,5 +77,9 @@ public class AdminOperation implements AdminInterface {
 	public List<Professor> viewProfessors() {
 		System.out.println("Function viewProfessors called from AdminOperation");
 		return null;
+	}
+
+	public static void main(String[] args) {
+		addCourse()
 	}
 }

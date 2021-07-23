@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
@@ -74,7 +75,7 @@ public class CRSApplication {
         }
         catch(Exception ex)
         {
-            System.out.println("Error occured "+ex);
+            System.out.println("Error occurred "+ex);
         }
         finally
         {
@@ -181,7 +182,8 @@ public class CRSApplication {
         country=sc.next();
         gender=Gender.getName(genderV);
         System.out.println("++++++++Student Registration SuccessFull+++++++");
-
+        int newStudentId=studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
+        notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null,0);
     }
 
 
@@ -189,12 +191,24 @@ public class CRSApplication {
     {
         Scanner sc=new Scanner(System.in);
         String userId,newPassword;
-        System.out.println("+++++++++Update Password++++++++++");
-        System.out.println("Email");
-        userId=sc.next();
-        System.out.println("New Password:");
-        newPassword=sc.next();
-        System.out.println("Password updated successfully!");
+        try
+        {
+            System.out.println("------------------Update Password--------------------");
+            System.out.println("Email");
+            userId=sc.next();
+            System.out.println("New Password:");
+            newPassword=sc.next();
+            boolean isUpdated=userInterface.updatePassword(userId, newPassword);
+            if(isUpdated)
+                System.out.println("Password updated successfully!");
+
+            else
+                System.err.println("Something went wrong, please try again!");
+        }
+        catch(Exception ex)
+        {
+            System.err.println("Error Occured "+ex.getMessage());
+        }
     }
 
 

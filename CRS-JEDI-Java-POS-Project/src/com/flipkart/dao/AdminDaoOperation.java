@@ -79,7 +79,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1, course.getCourseCode());
 			statement.setString(2, course.getCourseName());
 
-			statement.setInt(3, 1);
 			int row = statement.executeUpdate();
 
 			System.out.println("Message -  "); System.out.println(row + " course added");
