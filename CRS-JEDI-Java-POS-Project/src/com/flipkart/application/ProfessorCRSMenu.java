@@ -24,6 +24,7 @@ public class ProfessorCRSMenu {
         {
             System.out.println("*************************************");
             System.out.println("*********   Professor Menu   ********");
+
             System.out.println("*************************************");
             System.out.println("      1. View Courses");
             System.out.println("      2. View Enrolled Students");

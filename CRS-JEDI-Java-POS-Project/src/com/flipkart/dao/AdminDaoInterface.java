@@ -22,7 +22,7 @@ public interface AdminDaoInterface {
 
 	public List<Student> viewPendingAdmissions();
 
-	public void approveStudent(int studentId);
+	public void approveStudent(String studentId);
 
 	public void addProfessor(Professor professor);
 

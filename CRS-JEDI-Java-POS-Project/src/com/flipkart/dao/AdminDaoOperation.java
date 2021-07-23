@@ -134,14 +134,14 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 
 	@Override
-	public void approveStudent(int studentId){
+	public void approveStudent(String studentId){
 
 		statement = null;
 		try {
 			String sql = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
 			statement = connection.prepareStatement(sql);
 
-			statement.setInt(1,studentId);
+			statement.setString(1,studentId);
 			int row = statement.executeUpdate();
 
 			System.out.println("Message -  "); System.out.println(row + " student approved.");
