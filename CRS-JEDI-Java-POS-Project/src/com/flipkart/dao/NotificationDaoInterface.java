@@ -8,11 +8,12 @@ import com.flipkart.constant.NotificationType;
 
 /**
  * 
- * Interface for Notification Dao Operations
- * Used for adding the notification to the database
+ * Interface for Notification Dao Operations Used for adding the notification to
+ * the database
  *
  */
 public interface NotificationDaoInterface {
 
-	public int sendNotification(NotificationType type,int studentId,ModeOfPayment modeOfPayment,double amount) throws SQLException;
+	// public int sendNotification(NotificationType type,int studentId,ModeOfPayment
+	// modeOfPayment,double amount) throws SQLException;
 }

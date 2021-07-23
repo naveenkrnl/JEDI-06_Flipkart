@@ -1,5 +1,7 @@
 package com.flipkart.dao;
 
+import com.flipkart.constant.Role;
+
 /**
  * 
  * Interface for User Dao Operations
@@ -11,7 +13,7 @@ public interface UserDaoInterface {
 
 	public boolean updatePassword(String userID);
 
-	public String getRole(String userId);
+	public Role getRole(String email);
 
 	public boolean updatePassword(String userId, String newPassword);
 }

@@ -8,7 +8,7 @@ import javax.print.attribute.standard.DateTimeAtCreation;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
-public abstract class User {
+public class User {
 
 	private String name;
 	private Gender gender;
@@ -21,6 +21,15 @@ public abstract class User {
 	private LocalDateTime doj;
 
 	public User() {
+		name = null;
+		gender = null;
+		address = null;
+		country = null;
+		userId = -1;
+		role = null;
+		password = null;
+		email = null;
+		doj = null;
 
 	}
 
@@ -108,6 +117,30 @@ public abstract class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "User [address=" + address + ", country=" + country + ", doj=" + doj + ", email=" + email + ", gender="
+				+ gender + ", name=" + name + ", password=" + password + ", role=" + role + ", userId=" + userId + "]";
+	}
+
+	public boolean isUserValidForDatabase() {
+		if (name == null || name.trim().length() == 0)
+			return false;
+		if (address == null || address.trim().length() == 0)
+			return false;
+		if (country == null || country.trim().length() == 0)
+			return false;
+		if (password == null || password.trim().length() == 0)
+			return false;
+		if (email == null || email.trim().length() == 0)
+			return false;
+		if (gender == null)
+			return false;
+		if (role == null)
+			return false;
+		return true;
 	}
 
 }

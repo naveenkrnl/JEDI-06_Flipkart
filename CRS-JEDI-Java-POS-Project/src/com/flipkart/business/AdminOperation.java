@@ -89,15 +89,11 @@ public class AdminOperation implements AdminInterface {
 
 	@Override
 	public List<Course> viewCourses(int catalogId) {
-
 		return adminDaoOperation.viewCourses(catalogId);
-
 	}
 
 	@Override
 	public List<Professor> viewProfessors() {
-
 		return adminDaoOperation.viewProfessors();
-
 	}
 }

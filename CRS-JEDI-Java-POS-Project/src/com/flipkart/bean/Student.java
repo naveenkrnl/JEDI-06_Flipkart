@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.StudentDaoOperation;
 
 public class Student extends User {
 
@@ -24,20 +25,18 @@ public class Student extends User {
 	private boolean isApproved;
 
 	public Student() {
-
-	}
-
-	public Student(String name, Gender gender, String address, String country, int userId, Role role, String password,
-			String email, LocalDateTime doj, String branchName, String rollNumber, int batch) {
-		super(name, gender, address, country, userId, role, password, email, doj);
-		this.branchName = branchName;
-		this.rollNumber = rollNumber;
-		this.batch = batch;
-		this.isApproved = false;
+		setRole(Role.STUDENT);
+		batch = -1;
+		isApproved = false;
 	}
 
 	@Override
 	public String toString() {
+		return super.toString() + "\nStudent [batch=" + batch + ", branchName=" + branchName + ", isApproved="
+				+ isApproved + ", rollNumber=" + rollNumber + "]";
+	}
+
+	public String prettyPrint() {
 
 		return "\n********************************************\n"
 				+ String.format("*********    Student Details of %s *********\n", getName()) + "Email = " + getUserId()
@@ -55,7 +54,9 @@ public class Student extends User {
 	}
 
 	public String getrollNumber() {
-		return "BE/" + Integer.toString(getUserId()) + "/" + Integer.toString(getBatch());
+		if (rollNumber.length() == 0)
+			rollNumber = "BE/" + getUserId() + "/" + getBatch();
+		return rollNumber;
 	}
 
 	public void setrollNumber(String rollNumber) {
@@ -78,4 +79,36 @@ public class Student extends User {
 		this.isApproved = isApproved;
 	}
 
+	public Student(String name, Gender gender, String address, String country, int userId, String password,
+			String email, LocalDateTime doj, String branchName, String rollNumber, int batch) {
+		super(name, gender, address, country, userId, Role.STUDENT, password, email, doj);
+		this.branchName = branchName;
+		this.rollNumber = rollNumber;
+		this.batch = batch;
+		this.isApproved = false;
+		setRole(Role.STUDENT);
+	}
+
+	public Student(User user) {
+		super(user.getName(), user.getGender(), user.getAddress(), user.getCountry(), user.getUserId(), Role.STUDENT,
+				user.getPassword(), user.getEmail(), user.getDoj());
+		Student student = StudentDaoOperation.getStudentFromUserIdImpl(user.getUserId());
+		setUserId(student.getUserId());
+		setBranchName(student.getBranchName());
+		setBatch(student.getBatch());
+		setrollNumber(student.getrollNumber());
+		setApproved(student.isApproved());
+		setRole(Role.STUDENT);
+	}
+
+	public boolean isStudentValidForDatabase() {
+		if (branchName == null || branchName.length() == 0)
+			return false;
+		if (batch == -1)
+			return false;
+		getrollNumber();
+		if (getRole() != Role.STUDENT)
+			setRole(Role.STUDENT);
+		return getRole() == Role.STUDENT && isUserValidForDatabase();
+	}
 }

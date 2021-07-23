@@ -4,12 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import com.flipkart.bean.Student;
-import com.flipkart.application.CRSApplication;
+import com.flipkart.bean.User;
+//import com.flipkart.application.CRSApplication;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
@@ -30,118 +29,105 @@ public class StudentDaoOperation implements StudentDaoInterface {
         return instance;
     }
 
-    @Override
-    public int addStudent(Student student) {
+    public static boolean createDBRecordAndUpdateObject(Student student) {
+        if (!UserDaoOperation.createDBRecordAndUpdateObject(student))
+            return false;
         Connection connection = DBUtils.getConnection();
-        String QueryToExecute = SQLQueriesConstants.ADD_USER_QUERY;
-        int studentId = 0;
+        String queryToExecute = SQLQueriesConstants.ADD_STUDENT;
         try {
-            // open db connection
-            // insert into User(name,gender,address,country,role,password,email)
-
-            PreparedStatement preparedStatement = connection.prepareStatement(QueryToExecute);
-            preparedStatement.setString(1, student.getName());
-            preparedStatement.setString(2, student.getGender().toString());
-            preparedStatement.setString(3, student.getAddress());
-            preparedStatement.setString(4, student.getCountry());
-            preparedStatement.setString(5, student.getRole().toString());
-            preparedStatement.setString(6, student.getPassword());
-            preparedStatement.setString(7, student.getEmail());
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next() == false) {
-                return -1;
-                // TODO : Add exception User Record not created
-            }
-            student.setUserId(rs.getInt("user.userId"));
-            studentId = student.getUserId();
-            student.setDoj(DBUtils.parseDate(rs.getString("user.doj")));
-            // insert into student (userId,branchName,batch,rollNumber,isApproved)
-
-            PreparedStatement preparedStatementStudent = connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT);
+            PreparedStatement preparedStatementStudent = connection.prepareStatement(queryToExecute);
             preparedStatementStudent.setInt(1, student.getUserId());
             preparedStatementStudent.setString(2, student.getBranchName());
             preparedStatementStudent.setInt(3, student.getBatch());
             preparedStatementStudent.setString(4, student.getrollNumber());
             preparedStatementStudent.setBoolean(5, false);
-            ResultSet results = preparedStatementStudent.executeQuery();
-            if (results.next() == false) {
-                return -1;
-                // TODO : Add exception Student Record not created
-            }
-            // TODO : logger.info user and student record created
-        } catch (SQLException sqlErr) {
-            System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute, sqlErr.getMessage());
-            sqlErr.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException closeErr) {
-                System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute, closeErr.getMessage());
-                closeErr.printStackTrace();
-            }
-        }
-        return studentId;
-    }
-
-    @Override
-    public int getStudentId(String emailID) {
-        Connection connection = DBUtils.getConnection();
-        String QueryToExecute = SQLQueriesConstants.GET_STUDENT_ID;
-        try {
-            PreparedStatement statement = connection.prepareStatement(QueryToExecute);
-            statement.setString(1, emailID);
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt("userId");
-            } else {
-                // TODO : throw exception email id not in db
-                return -1;
-            }
-
-        } catch (SQLException sqlErr) {
-            System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute, sqlErr.getMessage());
-            sqlErr.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException closeErr) {
-                System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute, closeErr.getMessage());
-                closeErr.printStackTrace();
-            }
-        }
-        return -1;
-    }
-
-    @Override
-    public boolean isApproved(int studentId) {
-        Connection connection = DBUtils.getConnection();
-        String QueryToExecute = SQLQueriesConstants.IS_APPROVED;
-        try {
-            PreparedStatement statement = connection.prepareStatement(QueryToExecute);
-            statement.setInt(1, studentId);
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                return rs.getBoolean("isApproved");
-            } else {
-                // TODO : throw exception user id not in db
+            int rowsAffected = preparedStatementStudent.executeUpdate();
+            if (rowsAffected == 0) {
+                UserDaoOperation.deleteUserObjectFromUserId(student.getUserId());
                 return false;
+                // TODO : Add exception Student Record Not created
             }
+            return true;
 
         } catch (SQLException sqlErr) {
-            System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute, sqlErr.getMessage());
+            UserDaoOperation.deleteUserObjectFromUserId(student.getUserId());
+            System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
             sqlErr.printStackTrace();
         } finally {
             try {
                 connection.close();
             } catch (SQLException closeErr) {
-                System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute, closeErr.getMessage());
+                System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
                 closeErr.printStackTrace();
             }
         }
         return false;
+    }
+
+    public static Student getStudentFromUserIdImpl(int userId) {
+        Connection connection = DBUtils.getConnection();
+        String queryToExecute = SQLQueriesConstants.GET_STUDENT_FROM_USERID;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                return null;
+                // @yaduraj
+                // TODO : Add exception User Record not found
+            }
+            // userId,branchName,batch,rollNumber,isApproved
+            Student student = new Student();
+            student.setUserId(resultSet.getInt(1));
+            student.setBranchName(resultSet.getString(2));
+            student.setBatch(resultSet.getInt(3));
+            student.setrollNumber(resultSet.getString(4));
+            student.setApproved(resultSet.getBoolean(5));
+            return student;
+        } catch (SQLException sqlErr) {
+            System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+            sqlErr.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException closeErr) {
+                System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+                closeErr.printStackTrace();
+            }
+        }
+        return null;
+
+    }
+
+    public static Student getStudentFromUserId(int userId) {
+        User user = UserDaoOperation.getUserFromUserId(userId);
+        if (user == null)
+            return null;
+        return new Student(user);
+
+    }
+
+    public static Student getStudentFromEmail(String email) {
+        User user = UserDaoOperation.getUserFromEmail(email);
+        if (user == null)
+            return null;
+        return new Student(user);
+    }
+
+    @Override
+    public int getStudentUserId(String email) {
+         User user = UserDaoOperation.getUserFromEmail(email);
+         if(user==null)
+             return -1;
+         return user.getUserId();
+    }
+
+    @Override
+    public boolean isApproved(int userId) {
+        Student student = StudentDaoOperation.getStudentFromUserId(userId);
+        if(student==null)
+            return false;
+        return student.isApproved();
     }
 
 }

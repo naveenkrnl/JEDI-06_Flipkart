@@ -13,21 +13,20 @@ import com.flipkart.bean.User;
  */
 public interface AdminDaoInterface {
 
-	public void deleteCourse(String courseCode);
-
-	public void addCourse(Course course);
-
 	public List<Student> viewPendingAdmissions();
 
 	public void approveStudent(int studentId);
 
 	public void addProfessor(Professor professor);
 
-	public void addUser(User user);
-
-	public void assignCourse(String courseCode, String professorId);
-
-	public List<Course> viewCourses(int catalogId);
-
 	public List<Professor> viewProfessors();
+
+	// public void deleteCourse(String courseCode);
+
+	// public void addCourse(Course course);
+
+	// public void assignCourse(String courseCode, String professorId);
+
+	// public List<Course> viewCourses(int catalogId);
+
 }

@@ -29,8 +29,7 @@ public class UserOperation implements UserInterface {
 	}
 
 	@Override
-	public String getRole(String userId) {
-		return userDaoInterface.getRole(userId);
+	public Role getRole(String email) {
+		return userDaoInterface.getRole(email);
 	}
-
 }

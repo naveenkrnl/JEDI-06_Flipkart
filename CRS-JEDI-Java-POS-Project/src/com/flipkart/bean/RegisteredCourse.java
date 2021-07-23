@@ -5,7 +5,7 @@ package com.flipkart.bean;
  * Class for storing details of course Student has taken
  *
  */
-public class RegisteredCourseStudent {
+public class RegisteredCourse {
 	private String courseCode;
 	private String courseName;
 	private String rollNumber;
@@ -40,7 +40,7 @@ public class RegisteredCourseStudent {
 		this.rollNumber = rollNumber;
 	}
 
-	public RegisteredCourseStudent(String courseCode, String courseName, String rollNumber) {
+	public RegisteredCourse(String courseCode, String courseName, String rollNumber) {
 		super();
 		System.out.println("Function RegisteredCourseStudent called from RegisteredCourseStudent");
 		this.courseCode = courseCode;

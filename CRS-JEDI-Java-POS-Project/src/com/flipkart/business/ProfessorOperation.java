@@ -3,7 +3,7 @@ package com.flipkart.business;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.RegisteredCourseStudent;
+import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
 
@@ -26,7 +26,7 @@ public class ProfessorOperation implements ProfessorInterface {
 	}
 
 	@Override
-	public List<RegisteredCourseStudent> viewEnrolledStudents(String profId) {
+	public List<RegisteredCourse> viewEnrolledStudents(String profId) {
 		return null;
 		// return this.professorDaoInterface.getEnrolledStudents(profId);
 	}

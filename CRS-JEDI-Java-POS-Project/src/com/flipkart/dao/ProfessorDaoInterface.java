@@ -2,7 +2,7 @@ package com.flipkart.dao;
 
 import java.util.*;
 import com.flipkart.bean.Course;
-import com.flipkart.bean.RegisteredCourseStudent;
+import com.flipkart.bean.RegisteredCourse;
 
 /**
  * 
@@ -11,11 +11,11 @@ import com.flipkart.bean.RegisteredCourseStudent;
  */
 public interface ProfessorDaoInterface {
 
-	public List<Course> getCoursesByProfessor(int userId);
+	// public List<Course> getCoursesByProfessor(int userId);
 
-	public List<RegisteredCourseStudent> getEnrolledStudents(int profId);
+	// public List<RegisteredCourse> getEnrolledStudents(int profId);
 
-	public Boolean addGrade(int studentId, String courseCode, String grade);
+	// public Boolean addGrade(int studentId, String courseCode, String grade);
 
-	public String getProfessorById(int profId);
+	public String getProfessorNameByUserId(int profId);
 }
