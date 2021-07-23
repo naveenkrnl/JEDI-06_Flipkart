@@ -44,45 +44,45 @@ public class StudentCRSMenu {
 			int choice = sc.nextInt();
 
 			switch (choice) {
-				case 1: 
-						registerCourses(studentId);
-						break;
-						
-				case 2: 
-						addCourse(studentId);
-						break;
+				case 1:
+					registerCourses(studentId);
+					break;
+
+				case 2:
+					addCourse(studentId);
+					break;
 
 				case 3:
-						
-						dropCourse(studentId);
-						break;
+
+					dropCourse(studentId);
+					break;
 
 				case 4:
-						viewCourse(studentId);
-						break;
+					viewCourse(studentId);
+					break;
 
 				case 5:
-						viewRegisteredCourse(studentId);
-						break;
+					viewRegisteredCourse(studentId);
+					break;
 
 				case 6:
-						viewGradeCard(studentId);
-						break;
-						
+					viewGradeCard(studentId);
+					break;
+
 				case 7:
-						make_payment(studentId);
-						break;
-						
-				case 8: 
-						CRSApplication.loggedin = false;
-						return;
-						
+					make_payment(studentId);
+					break;
+
+				case 8:
+					CRSApplication.loggedin = false;
+					return;
+
 				default:
-						System.err.println("***** Wrong Choice *****");
+					System.err.println("***** Wrong Choice *****");
 			}
 		}
 	}
-	
+
 
 	private void registerCourses(int studentId)
 	{
@@ -133,10 +133,10 @@ public class StudentCRSMenu {
 		{
 			System.out.println(e.getMessage());
 		}
-    
+
 	}
-	
-	private void addCourse(int studentId)	
+
+	private void addCourse(int studentId)
 	{
 		if(is_registered)
 		{
@@ -167,7 +167,7 @@ public class StudentCRSMenu {
 		{
 			System.out.println("Please complete registration");
 		}
-		
+
 	}
 
 	private boolean getRegistrationStatus(int studentId)
@@ -367,4 +367,3 @@ public class StudentCRSMenu {
 
 
 }
-
