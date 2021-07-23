@@ -5,6 +5,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.validator.AdminValidator;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class AdminOperation implements AdminInterface {
 
 	private static AdminOperation instance = null;
 	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
+	private static Logger logger = Logger.getLogger(AdminOperation.class);
 
 	public static AdminOperation getInstance()
 	{
@@ -25,7 +27,7 @@ public class AdminOperation implements AdminInterface {
 
 	@Override
 	public void deleteCourse(String courseCode, List<Course> courseList) {
-		System.out.println("Function deleteCourse called from AdminOperation");
+		logger.info("Function deleteCourse called from AdminOperation");
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 import com.flipkart.utils.CryptoUtils;
 import com.flipkart.utils.Secrets;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -16,6 +17,7 @@ import com.flipkart.utils.Secrets;
  */
 public class UserDaoOperation implements UserDaoInterface {
 	private static volatile UserDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 
 	private UserDaoOperation() {
 

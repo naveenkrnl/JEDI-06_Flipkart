@@ -12,6 +12,7 @@ import com.flipkart.application.CRSApplication;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Class to implement Student Dao Operations
@@ -19,6 +20,7 @@ import com.flipkart.utils.DBUtils;
 public class StudentDaoOperation implements StudentDaoInterface {
 
     private static volatile StudentDaoOperation instance = null;
+    private static Logger logger = Logger.getLogger(StudentDaoOperation.class);
 
     private StudentDaoOperation() {
 
@@ -66,7 +68,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 
         } catch (Exception ex) {
-            System.err.println(ex.getMessage());
+            logger.error(ex.getMessage());
         } finally {
             try {
                 connection.close();
@@ -90,7 +92,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
             }
 
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return 0;
@@ -109,7 +111,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
             }
 
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return false;

@@ -11,6 +11,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourseStudent;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -20,6 +21,7 @@ import com.flipkart.utils.DBUtils;
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance=null;
+	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 
 	private ProfessorDaoOperation()
 	{
@@ -53,7 +55,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		catch(Exception e)
 		{
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		finally
 		{
@@ -85,7 +87,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		catch(Exception e)
 		{
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		finally
 		{
@@ -117,7 +119,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		catch(SQLException e)
 		{
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		finally
 		{
@@ -149,7 +151,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		catch(SQLException e)
 		{
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		finally
 		{

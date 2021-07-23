@@ -7,16 +7,18 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.constant.Grade;
 import com.flipkart.dao.RegistrationDaoOperation;
+import org.apache.log4j.Logger;
 
 public class RegistrationOperation implements RegistrationInterface {
 
 	RegistrationDaoOperation registrationDaoOperation = RegistrationDaoOperation.getInstance();
+	private static Logger logger = Logger.getLogger(RegistrationOperation.class);
 
 	private RegistrationOperation() {
 	}
 
 	public static RegistrationOperation getInstance() {
-		System.out.println("Function getInstance called RegistrationOperation");
+		logger.info("Function getInstance called RegistrationOperation");
 		return null;
 	}
 

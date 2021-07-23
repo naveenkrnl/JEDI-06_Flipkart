@@ -13,6 +13,7 @@ import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.utils.DBUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -22,7 +23,7 @@ import com.flipkart.utils.DBUtils;
  */
 public class NotificationDaoOperation implements NotificationDaoInterface{
 	private static volatile NotificationDaoOperation instance=null;
-
+	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 
 	private NotificationDaoOperation()
 	{
@@ -57,7 +58,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 				//insert into payment, get reference id and add here
 				UUID referenceId=addPayment(studentId, modeOfPayment,amount);
 				ps.setString(3, referenceId.toString());	
-				System.out.println("Message -  "); System.out.println("Payment successful, Reference ID: "+referenceId);
+				logger.info("Message -  "); logger.info("Payment successful, Reference ID: "+referenceId);
 			}
 			else
 				ps.setString(3,"");
@@ -70,13 +71,13 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 			switch(type)
 			{
 			case REGISTRATION:
-				System.out.println("Message -  "); System.out.println("Registration successfull. Administration will verify the details and approve it!");
+				logger.info("Message -  "); logger.info("Registration successfull. Administration will verify the details and approve it!");
 				break;
 			case REGISTRATION_APPROVAL:
-				System.out.println("Message -  "); System.out.println("Student with id "+studentId+" has been approved!");
+				logger.info("Message -  "); logger.info("Student with id "+studentId+" has been approved!");
 				break;
 			case PAYMENT:
-				System.out.println("Message -  "); System.out.println("Student with id "+studentId+" fee has been paid");
+				logger.info("Message -  "); logger.info("Student with id "+studentId+" fee has been paid");
 			}
 			
 		}
