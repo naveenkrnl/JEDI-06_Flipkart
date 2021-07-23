@@ -30,10 +30,8 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	{
 		if(instance==null)
 		{
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized(ProfessorDaoOperation.class){
-				instance=new ProfessorDaoOperation();
-			}
+			instance=new ProfessorDaoOperation();
+
 		}
 		return instance;
 	}

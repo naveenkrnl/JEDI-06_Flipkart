@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledCourse;
+import com.flipkart.bean.GradeCard;
 import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
@@ -229,10 +229,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	}
 
 	@Override
-	public List<EnrolledCourse> viewGradeCard(int studentId) throws SQLException {
+	public List<GradeCard> viewGradeCard(int studentId) throws SQLException {
 		
 		Connection conn = DBUtils.getConnection();
-		List<EnrolledCourse> grade_List = new ArrayList<>();
+		List<GradeCard> grade_List = new ArrayList<>();
 		try
 		{
 			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_GRADE);
@@ -245,7 +245,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 				String courseName = rs.getString("courseName");
 				String grade = rs.getString("grade");
 				int semester = rs.getInt("semester"); //Added semester
-				EnrolledCourse obj = new EnrolledCourse(courseCode, courseName,Grade.stringToGrade(grade),semester);
+				GradeCard obj = new GradeCard(courseCode, courseName,Grade.stringToGrade(grade),semester);
 				grade_List.add(obj);
 			}
 		}

@@ -20,4 +20,20 @@ public class CryptoUtils {
         int hashcode = str.hashCode();
         return Integer.toString(hashcode);
     }
+
+    public static String generateDatabasePassword(String userPassword) {
+        String Salt = CryptoUtils.getRandomSalt();
+        String Pepper = Secrets.getPepper();
+        return String.format("%s$%s", Salt,
+                CryptoUtils.encodeBase64(CryptoUtils.hashString(userPassword + Salt + Pepper)));
+    }
+
+    public static boolean verifyPassword(String userPassword, String databasePassword) {
+        String encodedPassword = databasePassword.split("\\$", 2)[1];
+        String Salt = databasePassword.split("\\$", 2)[0];
+        String Pepper = Secrets.getPepper();
+        return encodedPassword.equals(CryptoUtils.encodeBase64(CryptoUtils.encodeBase64(userPassword + Salt + Pepper)));
+    }
+
+
 }
