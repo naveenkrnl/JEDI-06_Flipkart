@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledCourse;
+import com.flipkart.bean.GradeCard;
 import com.flipkart.dao.RegistrationDaoOperation;
 
 public class RegistrationOperation implements RegistrationInterface {
@@ -102,9 +102,9 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public List<EnrolledCourse> viewGradeCard(int studentId) {
+	public List<GradeCard> viewGradeCard(int studentId) {
 
-		List<EnrolledCourse> GradeCard = null;
+		List<GradeCard> GradeCard = null;
 
 		try
 		{
