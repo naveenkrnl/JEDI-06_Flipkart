@@ -4,38 +4,39 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourseStudent;
+import com.flipkart.dao.ProfessorDaoInterface;
+import com.flipkart.dao.ProfessorDaoOperation;
 
 public class ProfessorOperation implements ProfessorInterface {
 
-	private ProfessorOperation() {
+
+	ProfessorDaoInterface professorDaoInterface = ProfessorDaoOperation.getInstance();
+	 ProfessorOperation() {
+
 	}
 
 	public static ProfessorOperation getInstance() {
-		System.out.println("Function getInstance called from ProfessorOperation");
 		return new ProfessorOperation();
 	}
 
 	@Override
 	public boolean addGrade(int studentId, String courseCode, String grade) {
-		System.out.println("Function addGrade called from ProfessorOperation");
-		return false;
+		this.professorDaoInterface.addGrade(studentId,courseCode,grade);
+		return true;
 	}
 
 	@Override
 	public List<RegisteredCourseStudent> viewEnrolledStudents(String profId) {
-		System.out.println("Function viewEnrolledStudents called from ProfessorOperation");
-		return null;
+		return this.professorDaoInterface.getEnrolledStudents(profId);
 	}
 
 	@Override
 	public List<Course> getCourses(String profId) {
-		System.out.println("Function getCourses called from ProfessorOperation");
-		return null;
+		return this.professorDaoInterface.getCoursesByProfessor(profId);
 	}
 
 	@Override
 	public String getProfessorById(String profId) {
-		System.out.println("Function getProfessorById called from ProfessorOperation");
-		return null;
+		return this.professorDaoInterface.getProfessorById(profId);
 	}
 }
