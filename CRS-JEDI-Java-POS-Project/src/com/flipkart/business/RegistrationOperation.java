@@ -1,11 +1,15 @@
 package com.flipkart.business;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledCourse;
+import com.flipkart.dao.RegistrationDaoOperation;
 
 public class RegistrationOperation implements RegistrationInterface {
+
+	RegistrationDaoOperation registrationDaoOperation = RegistrationDaoOperation.getInstance();
 
 	private RegistrationOperation() {
 	}
@@ -17,49 +21,170 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	@Override
 	public boolean addCourse(String courseCode, int studentId, List<Course> availableCourseList) {
-		System.out.println("Function addCourse called RegistrationOperation");
-		return false;
+
+		boolean isCoursePresent = false;
+		boolean ifSuccess;
+
+		for(Course course: availableCourseList)
+		{
+			if(courseCode.equals(course.getCourseCode()))
+			{
+				isCoursePresent = true;
+			}
+		}
+
+		if(!isCoursePresent)
+		{
+			System.err.println("The selected course is not offered!");
+			return false;
+		}
+
+		try
+		{
+			ifSuccess = registrationDaoOperation.addCourse(courseCode,studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return false;
+		}
+
+		return ifSuccess;
 	}
 
 	@Override
 	public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList) {
-		System.out.println("Function dropCourse called RegistrationOperation");
-		return false;
+		boolean isCourseRegistered = false;
+		boolean ifSuccess;
+
+		for(Course course: registeredCourseList)
+		{
+			if(courseCode.equals(course.getCourseCode()))
+			{
+				isCourseRegistered = true;
+			}
+		}
+
+		if(!isCourseRegistered)
+		{
+			System.err.println("The selected course is not registered!");
+			return false;
+		}
+
+		try
+		{
+			ifSuccess = registrationDaoOperation.dropCourse(courseCode,studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return false;
+		}
+
+		return ifSuccess;
 	}
 
 	@Override
 	public double calculateFee(int studentId) {
-		System.out.println("Function calculateFee called RegistrationOperation");
-		return 0.0;
+
+		double fee;
+
+		try
+		{
+			fee = registrationDaoOperation.calculateFee(studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return 0.0;
+		}
+		return fee;
 	}
 
 	@Override
 	public List<EnrolledCourse> viewGradeCard(int studentId) {
-		System.out.println("Function viewGradeCard called RegistrationOperation");
-		return null;
+
+		List<EnrolledCourse> GradeCard = null;
+
+		try
+		{
+			GradeCard = registrationDaoOperation.viewGradeCard(studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return null;
+		}
+
+		return GradeCard;
 	}
 
 	@Override
 	public List<Course> viewCourses(int studentId) {
-		System.out.println("Function viewCourses called RegistrationOperation");
-		return null;
+
+		List<Course> Courses = null;
+
+		try
+		{
+			Courses = registrationDaoOperation.viewCourses(studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return null;
+		}
+
+		return Courses;
 	}
 
 	@Override
 	public List<Course> viewRegisteredCourses(int studentId) {
-		System.out.println("Function viewRegisteredCourses called RegistrationOperation");
-		return null;
+
+		List<Course> registeredCourses = null;
+
+		try
+		{
+			registeredCourses = registrationDaoOperation.viewRegisteredCourses(studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return null;
+		}
+
+		return registeredCourses;
 	}
 
 	@Override
 	public boolean getRegistrationStatus(int studentId) {
-		System.out.println("Function getRegistrationStatus called RegistrationOperation");
-		return true;
+
+		boolean status = false;
+
+		try
+		{
+			status = registrationDaoOperation.getRegistrationStatus(studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return false;
+		}
+		return status;
 	}
 
 	@Override
-	public void setRegistrationStatus(int studentId) {
-		System.out.println("Function setRegistrationStatus called com.flipkart.business");
+	public void setRegistrationStatus(int studentId)
+	{
+
+		try
+		{
+			registrationDaoOperation.setRegistrationStatus(studentId);
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			return;
+		}
 	}
 
 }
