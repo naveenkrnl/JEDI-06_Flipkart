@@ -11,12 +11,11 @@ public class Course {
 
 	}
 
-	public Course(String courseCode, String courseName, String professorId, int seats) {
+	public Course(String courseCode, String courseName, String professorId) {
 		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.setProfessorId(professorId);
-		this.seats = seats;
 	}
 
 	public String getCourseCode() {

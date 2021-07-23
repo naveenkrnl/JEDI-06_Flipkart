@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Scanner;
 
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 
 import com.flipkart.business.AdminInterface;
@@ -84,12 +86,41 @@ public class AdminCRSMenu {
 
 
     private void assignCourseToProfessor() {
-        System.out.println("AssignCourseToProfessor called");
+        List<Professor> professorList= adminOperation.viewProfessors();
+        System.out.println("*************************** Professor *************************** ");
+        System.out.println(String.format("%20s | %20s | %20s ", "ProfessorId", "Name", "Designation"));
+        for(Professor professor : professorList) {
+            System.out.println(String.format("%20s | %20s | %20s ", professor.getUserId(), professor.getName(), professor.getDesignation()));
+        }
+
+
+        System.out.println("\n\n");
+        List<Course> courseList= adminOperation.viewCourses(1);
+        System.out.println("**************** Course ****************");
+        System.out.println(String.format("%20s | %20s", "CourseCode", "CourseName"));
+        for(Course course : courseList) {
+            System.out.println(String.format("%20s | %20s ", course.getCourseCode(), course.getCourseName()));
+        }
+
+        System.out.println("Enter Course Code:");
+        String courseCode = scanner.next();
+
+        System.out.println("Enter Professor's User Id:");
+        String userId = scanner.next();
+
+        try {
+
+            adminOperation.assignCourse(courseCode, userId);
+
+        }
+        catch(Exception e) {
+
+            System.err.println(e.getMessage());
+        }
     }
 
 
     private void addProfessor() {
-
         Professor professor = new Professor();
 
         System.out.println("Enter Professor Name:");
@@ -125,29 +156,93 @@ public class AdminCRSMenu {
         professor.setCountry(country);
 
         professor.setRole(Role.stringToName("Professor"));
+
+        try {
+            adminOperation.addProfessor(professor);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
     private List<Student> viewPendingAdmissions() {
-        System.out.println("viewPendingAdmission called");
-        return null;
+        List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
+        if(pendingStudentsList.size() == 0) {
+            return pendingStudentsList;
+        }
+        System.out.println(String.format("%20s | %20s | %20s | %20s", "UserId", "Name", "Gender"));
+        for(Student student : pendingStudentsList) {
+            System.out.println(String.format("%20s | %20s | %20s", student.getUserId(), student.getName(), student.getGender().toString()));
+        }
+        return pendingStudentsList;
     }
 
 
     private void approveStudent() {
-        System.out.println("approveStudent called");
+        List<Student> studentList = viewPendingAdmissions();
+        if(studentList.size() == 0) {
+            return;
+        }
+
+        System.out.println("Enter Student's ID:");
+        int studentUserIdApproval = scanner.nextInt();
+
+        try {
+            adminOperation.approveStudent(studentUserIdApproval, studentList);
+            //send notification from system
+            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
 
     private void deleteCourse() {
-        System.out.println("deleteCourse called");
+        List<Course> courseList = viewCoursesInCatalogue();
+        System.out.println("Enter Course Code:");
+        String courseCode = scanner.next();
+
+        try {
+            adminOperation.deleteCourse(courseCode, courseList);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
 
     private void addCourseToCatalogue() {
-        System.out.println("addCourseToCatalogue called");
+        List<Course> courseList = viewCoursesInCatalogue();
+
+        scanner.nextLine();
+        System.out.println("Enter Course Code:");
+        String courseCode = scanner.nextLine();
+
+        System.out.println("Enter Course Name:");
+        String courseName = scanner.next();
+
+        Course course = new Course(courseCode, courseName, null);
+
+        try {
+            adminOperation.addCourse(course, courseList);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
-    private void viewCoursesInCatalogue() {
-        System.out.println("viewCoursesInCatalogue called");
+    private List<Course> viewCoursesInCatalogue() {
+        List<Course> courseList = adminOperation.viewCourses(1);
+        if(courseList.size() == 0) {
+            System.out.println("No course in the catalogue!");
+            return courseList;
+        }
+
+        System.out.println(String.format("%20s | %20s | %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+
+        for(Course course : courseList) {
+            System.out.println(String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(), course.getProfessorId()));
+        }
+
+        return courseList;
     }
 }
