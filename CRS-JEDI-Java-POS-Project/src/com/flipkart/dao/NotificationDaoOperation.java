@@ -7,37 +7,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
 
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.service.NotificationOperation;
+import com.flipkart.business.NotificationOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
  * 
- * @author JEDI-03
  * Class to implement Notification Dao Operations
  * Used for adding the notification to the database
  *
  */
 public class NotificationDaoOperation implements NotificationDaoInterface{
 	private static volatile NotificationDaoOperation instance=null;
-	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
-	
-	/**
-	 * Default Constructor
-	 */
+
+
 	private NotificationDaoOperation()
 	{
 
 	}
-	
-	/**
-	 * Method to make NotificationDaoOperation Singleton
-	 * @return
-	 */
+
 	public static NotificationDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -50,15 +41,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		return instance;
 	}
 	
-	/**
-	 * Send Notification using SQL commands
-	 * @param type: type of the notification to be sent
-	 * @param studentId: student to be notified
-	 * @param modeOfPayment: mode of payment used, defined in enum
-	 * @param amount
-	 * @return notification id for the record added in the database
-	 * @throws SQLException
-	 */
+
 	@Override
 	public int sendNotification(NotificationType type, int studentId,ModeOfPayment modeOfPayment,double amount) throws SQLException{
 		int notificationId=0;
@@ -104,14 +87,6 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		return notificationId;
 	}
 
-	/**
-	 * Perform Payment actions using SQL commands
-	 * @param studentId: Id of the student for which the payment is done
-	 * @param modeOfPayment: mode of payment used, defined in enum
-	 * @param amount 
-	 * @return: reference id of the transaction
-	 * @throws SQLException
-	 */
 	public UUID addPayment(int studentId, ModeOfPayment modeOfPayment,double amount) throws SQLException
 	{
 		UUID referenceId;
