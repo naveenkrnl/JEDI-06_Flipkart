@@ -84,7 +84,7 @@ public class StudentCRSMenu {
         
         System.out.println("Enter Course Code : ");
         String courseCode = sc.next();
-        System.out.println("Course " + courseCode + " registered sucessfully.");            
+        System.out.println("Course " + courseCode + " registered sucessfully.");
     
 	}
 	
