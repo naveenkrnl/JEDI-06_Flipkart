@@ -3,7 +3,6 @@ package com.flipkart.application;
 import java.util.List;
 import java.util.Scanner;
 
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -16,20 +15,18 @@ import com.flipkart.business.AdminOperation;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 
-
 public class AdminCRSMenu {
-
 
     AdminInterface adminOperation = new AdminOperation();
     Scanner scanner = new Scanner(System.in);
-    NotificationInterface notificationInterface=NotificationOperation.getInstance();
+    NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
     /**
      * Method to Create Admin Menu
      */
-    public void createMenu(){
+    public void createMenu() {
 
-        while(CRSApplication.loggedin) {
+        while (CRSApplication.loggedin) {
             System.out.println("****************************************");
             System.out.println("****************Admin Menu**************");
             System.out.println("****************************************");
@@ -45,7 +42,7 @@ public class AdminCRSMenu {
 
             int choice = scanner.nextInt();
 
-            switch(choice) {
+            switch (choice) {
                 case 1:
                     viewCoursesInCatalogue();
                     break;
@@ -84,21 +81,20 @@ public class AdminCRSMenu {
         }
     }
 
-
     private void assignCourseToProfessor() {
-        List<Professor> professorList= adminOperation.viewProfessors();
+        List<Professor> professorList = adminOperation.viewProfessors();
         System.out.println("*************************** Professor *************************** ");
         System.out.println(String.format("%20s | %20s | %20s ", "ProfessorId", "Name", "Designation"));
-        for(Professor professor : professorList) {
-            System.out.println(String.format("%20s | %20s | %20s ", professor.getUserId(), professor.getName(), professor.getDesignation()));
+        for (Professor professor : professorList) {
+            System.out.println(String.format("%20s | %20s | %20s ", professor.getUserId(), professor.getName(),
+                    professor.getDesignation()));
         }
 
-
         System.out.println("\n\n");
-        List<Course> courseList= adminOperation.viewCourses(1);
+        List<Course> courseList = adminOperation.viewCourses(1);
         System.out.println("**************** Course ****************");
         System.out.println(String.format("%20s | %20s", "CourseCode", "CourseName"));
-        for(Course course : courseList) {
+        for (Course course : courseList) {
             System.out.println(String.format("%20s | %20s ", course.getCourseCode(), course.getCourseName()));
         }
 
@@ -112,13 +108,11 @@ public class AdminCRSMenu {
 
             adminOperation.assignCourse(courseCode, userId);
 
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
 
             System.err.println(e.getMessage());
         }
     }
-
 
     private void addProfessor() {
         Professor professor = new Professor();
@@ -135,9 +129,9 @@ public class AdminCRSMenu {
         String designation = scanner.next();
         professor.setDesignation(designation);
 
-        System.out.println("Enter User Id:");
-        String userId = scanner.next();
-        professor.setUserId(userId);
+        // System.out.println("Enter User Id:");
+        // String userId = scanner.next();
+        // professor.setUserId(userId);
 
         System.out.println("Enter Password:");
         String password = scanner.next();
@@ -166,21 +160,21 @@ public class AdminCRSMenu {
     }
 
     private List<Student> viewPendingAdmissions() {
-        List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
-        if(pendingStudentsList.size() == 0) {
+        List<Student> pendingStudentsList = adminOperation.viewPendingAdmissions();
+        if (pendingStudentsList.size() == 0) {
             return pendingStudentsList;
         }
         System.out.println(String.format("%20s | %20s | %20s | %20s", "UserId", "Name", "Gender"));
-        for(Student student : pendingStudentsList) {
-            System.out.println(String.format("%20s | %20s | %20s", student.getUserId(), student.getName(), student.getGender().toString()));
+        for (Student student : pendingStudentsList) {
+            System.out.println(String.format("%20s | %20s | %20s", student.getUserId(), student.getName(),
+                    student.getGender().toString()));
         }
         return pendingStudentsList;
     }
 
-
     private void approveStudent() {
         List<Student> studentList = viewPendingAdmissions();
-        if(studentList.size() == 0) {
+        if (studentList.size() == 0) {
             return;
         }
 
@@ -189,14 +183,14 @@ public class AdminCRSMenu {
 
         try {
             adminOperation.approveStudent(studentUserIdApproval, studentList);
-            //send notification from system
-            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
+            // send notification from system
+            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,
+                    0);
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
-
 
     private void deleteCourse() {
         List<Course> courseList = viewCoursesInCatalogue();
@@ -209,7 +203,6 @@ public class AdminCRSMenu {
             System.err.println(e.getMessage());
         }
     }
-
 
     private void addCourseToCatalogue() {
         List<Course> courseList = viewCoursesInCatalogue();
@@ -232,15 +225,16 @@ public class AdminCRSMenu {
 
     private List<Course> viewCoursesInCatalogue() {
         List<Course> courseList = adminOperation.viewCourses(1);
-        if(courseList.size() == 0) {
+        if (courseList.size() == 0) {
             System.out.println("No course in the catalogue!");
             return courseList;
         }
 
-        System.out.println(String.format("%20s | %20s | %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+        System.out.println(String.format("%20s | %20s | %20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 
-        for(Course course : courseList) {
-            System.out.println(String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(), course.getProfessorId()));
+        for (Course course : courseList) {
+            System.out.println(String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(),
+                    course.getProfessorId()));
         }
 
         return courseList;
