@@ -21,6 +21,7 @@ import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
+import com.flipkart.utils.StringUtils;
 
 /**
  *
@@ -40,18 +41,9 @@ public class AdminCRSMenu {
     public void createMenu(){
 
         while(CRSApplication.loggedin) {
-            System.out.println("*****************************");
-            System.out.println("**********Admin Menu*********");
-            System.out.println("*****************************");
-            System.out.println("1. View course in catalog");
-            System.out.println("2. Add Course to catalog");
-            System.out.println("3. Delete Course from catalog");
-            System.out.println("4. Approve Students");
-            System.out.println("5. View Pending Admission");
-            System.out.println("6. Add Professor");
-            System.out.println("7. Assign Courses To Professor");
-            System.out.println("8. Logout");
-            System.out.println("*****************************");
+
+            StringUtils.printMenu("Administrative Control Menu", new String[] {"View course in catalog","Add Course to catalog" ,"Delete Course from catalog","Approve Students"
+            , "View Pending Admission","Add Professor" ,"Assign Courses To Professor","Logout"},100);
 
             int choice = scanner.nextInt();
 
