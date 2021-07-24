@@ -16,6 +16,7 @@ import com.flipkart.business.UserInterface;
 import com.flipkart.business.UserOperation;
 import com.flipkart.constant.Color;
 import com.flipkart.utils.StringUtils;
+
 /**
  * This class is used as the main entry point of the application
  * In main menu to login, register are displayed
@@ -52,13 +53,13 @@ public class CRSApplication {
                         crsApplication.updatePassword();
                         break;
                     default:
-                        System.out.println("Invalid Input");
+                        StringUtils.printErrorMessage("Invalid Input");
                 }
                 createMainMenu();
                 userInput = sc.nextInt();
             }
         } catch (Exception ex) {
-            System.err.println("Error occured " + ex);
+            StringUtils.printErrorMessage("Error occured " + ex);
         } finally {
             sc.close();
         }
@@ -68,13 +69,14 @@ public class CRSApplication {
      * Method to Create Main Menu
      */
     public static void createMainMenu() {
-        StringUtils.printMenu("Welcome to Course Management System", new String[] {
+        StringUtils.printMenu("Welcome to Course Management System", new String[]{
                 "Login",
                 "Student Registration",
                 "Update password",
                 "Exit"
-                    },100);
-        System.out.println( StringUtils.padding("Enter user input",100));
+        }, 100);
+
+        StringUtils.printPrompt();
     }
 
 
@@ -90,7 +92,7 @@ public class CRSApplication {
 
         String userId, password;
         try {
-            System.out.println("-----------------Login------------------");
+            StringUtils.printHeading("Login Portal", 100);
             System.out.println("Email:");
             userId = sc.next();
             System.out.println("Password:");
@@ -111,12 +113,12 @@ public class CRSApplication {
                 Role userRole = Role.stringToName(role);
                 switch (userRole) {
                     case ADMIN:
-                        System.out.println(formattedDate + " Login Successful");
+                        StringUtils.printSuccessMessage(formattedDate + " Login Successful as Admin", 100);
                         AdminCRSMenu adminMenu = new AdminCRSMenu();
                         adminMenu.createMenu();
                         break;
                     case PROFESSOR:
-                        System.out.println(formattedDate + " Login Successful");
+                        StringUtils.printSuccessMessage(formattedDate + " Login Successful for Professor");
                         ProfessorCRSMenu professorMenu = new ProfessorCRSMenu();
                         professorMenu.createMenu(userId);
 
@@ -126,12 +128,12 @@ public class CRSApplication {
                         int studentId = studentInterface.getStudentId(userId);
                         boolean isApproved = studentInterface.isApproved(studentId);
                         if (isApproved) {
-                            System.out.println(formattedDate + " Login Successful");
+                            StringUtils.printSuccessMessage(formattedDate + " Login Successful for Student");
                             StudentCRSMenu studentMenu = new StudentCRSMenu();
                             studentMenu.create_menu(studentId);
 
                         } else {
-                            System.err.println("Failed to login, you have not been approved by the administration!");
+                            StringUtils.printErrorMessage("Failed to login, you have not been approved by the administration!");
                             loggedin = false;
                         }
                         break;
@@ -139,11 +141,11 @@ public class CRSApplication {
 
 
             } else {
-                System.err.println("Invalid Credentials!");
+                StringUtils.printErrorMessage("Invalid Credentials!");
             }
 
         } catch (UserNotFoundException ex) {
-            System.err.println(ex.getMessage());
+            StringUtils.printErrorMessage(ex.getMessage());
         }
     }
 
@@ -158,7 +160,7 @@ public class CRSApplication {
         int genderV, batch;
         try {
             //input all the student details
-            System.out.println("---------------Student Registration-------------");
+            StringUtils.printHeading("Student Registration Portal");
             System.out.println("Name:");
             name = sc.nextLine();
             System.out.println("Email:");
@@ -182,7 +184,7 @@ public class CRSApplication {
             notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0);
 
         } catch (Exception ex) {
-            System.err.println("Something went wrong! not registered. Please try again" + ex.getMessage());
+            StringUtils.printErrorMessage("Something went wrong! not registered. Please try again" + ex.getMessage());
         }
     }
 
@@ -193,19 +195,18 @@ public class CRSApplication {
         Scanner sc = new Scanner(System.in);
         String userId, newPassword;
         try {
-            System.out.println("------------------Update Password--------------------");
+            StringUtils.printHeading("Update Password Portal");
             System.out.println("Email");
             userId = sc.next();
             System.out.println("New Password:");
             newPassword = sc.next();
             boolean isUpdated = userInterface.updatePassword(userId, newPassword);
             if (isUpdated)
-                System.out.println("Password updated successfully!");
-
+                StringUtils.printSuccessMessage("Password updated successfully!");
             else
-                System.err.println("Something went wrong, please try again!");
+                StringUtils.printErrorMessage("Something went wrong, please try again!");
         } catch (Exception ex) {
-            System.err.println("Error Occured " + ex.getMessage());
+            StringUtils.printErrorMessage("Error Occured " + ex.getMessage());
         }
     }
 }
