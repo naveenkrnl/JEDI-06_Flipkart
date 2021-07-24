@@ -1,8 +1,8 @@
 package com.flipkart.dao;
 
-import java.util.*;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.RegisteredCourse;
+// import java.util.*;
+// import com.flipkart.bean.Course;
+// import com.flipkart.bean.RegisteredCourse;
 
 /**
  * 

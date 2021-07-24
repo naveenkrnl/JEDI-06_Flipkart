@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-//import com.flipkart.application.CRSApplication;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 
@@ -34,8 +33,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
             return false;
         Connection connection = DBUtils.getConnection();
         String queryToExecute = SQLQueriesConstants.ADD_STUDENT;
-        try {
-            PreparedStatement preparedStatementStudent = connection.prepareStatement(queryToExecute);
+        try (PreparedStatement preparedStatementStudent = connection.prepareStatement(queryToExecute);) {
             preparedStatementStudent.setInt(1, student.getUserId());
             preparedStatementStudent.setString(2, student.getBranchName());
             preparedStatementStudent.setInt(3, student.getBatch());
@@ -67,8 +65,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
     public static Student getStudentFromUserIdImpl(int userId) {
         Connection connection = DBUtils.getConnection();
         String queryToExecute = SQLQueriesConstants.GET_STUDENT_FROM_USERID;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()) {
@@ -116,16 +113,16 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     @Override
     public int getStudentUserId(String email) {
-         User user = UserDaoOperation.getUserFromEmail(email);
-         if(user==null)
-             return -1;
-         return user.getUserId();
+        User user = UserDaoOperation.getUserFromEmail(email);
+        if (user == null)
+            return -1;
+        return user.getUserId();
     }
 
     @Override
     public boolean isApproved(int userId) {
         Student student = StudentDaoOperation.getStudentFromUserId(userId);
-        if(student==null)
+        if (student == null)
             return false;
         return student.isApproved();
     }

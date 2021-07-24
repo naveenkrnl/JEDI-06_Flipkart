@@ -1,5 +1,6 @@
 package com.flipkart.dao;
 
+// import java.security.DrbgParameters.Reseed;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
-import com.mysql.cj.xdevapi.Statement;
+// import com.mysql.cj.xdevapi.Statement;
 
 /**
  * Dao Class Operations for Admin
@@ -42,8 +43,8 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			return false;
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_ADMIN_QUERY;
-		try {
-			PreparedStatement preparedStatementadmin = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement preparedStatementadmin = connection.prepareStatement(queryToExecute);) {
+
 			preparedStatementadmin.setInt(1, admin.getUserId());
 			int rowsAffected = preparedStatementadmin.executeUpdate();
 			if (rowsAffected == 0) {
@@ -54,13 +55,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			return true;
 		} catch (SQLException sqlErr) {
 			UserDaoOperation.deleteUserObjectFromUserId(admin.getUserId());
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -87,9 +88,8 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		List<Student> userList = new ArrayList<Student>();
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.VIEW_PENDING_ADMISSION_QUERY;
-		try {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
 
-			PreparedStatement statement = connection.prepareStatement(queryToExecute);
 			ResultSet resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {
@@ -114,13 +114,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			// System.out.println(userList.size() + " students have pending-approval.");
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -132,8 +132,8 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	public void approveStudent(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
-		try {
-			PreparedStatement statement = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+
 			statement.setInt(1, userId);
 			int row = statement.executeUpdate();
 
@@ -149,13 +149,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			// System.out.println("Student with userId: " + userId + " approved by admin.");
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -172,9 +172,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.VIEW_PROFESSOR_QUERY;
 		List<Professor> professorList = new ArrayList<>();
-		try {
-
-			PreparedStatement statement = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
 			ResultSet resultSet = statement.executeQuery();
 
 			// user.name, user.gender, user.address, user.country, user.userId, user.role,
@@ -201,13 +199,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			// System.out.println(professorList.size() + " professors in the institute.");
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -218,35 +216,76 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute;
 		if (course.getProfessorUserId() != -1) {
-			queryToExecute = SQLQueriesConstants.ADD_COURSE_QUERY_WITH_PROFID;
+			queryToExecute = SQLQueriesConstants.ADD_COURSE_QUERY_WITH_PROFESSOR_USER_ID;
 		} else {
 			queryToExecute = SQLQueriesConstants.ADD_COURSE_QUERY;
 		}
 
-		try {
-			PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute);
-			preparedStatementcourse.setString(1, course.getCourseName());
-			preparedStatementcourse.setInt(1, course.getCourseCatalogId());
+		try (PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute)) {
+			// courseCode, courseName, courseCatalogId, professorUserId
+
+			preparedStatementcourse.setString(1, course.getCourseCode());
+			preparedStatementcourse.setString(2, course.getCourseName());
+			preparedStatementcourse.setInt(3, course.getCourseCatalogId());
 			if (course.getProfessorUserId() != -1)
-				preparedStatementcourse.setInt(1, course.getProfessorUserId());
+				preparedStatementcourse.setInt(4, course.getProfessorUserId());
 			int rowsAffected = preparedStatementcourse.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
 				// TODO : Add exception course Record Not created
 			}
+			Course courseFromDB = getCouseFromCourseCodeAndCatalogId(course.getCourseCode(),
+					course.getCourseCatalogId());
+			assert courseFromDB != null;
+			course.setCourseId(courseFromDB.getCourseId());
 			return true;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
 		return false;
+	}
+
+	public static Course getCouseFromCourseCodeAndCatalogId(String courseCode, int catalogId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_COURSE_FROM_COURSE_CODE_AND_CATALOG_ID;
+		try (PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatementcourse.setString(1, courseCode);
+			preparedStatementcourse.setInt(2, catalogId);
+			ResultSet resultSet = preparedStatementcourse.executeQuery();
+			if (!resultSet.next()) {
+				return null;
+				// TODO : Add exception course Record Not found
+			}
+			// courseId, courseCode, courseName, professorUserId, courseCatalogId
+
+			Course course = new Course();
+			course.setCourseId(resultSet.getInt(1));
+			course.setCourseCode(resultSet.getString(2));
+			course.setCourseName(resultSet.getString(3));
+			course.setProfessorUserId(resultSet.getInt(4));
+			course.setCourseCatalogId(resultSet.getInt(5));
+			return course;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	public boolean addCourse(Course course) {
@@ -254,21 +293,20 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	}
 
 	// @Override
-	public boolean assignCourse(int courseCode, int professorUserId) {
+	public boolean assignCourseToProfessor(int courseId, int professorUserId) {
 
 		Connection connection = DBUtils.getConnection();
-		String queryToExecute = SQLQueriesConstants.ASSIGN_COURSE_QUERY;
-		try {
-			PreparedStatement statement = connection.prepareStatement(queryToExecute);
+		String queryToExecute = SQLQueriesConstants.ASSIGN_COURSE_TO_PROFESSOR_FROM_COURSE_ID;
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
 
 			statement.setInt(1, professorUserId);
-			statement.setInt(2, courseCode);
+			statement.setInt(2, courseId);
 			int row = statement.executeUpdate();
 
 			// System.out.println("Message - ");
 			// System.out.println(row + " course assigned.");
 			if (row == 0) {
-				System.err.println(courseCode + " not found");
+				// System.err.println(courseId + " not found");
 				return false;
 			}
 
@@ -279,13 +317,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			return true;
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -294,19 +332,19 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 	// // TODO : Fix me
 	// @Override
-	public boolean deleteCourse(int courseCode) {
+	public boolean deleteCourse(int courseId) {
 
 		Connection connection = DBUtils.getConnection();
-		String queryToExecute = SQLQueriesConstants.DELETE_COURSE_QUERY;
-		try {
-			PreparedStatement statement = connection
-					.prepareStatement(SQLQueriesConstants.DELETE_REGISTERED_COURSE_FROM_COURSE_ID);
-			statement.setInt(1, courseCode);
-			statement.executeUpdate();
+		String queryToExecute = SQLQueriesConstants.DELETE_COURSE_FROM_FROM_COURSE_ID;
+		try (PreparedStatement statement1 = connection
+				.prepareStatement(SQLQueriesConstants.DELETE_REGISTERED_COURSE_FROM_COURSE_ID);
+				PreparedStatement statement2 = connection.prepareStatement(queryToExecute);) {
 
-			statement = connection.prepareStatement(queryToExecute);
-			statement.setInt(1, courseCode);
-			int row = statement.executeUpdate();
+			statement1.setInt(1, courseId);
+			statement1.executeUpdate();
+
+			statement2.setInt(1, courseId);
+			int row = statement2.executeUpdate();
 			// System.err.println(row + " entries deleted.");
 			if (row == 0) {
 				// System.err.println(courseCode + " not in catalog!");
@@ -314,13 +352,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			}
 			return true;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -332,19 +370,21 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_COURSE_LIST_FROM_COURSE_CATALOG_ID;
 		List<Course> courseList = new ArrayList<>();
-		try {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
 
 			// String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
-			PreparedStatement statement = connection.prepareStatement(queryToExecute);
+
 			statement.setInt(1, courseCatalogId);
 			ResultSet resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {
 				Course course = new Course();
-				course.setCourseCode(resultSet.getInt(1));
-				course.setCourseName(resultSet.getString(2));
-				course.setProfessorUserId(resultSet.getInt(3));
-				course.setCourseCatalogId(resultSet.getInt(4));
+				// courseId, courseCode, courseName, professorUserId, courseCatalogId
+				course.setCourseId(resultSet.getInt(1));
+				course.setCourseCode(resultSet.getString(2));
+				course.setCourseName(resultSet.getString(3));
+				course.setProfessorUserId(resultSet.getInt(4));
+				course.setCourseCatalogId(resultSet.getInt(5));
 				courseList.add(course);
 			}
 
@@ -353,13 +393,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			// + ".");
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}

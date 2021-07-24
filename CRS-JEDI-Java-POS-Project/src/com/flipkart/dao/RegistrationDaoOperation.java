@@ -1,34 +1,33 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+// import java.sql.Connection;
+// import java.sql.PreparedStatement;
+// import java.sql.ResultSet;
+// import java.sql.SQLException;
+// import java.util.ArrayList;
+// import java.util.List;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
-import com.flipkart.constant.Grade;
-import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.utils.DBUtils;
+// import com.flipkart.bean.Course;
+// import com.flipkart.bean.GradeCard;
+// import com.flipkart.constant.Grade;
+// import com.flipkart.constant.SQLQueriesConstants;
+// import com.flipkart.utils.DBUtils;
 
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
-	// private static volatile RegistrationDaoOperation instance = null;
-	// private PreparedStatement stmt = null;
+	private static RegistrationDaoOperation instance = null;
 
-	// private RegistrationDaoOperation() {
-	// }
+	private RegistrationDaoOperation() {
+	}
 
-	// public static RegistrationDaoOperation getInstance() {
-	// if (instance == null) {
-	// synchronized (RegistrationDaoOperation.class) {
-	// instance = new RegistrationDaoOperation();
-	// }
-	// }
-	// return instance;
-	// }
+	public static RegistrationDaoOperation getInstance() {
+		if (instance == null) {
+			synchronized (RegistrationDaoOperation.class) {
+				instance = new RegistrationDaoOperation();
+			}
+		}
+		return instance;
+	}
 
 	// @Override
 	// public boolean addCourse(String courseCode, int studentId) throws

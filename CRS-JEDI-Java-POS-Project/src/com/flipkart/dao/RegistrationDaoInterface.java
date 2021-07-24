@@ -1,10 +1,10 @@
 package com.flipkart.dao;
 
-import java.sql.SQLException;
-import java.util.List;
+// import java.sql.SQLException;
+// import java.util.List;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
+// import com.flipkart.bean.Course;
+// import com.flipkart.bean.GradeCard;
 
 /**
  * Interface for Registration DAO Operation

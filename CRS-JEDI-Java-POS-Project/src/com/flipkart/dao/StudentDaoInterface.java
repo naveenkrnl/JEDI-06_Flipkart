@@ -1,9 +1,5 @@
 package com.flipkart.dao;
 
-import java.sql.SQLException;
-
-import com.flipkart.bean.Student;
-
 /**
  * 
  * Interface for Student Operations

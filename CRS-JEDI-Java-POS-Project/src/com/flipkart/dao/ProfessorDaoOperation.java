@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
-import com.flipkart.bean.RegisteredCourse;
+// import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.User;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
@@ -32,9 +32,8 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			return false;
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
-		try {
+		try (PreparedStatement preparedStatementprofessor = connection.prepareStatement(queryToExecute);) {
 			// userId, department, designation
-			PreparedStatement preparedStatementprofessor = connection.prepareStatement(queryToExecute);
 			preparedStatementprofessor.setInt(1, professor.getUserId());
 			preparedStatementprofessor.setString(2, professor.getDepartment());
 			preparedStatementprofessor.setString(3, professor.getDesignation());
@@ -48,13 +47,13 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 		} catch (SQLException sqlErr) {
 			UserDaoOperation.deleteUserObjectFromUserId(professor.getUserId());
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -64,8 +63,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	public static Professor getProfessorFromUserIdImpl(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_PROFESSOR_FROM_USERID;
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 			preparedStatement.setInt(1, userId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
@@ -80,13 +78,13 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			professor.setDesignation(resultSet.getString(3));
 			return professor;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -120,27 +118,28 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	public List<Course> getCoursesByProfessorUserId(int professorUserId) {
 		Connection connection = DBUtils.getConnection();
 		List<Course> courseList = new ArrayList<>();
-		String QueryToExecute = SQLQueriesConstants.GET_COURSES_BY_PROFESSOR_USER_ID;
-		try {
-			PreparedStatement statement = connection.prepareStatement(QueryToExecute);
+		String queryToExecute = SQLQueriesConstants.GET_COURSES_BY_PROFESSOR_USER_ID;
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 			statement.setInt(1, professorUserId);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Course course = new Course();
-				course.setCourseCode(resultSet.getInt(1));
-				course.setCourseName(resultSet.getString(2));
-				course.setProfessorUserId(resultSet.getInt(3));
-				course.setCourseCatalogId(resultSet.getInt(4));
+				// courseId, courseCode, courseName, professorUserId, courseCatalogId
+				course.setCourseId(resultSet.getInt(1));
+				course.setCourseCode(resultSet.getString(2));
+				course.setCourseName(resultSet.getString(3));
+				course.setProfessorUserId(resultSet.getInt(4));
+				course.setCourseCatalogId(resultSet.getInt(5));
 				courseList.add(course);
 			}
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}

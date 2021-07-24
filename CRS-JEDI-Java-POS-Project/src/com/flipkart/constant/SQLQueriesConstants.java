@@ -2,23 +2,26 @@ package com.flipkart.constant;
 
 /**
  *
- * @author JEDI-03
  *
  */
 
 public class SQLQueriesConstants {
+    private SQLQueriesConstants() {
+
+    }
 
     // AdminDao Queries
     public static final String ADD_ADMIN_QUERY = "insert into admin(userId) values(?)";
     public static final String APPROVE_STUDENT_QUERY = "update student set isApproved = 1 where userId = ?";
     public static final String VIEW_PROFESSOR_QUERY = "select user.name, user.gender, user.address, user.country, user.userId, user.role, user.password, user.email, user.doj, professor.department, professor.designation from professor inner join user on user.userId = professor.userId";
     public static final String VIEW_PENDING_ADMISSION_QUERY = "select user.userId, user.name, user.email, user.password, user.role, user.gender, user.address, user.country, user.doj, student.branchName, student.batch, student.rollNumber from student join user on (user.userId = student.userId) where student.isApproved = 0";
-    public static final String ADD_COURSE_QUERY = "insert into Course(courseName, courseCatalogId) values (?, ?)";
-    public static final String ADD_COURSE_QUERY_WITH_PROFID = "insert into Course(courseName, courseCatalogId , professorUserId) values (?, ?, ?)";
-    public static final String ASSIGN_COURSE_QUERY = "update Course set professorUserId = ? where courseCode = ?";
-    public static final String DELETE_REGISTERED_COURSE_FROM_COURSE_ID = "delete from RegisteredCourse where courseCode = ?";
-    public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";
-    public static final String GET_COURSE_LIST_FROM_COURSE_CATALOG_ID = "select courseCode, courseName, professorUserId, courseCatalogId from Course where courseCatalogId = ?";
+    public static final String ADD_COURSE_QUERY = "insert into Course(courseCode, courseName, courseCatalogId) values (?, ?, ?)";
+    public static final String ADD_COURSE_QUERY_WITH_PROFESSOR_USER_ID = "insert into Course(courseCode, courseName, courseCatalogId, professorUserId) values (?, ?, ?, ?)";
+    public static final String GET_COURSE_FROM_COURSE_CODE_AND_CATALOG_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId from Course where courseCode = ? and courseCatalogId = ?";
+    public static final String ASSIGN_COURSE_TO_PROFESSOR_FROM_COURSE_ID = "update Course set professorUserId = ? where courseId = ?";
+    public static final String DELETE_REGISTERED_COURSE_FROM_COURSE_ID = "delete from RegisteredCourse where courseId = ?";
+    public static final String DELETE_COURSE_FROM_FROM_COURSE_ID = "delete from Course where courseId = ?";
+    public static final String GET_COURSE_LIST_FROM_COURSE_CATALOG_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId from Course where courseCatalogId = ?";
 
     // Professsor Queries
     public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
@@ -28,12 +31,13 @@ public class SQLQueriesConstants {
     public static final String IS_APPROVED = "select isApproved from student where userId = ? ";
     public static final String GET_STUDENT_ID = "select userId from user where email = ? ";
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
-    public static final String GET_COURSES_BY_PROFESSOR_USER_ID = "select courseCode, courseName, professorUserId, courseCatalogId from course where professorUserId = ?";
+    public static final String GET_COURSES_BY_PROFESSOR_USER_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId from course where professorUserId = ?";
 
     // Student Queries
     public static final String ADD_STUDENT = "insert into student (userId,branchName,batch,rollNumber,isApproved) values (?,?,?,?,?)";
     public static final String GET_STUDENT_FROM_USERID = "select userId,branchName,batch,rollNumber,isApproved from student where userId = ?";
 
+    // Still left
     public static final String VIEW_REGISTERED_COURSES = " select * from course inner join enrolled_courses on course.courseCode = enrolled_courses.courseCode where enrolled_courses.studentId = ?";
     public static final String VIEW_AVAILABLE_COURSES = " select * from course where courseCode not in  (select courseCode  from enrolled_courses where studentId = ?) and course.isOffered = ? and seats > 0";
     public static final String CHECK_COURSE_AVAILABILITY = " select courseCode from enrolled_courses where studentId = ? ";

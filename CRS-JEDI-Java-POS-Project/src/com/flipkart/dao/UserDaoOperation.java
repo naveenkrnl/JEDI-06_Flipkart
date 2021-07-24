@@ -12,14 +12,13 @@ import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 import com.flipkart.utils.CryptoUtils;
-import com.flipkart.utils.Secrets;
 
 /**
  * 
  * Class to implement User Dao Operations
  */
 public class UserDaoOperation implements UserDaoInterface {
-	private static volatile UserDaoOperation instance = null;
+	private static UserDaoOperation instance = null;
 
 	private UserDaoOperation() {
 
@@ -28,8 +27,8 @@ public class UserDaoOperation implements UserDaoInterface {
 	public static boolean deleteUserObjectFromUserId(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.DELETE_USER_FROM_USER_ID;
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
 			preparedStatement.setInt(1, userId);
 			int rowsAffected = preparedStatement.executeUpdate();
 			if (rowsAffected == 0) {
@@ -39,13 +38,13 @@ public class UserDaoOperation implements UserDaoInterface {
 			}
 			return true;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -55,8 +54,8 @@ public class UserDaoOperation implements UserDaoInterface {
 	public static User getUserFromUserId(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_USER_INFO_FROM_USERID;
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
 			preparedStatement.setInt(1, userId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
@@ -86,13 +85,13 @@ public class UserDaoOperation implements UserDaoInterface {
 			user.setDoj(doj);
 			return user;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -102,8 +101,8 @@ public class UserDaoOperation implements UserDaoInterface {
 	public static User getUserFromEmail(String email) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_USER_INFO_FROM_EMAIL;
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
 			preparedStatement.setString(1, email);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
@@ -133,13 +132,13 @@ public class UserDaoOperation implements UserDaoInterface {
 			user.setDoj(doj);
 			return user;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -149,9 +148,9 @@ public class UserDaoOperation implements UserDaoInterface {
 	public static boolean createDBRecordAndUpdateObject(User user) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_USER_QUERY;
-		try {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
 			user.setPassword(CryptoUtils.generateDatabasePassword(user.getPassword()));
-			PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getGender().toString());
 			preparedStatement.setString(3, user.getAddress());
@@ -171,13 +170,13 @@ public class UserDaoOperation implements UserDaoInterface {
 			user.setDoj(userFromDB.getDoj());
 			return true;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
@@ -196,8 +195,7 @@ public class UserDaoOperation implements UserDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.UPDATE_PASSWORD;
 		// update user set password=? where email = ?
-		try {
-			PreparedStatement statement = connection.prepareStatement(queryToExecute);
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
 			statement.setString(1, CryptoUtils.generateDatabasePassword(newPassword));
 			statement.setString(2, email);
 			int row = statement.executeUpdate();
@@ -206,13 +204,13 @@ public class UserDaoOperation implements UserDaoInterface {
 			else
 				return false;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
 				closeErr.printStackTrace();
 			}
 		}
