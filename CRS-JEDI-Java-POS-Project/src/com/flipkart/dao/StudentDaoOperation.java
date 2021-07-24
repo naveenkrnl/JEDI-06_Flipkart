@@ -1,130 +1,154 @@
+/**
+ * 
+ */
 package com.flipkart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
+ *
  * Class to implement Student Dao Operations
+ *
  */
 public class StudentDaoOperation implements StudentDaoInterface {
 
-    private static StudentDaoOperation instance = null;
+	private static volatile StudentDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(StudentOperation.class);
 
-    private StudentDaoOperation() {
+	/**
+	 * Default Constructor
+	 */
+	private StudentDaoOperation() {
 
-    }
+	}
 
-    public static StudentDaoOperation getInstance() {
-        if (instance == null) {
-            instance = new StudentDaoOperation();
-        }
-        return instance;
-    }
+	/**
+	 * Method to make StudentDaoOperation Singleton
+	 * 
+	 * @return
+	 */
+	public static StudentDaoOperation getInstance() {
+		if (instance == null) {
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized (StudentDaoOperation.class) {
+				instance = new StudentDaoOperation();
+			}
+		}
+		return instance;
+	}
 
-    public static boolean createDBRecordAndUpdateObject(Student student) {
-        if (!UserDaoOperation.createDBRecordAndUpdateObject(student))
-            return false;
-        Connection connection = DBUtils.getConnection();
-        String queryToExecute = SQLQueriesConstants.ADD_STUDENT;
-        try (PreparedStatement preparedStatementStudent = connection.prepareStatement(queryToExecute);) {
-            preparedStatementStudent.setInt(1, student.getUserId());
-            preparedStatementStudent.setString(2, student.getBranchName());
-            preparedStatementStudent.setInt(3, student.getBatch());
-            preparedStatementStudent.setString(4, student.getrollNumber());
-            preparedStatementStudent.setBoolean(5, false);
-            int rowsAffected = preparedStatementStudent.executeUpdate();
-            if (rowsAffected == 0) {
-                UserDaoOperation.deleteUserObjectFromUserId(student.getUserId());
-                return false;
-                // TODO : Add exception Student Record Not created
-            }
-            return true;
+	/**
+	 * Method to add student to database
+	 * 
+	 * @param student: student object containing all the fields
+	 * @return true if student is added, else false
+	 * @throws StudentNotRegisteredException
+	 */
+	@Override
+	public int addStudent(Student student) throws StudentNotRegisteredException {
+		Connection connection = DBUtils.getConnection();
+		int studentId = 0;
+		try {
+			// open db connection
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY);
+			preparedStatement.setString(1, student.getUserId());
+			preparedStatement.setString(2, student.getName());
+			preparedStatement.setString(3, student.getPassword());
+			preparedStatement.setString(4, student.getRole().toString());
+			preparedStatement.setString(5, student.getGender().toString());
+			preparedStatement.setString(6, student.getAddress());
+			preparedStatement.setString(7, student.getCountry());
+			int rowsAffected = preparedStatement.executeUpdate();
+			if (rowsAffected == 1) {
+				// add the student record
+				// "insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
+				PreparedStatement preparedStatementStudent;
+				preparedStatementStudent = connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT,
+						Statement.RETURN_GENERATED_KEYS);
+				preparedStatementStudent.setString(1, student.getUserId());
+				preparedStatementStudent.setString(2, student.getBranchName());
+				preparedStatementStudent.setInt(3, student.getBatch());
+				preparedStatementStudent.setBoolean(4, false);
+				preparedStatementStudent.executeUpdate();
+				ResultSet results = preparedStatementStudent.getGeneratedKeys();
+				if (results.next())
+					studentId = results.getInt(1);
+			}
 
-        } catch (SQLException sqlErr) {
-            UserDaoOperation.deleteUserObjectFromUserId(student.getUserId());
-            System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
-            sqlErr.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException closeErr) {
-                System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
-                closeErr.printStackTrace();
-            }
-        }
-        return false;
-    }
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+			throw new StudentNotRegisteredException(student.getName());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage() + "SQL error");
+				e.printStackTrace();
+			}
+		}
+		return studentId;
+	}
 
-    public static Student getStudentFromUserIdImpl(int userId) {
-        Connection connection = DBUtils.getConnection();
-        String queryToExecute = SQLQueriesConstants.GET_STUDENT_FROM_USERID;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
-            preparedStatement.setInt(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (!resultSet.next()) {
-                return null;
-                // @yaduraj
-                // TODO : Add exception User Record not found
-            }
-            // userId,branchName,batch,rollNumber,isApproved
-            Student student = new Student();
-            student.setUserId(resultSet.getInt(1));
-            student.setBranchName(resultSet.getString(2));
-            student.setBatch(resultSet.getInt(3));
-            student.setrollNumber(resultSet.getString(4));
-            student.setApproved(resultSet.getBoolean(5));
-            return student;
-        } catch (SQLException sqlErr) {
-            System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
-            sqlErr.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException closeErr) {
-                System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
-                closeErr.printStackTrace();
-            }
-        }
-        return null;
+	/**
+	 * Method to retrieve Student Id from User Id
+	 * 
+	 * @param userId
+	 * @return Student Id
+	 */
+	@Override
+	public int getStudentId(String userId) {
+		Connection connection = DBUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_STUDENT_ID);
+			statement.setString(1, userId);
+			ResultSet rs = statement.executeQuery();
 
-    }
+			if (rs.next()) {
+				return rs.getInt("studentId");
+			}
 
-    public static Student getStudentFromUserId(int userId) {
-        User user = UserDaoOperation.getUserFromUserId(userId);
-        if (user == null)
-            return null;
-        return new Student(user);
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		}
 
-    }
+		return 0;
+	}
 
-    public static Student getStudentFromEmail(String email) {
-        User user = UserDaoOperation.getUserFromEmail(email);
-        if (user == null)
-            return null;
-        return new Student(user);
-    }
+	/**
+	 * Method to check if Student is approved
+	 * 
+	 * @param studentId
+	 * @return boolean indicating if student is approved
+	 */
+	@Override
+	public boolean isApproved(int studentId) {
+		Connection connection = DBUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.IS_APPROVED);
+			statement.setInt(1, studentId);
+			ResultSet rs = statement.executeQuery();
 
-    @Override
-    public int getStudentUserId(String email) {
-        User user = UserDaoOperation.getUserFromEmail(email);
-        if (user == null)
-            return -1;
-        return user.getUserId();
-    }
+			if (rs.next()) {
+				return rs.getBoolean("isApproved");
+			}
 
-    @Override
-    public boolean isApproved(int userId) {
-        Student student = StudentDaoOperation.getStudentFromUserId(userId);
-        if (student == null)
-            return false;
-        return student.isApproved();
-    }
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		}
+
+		return false;
+	}
 
 }
