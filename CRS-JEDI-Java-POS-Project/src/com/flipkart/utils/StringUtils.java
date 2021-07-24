@@ -43,6 +43,7 @@ public class StringUtils {
         {
             System.out.println(Color.ANSI_BLACK_BACKGROUND + StringUtils.padding(pad+ i +". "+options[i-1],menuWidth) + Color.ANSI_RESET);
         }
+        System.out.println(Color.ANSI_BLACK_BACKGROUND +  StringUtils.center(" ",menuWidth)+ Color.ANSI_RESET);
         System.out.println(Color.ANSI_BLACK_BACKGROUND +Color.ANSI_CYAN +Color.ANSI_BOLD + StringUtils.center("",menuWidth,'-')+ Color.ANSI_RESET);
         System.out.println(Color.ANSI_BLACK_BACKGROUND +  StringUtils.center(" ",menuWidth)+ Color.ANSI_RESET);
         System.out.println(Color.ANSI_CYAN_BACKGROUND + StringUtils.center(" ",menuWidth)+ Color.ANSI_RESET);

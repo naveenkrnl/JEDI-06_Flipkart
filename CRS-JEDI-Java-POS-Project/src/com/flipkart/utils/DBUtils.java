@@ -21,7 +21,7 @@ public class DBUtils {
         Connection connection = null;
 
         try {
-//            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;
 
