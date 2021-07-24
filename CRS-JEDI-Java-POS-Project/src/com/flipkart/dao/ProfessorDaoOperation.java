@@ -117,37 +117,35 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	// @Override
-	// public List<Course> getCoursesByProfessor(int userId) {
-	// Connection connection = DBUtils.getConnection();
-	// List<Course> courseList = new ArrayList<>();
-	// String QueryToExecute = SQLQueriesConstants.GET_COURSES;
-	// try {
-	// PreparedStatement statement = connection.prepareStatement(QueryToExecute);
-
-	// statement.setInt(1, userId);
-
-	// ResultSet results = statement.executeQuery();
-	// while (results.next()) {
-	// courseList.add(new Course(results.getString("courseCode"),
-	// results.getString("courseName"),
-	// results.getString("professorId")));
-	// }
-	// } catch (SQLException sqlErr) {
-	// System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute,
-	// sqlErr.getMessage());
-	// sqlErr.printStackTrace();
-	// } finally {
-	// try {
-	// connection.close();
-	// } catch (SQLException closeErr) {
-	// System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute,
-	// closeErr.getMessage());
-	// closeErr.printStackTrace();
-	// }
-	// }
-	// return courseList;
-
-	// }
+	public List<Course> getCoursesByProfessorUserId(int professorUserId) {
+		Connection connection = DBUtils.getConnection();
+		List<Course> courseList = new ArrayList<>();
+		String QueryToExecute = SQLQueriesConstants.GET_COURSES_BY_PROFESSOR_USER_ID;
+		try {
+			PreparedStatement statement = connection.prepareStatement(QueryToExecute);
+			statement.setInt(1, professorUserId);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Course course = new Course();
+				course.setCourseCode(resultSet.getInt(1));
+				course.setCourseName(resultSet.getString(2));
+				course.setProfessorUserId(resultSet.getInt(3));
+				course.setCourseCatalogId(resultSet.getInt(4));
+				courseList.add(course);
+			}
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s\n%s\n", QueryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s\n%s\n", QueryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return courseList;
+	}
 
 	// @Override
 	// public List<RegisteredCourse> getEnrolledStudents(int profId) {

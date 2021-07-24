@@ -28,6 +28,7 @@ public class SQLQueriesConstants {
     public static final String IS_APPROVED = "select isApproved from student where userId = ? ";
     public static final String GET_STUDENT_ID = "select userId from user where email = ? ";
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
+    public static final String GET_COURSES_BY_PROFESSOR_USER_ID = "select courseCode, courseName, professorUserId, courseCatalogId from course where professorUserId = ?";
 
     // Student Queries
     public static final String ADD_STUDENT = "insert into student (userId,branchName,batch,rollNumber,isApproved) values (?,?,?,?,?)";
@@ -47,7 +48,6 @@ public class SQLQueriesConstants {
     public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
     public static final String GET_NOTIFICATION = "select * from notification where referenceId = ?;";
     public static final String ADD_GRADE = "update enrolled_course set grade=? where courseCode=? and studentId=?";
-    public static final String GET_COURSES = "select * from course where professorId=?";
     public static final String GET_REGISTRATION_STATUS = " select isRegistered from student where studentId = ? ";
     public static final String SET_REGISTRATION_STATUS = "update student set isRegistered = true  where studentId=?";
     public static final String GET_ENROLLED_STUDENTS = "select course.courseCode,course.courseName,enrolled_courses.studentId from course inner join enrolled_courses on course.courseCode = enrolled_courses.courseCode where course.professorId = ? order by course.courseCode";
