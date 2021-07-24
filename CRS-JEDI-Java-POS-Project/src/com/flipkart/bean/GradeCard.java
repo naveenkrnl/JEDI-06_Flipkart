@@ -6,6 +6,23 @@ import com.flipkart.constant.Grade;
 
 public class GradeCard {
 
-	List<RegisteredCourse> list;
-	User user;
+	private List<RegisteredCourse> registeredCourses;
+	private Student student;
+
+	public List<RegisteredCourse> getRegisteredCourses() {
+		return registeredCourses;
+	}
+
+	public void setRegisteredCourses(List<RegisteredCourse> registeredCourses) {
+		this.registeredCourses = registeredCourses;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
 }

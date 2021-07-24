@@ -1,6 +1,7 @@
 package com.flipkart.application;
 
 import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.User;
 
@@ -194,6 +195,38 @@ public class CRSApplication {
     // }
     // }
     public static void main(String[] args) {
+        // Course course1 = new Course();
+        // course1.setCourseCatalogId(1);
+        // course1.setCourseCode("F206");
+        // course1.setCourseName("Some course1");
+        // AdminDaoOperation.createCourseDBRecordAndUpdateObject(course1);
+        // System.out.println(course1);
+
+        // Course course2 = new Course();
+        // course2.setCourseCatalogId(1);
+        // course2.setCourseCode("F207");
+        // course2.setCourseName("Some course2");
+        // course2.setProfessorUserId(13);
+        // AdminDaoOperation.createCourseDBRecordAndUpdateObject(course2);
+        // System.out.println(course2);
+        Connection connection = DBUtils.getConnection();
+        // AdminDaoOperation adminDaoOperation = AdminDaoOperation.getInstance();
+        // Course course3 = new Course();
+        // course3.setCourseCatalogId(1);
+        // course3.setCourseCode("F207");
+        // course3.setCourseName("Some course3");
+        // course3.setProfessorUserId(13);
+        // AdminDaoOperation.getInstance().createCourseDBRecordAndUpdateObject(course3);
+        // System.out.println(course3);
+        // adminDaoOperation.addCourse(course3);
+        // System.out.println(AdminDaoOperation.getCouseFromCourseCodeAndCatalogId("F206",
+        // 1));
+        // System.out.println(AdminDaoOperation.getCouseFromCourseCodeAndCatalogId("F207",
+        // 1));
+        // System.out.println(AdminDaoOperation.getCouseFromCourseId(3));
+        // System.out.println(AdminDaoOperation.getCouseFromCourseId(4));
+
+        // course.set
         // Connection connection = DBUtils.getConnection();
         // User user = new User();
         // user.setName("Name");

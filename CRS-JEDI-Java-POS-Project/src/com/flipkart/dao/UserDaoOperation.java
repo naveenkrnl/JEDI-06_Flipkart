@@ -21,10 +21,17 @@ public class UserDaoOperation implements UserDaoInterface {
 	private static UserDaoOperation instance = null;
 
 	private UserDaoOperation() {
-
 	}
 
-	public static boolean deleteUserObjectFromUserId(int userId) {
+	public static UserDaoOperation getInstance() {
+		if (instance == null) {
+			instance = new UserDaoOperation();
+		}
+		return instance;
+	}
+
+	@Override
+	public boolean deleteUserObjectFromUserId(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.DELETE_USER_FROM_USER_ID;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
@@ -51,7 +58,8 @@ public class UserDaoOperation implements UserDaoInterface {
 		return false;
 	}
 
-	public static User getUserFromUserId(int userId) {
+	@Override
+	public User getUserFromUserId(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_USER_INFO_FROM_USERID;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
@@ -98,7 +106,8 @@ public class UserDaoOperation implements UserDaoInterface {
 		return null;
 	}
 
-	public static User getUserFromEmail(String email) {
+	@Override
+	public User getUserFromEmail(String email) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_USER_INFO_FROM_EMAIL;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
@@ -145,7 +154,8 @@ public class UserDaoOperation implements UserDaoInterface {
 		return null;
 	}
 
-	public static boolean createDBRecordAndUpdateObject(User user) {
+	@Override
+	public boolean createDBRecordAndUpdateObject(User user) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_USER_QUERY;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
@@ -183,13 +193,6 @@ public class UserDaoOperation implements UserDaoInterface {
 		return false;
 	}
 
-	public static UserDaoOperation getInstance() {
-		if (instance == null) {
-			instance = new UserDaoOperation();
-		}
-		return instance;
-	}
-
 	@Override
 	public boolean updatePassword(String email, String newPassword) {
 		Connection connection = DBUtils.getConnection();
@@ -219,20 +222,15 @@ public class UserDaoOperation implements UserDaoInterface {
 
 	@Override
 	public boolean verifyCredentials(String email, String password) {
-		User user = UserDaoOperation.getUserFromEmail(email);
+		User user = UserDaoOperation.getInstance().getUserFromEmail(email);
 		if (user == null)
 			return false;
 		return CryptoUtils.verifyPassword(password, user.getPassword());
 	}
 
 	@Override
-	public boolean updatePassword(String userID) {
-		return false;
-	}
-
-	@Override
 	public Role getRole(String email) {
-		User user = UserDaoOperation.getUserFromEmail(email);
+		User user = UserDaoOperation.getInstance().getUserFromEmail(email);
 		if (user == null)
 			return null;
 		return user.getRole();

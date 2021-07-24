@@ -38,8 +38,9 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return instance;
 	}
 
-	public static boolean createDBRecordAndUpdateObject(Admin admin) {
-		if (!UserDaoOperation.createDBRecordAndUpdateObject(admin))
+	@Override
+	public boolean createDBRecordAndUpdateObject(Admin admin) {
+		if (!UserDaoOperation.getInstance().createDBRecordAndUpdateObject(admin))
 			return false;
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_ADMIN_QUERY;
@@ -48,13 +49,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			preparedStatementadmin.setInt(1, admin.getUserId());
 			int rowsAffected = preparedStatementadmin.executeUpdate();
 			if (rowsAffected == 0) {
-				UserDaoOperation.deleteUserObjectFromUserId(admin.getUserId());
+				UserDaoOperation.getInstance().deleteUserObjectFromUserId(admin.getUserId());
 				return false;
 				// TODO : Add exception admin Record Not created
 			}
 			return true;
 		} catch (SQLException sqlErr) {
-			UserDaoOperation.deleteUserObjectFromUserId(admin.getUserId());
+			UserDaoOperation.getInstance().deleteUserObjectFromUserId(admin.getUserId());
 			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
@@ -68,22 +69,24 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return false;
 	}
 
-	public static Admin getAdminFromUserId(int userId) {
-		User user = UserDaoOperation.getUserFromUserId(userId);
-		if (user == null)
-			return null;
-		return new Admin(user);
-	}
-
-	public static Admin getAdminFromEmail(String email) {
-		User user = UserDaoOperation.getUserFromEmail(email);
+	@Override
+	public Admin getAdminFromUserId(int userId) {
+		User user = UserDaoOperation.getInstance().getUserFromUserId(userId);
 		if (user == null)
 			return null;
 		return new Admin(user);
 	}
 
 	@Override
-	public List<Student> viewPendingAdmissions() {
+	public Admin getAdminFromEmail(String email) {
+		User user = UserDaoOperation.getInstance().getUserFromEmail(email);
+		if (user == null)
+			return null;
+		return new Admin(user);
+	}
+
+	@Override
+	public List<Student> viewUnapprovedStudents() {
 
 		List<Student> userList = new ArrayList<Student>();
 		Connection connection = DBUtils.getConnection();
@@ -163,7 +166,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 	@Override
 	public void addProfessor(Professor professor) {
-		ProfessorDaoOperation.createDBRecordAndUpdateObject(professor);
+		ProfessorDaoOperation.getInstance().createDBRecordAndUpdateObject(professor);
 	}
 
 	@Override
@@ -212,7 +215,8 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return professorList;
 	}
 
-	public static boolean createCourseDBRecordAndUpdateObject(Course course) {
+	@Override
+	public boolean createCourseDBRecordAndUpdateObject(Course course) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute;
 		if (course.getProfessorUserId() != -1) {
@@ -227,8 +231,9 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			preparedStatementcourse.setString(1, course.getCourseCode());
 			preparedStatementcourse.setString(2, course.getCourseName());
 			preparedStatementcourse.setInt(3, course.getCourseCatalogId());
+			preparedStatementcourse.setDouble(4, course.getCourseFee());
 			if (course.getProfessorUserId() != -1)
-				preparedStatementcourse.setInt(4, course.getProfessorUserId());
+				preparedStatementcourse.setInt(5, course.getProfessorUserId());
 			int rowsAffected = preparedStatementcourse.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
@@ -253,7 +258,8 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return false;
 	}
 
-	public static Course getCouseFromCourseCodeAndCatalogId(String courseCode, int catalogId) {
+	@Override
+	public Course getCouseFromCourseCodeAndCatalogId(String courseCode, int catalogId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_COURSE_FROM_COURSE_CODE_AND_CATALOG_ID;
 		try (PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute);) {
@@ -265,7 +271,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				return null;
 				// TODO : Add exception course Record Not found
 			}
-			// courseId, courseCode, courseName, professorUserId, courseCatalogId
+			// courseId, courseCode, courseName, professorUserId, courseCatalogId, courseFee
 
 			Course course = new Course();
 			course.setCourseId(resultSet.getInt(1));
@@ -273,6 +279,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			course.setCourseName(resultSet.getString(3));
 			course.setProfessorUserId(resultSet.getInt(4));
 			course.setCourseCatalogId(resultSet.getInt(5));
+			course.setCourseFee(resultSet.getDouble(6));
 			return course;
 		} catch (SQLException sqlErr) {
 			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
@@ -288,11 +295,49 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return null;
 	}
 
+	@Override
+	public Course getCouseFromCourseId(int courseId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_COURSE_FROM_COURSE_ID;
+		try (PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatementcourse.setInt(1, courseId);
+			ResultSet resultSet = preparedStatementcourse.executeQuery();
+			if (!resultSet.next()) {
+				return null;
+				// TODO : Add exception course Record Not found
+			}
+			// courseId, courseCode, courseName, professorUserId, courseCatalogId
+
+			Course course = new Course();
+			course.setCourseId(resultSet.getInt(1));
+			course.setCourseCode(resultSet.getString(2));
+			course.setCourseName(resultSet.getString(3));
+			course.setProfessorUserId(resultSet.getInt(4));
+			course.setCourseCatalogId(resultSet.getInt(5));
+			course.setCourseFee(resultSet.getDouble(6));
+			return course;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	@Override
 	public boolean addCourse(Course course) {
 		return createCourseDBRecordAndUpdateObject(course);
 	}
 
 	// @Override
+	@Override
 	public boolean assignCourseToProfessor(int courseId, int professorUserId) {
 
 		Connection connection = DBUtils.getConnection();
@@ -330,8 +375,8 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return false;
 	}
 
-	// // TODO : Fix me
 	// @Override
+	@Override
 	public boolean deleteCourse(int courseId) {
 
 		Connection connection = DBUtils.getConnection();
@@ -365,6 +410,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return false;
 	}
 
+	@Override
 	public List<Course> viewCourses(int courseCatalogId) {
 
 		Connection connection = DBUtils.getConnection();
@@ -385,6 +431,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				course.setCourseName(resultSet.getString(3));
 				course.setProfessorUserId(resultSet.getInt(4));
 				course.setCourseCatalogId(resultSet.getInt(5));
+				course.setCourseFee(resultSet.getDouble(6));
 				courseList.add(course);
 			}
 

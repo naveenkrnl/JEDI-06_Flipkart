@@ -2,12 +2,14 @@ package com.flipkart.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DBUtils {
+    private DBUtils() {
+
+    }
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/CRS";
@@ -19,17 +21,14 @@ public class DBUtils {
 
     public static Connection getConnection() {
         Connection connection = null;
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            // Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;
-
         } catch (SQLException se) {
             // TODO : Exception print with custom message
             se.printStackTrace();
         } catch (Exception e) {
-            //
             e.printStackTrace();
         }
         return connection;

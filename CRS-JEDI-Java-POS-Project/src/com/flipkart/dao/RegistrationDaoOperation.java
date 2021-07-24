@@ -1,17 +1,19 @@
 package com.flipkart.dao;
 
-// import java.sql.Connection;
-// import java.sql.PreparedStatement;
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
-// import java.util.ArrayList;
-// import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-// import com.flipkart.bean.Course;
-// import com.flipkart.bean.GradeCard;
-// import com.flipkart.constant.Grade;
-// import com.flipkart.constant.SQLQueriesConstants;
-// import com.flipkart.utils.DBUtils;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.GradeCard;
+
+import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.constant.Grade;
+import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.utils.DBUtils;
 
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
@@ -22,309 +24,396 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	public static RegistrationDaoOperation getInstance() {
 		if (instance == null) {
-			synchronized (RegistrationDaoOperation.class) {
-				instance = new RegistrationDaoOperation();
-			}
+			instance = new RegistrationDaoOperation();
 		}
 		return instance;
 	}
 
-	// @Override
-	// public boolean addCourse(String courseCode, int studentId) throws
-	// SQLException {
-
-	// Connection conn = DBUtils.getConnection();
-
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.ADD_COURSE);
-	// stmt.setInt(1, studentId);
-	// stmt.setString(2, courseCode);
-
-	// stmt.executeUpdate();
-
-	// stmt = conn.prepareStatement(SQLQueriesConstants.DECREMENT_COURSE_SEATS);
-	// stmt.setString(1, courseCode);
-	// stmt.executeUpdate();
-	// return true;
-	// } catch (SQLException e) {
-	// System.err.println(e.getMessage());
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-	// return false;
-
-	// }
-
-	// @Override
-	// public int numOfRegisteredCourses(int studentId) throws SQLException {
-
-	// Connection conn = DBUtils.getConnection();
-
-	// int count = 0;
-	// try {
-
-	// stmt =
-	// conn.prepareStatement(SQLQueriesConstants.NUMBER_OF_REGISTERED_COURSES);
-	// stmt.setInt(1, studentId);
-	// ResultSet rs = stmt.executeQuery();
-	// while (rs.next()) {
-	// count++;
-	// }
-	// return count;
-
-	// } catch (SQLException se) {
-
-	// System.err.println(se.getMessage());
-
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return count;
-	// }
-
-	// @Override
-	// public boolean seatAvailable(String courseCode) throws SQLException {
-
-	// Connection conn = DBUtils.getConnection();
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.GET_SEATS);
-	// stmt.setString(1, courseCode);
-	// ResultSet rs = stmt.executeQuery();
-	// while (rs.next()) {
-	// return (rs.getInt("seats") > 0);
-	// }
-
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return true;
-
-	// }
-
-	// @Override
-	// public boolean isRegistered(String courseCode, int studentId) throws
-	// SQLException {
-
-	// Connection conn = DBUtils.getConnection();
-
-	// boolean check = false;
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.IS_REGISTERED);
-	// stmt.setString(1, courseCode);
-	// stmt.setInt(2, studentId);
-	// ResultSet rs = stmt.executeQuery();
-
-	// while (rs.next()) {
-	// check = true;
-	// }
-	// } catch (Exception e) {
-	// System.err.println(e.getClass());
-	// System.out.println("Message - ");
-	// System.out.println(e.getMessage());
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return check;
-
-	// }
-
-	// @Override
-	// public boolean dropCourse(String courseCode, int studentId) throws
-	// SQLException {
-
-	// Connection conn = DBUtils.getConnection();
-
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.DROP_COURSE_QUERY);
-	// stmt.setString(1, courseCode);
-	// stmt.setInt(2, studentId);
-	// stmt.execute();
-
-	// stmt = conn.prepareStatement(SQLQueriesConstants.INCREMENT_SEAT_QUERY);
-	// stmt.setString(1, courseCode);
-	// stmt.execute();
-
-	// stmt.close();
-
-	// return true;
-	// } catch (Exception e) {
-	// System.out.println("Message - ");
-	// System.out.println("Exception found" + e.getMessage());
-	// } finally {
-
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return false;
-
-	// }
-
-	// @Override
-	// public double calculateFee(int studentId) throws SQLException {
-	// Connection conn = DBUtils.getConnection();
-	// double fee = 0;
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.CALCULATE_FEES);
-	// stmt.setInt(1, studentId);
-	// ResultSet rs = stmt.executeQuery();
-	// rs.next();
-	// fee = rs.getDouble(1);
-	// } catch (SQLException e) {
-	// System.err.println(e.getErrorCode());
-	// System.out.println("Message - ");
-	// System.out.println(e.getMessage());
-	// } catch (Exception e) {
-	// System.out.println("Message - ");
-	// System.out.println(e.getMessage());
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return fee;
-	// }
-
-	// @Override
-	// public List<GradeCard> viewGradeCard(int studentId) throws SQLException {
-
-	// Connection conn = DBUtils.getConnection();
-	// List<GradeCard> grade_List = new ArrayList<>();
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_GRADE);
-	// stmt.setInt(1, studentId);
-	// ResultSet rs = stmt.executeQuery();
-
-	// while (rs.next()) {
-	// String courseCode = rs.getString("courseCode");
-	// String courseName = rs.getString("courseName");
-	// String grade = rs.getString("grade");
-	// int semester = rs.getInt("semester"); // Added semester
-	// GradeCard obj = new GradeCard(courseCode, courseName,
-	// Grade.stringToGrade(grade), semester);
-	// grade_List.add(obj);
-	// }
-	// } catch (SQLException e) {
-	// System.out.println("Message - ");
-	// System.out.println(e.getMessage());
-	// } finally {
-	// stmt.close();
-	// conn.close();
-
-	// }
-
-	// return grade_List;
-	// }
-
-	// @Override
-	// public List<Course> viewCourses(int studentId) throws SQLException {
-
-	// List<Course> availableCourseList = new ArrayList<>();
-	// Connection conn = DBUtils.getConnection();
-
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_AVAILABLE_COURSES);
-	// stmt.setInt(1, studentId);
-	// stmt.setBoolean(2, true);
-	// ResultSet rs = stmt.executeQuery();
-
-	// while (rs.next()) {
-	// // availableCourseList.add(new Course(rs.getString("courseCode"),
-	// // rs.getString("courseName"),
-	// // rs.getString("professorId"), rs.getInt("seats")));
-
-	// }
-
-	// } catch (SQLException e) {
-	// System.err.println(e.getMessage());
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return availableCourseList;
-
-	// }
-
-	// @Override
-	// public List<Course> viewRegisteredCourses(int studentId) throws SQLException
-	// {
-
-	// Connection conn = DBUtils.getConnection();
-	// List<Course> registeredCourseList = new ArrayList<>();
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_REGISTERED_COURSES);
-	// stmt.setInt(1, studentId);
-
-	// ResultSet rs = stmt.executeQuery();
-
-	// while (rs.next()) {
-	// // registeredCourseList.add(new Course(rs.getString("courseCode"),
-	// // rs.getString("courseName"),
-	// // rs.getString("professorId"), rs.getInt("seats")));
-
-	// }
-	// } catch (SQLException e) {
-	// System.out.println("Message - ");
-	// System.out.println(e.getMessage());
-
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return registeredCourseList;
-	// }
-
-	// @Override
-	// public boolean getRegistrationStatus(int studentId) throws SQLException {
-	// Connection conn = DBUtils.getConnection();
-	// boolean status = false;
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.GET_REGISTRATION_STATUS);
-	// stmt.setInt(1, studentId);
-	// ResultSet rs = stmt.executeQuery();
-	// rs.next();
-	// status = rs.getBoolean(1);
-
-	// } catch (SQLException e) {
-	// System.out.println("Message - ");
-	// System.out.println(e.getMessage());
-
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// return status;
-	// }
-
-	// @Override
-	// public void setRegistrationStatus(int studentId) throws SQLException {
-	// Connection conn = DBUtils.getConnection();
-	// try {
-	// stmt = conn.prepareStatement(SQLQueriesConstants.SET_REGISTRATION_STATUS);
-	// stmt.setInt(1, studentId);
-	// stmt.executeUpdate();
-
-	// } catch (SQLException e) {
-	// System.out.println("Message - ");
-	// System.out.println(e.getMessage());
-
-	// } finally {
-	// stmt.close();
-	// conn.close();
-	// }
-
-	// }
-
+	@Override
+	public boolean createRegisteredCourseDBRecordAndUpdateObject(RegisteredCourse registeredCourse) {
+		Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(registeredCourse.getCourseId());
+		if (course == null) {
+			// TODO : Throw Course Not Found
+			return false;
+		}
+
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.ADD_REGISTERED_COURSE;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+			// studentUserId, courseId, grade
+			preparedStatement.setInt(1, registeredCourse.getStudentUserId());
+			preparedStatement.setInt(2, registeredCourse.getCourseId());
+			preparedStatement.setString(3, Grade.NOT_GRADED.toString());
+			int rowsAffected = preparedStatement.executeUpdate();
+			if (rowsAffected == 0) {
+				return false;
+				// TODO : Add exception Course Registration failed
+			}
+			RegisteredCourse registeredCourseFromDB = getRegisteredCourseFromStudentIdAndCourseId(
+					registeredCourse.getStudentUserId(), registeredCourse.getCourseId());
+			assert registeredCourseFromDB != null;
+			registeredCourse.setCourseId(registeredCourseFromDB.getCourseId());
+			return true;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public RegisteredCourse getRegisteredCourseFromStudentIdAndCourseId(int studentUserId, int courseId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_REGISTERED_COURSE_FROM_STUDENT_ID_AND_COURSE_ID;
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatement.setInt(1, studentUserId);
+			preparedStatement.setInt(2, courseId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next()) {
+				return null;
+				// @yaduraj
+				// TODO : Add exception User Record not delete
+			}
+
+			// registeredCourseId, studentUserId, courseId, grade
+			int registeredCourseId = resultSet.getInt(1);
+			// int studentUserId = resultSet.getInt(2);
+			// int courseId = resultSet.getInt(3);
+			Grade grade = Grade.valueOf(resultSet.getString(4));
+
+			RegisteredCourse registeredCourse = new RegisteredCourse();
+			registeredCourse.setRegisteredCourseId(registeredCourseId);
+			registeredCourse.setStudentUserId(studentUserId);
+			registeredCourse.setCourseId(courseId);
+			registeredCourse.setGrade(grade);
+			return registeredCourse;
+
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public RegisteredCourse getRegisteredCourseFromRegisteredCourseId(int registeredCourseId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_REGISTERED_COURSE_FROM_REGISTERED_COURSE_ID;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatement.setInt(1, registeredCourseId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next()) {
+				return null;
+				// @yaduraj
+				// TODO : Add exception User Record not delete
+			}
+
+			// registeredCourseId, studentUserId, courseId, grade
+			// int registeredCourseId = resultSet.getInt(1);
+			int studentUserId = resultSet.getInt(2);
+			int courseId = resultSet.getInt(3);
+			Grade grade = Grade.valueOf(resultSet.getString(4));
+
+			RegisteredCourse registeredCourse = new RegisteredCourse();
+			registeredCourse.setRegisteredCourseId(registeredCourseId);
+			registeredCourse.setStudentUserId(studentUserId);
+			registeredCourse.setCourseId(courseId);
+			registeredCourse.setGrade(grade);
+			return registeredCourse;
+
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean registerStudentToCourse(int courseId, int studentUserId) {
+		Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(courseId);
+		if (course == null) {
+			return false;
+			// TODO : Thorw course not found exception
+		}
+		RegisteredCourse registeredCourse = new RegisteredCourse();
+		registeredCourse.setCourseId(courseId);
+		registeredCourse.setGrade(Grade.NOT_GRADED);
+		registeredCourse.setStudentUserId(studentUserId);
+		return createRegisteredCourseDBRecordAndUpdateObject(registeredCourse);
+	}
+
+	@Override
+	public int numOfRegisteredCourses(int studentUserId) {
+
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.NUMBER_OF_REGISTERED_COURSES_FROM_STUDENT_USER_ID;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatement.setInt(1, studentUserId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next()) {
+				return 0;
+				// @yaduraj
+				// TODO : Add exception User Record not delete
+			}
+			return resultSet.getInt(1);
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public boolean seatAvailable(int courseId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.NUMBER_OF_STUDENTS_REGISTERED_FROM_COURSE_ID;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatement.setInt(1, courseId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next()) {
+				return true;
+				// @yaduraj
+				// TODO : Add exception User Record not delete
+			}
+			return resultSet.getInt(1) < 10;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return false;
+
+	}
+
+	@Override
+	public boolean isStudentAlreadyRegisteredToCourseId(int courseId, int studentUserId) {
+
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.IS_STUDENT_ALREADY_REGISTERED_TO_COURSE_ID;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatement.setInt(1, courseId);
+			preparedStatement.setInt(2, studentUserId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next()) {
+				return false;
+				// @yaduraj
+				// TODO : Add exception User Record not delete
+			}
+			return resultSet.getInt(1) == 0;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean dropCourseFromCourseIdAndStudentId(int courseId, int studentUserId) {
+
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.DROP_COURSE_FROM_COURSE_ID_AND_STUDENT_ID;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatement.setInt(1, courseId);
+			preparedStatement.setInt(2, studentUserId);
+			int rowsAffected = preparedStatement.executeUpdate();
+			if (rowsAffected == 0) {
+				return false;
+				// @yaduraj
+				// TODO : Add exception User Record not delete
+			}
+			return true;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return false;
+
+	}
+
+	@Override
+	public double calculateFeeFromStudentUserId(int studentUserId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.CALCULATE_FEES_FROM_STUDENT_ID;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+
+			preparedStatement.setInt(1, studentUserId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next()) {
+				return 0;
+				// @yaduraj
+				// TODO : Add exception User Record not delete
+			}
+			return resultSet.getDouble(1);
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public GradeCard getGradeCardFromStudentUserId(int studentUserId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_REGISTERED_COURSES_FROM_STUDENT_USER_ID;
+		List<RegisteredCourse> registeredCourses = new ArrayList<>();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+			preparedStatement.setInt(1, studentUserId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				int registeredCourseId = resultSet.getInt(1);
+				// int studentUserId = resultSet.getInt(2);
+				int courseId = resultSet.getInt(3);
+				Grade grade = Grade.valueOf(resultSet.getString(4));
+				RegisteredCourse registeredCourse = new RegisteredCourse();
+				registeredCourse.setRegisteredCourseId(registeredCourseId);
+				registeredCourse.setStudentUserId(studentUserId);
+				registeredCourse.setCourseId(courseId);
+				registeredCourse.setGrade(grade);
+				registeredCourses.add(registeredCourse);
+			}
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		GradeCard gradeCard = new GradeCard();
+		gradeCard.setRegisteredCourses(registeredCourses);
+		gradeCard.setStudent(StudentDaoOperation.getInstance().getStudentFromUserId(studentUserId));
+		return gradeCard;
+	}
+
+	@Override
+	public List<Course> viewAvailableCoursesToStudent(int studentUserId) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_COURSES_AVAILABLE_TO_STUDENT_USER_ID;
+		List<Course> availableCourses = new ArrayList<>();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+			preparedStatement.setInt(1, studentUserId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Course course = new Course();
+				// courseId, courseCode, courseName, professorUserId, courseCatalogId
+				course.setCourseId(resultSet.getInt(1));
+				course.setCourseCode(resultSet.getString(2));
+				course.setCourseName(resultSet.getString(3));
+				course.setProfessorUserId(resultSet.getInt(4));
+				course.setCourseCatalogId(resultSet.getInt(5));
+				course.setCourseFee(resultSet.getDouble(6));
+				availableCourses.add(course);
+			}
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return availableCourses;
+	}
+
+	@Override
+	public List<Course> viewRegisteredCoursesForStudent(int studentUserId) {
+
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_ALL_COURSES_REGISTERED_BY_STUDENT_USER_ID;
+		List<Course> registeredCourses = new ArrayList<Course>();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+			preparedStatement.setInt(1, studentUserId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Course course = new Course();
+				// courseId, courseCode, courseName, professorUserId, courseCatalogId
+				course.setCourseId(resultSet.getInt(1));
+				course.setCourseCode(resultSet.getString(2));
+				course.setCourseName(resultSet.getString(3));
+				course.setProfessorUserId(resultSet.getInt(4));
+				course.setCourseCatalogId(resultSet.getInt(5));
+				course.setCourseFee(resultSet.getDouble(6));
+				registeredCourses.add(course);
+			}
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return registeredCourses;
+	}
 }

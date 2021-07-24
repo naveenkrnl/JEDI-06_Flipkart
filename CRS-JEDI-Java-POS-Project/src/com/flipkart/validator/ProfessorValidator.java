@@ -18,7 +18,6 @@ public class ProfessorValidator {
 			// role.equalsIgnoreCase("ADMIN")
 			if (students.get(i).getrollNumber() == studentId)
 				result = true;
-
 		}
 		return result;
 	}

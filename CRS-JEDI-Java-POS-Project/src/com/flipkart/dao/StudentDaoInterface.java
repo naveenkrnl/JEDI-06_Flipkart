@@ -1,5 +1,7 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Student;
+
 /**
  * 
  * Interface for Student Operations
@@ -7,7 +9,15 @@ package com.flipkart.dao;
  */
 public interface StudentDaoInterface {
 
-	public int getStudentUserId(String userId);
+	public boolean createDBRecordAndUpdateObject(Student student);
 
-	public boolean isApproved(int studentId);
+	public Student getStudentFromUserIdImpl(int userId);
+
+	public Student getStudentFromUserId(int userId);
+
+	public Student getStudentFromEmail(String email);
+
+	public int getStudentUserId(String email);
+
+	public boolean isApproved(int userId);
 }

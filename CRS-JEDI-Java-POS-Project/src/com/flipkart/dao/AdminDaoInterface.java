@@ -2,6 +2,8 @@ package com.flipkart.dao;
 
 import java.util.List;
 
+import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
 // import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -13,20 +15,32 @@ import com.flipkart.bean.Student;
  */
 public interface AdminDaoInterface {
 
-	public List<Student> viewPendingAdmissions();
+	public boolean createDBRecordAndUpdateObject(Admin admin);
 
-	public void approveStudent(int studentId);
+	public Admin getAdminFromUserId(int userId);
+
+	public Admin getAdminFromEmail(String email);
+
+	public List<Student> viewUnapprovedStudents();
+
+	public void approveStudent(int userId);
 
 	public void addProfessor(Professor professor);
 
 	public List<Professor> viewProfessors();
 
-	// public void deleteCourse(String courseCode);
+	public boolean createCourseDBRecordAndUpdateObject(Course course);
 
-	// public void addCourse(Course course);
+	public Course getCouseFromCourseCodeAndCatalogId(String courseCode, int catalogId);
 
-	// public void assignCourse(String courseCode, String professorId);
+	public Course getCouseFromCourseId(int courseId);
 
-	// public List<Course> viewCourses(int catalogId);
+	public boolean addCourse(Course course);
+
+	public boolean assignCourseToProfessor(int courseId, int professorUserId);
+
+	public boolean deleteCourse(int courseId);
+
+	public List<Course> viewCourses(int courseCatalogId);
 
 }

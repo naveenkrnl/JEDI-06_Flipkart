@@ -4,6 +4,10 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 public class CryptoUtils {
+    private CryptoUtils() {
+
+    }
+
     public static String getRandomSalt() {
         byte[] salt = new byte[16];
         SecureRandom secure_random = new SecureRandom();

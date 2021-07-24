@@ -1,10 +1,10 @@
 package com.flipkart.dao;
 
-// import java.sql.SQLException;
-// import java.util.List;
+import java.util.List;
 
-// import com.flipkart.bean.Course;
-// import com.flipkart.bean.GradeCard;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.GradeCard;
+import com.flipkart.bean.RegisteredCourse;
 
 /**
  * Interface for Registration DAO Operation
@@ -12,29 +12,27 @@ package com.flipkart.dao;
  */
 public interface RegistrationDaoInterface {
 
-	// public boolean addCourse(String courseCode, int studentId) throws
-	// SQLException;
+	public boolean createRegisteredCourseDBRecordAndUpdateObject(RegisteredCourse registeredCourse);
 
-	// public boolean dropCourse(String courseCode, int studentId) throws
-	// SQLException;
+	public RegisteredCourse getRegisteredCourseFromStudentIdAndCourseId(int studentUserId, int courseId);
 
-	// public List<Course> viewCourses(int studentId) throws SQLException;
+	public RegisteredCourse getRegisteredCourseFromRegisteredCourseId(int registeredCourseId);
 
-	// public List<Course> viewRegisteredCourses(int studentId) throws SQLException;
+	public boolean registerStudentToCourse(int courseId, int studentUserId);
 
-	// public List<GradeCard> viewGradeCard(int studentId) throws SQLException;
+	public int numOfRegisteredCourses(int studentUserId);
 
-	// public double calculateFee(int studentId) throws SQLException;
+	public boolean seatAvailable(int courseId);
 
-	// public boolean seatAvailable(String courseCode) throws SQLException;
+	public boolean isStudentAlreadyRegisteredToCourseId(int courseId, int studentUserId);
 
-	// public int numOfRegisteredCourses(int studentId) throws SQLException;
+	public boolean dropCourseFromCourseIdAndStudentId(int courseId, int studentUserId);
 
-	// public boolean isRegistered(String courseCode, int studentId) throws
-	// SQLException;
+	public double calculateFeeFromStudentUserId(int studentUserId);
 
-	// public boolean getRegistrationStatus(int studentId) throws SQLException;
+	public GradeCard getGradeCardFromStudentUserId(int studentUserId);
 
-	// public void setRegistrationStatus(int studentId) throws SQLException;
+	public List<Course> viewAvailableCoursesToStudent(int studentUserId);
 
+	public List<Course> viewRegisteredCoursesForStudent(int studentUserId);
 }

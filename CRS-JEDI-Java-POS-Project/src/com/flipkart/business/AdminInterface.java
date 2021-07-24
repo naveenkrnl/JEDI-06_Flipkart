@@ -16,7 +16,7 @@ public interface AdminInterface {
 
 	public void approveStudent(int studentId, List<Student> unapprovedStudentList);
 
-	public void addProfessor(Professor professor);
+	public boolean assignCourse(int courseId, int professorUserId);
 
 	public void assignCourse(String courseCode, String professorId);
 

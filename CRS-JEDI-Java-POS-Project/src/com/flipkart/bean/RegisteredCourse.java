@@ -10,16 +10,37 @@ import com.flipkart.dao.ProfessorDaoOperation;
  */
 public class RegisteredCourse {
 
-	private Course course;
+	private int registeredCourseId;
+	private int studentUserId;
+	private int courseId;
 	private Grade grade;
-	private Student student;
 
-	public Course getCourse() {
-		return course;
+	public RegisteredCourse() {
+
 	}
 
-	public void setCourse(Course course) {
-		this.course = course;
+	public int getRegisteredCourseId() {
+		return registeredCourseId;
+	}
+
+	public void setRegisteredCourseId(int registeredCourseId) {
+		this.registeredCourseId = registeredCourseId;
+	}
+
+	public int getStudentUserId() {
+		return studentUserId;
+	}
+
+	public void setStudentUserId(int studentUserId) {
+		this.studentUserId = studentUserId;
+	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
 	}
 
 	public Grade getGrade() {
@@ -28,18 +49,6 @@ public class RegisteredCourse {
 
 	public void setGrade(Grade grade) {
 		this.grade = grade;
-	}
-
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
-	public Professor getProfessor() {
-		return ProfessorDaoOperation.getProfessorFromUserId(course.getProfessorUserId());
 	}
 
 }

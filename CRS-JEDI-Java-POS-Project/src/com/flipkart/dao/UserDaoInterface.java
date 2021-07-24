@@ -1,5 +1,6 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
 
 /**
@@ -9,11 +10,17 @@ import com.flipkart.constant.Role;
  */
 public interface UserDaoInterface {
 
-	public boolean verifyCredentials(String userId, String password);
+	public boolean deleteUserObjectFromUserId(int userId);
 
-	public boolean updatePassword(String userID);
+	public User getUserFromUserId(int userId);
+
+	public User getUserFromEmail(String email);
+
+	public boolean createDBRecordAndUpdateObject(User user);
+
+	public boolean updatePassword(String email, String newPassword);
+
+	public boolean verifyCredentials(String email, String password);
 
 	public Role getRole(String email);
-
-	public boolean updatePassword(String userId, String newPassword);
 }

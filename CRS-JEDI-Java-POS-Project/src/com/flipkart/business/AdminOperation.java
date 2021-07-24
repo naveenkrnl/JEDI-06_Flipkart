@@ -36,16 +36,15 @@ public class AdminOperation implements AdminInterface {
 		}
 
 		try {
-			adminDaoOperation.addCourse(newCourse);
+			AdminDaoOperation.createCourseDBRecordAndUpdateObject(newCourse);
 		} catch (Exception e) {
 			throw e;
 		}
-
 	}
 
 	@Override
 	public List<Student> viewPendingAdmissions() {
-		return adminDaoOperation.viewPendingAdmissions();
+		return adminDaoOperation.viewUnapprovedStudents();
 	}
 
 	@Override
@@ -65,32 +64,31 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	@Override
-	public void addProfessor(Professor professor) {
+	// @Override
+	// public void addProfessor(Professor professor) {
 
-		try {
-			adminDaoOperation.addProfessor(professor);
-		} catch (Exception e) {
-			throw e;
-		}
+	// try {
+	// adminDaoOperation.addProfessor(professor);
+	// } catch (Exception e) {
+	// throw e;
+	// }
 
-	}
+	// }
 
-	@Override
-	public void assignCourse(String courseCode, String professorId) {
+	// @Override
+	// public void assignCourse(int courseCode, String professorId) {
 
-		try {
-			adminDaoOperation.assignCourse(courseCode, professorId);
-		} catch (Exception e) {
-			throw e;
-		}
+	// try {
+	// adminDaoOperation.assignCourseToProfessor(courseCode, professorId);
+	// } catch (Exception e) {
+	// throw e;
+	// }
+	// }
 
-	}
-
-	@Override
-	public List<Course> viewCourses(int catalogId) {
-		return adminDaoOperation.viewCourses(catalogId);
-	}
+	// @Override
+	// public List<Course> viewCourses(int catalogId) {
+	// return adminDaoOperation.viewCourses(catalogId);
+	// }
 
 	@Override
 	public List<Professor> viewProfessors() {

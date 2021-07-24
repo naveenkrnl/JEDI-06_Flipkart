@@ -1,5 +1,12 @@
 package com.flipkart.dao;
 
+import java.util.List;
+
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.constant.Grade;
+
 // import java.util.*;
 // import com.flipkart.bean.Course;
 // import com.flipkart.bean.RegisteredCourse;
@@ -11,11 +18,19 @@ package com.flipkart.dao;
  */
 public interface ProfessorDaoInterface {
 
-	// public List<Course> getCoursesByProfessor(int userId);
+	public boolean createDBRecordAndUpdateObject(Professor professor);
 
-	// public List<RegisteredCourse> getEnrolledStudents(int profId);
+	public Professor getProfessorFromUserIdImpl(int userId);
 
-	// public Boolean addGrade(int studentId, String courseCode, String grade);
+	public Professor getProfessorFromUserId(int userId);
 
-	public String getProfessorNameByUserId(int profId);
+	public Professor getProfessorFromEmail(String email);
+
+	public List<Course> getCoursesByProfessorUserId(int professorUserId);
+
+	public String getProfessorNameByUserId(int userId);
+
+	public List<RegisteredCourse> getEnrolledStudents(int professorUserId);
+
+	public boolean addGradeToStudent(int studentUserId, int courseId, Grade grade);
 }
