@@ -82,6 +82,7 @@ public class CRSApplication {
         //user not found exception
         //user not approved exception
         Scanner sc = new Scanner(System.in);
+
         String userId, password;
         try {
             System.out.println("-----------------Login------------------");

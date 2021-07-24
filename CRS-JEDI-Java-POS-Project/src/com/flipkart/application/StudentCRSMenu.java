@@ -20,6 +20,7 @@ import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 import com.flipkart.business.RegistrationInterface;
 import com.flipkart.business.RegistrationOperation;
+import com.flipkart.utils.StringUtils;
 
 
 /**
@@ -57,6 +58,8 @@ public class StudentCRSMenu {
             System.out.println("8. Logout");
             System.out.println("*****************************");
 
+            StringUtils.printMenu("Student Access Menu", new String[] {"Course Registration","Add Course" ,"Drop Course","View Available Courses"
+                    , "View Registered Courses","View grade card" ,"Make Payment","Logout"},100);
             int choice = sc.nextInt();
 
             switch (choice) {

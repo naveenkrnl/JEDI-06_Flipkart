@@ -11,6 +11,7 @@ import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 import com.flipkart.validator.ProfessorValidator;
+import com.flipkart.utils.StringUtils;
 
 /**
  *
@@ -35,15 +36,7 @@ public class ProfessorCRSMenu {
         int input;
         while(CRSApplication.loggedin)
         {
-            System.out.println("*****************************");
-            System.out.println("**********Professor Menu*********");
-            System.out.println("*****************************");
-            System.out.println("1. View Courses");
-            System.out.println("2. View Enrolled Students");
-            System.out.println("3. Add grade");
-            System.out.println("4. Logout");
-            System.out.println("*****************************");
-
+            StringUtils.printMenu("Professor Access Menu", new String[] {"View courses","View Enrolled Students" ,"Add grade","Logout"},100);
             //input user
             input=sc.nextInt();
             switch(input)
