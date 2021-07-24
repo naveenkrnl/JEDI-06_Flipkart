@@ -1,46 +1,32 @@
 
 package com.flipkart.bean;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.Role;
-
+/**
+ * 
+ * 
+ * Admin Class
+ * 
+ */
 public class Admin extends User {
+	private Date dateOfJoining;
 
-	// private String name;
-	// private Gender gender;
-	// private String address;
-	// private String country;
-	// private int userId;
-	// private Role role;
-	// private String password;
-	// private String email;
-	// private LocalDateTime doj;
-	public Admin() {
-		setRole(Role.ADMIN);
+	/**
+	 * Method to get Date of joining
+	 * 
+	 * @return Date of joining
+	 */
+	public Date getDateOfJoining() {
+		return dateOfJoining;
 	}
 
-	public Admin(String name, Gender gender, String address, String country, Integer userId, String password,
-			String email, LocalDateTime doj) {
-		super(name, gender, address, country, userId, Role.ADMIN, password, email, doj);
-		setRole(Role.ADMIN);
-	}
-
-	public Admin(User user) {
-		super(user.getName(), user.getGender(), user.getAddress(), user.getCountry(), user.getUserId(), Role.ADMIN,
-				user.getPassword(), user.getEmail(), user.getDoj());
-		setRole(Role.ADMIN);
-	}
-
-	public boolean isAdmintValidForDatabase() {
-		if (getRole() != Role.ADMIN)
-			setRole(Role.ADMIN);
-		return getRole() == Role.ADMIN && isUserValidForDatabase();
-	}
-
-	@Override
-	public String toString() {
-		return super.toString() + "\nAdmin []";
+	/**
+	 * Method to set Date of joining
+	 * 
+	 * @param dateOfJoining
+	 */
+	public void setDateOfJoining(Date dateOfJoining) {
+		this.dateOfJoining = dateOfJoining;
 	}
 }

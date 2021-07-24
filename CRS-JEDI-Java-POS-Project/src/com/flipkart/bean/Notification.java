@@ -2,51 +2,93 @@ package com.flipkart.bean;
 
 import com.flipkart.constant.NotificationType;
 
+/**
+ * 
+ * 
+ * Class that sends notification for different events
+ *
+ */
 public class Notification {
 	private int notificationId;
-	private int rollNumber;
+	private int studentId;
 	private NotificationType type;
 	private String referenceId;
 
-	public Notification(int notificationId, int rollNumber, NotificationType type, String referenceId) {
+	/**
+	 * Parameterized constructor
+	 * 
+	 * @param notificationId: notification id in the database
+	 * @param studentId:      student id of the student
+	 * @param type:           type of notificaton
+	 * @param referenceId:    reference id for the payment
+	 */
+	public Notification(int notificationId, int studentId, NotificationType type, String referenceId) {
 		this.notificationId = notificationId;
-		this.rollNumber = rollNumber;
+		this.studentId = studentId;
 		this.type = type;
 		this.referenceId = referenceId;
 	}
 
+	/**
+	 * Method to get Notification Id
+	 * 
+	 * @return Notification Id
+	 */
 	public int getNotificationId() {
-		System.out.println("Function getNotificationId called from Notification");
 		return notificationId;
 	}
 
-	public int getrollNumber() {
-		System.out.println("Function getrollNumber called from Notification");
-		return rollNumber;
+	/**
+	 * Method to get Student Id of student enrolled in the course
+	 * 
+	 * @return Student Id
+	 */
+	public int getStudentId() {
+		return studentId;
 	}
 
-	public void setrollNumber(int rollNumber) {
-		System.out.println("Function setrollNumber called from Notification");
-		this.rollNumber = rollNumber;
+	/**
+	 * Method to set Student Id of student enrolled in the course
+	 * 
+	 * @param studentId
+	 */
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
 	}
 
+	/**
+	 * Method to get Notification Type
+	 * 
+	 * @return Notification Type
+	 */
 	public NotificationType getType() {
-		System.out.println("Function getType called from Notification");
 		return type;
 	}
 
+	/**
+	 * Method to set Notification Type
+	 * 
+	 * @param type
+	 */
 	public void setType(NotificationType type) {
-		System.out.println("Function setType called from Notification");
 		this.type = type;
 	}
 
+	/**
+	 * Method to get Reference Id
+	 * 
+	 * @return Reference Id
+	 */
 	public String getReferenceId() {
-		System.out.println("Function getReferenceId called from Notification");
 		return referenceId;
 	}
 
+	/**
+	 * Method to set Reference Id
+	 * 
+	 * @param referenceId
+	 */
 	public void setReferenceId(String referenceId) {
-		System.out.println("Function setReferenceId called from Notification");
 		this.referenceId = referenceId;
 	}
 }
