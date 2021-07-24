@@ -45,21 +45,16 @@ public class StudentCRSMenu {
         is_registered = getRegistrationStatus(studentId);
         while (CRSApplication.loggedin)
         {
-            System.out.println("*****************************");
-            System.out.println("**********Student Menu*********");
-            System.out.println("*****************************");
-            System.out.println("1. Course Registration");
-            System.out.println("2. Add Course");
-            System.out.println("3. Drop Course");
-            System.out.println("4. View Available Courses");
-            System.out.println("5. View Registered Courses");
-            System.out.println("6. View grade card");
-            System.out.println("7. Make Payment");
-            System.out.println("8. Logout");
-            System.out.println("*****************************");
-
-            StringUtils.printMenu("Student Access Menu", new String[] {"Course Registration","Add Course" ,"Drop Course","View Available Courses"
-                    , "View Registered Courses","View grade card" ,"Make Payment","Logout"},100);
+            StringUtils.printMenu("Student Access Menu", new String[]{
+                    "Course Registration",
+                    "Add Course" ,
+                    "Drop Course",
+                    "View Available Courses",
+                    "View Registered Courses",
+                    "View grade card" ,
+                    "Make Payment",
+                    "Logout"
+                            },100);
             int choice = sc.nextInt();
 
             switch (choice) {

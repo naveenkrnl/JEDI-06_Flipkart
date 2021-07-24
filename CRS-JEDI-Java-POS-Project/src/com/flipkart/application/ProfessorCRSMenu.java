@@ -36,7 +36,12 @@ public class ProfessorCRSMenu {
         int input;
         while(CRSApplication.loggedin)
         {
-            StringUtils.printMenu("Professor Access Menu", new String[] {"View courses","View Enrolled Students" ,"Add grade","Logout"},100);
+            StringUtils.printMenu("Professor Access Menu", new String[] {
+                    "View courses",
+                    "View Enrolled Students",
+                    "Add grade",
+                    "Logout"
+                            },100);
             //input user
             input=sc.nextInt();
             switch(input)

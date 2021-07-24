@@ -68,7 +68,12 @@ public class CRSApplication {
      * Method to Create Main Menu
      */
     public static void createMainMenu() {
-        StringUtils.printMenu("Welcome to Course Management System", new String[] {"Login","Student Registration" ,"Update password","Exit"},100);
+        StringUtils.printMenu("Welcome to Course Management System", new String[] {
+                "Login",
+                "Student Registration",
+                "Update password",
+                "Exit"
+                    },100);
         System.out.println( StringUtils.padding("Enter user input",100));
     }
 
