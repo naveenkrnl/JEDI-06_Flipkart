@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package com.flipkart.validator;
 
 import java.util.List;
@@ -6,14 +9,21 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 
 /**
- * 
+ *
+ *
  * Class for Admin Validator
- * 
+ *
  */
 public class AdminValidator {
 
+	/**
+	 * Method to validate if newCourse is not already present in catalog
+	 *
+	 * @param newCourse
+	 * @param courseList
+	 * @return if newCourse is not already present in catalog
+	 */
 	public static boolean isValidNewCourse(Course newCourse, List<Course> courseList) {
-		// Is saying false if couse in courseList else true
 		for (Course course : courseList) {
 			if (newCourse.getCourseCode().equalsIgnoreCase(course.getCourseCode())) {
 				return false;
@@ -22,6 +32,13 @@ public class AdminValidator {
 		return true;
 	}
 
+	/**
+	 * Method to validate if dropCourse is already present in catalog
+	 *
+	 * @param dropCourseCode
+	 * @param courseList
+	 * @return if dropCourse is already present in catalog
+	 */
 	public static boolean isValidDropCourse(String dropCourseCode, List<Course> courseList) {
 		for (Course course : courseList) {
 			if (dropCourseCode.equalsIgnoreCase(course.getCourseCode())) {
@@ -31,10 +48,16 @@ public class AdminValidator {
 		return false;
 	}
 
-	public static boolean isValidUnapprovedStudent(int studentId, List<Student> unapprovedStudentList) {
-		// says true if student id in student list
-		for (Student student : unapprovedStudentList) {
-			if (studentId == student.getUserId()) {
+	/**
+	 * Method to validate if studentId is still unapproved
+	 *
+	 * @param studentId
+	 * @param studentList
+	 * @return if studentId is still unapproved
+	 */
+	public static boolean isValidUnapprovedStudent(int studentId, List<Student> studentList) {
+		for (Student student : studentList) {
+			if (studentId == student.getStudentId()) {
 				return true;
 			}
 		}
