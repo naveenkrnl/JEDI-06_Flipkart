@@ -1,63 +1,50 @@
 package com.flipkart.constant;
 
 /**
- * 
+ *
+ *
  * Enumeration class for Grade
- * 
+ *
  */
-
-//Some changes done in the Grade enum
-
 public enum Grade {
-
-    EX(10), A(9), B(8), C(7), D(6), E(5), F(4);
+    A(10), A_MINUS(9), B(8), B_MINUS(7), C(6), C_MINUS(5), D(4), E(3);
 
     final private int value;
 
+    /**
+     * Parameterized Constructor
+     *
+     * @param value
+     */
     private Grade(int value) {
-        System.out.println("Function Grade called from Grade");
         this.value = value;
     }
 
+    /**
+     * Method to get Grade Value
+     *
+     * @return Grade Value
+     */
     public int hasValue() {
-        System.out.println("Function hasValue called from Grade");
         return this.value;
     }
 
+    /**
+     * Method to convert Grade enum to String
+     *
+     * @return Grade in String
+     */
     @Override
     public String toString() {
-        System.out.println("Function toString called from Grade");
-        return "";
+
+        final String name = name();
+
+        if (name.contains("PLUS"))
+            return name.charAt(0) + "+";
+        else if (name.contains("MINUS"))
+            return name.charAt(0) + "-";
+        else
+            return name;
     }
 
-    public static Grade stringToGrade(String input){
-
-        Grade grade;
-        switch(input){
-            case "EX":
-                grade = Grade.EX;
-                break;
-            case "A":
-                grade = Grade.A;
-                break;
-            case "B":
-                grade = Grade.B;
-                break;
-            case "C":
-                grade = Grade.C;
-                break;
-            case "D":
-                grade = Grade.D;
-                break;
-            case "E":
-                grade = Grade.E;
-                break;
-            case "F":
-                grade = Grade.F;
-                break;
-            default:
-                return null;
-        }
-        return grade;
-    }
 }
