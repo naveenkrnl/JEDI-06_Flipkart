@@ -1,0 +1,62 @@
+16:31:54,687  INFO CRSApplication,main:82 - ----------Welcome to Course Management System---------
+16:31:54,689  INFO CRSApplication,main:83 - 1. Login
+16:31:54,689  INFO CRSApplication,main:84 - 2. Student Registration
+16:31:54,689  INFO CRSApplication,main:85 - 3. Update password
+16:31:54,689  INFO CRSApplication,main:86 - 4. Exit
+16:31:54,689  INFO CRSApplication,main:87 - Enter user input
+16:31:57,410  INFO CRSApplication,main:104 - -----------------Login------------------
+16:31:57,410  INFO CRSApplication,main:105 - Email:
+16:32:01,961  INFO CRSApplication,main:107 - Password:
+16:32:05,404 ERROR CRSApplication,main:69 - Error occured java.lang.NullPointerException
+16:33:10,622  INFO CRSApplication,main:82 - ----------Welcome to Course Management System---------
+16:33:10,624  INFO CRSApplication,main:83 - 1. Login
+16:33:10,624  INFO CRSApplication,main:84 - 2. Student Registration
+16:33:10,624  INFO CRSApplication,main:85 - 3. Update password
+16:33:10,624  INFO CRSApplication,main:86 - 4. Exit
+16:33:10,625  INFO CRSApplication,main:87 - Enter user input
+16:33:13,135  INFO CRSApplication,main:104 - -----------------Login------------------
+16:33:13,135  INFO CRSApplication,main:105 - Email:
+16:33:16,928  INFO CRSApplication,main:107 - Password:
+16:33:18,778  INFO CRSApplication,main:144 - 24-07-2021 16:33:18 Login Successful
+16:33:18,807  INFO StudentCRSMenu,main:50 - *****************************
+16:33:18,807  INFO StudentCRSMenu,main:51 - **********Student Menu*********
+16:33:18,808  INFO StudentCRSMenu,main:52 - *****************************
+16:33:18,808  INFO StudentCRSMenu,main:53 - 1. Course Registration
+16:33:18,808  INFO StudentCRSMenu,main:54 - 2. Add Course
+16:33:18,808  INFO StudentCRSMenu,main:55 - 3. Drop Course
+16:33:18,808  INFO StudentCRSMenu,main:56 - 4. View Available Courses
+16:33:18,808  INFO StudentCRSMenu,main:57 - 5. View Registered Courses
+16:33:18,808  INFO StudentCRSMenu,main:58 - 6. View grade card
+16:33:18,808  INFO StudentCRSMenu,main:59 - 7. Make Payment
+16:33:18,809  INFO StudentCRSMenu,main:60 - 8. Logout
+16:33:18,809  INFO StudentCRSMenu,main:61 - *****************************
+16:33:24,763  INFO CRSApplication,main:82 - ----------Welcome to Course Management System---------
+16:33:24,764  INFO CRSApplication,main:83 - 1. Login
+16:33:24,764  INFO CRSApplication,main:84 - 2. Student Registration
+16:33:24,764  INFO CRSApplication,main:85 - 3. Update password
+16:33:24,764  INFO CRSApplication,main:86 - 4. Exit
+16:33:24,764  INFO CRSApplication,main:87 - Enter user input
+16:33:32,456  INFO CRSApplication,main:104 - -----------------Login------------------
+16:33:32,456  INFO CRSApplication,main:105 - Email:
+16:33:38,950  INFO CRSApplication,main:107 - Password:
+16:33:41,426  INFO CRSApplication,main:128 - 24-07-2021 16:33:41 Login Successful
+16:33:41,460  INFO AdminCRSMenu,main:45 - *****************************
+16:33:41,460  INFO AdminCRSMenu,main:46 - **********Admin Menu*********
+16:33:41,460  INFO AdminCRSMenu,main:47 - *****************************
+16:33:41,460  INFO AdminCRSMenu,main:48 - 1. View course in catalog
+16:33:41,460  INFO AdminCRSMenu,main:49 - 2. Add Course to catalog
+16:33:41,460  INFO AdminCRSMenu,main:50 - 3. Delete Course from catalog
+16:33:41,461  INFO AdminCRSMenu,main:51 - 4. Approve Students
+16:33:41,461  INFO AdminCRSMenu,main:52 - 5. View Pending Admission
+16:33:41,461  INFO AdminCRSMenu,main:53 - 6. Add Professor
+16:33:41,461  INFO AdminCRSMenu,main:54 - 7. Assign Courses To Professor
+16:33:41,461  INFO AdminCRSMenu,main:55 - 8. Logout
+16:33:41,461  INFO AdminCRSMenu,main:56 - *****************************
+16:33:44,379  INFO CRSApplication,main:82 - ----------Welcome to Course Management System---------
+16:33:44,379  INFO CRSApplication,main:83 - 1. Login
+16:33:44,379  INFO CRSApplication,main:84 - 2. Student Registration
+16:33:44,379  INFO CRSApplication,main:85 - 3. Update password
+16:33:44,380  INFO CRSApplication,main:86 - 4. Exit
+16:33:44,380  INFO CRSApplication,main:87 - Enter user input
+16:40:36,342  INFO NotificationDaoOperation,main:75 - Payment successful, Reference ID: 391b2114-454a-4e94-8651-a1353f740558
+16:40:36,352  INFO NotificationDaoOperation,main:92 - Student with id 3 fee has been paid
