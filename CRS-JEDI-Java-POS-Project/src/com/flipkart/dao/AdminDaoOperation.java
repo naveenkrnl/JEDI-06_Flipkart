@@ -214,128 +214,156 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return professorList;
 	}
 
-	// // TODO : Fix me
-	// @Override
-	// public void deleteCourse(String courseCode) {
+	public static boolean createCourseDBRecordAndUpdateObject(Course course) {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute;
+		if (course.getProfessorUserId() != -1) {
+			queryToExecute = SQLQueriesConstants.ADD_COURSE_QUERY_WITH_PROFID;
+		} else {
+			queryToExecute = SQLQueriesConstants.ADD_COURSE_QUERY;
+		}
 
-	// Connection connection = DBUtils.getConnection();
-	// String
-	// try {
-	// String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
-	// PreparedStatement statement = connection.prepareStatement(sql);
+		try {
+			PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute);
+			preparedStatementcourse.setString(1, course.getCourseName());
+			preparedStatementcourse.setInt(1, course.getCourseCatalogId());
+			if (course.getProfessorUserId() != -1)
+				preparedStatementcourse.setInt(1, course.getProfessorUserId());
+			int rowsAffected = preparedStatementcourse.executeUpdate();
+			if (rowsAffected == 0) {
+				return false;
+				// TODO : Add exception course Record Not created
+			}
+			return true;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return false;
+	}
 
-	// statement.setString(1, courseCode);
-	// int row = statement.executeUpdate();
-
-	// System.err.println(row + " entries deleted.");
-	// if (row == 0) {
-	// System.err.println(courseCode + " not in catalog!");
-	// }
-
-	// System.out.println("Message - ");
-	// System.out.println("Course with courseCode: " + courseCode + " deleted.");
-
-	// } catch (Exception se) {
-	// System.err.println(se.getMessage());
-	// }
-
-	// }
-
-	// // TODO : Fix me
-	// @Override
-	// public void addCourse(Course course) {
-
-	// statement = null;
-	// try {
-
-	// String sql = SQLQueriesConstants.ADD_COURSE_QUERY;
-	// statement = connection.prepareStatement(sql);
-	// statement.setString(1, course.getCourseCode());
-	// statement.setString(2, course.getCourseName());
-	// int row = statement.executeUpdate();
-
-	// System.out.println("Message - ");
-	// System.out.println(row + " course added");
-	// if (row == 0) {
-	// System.err.println("Course with courseCode: " + course.getCourseCode() + "not
-	// added to catalog.");
-	// }
-
-	// System.out.println("Message - ");
-	// System.out.println("Course with courseCode: " + course.getCourseCode() + " is
-	// added to catalog.");
-
-	// } catch (SQLException se) {
-	// System.err.println(se.getMessage());
-	// }
-
-	// }
-
-	// // TODO:Fix me
+	public boolean addCourse(Course course) {
+		return createCourseDBRecordAndUpdateObject(course);
+	}
 
 	// @Override
-	// public void assignCourse(String courseCode, String professorId) {
+	public boolean assignCourse(int courseCode, int professorUserId) {
 
-	// statement = null;
-	// try {
-	// String sql = SQLQueriesConstants.ASSIGN_COURSE_QUERY;
-	// statement = connection.prepareStatement(sql);
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.ASSIGN_COURSE_QUERY;
+		try {
+			PreparedStatement statement = connection.prepareStatement(queryToExecute);
 
-	// statement.setString(1, professorId);
-	// statement.setString(2, courseCode);
-	// int row = statement.executeUpdate();
+			statement.setInt(1, professorUserId);
+			statement.setInt(2, courseCode);
+			int row = statement.executeUpdate();
 
-	// System.out.println("Message - ");
-	// System.out.println(row + " course assigned.");
-	// if (row == 0) {
-	// System.err.println(courseCode + " not found");
-	// }
+			// System.out.println("Message - ");
+			// System.out.println(row + " course assigned.");
+			if (row == 0) {
+				System.err.println(courseCode + " not found");
+				return false;
+			}
 
-	// System.out.println("Message - ");
-	// System.out.println("Course with courseCode: " + courseCode + " is assigned to
-	// professor with professorId: "
-	// + professorId + ".");
+			// System.out.println("Message - ");
+			// System.out.println("Course with courseCode: " + courseCode
+			// + " is assigned to professor with professorUserId: " + professorUserId +
+			// ".");
+			return true;
 
-	// } catch (SQLException se) {
-	// System.err.println(se.getMessage());
-	// }
-
-	// }
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return false;
+	}
 
 	// // TODO : Fix me
-	// public List<Course> viewCourses(int catalogId) {
+	// @Override
+	public boolean deleteCourse(int courseCode) {
 
-	// statement = null;
-	// List<Course> courseList = new ArrayList<>();
-	// try {
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.DELETE_COURSE_QUERY;
+		try {
+			PreparedStatement statement = connection
+					.prepareStatement(SQLQueriesConstants.DELETE_REGISTERED_COURSE_FROM_COURSE_ID);
+			statement.setInt(1, courseCode);
+			statement.executeUpdate();
 
-	// String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
-	// statement = connection.prepareStatement(sql);
-	// statement.setInt(1, catalogId);
-	// ResultSet resultSet = statement.executeQuery();
+			statement = connection.prepareStatement(queryToExecute);
+			statement.setInt(1, courseCode);
+			int row = statement.executeUpdate();
+			// System.err.println(row + " entries deleted.");
+			if (row == 0) {
+				// System.err.println(courseCode + " not in catalog!");
+				return false;
+			}
+			return true;
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return false;
+	}
 
-	// while (resultSet.next()) {
+	public List<Course> viewCourses(int courseCatalogId) {
 
-	// Course course = new Course();
-	// course.setCourseCode(resultSet.getString(1));
-	// course.setCourseName(resultSet.getString(2));
-	// course.setProfessorId(resultSet.getString(3));
-	// courseList.add(course);
+		Connection connection = DBUtils.getConnection();
+		String queryToExecute = SQLQueriesConstants.GET_COURSE_LIST_FROM_COURSE_CATALOG_ID;
+		List<Course> courseList = new ArrayList<>();
+		try {
 
-	// }
+			// String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
+			PreparedStatement statement = connection.prepareStatement(queryToExecute);
+			statement.setInt(1, courseCatalogId);
+			ResultSet resultSet = statement.executeQuery();
 
-	// System.out.println("Message - ");
-	// System.out.println(courseList.size() + " courses in catalogId: " + catalogId
-	// + ".");
+			while (resultSet.next()) {
+				Course course = new Course();
+				course.setCourseCode(resultSet.getInt(1));
+				course.setCourseName(resultSet.getString(2));
+				course.setProfessorUserId(resultSet.getInt(3));
+				course.setCourseCatalogId(resultSet.getInt(4));
+				courseList.add(course);
+			}
 
-	// } catch (SQLException se) {
+			// System.out.println("Message - ");
+			// System.out.println(courseList.size() + " courses in catalogId: " + catalogId
+			// + ".");
 
-	// System.err.println(se.getMessage());
-
-	// }
-
-	// return courseList;
-
-	// }
+		} catch (SQLException sqlErr) {
+			System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
+			sqlErr.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException closeErr) {
+				System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
+				closeErr.printStackTrace();
+			}
+		}
+		return courseList;
+	}
 
 }

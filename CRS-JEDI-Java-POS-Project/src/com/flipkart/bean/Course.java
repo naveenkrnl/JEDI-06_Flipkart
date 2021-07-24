@@ -1,27 +1,23 @@
 package com.flipkart.bean;
 
+import com.flipkart.dao.ProfessorDaoOperation;
+
 public class Course {
 
-	private String courseCode;
+	private int courseCode;
 	private String courseName;
 	private int professorUserId;
-	private int seats = 10;
+	private int courseCatalogId;
 
 	public Course() {
-
+		professorUserId = -1;
 	}
 
-	public Course(String courseCode, String courseName, int professorUserId) {
-		this.courseCode = courseCode;
-		this.courseName = courseName;
-		this.professorUserId = professorUserId;
-	}
-
-	public String getCourseCode() {
+	public int getCourseCode() {
 		return courseCode;
 	}
 
-	public void setCourseCode(String courseCode) {
+	public void setCourseCode(int courseCode) {
 		this.courseCode = courseCode;
 	}
 
@@ -33,19 +29,23 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	public int getSeats() {
-		return seats;
-	}
-
-	public void setSeats(int seats) {
-		this.seats = seats;
-	}
-
 	public int getProfessorUserId() {
 		return professorUserId;
 	}
 
 	public void setProfessorUserId(int professorUserId) {
 		this.professorUserId = professorUserId;
+	}
+
+	public int getCourseCatalogId() {
+		return courseCatalogId;
+	}
+
+	public void setCourseCatalogId(int courseCatalogId) {
+		this.courseCatalogId = courseCatalogId;
+	}
+
+	public Professor getProfessor() {
+		return ProfessorDaoOperation.getProfessorFromUserId(getProfessorUserId());
 	}
 }

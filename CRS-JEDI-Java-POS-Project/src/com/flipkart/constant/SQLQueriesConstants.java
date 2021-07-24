@@ -13,11 +13,12 @@ public class SQLQueriesConstants {
     public static final String APPROVE_STUDENT_QUERY = "update student set isApproved = 1 where userId = ?";
     public static final String VIEW_PROFESSOR_QUERY = "select user.name, user.gender, user.address, user.country, user.userId, user.role, user.password, user.email, user.doj, professor.department, professor.designation from professor inner join user on user.userId = professor.userId";
     public static final String VIEW_PENDING_ADMISSION_QUERY = "select user.userId, user.name, user.email, user.password, user.role, user.gender, user.address, user.country, user.doj, student.branchName, student.batch, student.rollNumber from student join user on (user.userId = student.userId) where student.isApproved = 0";
-
+    public static final String ADD_COURSE_QUERY = "insert into Course(courseName, courseCatalogId) values (?, ?)";
+    public static final String ADD_COURSE_QUERY_WITH_PROFID = "insert into Course(courseName, courseCatalogId , professorUserId) values (?, ?, ?)";
+    public static final String ASSIGN_COURSE_QUERY = "update Course set professorUserId = ? where courseCode = ?";
+    public static final String DELETE_REGISTERED_COURSE_FROM_COURSE_ID = "delete from RegisteredCourse where courseCode = ?";
     public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";
-    public static final String ADD_COURSE_QUERY = "insert into Course(courseCode, courseName, catalogId) values (?, ?, ?)";
-    public static final String ASSIGN_COURSE_QUERY = "update Course set professorId = ? where courseCode = ?";
-    public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, professorId from Course where catalogId = ?";
+    public static final String GET_COURSE_LIST_FROM_COURSE_CATALOG_ID = "select courseCode, courseName, professorUserId, courseCatalogId from Course where courseCatalogId = ?";
 
     // Professsor Queries
     public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";

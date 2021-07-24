@@ -1,50 +1,45 @@
 package com.flipkart.bean;
 
+import com.flipkart.constant.Grade;
+import com.flipkart.dao.ProfessorDaoOperation;
+
 /**
  *
  * Class for storing details of course Student has taken
  *
  */
 public class RegisteredCourse {
-	private String courseCode;
-	private String courseName;
-	private String rollNumber;
 
-	public String getCourseCode() {
-		System.out.println("Function getCourseCode called from RegisteredCourseStudent");
-		return courseCode;
+	private Course course;
+	private Grade grade;
+	private Student student;
+
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setCourseCode(String courseCode) {
-		System.out.println("Function setCourseCode called from RegisteredCourseStudent");
-		this.courseCode = courseCode;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
-	public String getCourseName() {
-		System.out.println("Function getCourseName called from RegisteredCourseStudent");
-		return courseName;
+	public Grade getGrade() {
+		return grade;
 	}
 
-	public void setCourseName(String courseName) {
-		System.out.println("Function setCourseName called from RegisteredCourseStudent");
-		this.courseName = courseName;
+	public void setGrade(Grade grade) {
+		this.grade = grade;
 	}
 
-	public String getrollNumber() {
-		System.out.println("Function getrollNumber called from RegisteredCourseStudent");
-		return rollNumber;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setrollNumber(String rollNumber) {
-		System.out.println("Function setrollNumber called from RegisteredCourseStudent");
-		this.rollNumber = rollNumber;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public RegisteredCourse(String courseCode, String courseName, String rollNumber) {
-		super();
-		System.out.println("Function RegisteredCourseStudent called from RegisteredCourseStudent");
-		this.courseCode = courseCode;
-		this.courseName = courseName;
-		this.rollNumber = rollNumber;
+	public Professor getProfessor() {
+		return ProfessorDaoOperation.getProfessorFromUserId(course.getProfessorUserId());
 	}
+
 }
