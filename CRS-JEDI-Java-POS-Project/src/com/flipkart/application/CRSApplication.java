@@ -44,14 +44,14 @@ public class CRSApplication {
                         break;
                     case 2:
                         //student registration
-                        crsApplication.registerAdmin();
-                        break;
-                    case 3:
-                        //student registration
                         crsApplication.registerStudent();
                         break;
-                    case 4:
+                    case 3:
                         crsApplication.updatePassword();
+                        break;
+                    case 4:
+                        //student registration
+                        crsApplication.registerAdmin();
                         break;
                     default:
                         StringUtils.printErrorMessage("Invalid Input");
@@ -72,9 +72,9 @@ public class CRSApplication {
     public static void createMainMenu() {
         StringUtils.printMenu("Welcome to Course Management System", new String[]{
                 "Login",
-                "Administrative Account Creation",
                 "Student Registration",
                 "Change password",
+                "Admin Account Creation",
                 "Exit"
         }, 100);
 
