@@ -1,12 +1,10 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.flipkart.exception.*;
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
@@ -16,14 +14,6 @@ import com.flipkart.bean.User;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotAddedException;
-import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtils;
 
 
@@ -58,7 +48,47 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	}
 	
 	Connection connection = DBUtils.getConnection();
-	
+
+	/**
+	 * Method to add student to database
+	 *
+	 * @param admin: User object containing all the fields for admin
+	 * @return Admin id if admin account is created else 0
+	 * @throws AdminAccountNotCreatedException
+	 */
+	@Override
+	public int addAdmin(User admin) throws AdminAccountNotCreatedException {
+		Connection connection = DBUtils.getConnection();
+		int adminId = 0;
+		try {
+			// open db connection
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY,
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, admin.getUserId());
+			preparedStatement.setString(2, admin.getName());
+			preparedStatement.setString(3, admin.getPassword());
+			preparedStatement.setString(4, admin.getRole().toString());
+			preparedStatement.setString(5, admin.getGender().toString());
+			preparedStatement.setString(6, admin.getAddress());
+			preparedStatement.setString(7, admin.getCountry());
+			int rowsAffected = preparedStatement.executeUpdate();
+			ResultSet results = preparedStatement.getGeneratedKeys();
+			if (results.next())
+				adminId = results.getInt(1);
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+			throw new AdminAccountNotCreatedException();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage() + "SQL error");
+				e.printStackTrace();
+			}
+		}
+		return adminId;
+	}
+
 	/**
 	 * Delete Course using SQL commands
 	 * @param courseCode
@@ -174,7 +204,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	/**
 	 * Approve Student using SQL commands
 	 * @param studentId
-	 * @throws StudentNotFoundException
+	 * @throws StudentNotFoundForApprovalException
 	 */
 	@Override
 	public void approveStudent(int studentId) throws StudentNotFoundForApprovalException {
@@ -336,7 +366,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	
 	/**
 	 * View courses in the catalog
-	 * @param Catalog ID
+	 * @param catalogId
 	 * @return List of courses in the catalog
 	 */
 	public List<Course> viewCourses(int catalogId) {
