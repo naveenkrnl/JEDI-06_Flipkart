@@ -7,10 +7,7 @@ import com.flipkart.constant.Role;
 import java.util.Date;
 
 /**
- * 
- * 
  * Admin Class
- * 
  */
 public class Admin extends User {
 	private Date dateOfJoining;
@@ -41,7 +38,7 @@ public class Admin extends User {
 	/**
 	 * Method to set Date of joining
 	 * 
-	 * @param dateOfJoining
+	 * @param dateOfJoining Date of joining
 	 */
 	public void setDateOfJoining(Date dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
