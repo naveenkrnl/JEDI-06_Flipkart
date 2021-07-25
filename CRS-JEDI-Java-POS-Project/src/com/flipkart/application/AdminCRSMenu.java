@@ -42,12 +42,12 @@ public class AdminCRSMenu {
         while (CRSApplication.loggedin) {
 
             StringUtils.printMenu("Administrative Control Menu", new String[]{
-                    "View course in catalog",
-                    "Add Course to catalog",
-                    "Delete Course from catalog",
-                    "Approve Students",
-                    "View Pending Admission",
-                    "Add Professor",
+                    "View course Catalogue",
+                    "Add New Course to Catalogue",
+                    "Delete Course from Catalogue",
+                    "Approve Student Registration",
+                    "View Pending Student Approvals",
+                    "Add New Professor",
                     "Assign Courses To Professor",
                     "Logout"
             }, 100);

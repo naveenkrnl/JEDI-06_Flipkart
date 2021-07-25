@@ -47,13 +47,13 @@ public class StudentCRSMenu {
         while (CRSApplication.loggedin)
         {
             StringUtils.printMenu("Student Access Menu", new String[]{
-                    "Course Registration",
-                    "Add Course" ,
-                    "Drop Course",
+                    "Register for Courses",
+                    "Add New Course to Semester" ,
+                    "Drop Course from Semester",
                     "View Available Courses",
                     "View Registered Courses",
-                    "View grade card" ,
-                    "Make Payment",
+                    "View Semester Grade Card" ,
+                    "Pay Fees for Courses",
                     "Logout"
                             },100);
 
