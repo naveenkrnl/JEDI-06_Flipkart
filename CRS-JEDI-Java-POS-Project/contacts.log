@@ -60,3 +60,66 @@
 16:33:44,380  INFO CRSApplication,main:87 - Enter user input
 16:40:36,342  INFO NotificationDaoOperation,main:75 - Payment successful, Reference ID: 391b2114-454a-4e94-8651-a1353f740558
 16:40:36,352  INFO NotificationDaoOperation,main:92 - Student with id 3 fee has been paid
+11:16:12,078  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
+11:16:46,180  INFO AdminDaoOperation,main:363 - 0 courses in catalogId: 1.
+11:16:58,973  INFO AdminDaoOperation,main:115 - 1 course added
+11:16:58,974  INFO AdminDaoOperation,main:121 - Course with courseCode: 123 is added to catalog.
+11:17:01,712  INFO AdminDaoOperation,main:363 - 1 courses in catalogId: 1.
+11:21:07,692  INFO AdminDaoOperation,main:363 - 1 courses in catalogId: 1.
+11:21:47,190  INFO AdminDaoOperation,main:230 - 1 user added.
+11:21:47,190  INFO AdminDaoOperation,main:236 - User with userId: amit@gmail.com added.
+11:21:47,193  INFO AdminDaoOperation,main:284 - 1 professor added.
+11:21:47,193  INFO AdminDaoOperation,main:290 - Professor with professorId: amit@gmail.com added.
+11:22:08,162  INFO AdminDaoOperation,main:363 - 1 courses in catalogId: 1.
+11:38:38,494  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
+11:52:09,554  INFO AdminDaoOperation,main:363 - 1 courses in catalogId: 1.
+11:52:16,507  INFO AdminDaoOperation,main:115 - 1 course added
+11:52:16,507  INFO AdminDaoOperation,main:121 - Course with courseCode: 112 is added to catalog.
+11:52:19,078  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+11:52:23,657  INFO AdminDaoOperation,main:115 - 1 course added
+11:52:23,658  INFO AdminDaoOperation,main:121 - Course with courseCode: 113 is added to catalog.
+11:53:18,849  INFO AdminDaoOperation,main:363 - 3 courses in catalogId: 1.
+11:53:25,658  INFO AdminDaoOperation,main:363 - 3 courses in catalogId: 1.
+11:53:44,360  INFO AdminDaoOperation,main:115 - 1 course added
+11:53:44,360  INFO AdminDaoOperation,main:121 - Course with courseCode: 114 is added to catalog.
+11:53:44,362  INFO AdminDaoOperation,main:363 - 4 courses in catalogId: 1.
+11:53:57,013  INFO AdminDaoOperation,main:115 - 1 course added
+11:53:57,014  INFO AdminDaoOperation,main:121 - Course with courseCode: 1 is added to catalog.
+11:55:15,913  INFO AdminDaoOperation,main:363 - 5 courses in catalogId: 1.
+11:55:19,053  INFO AdminDaoOperation,main:363 - 5 courses in catalogId: 1.
+11:55:28,912  INFO AdminDaoOperation,main:115 - 1 course added
+11:55:28,912  INFO AdminDaoOperation,main:121 - Course with courseCode: 2 is added to catalog.
+11:55:30,534  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+11:55:59,510  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
+11:56:14,727  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
+11:56:17,416  INFO AdminDaoOperation,main:190 - 1 student approved.
+11:56:17,434  INFO NotificationDaoOperation,main:89 - Student with id 2 has been approved!
+11:56:23,945  INFO AdminDaoOperation,main:162 - 0 students have pending-approval.
+11:57:16,691  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+11:57:16,693  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+11:57:24,426  INFO AdminDaoOperation,main:320 - 1 course assigned.
+11:57:24,426  INFO AdminDaoOperation,main:326 - Course with courseCode: 1 is assigned to professor with professorId: amit@gmail.com.
+11:57:28,085  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+11:57:28,086  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+11:57:41,198  INFO AdminDaoOperation,main:320 - 1 course assigned.
+11:57:41,198  INFO AdminDaoOperation,main:326 - Course with courseCode: 2 is assigned to professor with professorId: amit@gmail.com.
+11:59:56,043  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+11:59:56,044  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+12:00:07,686 ERROR AdminDaoOperation,main:330 - Cannot add or update a child row: a foreign key constraint fails (`crs`.`course`, CONSTRAINT `Course___fk` FOREIGN KEY (`professorId`) REFERENCES `professor` (`userId`))
+12:00:12,274  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+12:00:12,275  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+12:00:26,118  INFO AdminDaoOperation,main:320 - 1 course assigned.
+12:00:26,118  INFO AdminDaoOperation,main:326 - Course with courseCode: 113 is assigned to professor with professorId: amit@gmail.com.
+12:00:35,128  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+12:00:35,129  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+12:00:43,304  INFO AdminDaoOperation,main:320 - 1 course assigned.
+12:00:43,304  INFO AdminDaoOperation,main:326 - Course with courseCode: 114 is assigned to professor with professorId: amit@gmail.com.
+12:00:46,886  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+12:00:46,887  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+12:00:59,963  INFO AdminDaoOperation,main:320 - 1 course assigned.
+12:00:59,963  INFO AdminDaoOperation,main:326 - Course with courseCode: 123 is assigned to professor with professorId: amit@gmail.com.
+12:02:20,821  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+12:02:24,720  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+12:02:24,722  INFO AdminDaoOperation,main:363 - 6 courses in catalogId: 1.
+12:02:30,028  INFO AdminDaoOperation,main:320 - 1 course assigned.
+12:02:30,029  INFO AdminDaoOperation,main:326 - Course with courseCode: 112 is assigned to professor with professorId: amit@gmail.com.

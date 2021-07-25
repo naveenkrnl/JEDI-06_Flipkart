@@ -72,7 +72,7 @@ public class CRSApplication {
         StringUtils.printMenu("Welcome to Course Management System", new String[]{
                 "Login",
                 "Student Registration",
-                "Update password",
+                "Change password",
                 "Exit"
         }, 100);
 
@@ -193,18 +193,27 @@ public class CRSApplication {
      */
     public void updatePassword() {
         Scanner sc = new Scanner(System.in);
-        String userId, newPassword;
+        String userId, newPassword, password;
         try {
             StringUtils.printHeading("Update Password Portal");
-            System.out.println("Email");
+            System.out.println("Email:");
             userId = sc.next();
-            System.out.println("New Password:");
-            newPassword = sc.next();
-            boolean isUpdated = userInterface.updatePassword(userId, newPassword);
-            if (isUpdated)
-                StringUtils.printSuccessMessage("Password updated successfully!");
-            else
-                StringUtils.printErrorMessage("Something went wrong, please try again!");
+            System.out.println("old Password:");
+            password = sc.next();
+            loggedin = userInterface.verifyCredentials(userId, password);
+            if (loggedin) {
+
+                System.out.println("New Password:");
+                newPassword = sc.next();
+                boolean isUpdated = userInterface.updatePassword(userId, newPassword);
+                if (isUpdated)
+                    StringUtils.printSuccessMessage("Password updated successfully!");
+                else
+                    StringUtils.printErrorMessage("Something went wrong, please try again!");
+            }
+            else{
+                StringUtils.printErrorMessage("Incorrect Password");
+            }
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Error Occured " + ex.getMessage());
         }
