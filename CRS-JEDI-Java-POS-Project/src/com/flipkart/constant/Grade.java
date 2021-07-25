@@ -1,5 +1,8 @@
 package com.flipkart.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  *
@@ -7,7 +10,7 @@ package com.flipkart.constant;
  *
  */
 public enum Grade {
-    A(10), A_MINUS(9), B(8), B_MINUS(7), C(6), C_MINUS(5), D(4), E(3);
+    A(10), B(9), C(8), D(7), E(6), F(5), NA(0), EX(0);
 
     final private int value;
 

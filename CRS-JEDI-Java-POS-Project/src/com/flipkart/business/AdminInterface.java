@@ -5,13 +5,8 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.constant.Gender;
+import com.flipkart.exception.*;
 
 /**
  * 
@@ -21,6 +16,20 @@ import com.flipkart.exception.UserNotFoundException;
  */
 public interface AdminInterface {
 
+	/**
+	 * Method to add Administrative Account
+	 *
+	 * @param name
+	 * @param userID
+	 * @param password
+	 * @param gender
+	 * @param address
+	 * @param country
+	 * @return Admin ID
+	 * @throws AdminAccountNotCreatedException
+	 */
+	public int register(String name, String userID, String password, Gender gender, String address,
+						String country) throws AdminAccountNotCreatedException;
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * 
@@ -52,7 +61,6 @@ public interface AdminInterface {
 	 * 
 	 * @param studentId
 	 * @param studentList
-	 * @throws StudentNotFoundException
 	 * @throws StudentNotFoundForApprovalException
 	 */
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
