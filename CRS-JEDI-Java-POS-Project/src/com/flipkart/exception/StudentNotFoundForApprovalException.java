@@ -18,7 +18,7 @@ public class StudentNotFoundForApprovalException extends Exception {
 	/**
 	 * Getter function for studentId
 	 * 
-	 * @return
+	 * @return student ID
 	 */
 	public int getStudentId() {
 		return this.studentId;
