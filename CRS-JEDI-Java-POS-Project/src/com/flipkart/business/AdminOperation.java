@@ -2,20 +2,14 @@ package com.flipkart.business;
 
 import java.util.List;
 
+import com.flipkart.bean.*;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+import com.flipkart.exception.*;
 import org.apache.log4j.Logger;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
 import com.flipkart.validator.AdminValidator;
 
 /**
@@ -46,11 +40,37 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
+	/**
+	 * Method to add Administrative Account
+	 *
+	 * @param name
+	 * @param userID
+	 * @param password
+	 * @param gender
+	 * @param address
+	 * @param country
+	 * @return Admin ID
+	 * @throws AdminAccountNotCreatedException
+	 */
+	@Override
+	public int register(String name, String userID, String password, Gender gender, String address,
+						String country) throws AdminAccountNotCreatedException{
+		int adminId = 0;
+		try {
+			// call the DAO class, and add the admin record to the DB
+			User admin = new Admin(userID, name, Role.ADMIN, password, gender, address, country);
+			adminId = adminDaoOperation.addAdmin(admin) ;
+
+		} catch (AdminAccountNotCreatedException ex) {
+			throw ex;
+		}
+		return adminId;
+	}
 
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * 
-	 * @param courseCode
+	 * @param dropCourseCode
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException
 	 */
@@ -74,7 +94,7 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to add Course to Course Catalog
 	 * 
-	 * @param course     : Course object storing details of a course
+	 * @param newCourse     : Course object storing details of a course
 	 * @param courseList : Courses available in catalog
 	 * @throws CourseFoundException
 	 */
@@ -109,7 +129,7 @@ public class AdminOperation implements AdminInterface {
 	 * 
 	 * @param studentId
 	 * @param studentList
-	 * @throws StudentNotFoundException
+	 * @throws StudentNotFoundForApprovalException
 	 */
 	@Override
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
@@ -188,4 +208,5 @@ public class AdminOperation implements AdminInterface {
 		return adminDaoOperation.viewProfessors();
 
 	}
+
 }

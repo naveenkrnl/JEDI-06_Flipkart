@@ -37,3 +37,10 @@
 22:28:31,244  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
 22:51:20,217  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
 22:52:38,870  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
+14:04:47,183  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+14:05:09,042  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
+15:18:39,015  INFO AdminDaoOperation,main:393 - 2 courses in catalogId: 1.
+15:18:45,275  INFO AdminDaoOperation,main:393 - 2 courses in catalogId: 1.
+15:18:52,407  INFO AdminDaoOperation,main:145 - 1 course added
+15:18:52,408  INFO AdminDaoOperation,main:151 - Course with courseCode: 1234 is added to catalog.
+15:19:43,710  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!

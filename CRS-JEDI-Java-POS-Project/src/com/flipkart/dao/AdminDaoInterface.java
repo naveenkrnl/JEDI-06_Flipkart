@@ -9,14 +9,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotAddedException;
-import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.exception.*;
 
 /**
  * 
@@ -24,6 +17,15 @@ import com.flipkart.exception.UserNotFoundException;
  *
  */
 public interface AdminDaoInterface {
+
+	/**
+	 * Method to add student to database
+	 *
+	 * @param admin: User object containing all the fields for admin
+	 * @return Admin id if admin account is created else 0
+	 * @throws AdminAccountNotCreatedException
+	 */
+	public int addAdmin(User admin) throws AdminAccountNotCreatedException;
 
 	/**
 	 * Delete Course using SQL commands

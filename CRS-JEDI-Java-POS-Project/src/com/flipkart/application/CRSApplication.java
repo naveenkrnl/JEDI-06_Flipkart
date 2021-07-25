@@ -4,17 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import com.flipkart.business.*;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
+import com.flipkart.exception.AdminAccountNotCreatedException;
 import com.flipkart.exception.UserNotFoundException;
-import com.flipkart.business.NotificationInterface;
-import com.flipkart.business.NotificationOperation;
-import com.flipkart.business.StudentInterface;
-import com.flipkart.business.StudentOperation;
-import com.flipkart.business.UserInterface;
-import com.flipkart.business.UserOperation;
 import com.flipkart.constant.Color;
+import com.flipkart.utils.Secrets;
 import com.flipkart.utils.StringUtils;
 
 /**
@@ -27,7 +24,7 @@ public class CRSApplication {
     StudentInterface studentInterface = StudentOperation.getInstance();
     UserInterface userInterface = UserOperation.getInstance();
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
-
+    AdminInterface adminInterface = AdminOperation.getInstance();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -39,7 +36,7 @@ public class CRSApplication {
         try {
 
             //until user do not exit the application
-            while (userInput != 4) {
+            while (userInput != 5) {
                 switch (userInput) {
                     case 1:
                         //login
@@ -52,6 +49,10 @@ public class CRSApplication {
                     case 3:
                         crsApplication.updatePassword();
                         break;
+                    case 4:
+                        //student registration
+                        crsApplication.registerAdmin();
+                        break;
                     default:
                         StringUtils.printErrorMessage("Invalid Input");
                 }
@@ -59,7 +60,7 @@ public class CRSApplication {
                 userInput = sc.nextInt();
             }
         } catch (Exception ex) {
-            StringUtils.printErrorMessage("Error occured " + ex);
+            StringUtils.printErrorMessage("Error occurred " + ex);
         } finally {
             sc.close();
         }
@@ -73,6 +74,7 @@ public class CRSApplication {
                 "Login",
                 "Student Registration",
                 "Change password",
+                "Admin Account Creation",
                 "Exit"
         }, 100);
 
@@ -149,6 +151,43 @@ public class CRSApplication {
         }
     }
 
+    public void registerAdmin() {
+        Scanner sc = new Scanner(System.in);
+        StringUtils.printHeading("Enter root password");
+        String rt_pwd = sc.nextLine();
+
+        if(!rt_pwd.equals(Secrets.ROOT_PASSWORD))
+        {
+            StringUtils.printErrorMessage("Incorrect Password! Access Denied");
+            return;
+        }
+        String userId, name, password, address, country;
+        Gender gender;
+        int genderV;
+        try {
+            //input all the student details
+            StringUtils.printHeading("Administrative Account Creation Portal");
+            System.out.println("Name:");
+            name = sc.nextLine();
+            System.out.println("Email:");
+            userId = sc.next();
+            System.out.println("Password:");
+            password = sc.next();
+            System.out.println("Gender: \t 1: Male \t 2.Female\t 3.Other");
+            genderV = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Address:");
+            address = sc.nextLine();
+            System.out.println("Country");
+            country = sc.next();
+            gender = Gender.getName(genderV);
+            int admin= adminInterface.register(name, userId, password, gender, address, country);
+        } catch (AdminAccountNotCreatedException ex) {
+            StringUtils.printErrorMessage("Something went wrong! not registered. Please try again\n" + ex.getMessage());
+            return;
+        }
+        StringUtils.printSuccessMessage("Administrative Account Successfully Created!");
+    }
     /**
      * Method to help Student register themselves, pending admin approval
      */
@@ -185,7 +224,9 @@ public class CRSApplication {
 
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Something went wrong! not registered. Please try again" + ex.getMessage());
+            return;
         }
+        StringUtils.printSuccessMessage("Student Successfully Registered!");
     }
 
     /**
@@ -215,7 +256,8 @@ public class CRSApplication {
                 StringUtils.printErrorMessage("Incorrect Password");
             }
         } catch (Exception ex) {
-            StringUtils.printErrorMessage("Error Occured " + ex.getMessage());
+            StringUtils.printErrorMessage("Error Occurred " + ex.getMessage());
+            return;
         }
     }
 }

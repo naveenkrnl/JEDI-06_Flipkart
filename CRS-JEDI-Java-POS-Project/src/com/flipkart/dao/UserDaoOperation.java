@@ -58,7 +58,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			statement.setString(2, userId);
 
 			int row = statement.executeUpdate();
-
+			//Multiple people can have same Email ID and then multiple rows will be affected while updating password
 			if (row == 1)
 				return true;
 			else
