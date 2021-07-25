@@ -30,4 +30,5 @@ public enum Role {
 			userRole = Role.STUDENT;
 		return userRole;
 	}
+
 }

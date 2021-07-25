@@ -44,7 +44,7 @@ public class UserDaoOperation implements UserDaoInterface {
 	/**
 	 * Method to update password of user in DataBase
 	 * 
-	 * @param userID
+	 * @param userId
 	 * @param newPassword
 	 * @return Update Password operation Status
 	 */
@@ -155,6 +155,39 @@ public class UserDaoOperation implements UserDaoInterface {
 			}
 		}
 		return null;
+	}
+	/**
+	 * Method to check if a user exists
+	 *
+	 * @param userID
+	 * @return boolean indicating if user exists in the database
+	 */
+	@Override
+	public boolean checkExistence(String userID, String role){
+		Connection connection = DBUtils.getConnection();
+		try {
+			// open db connection
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.CHECK_EXISTENCE);
+			preparedStatement.setString(1, userID);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (!resultSet.next())
+				return false;
+			else if (role.equals(resultSet.getString("role"))) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException ex) {
+			logger.info("Something went wrong, please try again! " + ex.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 
 }

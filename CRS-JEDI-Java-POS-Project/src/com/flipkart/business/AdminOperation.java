@@ -209,4 +209,27 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
+	/**
+	 * Update records of Professor
+	 *
+	 * @param NewDetails
+	 * @return boolean
+	 */
+	@Override
+	public void updateProfessor(Professor NewDetails) throws UserDetailsNotUpdatedException {
+
+		adminDaoOperation.updateProfessor(NewDetails);
+	}
+
+	/**
+	 * Update records of Student
+	 *
+	 * @param NewDetails
+	 * @return boolean
+	 */
+	@Override
+	public void updateStudent(Student NewDetails) throws UserDetailsNotUpdatedException {
+
+		adminDaoOperation.updateStudent(NewDetails);
+	}
 }

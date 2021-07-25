@@ -1,5 +1,6 @@
 package com.flipkart.business;
 
+import com.flipkart.constant.Role;
 import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperation;
 import com.flipkart.exception.UserNotFoundException;
@@ -72,6 +73,17 @@ public class UserOperation implements UserInterface {
 	@Override
 	public String getRole(String userId) {
 		return userDaoInterface.getRole(userId);
+	}
+
+	/**
+	 * Method to check if a user exists
+	 *
+	 * @param userID
+	 * @return boolean indicating if user exists in the database
+	 */
+	@Override
+	public boolean checkExistence(String userID, String role){
+		return userDaoInterface.checkExistence(userID, role);
 	}
 
 }

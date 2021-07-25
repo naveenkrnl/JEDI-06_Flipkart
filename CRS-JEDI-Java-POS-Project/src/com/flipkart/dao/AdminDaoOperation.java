@@ -412,7 +412,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		statement = null;
 		List<Professor> professorList = new ArrayList<>();
 		try {
-			
+
 			String sql = SQLQueriesConstants.VIEW_PROFESSOR_QUERY;
 			statement = connection.prepareStatement(sql);
 			ResultSet resultSet = statement.executeQuery();
@@ -441,5 +441,116 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 		}
 		return professorList;
+	}
+
+	/**
+	 * Update records of Professor
+	 *
+	 * @param NewDetails
+	 * @return boolean
+	 */
+	@Override
+	public void updateProfessor(Professor NewDetails) throws UserDetailsNotUpdatedException {
+		Connection connection = DBUtils.getConnection();
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.GET_PROFESSOR_QUERY);
+			preparedStatement.setString(1, NewDetails.getUserId());
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (NewDetails.getName().equals("\n"))
+				NewDetails.setName(resultSet.getString(2));
+
+			if (NewDetails.getDepartment().equals("\n"))
+				NewDetails.setDepartment(resultSet.getString(4));
+
+			if (NewDetails.getDesignation().equals("\n"))
+				NewDetails.setDesignation(resultSet.getString(5));
+
+			if (NewDetails.getAddress().equals("\n"))
+				NewDetails.setAddress(resultSet.getString(6));
+
+			if (NewDetails.getCountry().equals("\n"))
+				NewDetails.setCountry(resultSet.getString(7));
+
+			PreparedStatement preparedStatementProf = connection.prepareStatement(SQLQueriesConstants.UPDATE_PROFESSOR);
+			PreparedStatement preparedStatementUser = connection.prepareStatement(SQLQueriesConstants.UPDATE_USER);
+
+
+			preparedStatementProf.setString(1, NewDetails.getDepartment());
+			preparedStatementProf.setString(2, NewDetails.getDesignation());
+			preparedStatementProf.setString(3, NewDetails.getUserId());
+
+			preparedStatementUser.setString(1, NewDetails.getName());
+			preparedStatementUser.setString(2, NewDetails.getAddress());
+			preparedStatementUser.setString(3, NewDetails.getCountry());
+			preparedStatementUser.setString(4, NewDetails.getUserId());
+
+			int row1 = preparedStatementProf.executeUpdate();
+			int row2 = preparedStatementUser.executeUpdate();
+
+			if (row1 == 0 || row2 == 0) {
+				throw new UserDetailsNotUpdatedException(NewDetails.getUserId());
+			}
+
+		} catch (SQLException se) {
+
+			logger.error(se.getMessage());
+			System.out.println(se.getMessage());
+		}
+		return;
+	}
+
+	/**
+	 * Update records of Student
+	 *
+	 * @param NewDetails
+	 * @return boolean
+	 */
+	@Override
+	public void updateStudent(Student NewDetails) throws UserDetailsNotUpdatedException {
+		Connection connection = DBUtils.getConnection();
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.GET_STUDENT_QUERY);
+			preparedStatement.setString(1, NewDetails.getUserId());
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (NewDetails.getName().equals("\n"))
+				NewDetails.setName(resultSet.getString(2));
+
+			if (NewDetails.getBranchName().equals("\n"))
+				NewDetails.setBranchName(resultSet.getString(4));
+
+			if (NewDetails.getAddress().equals("\n"))
+				NewDetails.setAddress(resultSet.getString(5));
+
+			if (NewDetails.getCountry().equals("\n"))
+				NewDetails.setCountry(resultSet.getString(6));
+
+			PreparedStatement preparedStatementStud = connection.prepareStatement(SQLQueriesConstants.UPDATE_STUDENT);
+			PreparedStatement preparedStatementUser = connection.prepareStatement(SQLQueriesConstants.UPDATE_USER);
+
+
+			preparedStatementStud.setString(1, NewDetails.getBranchName());
+			preparedStatementStud.setString(2, NewDetails.getUserId());
+
+			preparedStatementUser.setString(1, NewDetails.getName());
+			preparedStatementUser.setString(2, NewDetails.getAddress());
+			preparedStatementUser.setString(3, NewDetails.getCountry());
+			preparedStatementUser.setString(4, NewDetails.getUserId());
+
+			int row1 = preparedStatementStud.executeUpdate();
+			int row2 = preparedStatementUser.executeUpdate();
+
+			if (row1 == 0 || row2 == 0) {
+				throw new UserDetailsNotUpdatedException(NewDetails.getUserId());
+			}
+
+		} catch (SQLException se) {
+
+			logger.error(se.getMessage());
+			System.out.println(se.getMessage());
+			throw new UserDetailsNotUpdatedException(NewDetails.getUserId());
+		}
+		return;
 	}
 }

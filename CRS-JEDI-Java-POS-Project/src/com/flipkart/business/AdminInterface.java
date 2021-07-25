@@ -99,4 +99,20 @@ public interface AdminInterface {
 	 * @return List of the professors in the institute
 	 */
 	public List<Professor> viewProfessors();
+
+	/**
+	 * Update records of Professor
+	 *
+	 * @param NewDetails
+	 * @return boolean
+	 */
+	public void updateProfessor(Professor NewDetails) throws UserDetailsNotUpdatedException;
+
+	/**
+	 * Update records of Student
+	 *
+	 * @param NewDetails
+	 * @return boolean
+	 */
+	public void updateStudent(Student NewDetails) throws UserDetailsNotUpdatedException;
 }

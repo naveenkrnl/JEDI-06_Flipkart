@@ -20,11 +20,19 @@ public class SQLQueriesConstants {
 
     public static final String ADD_STUDENT="insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
     public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
+    public static final String CHECK_EXISTENCE="select * from user where userId = ?";
     public static final String GET_ROLE="select role from user where userId = ? ";
     public static final String IS_APPROVED="select isApproved from student where studentId = ? ";
     public static final String GET_STUDENT_ID="select studentId from student where userId = ? ";
     public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
+    public static final String DELETE_USER="delete from user where userId = ? ";
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
+    public static final String GET_PROFESSOR_QUERY = "select userId, name, gender, department, designation, address, country from Professor natural join User where userId = ?";
+    public static final String GET_STUDENT_QUERY = "select userId, name, gender, branchName, address, country from student natural join User where userId = ?";
+    public static final String UPDATE_PROFESSOR = "update professor set  department = ?, designation = ? where userId = ?";
+    public static final String UPDATE_STUDENT = "update student set  branchName = ? where userId = ?";
+    public static final String UPDATE_USER = "update user set name = ?, address = ?, country = ?  where userId = ?";
+
 
     // Student Queries
     public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";

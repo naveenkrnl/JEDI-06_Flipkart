@@ -1,5 +1,6 @@
 package com.flipkart.business;
 
+import com.flipkart.constant.Role;
 import com.flipkart.exception.UserNotFoundException;
 
 /**
@@ -27,6 +28,15 @@ public interface UserInterface {
 	 * @return boolean indicating if user exists in the database
 	 */
 	public boolean verifyCredentials(String userID, String password) throws UserNotFoundException;
+
+	/**
+	 * Method to check if a user exists
+	 *
+	 * @param userID
+	 * @return boolean indicating if user exists in the database
+	 */
+	public boolean checkExistence(String userID, String role);
+
 
 	/**
 	 * Method to get role of a specific User

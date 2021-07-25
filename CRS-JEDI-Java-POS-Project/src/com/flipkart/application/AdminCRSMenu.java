@@ -1,26 +1,18 @@
 package com.flipkart.application;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.business.*;
 import com.flipkart.constant.Color;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotFoundException;
-import com.flipkart.business.AdminInterface;
-import com.flipkart.business.AdminOperation;
-import com.flipkart.business.NotificationInterface;
-import com.flipkart.business.NotificationOperation;
+import com.flipkart.exception.*;
 import com.flipkart.utils.StringUtils;
 
 /**
@@ -29,6 +21,7 @@ import com.flipkart.utils.StringUtils;
 public class AdminCRSMenu {
 
     AdminInterface adminOperation = AdminOperation.getInstance();
+    UserInterface userOperation = UserOperation.getInstance();
     Scanner scanner = new Scanner(System.in);
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
@@ -40,9 +33,17 @@ public class AdminCRSMenu {
         while (CRSApplication.loggedin) {
 
             StringUtils.printMenu("Administrative Control Menu",
-                    new String[] { "View course in catalog", "Add Course to catalog", "Delete Course from catalog",
-                            "Approve Students", "View Pending Admission", "Add Professor",
-                            "Assign Courses To Professor", "Logout" },
+                    new String[] {
+                            "View course in catalog",
+                            "Add Course to catalog",
+                            "Delete Course from catalog",
+                            "Approve Students",
+                            "View Pending Admission",
+                            "Add Professor",
+                            "Assign Courses To Professor",
+                            "Update User Details",
+                            "Logout"
+                                    },
                     100);
 
             StringUtils.printPrompt();
@@ -79,6 +80,10 @@ public class AdminCRSMenu {
                     break;
 
                 case 8:
+                    updateUserDetails();
+                    break;
+
+                case 9:
                     CRSApplication.loggedin = false;
                     return;
 
@@ -171,7 +176,6 @@ public class AdminCRSMenu {
         } catch (ProfessorNotAddedException | UserIdAlreadyInUseException e) {
             StringUtils.printErrorMessage(e.getMessage());
         }
-
     }
 
     /**
@@ -283,4 +287,132 @@ public class AdminCRSMenu {
         StringUtils.printEndLine();
         return courseList;
     }
+    /**
+     * Method to update Professor or Student details
+     */
+    private void updateUserDetails(){
+        StringUtils.printMenu("User Details Updation",
+                new String[] {
+                        "Update Professor Details",
+                        "Update Student Details",
+                        "Return to previous menu"
+                },
+                100);
+
+        StringUtils.printPrompt();
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                updateProfessorDetails();
+                break;
+
+            case 2:
+                updateStudentDetails();
+                break;
+
+            case 3:
+                return;
+
+            default:
+                StringUtils.printErrorMessage("Wrong Choice");
+        }
+
+    }
+
+    private void updateProfessorDetails()
+    {
+        String email, password;
+        Professor professor = new Professor();
+        StringUtils.printHeading("Update Professor Details Portal");
+
+        System.out.println("Enter Email ID of Professor whose details you want to update        " );
+        email= scanner.next();
+
+        boolean exists = userOperation.checkExistence(email,"PROFESSOR");
+
+        if(!exists){
+            StringUtils.printErrorMessage("Professor does not exist!");
+            return;
+        }
+        professor.setUserId(email);
+
+        System.out.println("Enter new details below for " + email + " : (Press enter to skip)   ");
+        scanner.nextLine();
+        System.out.println("New Name:");
+        String professorName = scanner.nextLine();
+        professor.setName(professorName);
+
+        System.out.println("New Department:");
+        String department = scanner.nextLine();
+        professor.setDepartment(department);
+
+        System.out.println("New Designation:");
+        String designation = scanner.nextLine();
+        professor.setDesignation(designation);
+
+        System.out.println("New Address:");
+        String address = scanner.nextLine();
+        professor.setAddress(address);
+
+        System.out.println("New Country:");
+
+        String country = scanner.nextLine();
+        professor.setCountry(country);
+
+        try {
+            adminOperation.updateProfessor(professor);
+        } catch (UserDetailsNotUpdatedException e) {
+            StringUtils.printErrorMessage(e.getMessage());
+            return;
+        }
+        StringUtils.printSuccessMessage("Professor Details Successfully Changed");
+    }
+
+    private void updateStudentDetails()
+    {
+        String email, password;
+        Student student = new Student();
+        StringUtils.printHeading("Update Student Details Portal");
+
+        System.out.println("Enter Email ID of Student whose details you want to update        " );
+        email= scanner.next();
+
+        boolean exists = userOperation.checkExistence(email,"STUDENT");
+
+        if(!exists){
+            StringUtils.printErrorMessage("Student does not exist!");
+            return;
+        }
+        student.setUserId(email);
+
+        System.out.println("Enter new details below for " + email + " : (Press enter to skip)   ");
+        scanner.nextLine();
+        System.out.println("New Name:");
+        String studentName = scanner.nextLine();
+        student.setName(studentName);
+
+        System.out.println("New Branch:");
+        String branch = scanner.nextLine();
+        student.setBranchName(branch);
+
+        System.out.println("New Address:");
+        String address = scanner.nextLine();
+        student.setAddress(address);
+
+        System.out.println("New Country:");
+        String country = scanner.nextLine();
+        student.setCountry(country);
+
+        try {
+            adminOperation.updateStudent(student);
+        } catch (UserDetailsNotUpdatedException e) {
+            StringUtils.printErrorMessage(e.getMessage());
+            return;
+        }
+        StringUtils.printSuccessMessage("Student Details Successfully Changed");
+    }
+
 }
+
