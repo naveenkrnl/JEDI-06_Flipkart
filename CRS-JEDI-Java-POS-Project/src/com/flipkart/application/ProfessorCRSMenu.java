@@ -15,9 +15,7 @@ import com.flipkart.validator.ProfessorValidator;
 import com.flipkart.utils.StringUtils;
 
 /**
- *
  * Class that display Professor Client Menu
- *
  */
 public class ProfessorCRSMenu {
 
@@ -27,7 +25,7 @@ public class ProfessorCRSMenu {
     /**
      * Method to create Professor menu
      * @param profId: professor id obtained after logging into the system
-     * returns displays all the options for the professor, and provides navigation
+     * It displays all the options for the professor, and provides navigation
      */
     public void createMenu(String profId)
     {
@@ -77,7 +75,7 @@ public class ProfessorCRSMenu {
 
     /**
      * Method to view enrolled Students in courses
-     * @param profId
+     * @param profId: professor id obtained after logging into the system
      */
     public void viewEnrolledStudents(String profId)
     {
@@ -102,7 +100,7 @@ public class ProfessorCRSMenu {
 
     /**
      * Method to get list of all Courses Professor has to teach
-     * @param profId
+     * @param profId: professor id obtained after logging into the system
      */
     public void getCourses(String profId)
     {
@@ -125,7 +123,7 @@ public class ProfessorCRSMenu {
 
     /**
      * Method to help Professor grade a student
-     * @param profId
+     * @param profId: professor id obtained after logging into the system
      */
     public void addGrade(String profId)
     {
@@ -170,7 +168,7 @@ public class ProfessorCRSMenu {
         }
         catch(SQLException ex)
         {
-            StringUtils.printErrorMessage("Grade not added, SQL exception occured "+ex.getMessage());
+            StringUtils.printErrorMessage("Grade not added, SQL exception occurred "+ex.getMessage());
         }
 
     }

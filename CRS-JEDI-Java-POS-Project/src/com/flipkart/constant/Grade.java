@@ -17,7 +17,7 @@ public enum Grade {
     /**
      * Parameterized Constructor
      *
-     * @param value
+     * @param value Grade
      */
     private Grade(int value) {
         this.value = value;

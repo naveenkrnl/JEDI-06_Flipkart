@@ -1,10 +1,7 @@
 package com.flipkart.bean;
 
 /**
- * 
- * 
  * Class for storing details of course Student has taken
- * 
  */
 public class EnrolledStudent {
 	private String courseCode;
@@ -59,7 +56,7 @@ public class EnrolledStudent {
 	/**
 	 * Method to set Student Id of student enrolled in the course
 	 * 
-	 * @param studentId
+	 * @param studentId: student id
 	 */
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
@@ -68,9 +65,9 @@ public class EnrolledStudent {
 	/**
 	 * Parameterized constructor
 	 * 
-	 * @param courseCode
-	 * @param courseName
-	 * @param studentId
+	 * @param courseCode: course code
+	 * @param courseName: Name of the course
+	 * @param studentId: Id of the Student
 	 */
 	public EnrolledStudent(String courseCode, String courseName, int studentId) {
 		super();
