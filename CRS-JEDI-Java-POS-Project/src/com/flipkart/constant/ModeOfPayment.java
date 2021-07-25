@@ -1,8 +1,6 @@
 package com.flipkart.constant;
 
 /**
- *
- *
  * Enumeration class for Mode of Payments
  *
  */
@@ -13,7 +11,7 @@ public enum ModeOfPayment {
 	/**
 	 * Method to get Mode of Payment
 	 *
-	 * @param value
+	 * @param value Amount
 	 * @return Mode of Payment
 	 */
 	public static ModeOfPayment getModeofPayment(int value) {

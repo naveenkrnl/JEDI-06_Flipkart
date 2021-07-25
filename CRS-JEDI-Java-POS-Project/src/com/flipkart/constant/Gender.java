@@ -14,7 +14,7 @@ public enum Gender {
 	/**
 	 * Parameterized Constructor
 	 *
-	 * @param gender
+	 * @param gender Gender Of The User
 	 */
 	private Gender(int gender) {
 		this.gender = gender;

@@ -46,7 +46,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * 
 	 * @param courseCode
 	 * @param studentId
-	 * @param courseList
+	 * @param availableCourseList List Of Available Courses
 	 * @return boolean indicating if the course is added successfully
 	 * @throws CourseNotFoundException
 	 * @throws SeatNotAvailableException

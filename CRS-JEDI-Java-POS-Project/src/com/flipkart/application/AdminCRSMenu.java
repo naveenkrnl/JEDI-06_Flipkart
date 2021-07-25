@@ -182,7 +182,6 @@ public class AdminCRSMenu {
 
     /**
      * Method to view Students who are yet to be approved
-     *
      * @return List of Students whose admissions are pending
      */
     private List<Student> viewPendingAdmissions() {

@@ -1,10 +1,7 @@
 package com.flipkart.bean;
 
 /**
- * 
- * 
  * Class to store Course information
- * 
  */
 public class Course {
 
@@ -22,7 +19,7 @@ public class Course {
 
 	/**
 	 * Parameterized constructor
-	 * 
+	 *
 	 * @param courseCode:   course code
 	 * @param courseName:   course name
 	 * @param instructorId: instructor user id
@@ -38,7 +35,7 @@ public class Course {
 
 	/**
 	 * Method to get Course Code
-	 * 
+	 *
 	 * @return Course Code
 	 */
 	public String getCourseCode() {
@@ -47,7 +44,7 @@ public class Course {
 
 	/**
 	 * Method to set Course Code
-	 * 
+	 *
 	 * @param courseCode
 	 */
 	public void setCourseCode(String courseCode) {
@@ -56,7 +53,7 @@ public class Course {
 
 	/**
 	 * Method to get Course Name
-	 * 
+	 *
 	 * @return Course Name
 	 */
 	public String getCourseName() {
@@ -65,7 +62,7 @@ public class Course {
 
 	/**
 	 * Method to set Course Name
-	 * 
+	 *
 	 * @param courseName
 	 */
 	public void setCourseName(String courseName) {
@@ -84,7 +81,7 @@ public class Course {
 	/**
 	 * Method to set available seats
 	 * 
-	 * @param seats
+	 * @param seats: seats available
 	 */
 	public void setSeats(int seats) {
 		this.seats = seats;
@@ -102,7 +99,7 @@ public class Course {
 	/**
 	 * Method to set Instructor Id of professor teaching the course
 	 * 
-	 * @param instructorId
+	 * @param instructorId: instructor user id
 	 */
 	public void setInstructorId(String instructorId) {
 		this.instructorId = instructorId;

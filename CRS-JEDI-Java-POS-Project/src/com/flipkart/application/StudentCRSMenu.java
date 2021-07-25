@@ -38,6 +38,7 @@ public class StudentCRSMenu {
 
     /**
      * Method to generate Student Menu for course registration, addition, removal and fee payment
+     *
      * @param studentId student id
      */
     public void create_menu(int studentId)
@@ -104,8 +105,9 @@ public class StudentCRSMenu {
 
     /**
      * Select course for registration
+     * @param studentId student id
      * @param studentId
-     */
+     * */
     private void registerCourses(int studentId)
     {
         if(is_registered)
@@ -165,6 +167,7 @@ public class StudentCRSMenu {
 
     /**
      * Add course for registration
+     *
      * @param studentId
      */
     private void addCourse(int studentId)
@@ -204,6 +207,8 @@ public class StudentCRSMenu {
 
     /**
      * Method to check if student is already registered
+     *
+     * @param studentId student id
      * @param studentId
      * @return Registration Status
      */
@@ -222,6 +227,8 @@ public class StudentCRSMenu {
 
     /**
      * Drop Course
+     *
+     * @param studentId student id
      * @param studentId
      */
     private void dropCourse(int studentId)
@@ -261,6 +268,8 @@ public class StudentCRSMenu {
 
     /**
      * View all available Courses
+     *
+     * @param studentId student id
      * @param studentId
      * @return List of available Courses
      */
@@ -297,6 +306,8 @@ public class StudentCRSMenu {
 
     /**
      * View Registered Courses
+     *
+     * @param studentId student id
      * @param studentId
      * @return List of Registered Courses
      */
@@ -334,40 +345,77 @@ public class StudentCRSMenu {
 
     /**
      * View grade card for particular student
+     *
+     * @param studentId student id
      * @param studentId
      */
-    private void viewGradeCard(int studentId)
-    {
+    private void viewGradeCard(int studentId) {
 
         StringUtils.printHeading("GRADE CARD");
-        List<StudentGrade> grade_card=null;
-        try
-        {
+        List<StudentGrade> grade_card = null;
+        try {
             grade_card = registrationInterface.viewGradeCard(studentId);
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
 
             StringUtils.printErrorMessage(e.getMessage());
         }
 
-        if(grade_card.isEmpty())
-        {
+        if (grade_card.isEmpty()) {
             StringUtils.printErrorMessage("You haven't registered for any course");
             return;
         }
 
-        StringUtils.printTable(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
-
-        for(StudentGrade obj : grade_card)
-        {
-            StringUtils.printTable(String.format("%-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getGrade()));
+        StringUtils
+                .printTable(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
+        List<StudentGrade> graded = new ArrayList<>();
+        List<StudentGrade> unGraded = new ArrayList<>();
+        for (StudentGrade studentGrade : grade_card) {
+            if (studentGrade.getGrade() == null)
+                unGraded.add(studentGrade);
+            else
+                graded.add(studentGrade);
         }
-        StringUtils.printEndLine();
+        double total_score = 0;
+        if (!graded.isEmpty()) {
+            StringUtils.printTable("Graded Courses : ");
+            for (StudentGrade studentGrade : graded) {
+                StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
+                        studentGrade.getCourseName(), studentGrade.getGrade(), getScore(studentGrade.getGrade())));
+                total_score += getScore(studentGrade.getGrade());
+            }
+        }
+        if (!unGraded.isEmpty()) {
+            StringUtils.printTable("Grade Awaited : ");
+            for (StudentGrade studentGrade : unGraded) {
+                StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
+                        studentGrade.getCourseName(), "NA", "NA"));
+            }
+        }
     }
 
+    private static Map<String, Integer> gradeStrToScore;
+
+    static {
+        gradeStrToScore = new HashMap<>();
+        gradeStrToScore.put("A", 10);
+        gradeStrToScore.put("B", 9);
+        gradeStrToScore.put("C", 8);
+        gradeStrToScore.put("D", 7);
+        gradeStrToScore.put("E", 6);
+        gradeStrToScore.put("F", 5);
+        gradeStrToScore.put("NA", 0);
+        gradeStrToScore.put("EX", 0);
+    }
+
+    public int getScore(String grade) {
+        if (gradeStrToScore.containsKey(grade))
+            return gradeStrToScore.get(grade);
+        return 0;
+    }
     /**
-     * Make Payment for selected courses. Student is provided with an option to pay the fees and select the mode of payment.
+     * Make Payment for selected courses.
+     * Student is provided with an option to pay the fees and select the mode of payment.
+     *
      * @param studentId
      */
     private void make_payment(int studentId)
@@ -428,8 +476,6 @@ public class StudentCRSMenu {
         }
 
     }
-
-
 }
 
 

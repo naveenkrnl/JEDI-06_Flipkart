@@ -8,10 +8,7 @@ import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
 
 /**
- *
- *
  * Class for Student Validator
- *
  */
 public class StudentValidator {
 
@@ -19,9 +16,9 @@ public class StudentValidator {
 	 * Method to validate if student is already registered for this particular
 	 * course (courseCode) or not
 	 *
-	 * @param courseCode
-	 * @param studentId
-	 * @param registeredCourseList
+	 * @param courseCode : Code of the Course
+	 * @param studentId : ID Of the Student
+	 * @param registeredCourseList : List Of registered Courses
 	 * @return Student Registration Status
 	 * @throws CourseNotFoundException
 	 */
@@ -39,8 +36,8 @@ public class StudentValidator {
 	/**
 	 * Method to validate if courseCode is valid or not
 	 *
-	 * @param courseCode
-	 * @param availableCourseList
+	 * @param courseCode : Code Of the Course
+	 * @param availableCourseList : List of available courses
 	 * @return courseCode is valid or not
 	 */
 	public static boolean isValidCourseCode(String courseCode, List<Course> availableCourseList) {

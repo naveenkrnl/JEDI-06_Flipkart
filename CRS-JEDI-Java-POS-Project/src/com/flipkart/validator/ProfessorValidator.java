@@ -5,10 +5,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 
 /**
- *
- *
  * Class for Professor Validator
- *
  */
 public class ProfessorValidator {
 
@@ -34,8 +31,8 @@ public class ProfessorValidator {
 	/**
 	 * Method to check if course exist in the database
 	 *
-	 * @param courses:  list of courses assigned to the professor
-	 * @param courseId: course id for which grade needs to be added
+	 * @param assignedCourses:  list of courses assigned to the professor
+	 * @param courseCode: course id for which grade needs to be added
 	 * @return true, if course is valid and taught by professor, else false.
 	 */
 	public static boolean isValidCourse(List<Course> assignedCourses, String courseCode) {

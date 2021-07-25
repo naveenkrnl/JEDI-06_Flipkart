@@ -86,10 +86,7 @@ public class CRSApplication {
      * Method for Login functionality
      */
     public void loginUser() {
-        //multiple exceptions are possible
-        //invalid credential exception
-        //user not found exception
-        //user not approved exception
+
         Scanner sc = new Scanner(System.in);
 
         String userId, password;
@@ -151,6 +148,9 @@ public class CRSApplication {
         }
     }
 
+    /**
+     * Method to Register Admin
+     */
     public void registerAdmin() {
         Scanner sc = new Scanner(System.in);
         StringUtils.printHeading("Enter root password");
