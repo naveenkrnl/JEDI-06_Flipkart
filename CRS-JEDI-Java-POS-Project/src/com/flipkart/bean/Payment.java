@@ -13,71 +13,94 @@ public class Payment {
     private String modeOfPayment;
     private int studentId;
 
-//    /**
-//     *
-//     * @return: get the student id
-//     */
-//    public int getStudentId() {
-//        return studentId;
-//    }
-//
-//    public void setStudentId(int studentId) {
-//        this.studentId = studentId;
-//    }
-//
-//    public String getReferenceId() {
-//        return referenceId;
-//    }
-//
-//    public void setReferenceId(String referenceId) {
-//        this.referenceId = referenceId;
-//    }
-//
-//    public String getAmount() {
-//        return amount;
-//    }
-//
-//    public void setAmount(String amount) {
-//        this.amount = amount;
-//    }
-//
-//    public String getDateOfPayment() {
-//        return dateOfPayment;
-//    }
-//
-//    public void setDateOfPayment(String dateOfPayment) {
-//        this.dateOfPayment = dateOfPayment;
-//    }
-//
-//    public String getModeOfPayment() {
-//        return modeOfPayment;
-//    }
-//
-//    public void setModeOfPayment(String modeOfPayment) {
-//        this.modeOfPayment = modeOfPayment;
-//    }
-//
-//
-//
-//
-//    /**
-//     *
-//     * @return: get the designation
-//     */
-//    public String getDesignation() {
-//        return designation;
-//    }
-//
-//    /**
-//     *
-//     * @param designation: get the designation
-//     */
-//    public void setDesignation(String designation) {
-//        this.designation = designation;
-//    }
-//
-//
-//
+    /**
+     * Method to get reference Id
+     *
+     * @return referenceId
+     */
+    public String getReferenceId() {
+        return referenceId;
+    }
 
+    /**
+     * Method set Reference Id
+     *
+     * @param referenceId
+     */
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    /**
+     * Method to get amount
+     *
+     * @return amount
+     */
+    public String getAmount() {
+        return amount;
+    }
+
+    /**
+     * Method to set amount
+     *
+     * @param amount
+     */
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    /**
+     * Method to get date of payment
+     *
+     * @return dateofpayment
+     */
+    public String getDateOfPayment() {
+        return dateOfPayment;
+    }
+
+    /**
+     * Method to set date of payment
+     *
+     * @param dateOfPayment
+     */
+    public void setDateOfPayment(String dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
+    }
+
+    /**
+     * Method to get mode of payment
+     *
+     * @return modeofPayment
+     */
+    public String getModeOfPayment() {
+        return modeOfPayment;
+    }
+
+    /**
+     * Method to set mode of payment
+     *
+     * @param modeOfPayment
+     */
+    public void setModeOfPayment(String modeOfPayment) {
+        this.modeOfPayment = modeOfPayment;
+    }
+
+    /**
+     * Method to get student id
+     *
+     * @return studentId
+     */
+    public int getStudentId() {
+        return studentId;
+    }
+
+    /**
+     * Method to set student Id
+
+     * @param studentId
+     */
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
 
     }
