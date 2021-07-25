@@ -17,14 +17,14 @@ import com.flipkart.exception.*;
 public interface AdminInterface {
 
 	/**
-	 * Method to add Administrative Account
+	 * Method to add Admin Account
 	 *
-	 * @param name
-	 * @param userID
-	 * @param password
-	 * @param gender
-	 * @param address
-	 * @param country
+	 * @param name : Name of the Admin
+	 * @param userID : User ID of the Admin
+	 * @param password : password
+	 * @param gender : Gender of the Admin
+	 * @param address  : Address Of the Admin
+	 * @param country : Country Of the Admin
 	 * @return Admin ID
 	 * @throws AdminAccountNotCreatedException
 	 */
@@ -33,7 +33,7 @@ public interface AdminInterface {
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * 
-	 * @param courseCode
+	 * @param courseCode : Course Code
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException
 	 * @throws CourseNotDeletedException
@@ -59,8 +59,8 @@ public interface AdminInterface {
 	/**
 	 * Method to approve a Student
 	 * 
-	 * @param studentId
-	 * @param studentList
+	 * @param studentId : Student ID
+	 * @param studentList List Of Students
 	 * @throws StudentNotFoundForApprovalException
 	 */
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
@@ -77,8 +77,8 @@ public interface AdminInterface {
 	/**
 	 * Method to assign Course to a Professor
 	 * 
-	 * @param courseCode
-	 * @param professorId
+	 * @param courseCode : Course Code
+	 * @param professorId : ID Of Professor
 	 * @throws CourseNotFoundException
 	 * @throws UserNotFoundException
 	 */
@@ -88,7 +88,7 @@ public interface AdminInterface {
 	/**
 	 * Method to get list of courses in catalog
 	 * 
-	 * @param catalogId
+	 * @param catalogId: Id Of Catalog
 	 * @return List of courses in catalog
 	 */
 	public List<Course> viewCourses(int catalogId);
