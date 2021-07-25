@@ -277,7 +277,11 @@ public class AdminCRSMenu {
         StringUtils.printHeading("Course Catalogue");
         StringUtils.printTable(String.format("%20s  %20s  %20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
         for (Course course : courseList) {
-            StringUtils.printTable(String.format("%20s  %20s  %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId()));
+            String instructorId = "No Professor";
+            if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
+                instructorId = course.getInstructorId();
+            StringUtils.printTable(
+                    String.format("%20s  %20s  %20s", course.getCourseCode(), course.getCourseName(), instructorId));
         }
         StringUtils.printEndLine();
         return courseList;

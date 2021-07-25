@@ -134,3 +134,22 @@
 15:11:32,200  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
 19:06:04,503  INFO NotificationDaoOperation,main:75 - Payment successful, Transaction ID: 15293924-9c63-4d49-b48f-2b4bccb6b80f
 19:06:04,524  INFO NotificationDaoOperation,main:92 - Student with id 2 fee has been paid
+20:52:24,448  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+20:52:28,354  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+20:52:40,889  INFO AdminDaoOperation,main:145 - 1 course added
+20:52:40,889  INFO AdminDaoOperation,main:151 - Course with courseCode: 145 is added to catalog.
+20:52:42,746  INFO AdminDaoOperation,main:393 - 8 courses in catalogId: 1.
+20:54:18,285  INFO AdminDaoOperation,main:393 - 8 courses in catalogId: 1.
+20:54:24,835  INFO AdminDaoOperation,main:393 - 8 courses in catalogId: 1.
+20:54:28,994  INFO AdminDaoOperation,main:109 - 1 entries deleted.
+20:54:28,994  INFO AdminDaoOperation,main:115 - Course with courseCode: 145 deleted.
+20:54:30,832  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+20:54:35,938  INFO AdminDaoOperation,main:192 - 1 students have pending-approval.
+20:54:48,125  INFO AdminDaoOperation,main:192 - 1 students have pending-approval.
+20:54:52,020  INFO AdminDaoOperation,main:220 - 1 student approved.
+20:54:52,038  INFO NotificationDaoOperation,main:89 - Student with id 3 has been approved!
+20:54:55,912  INFO AdminDaoOperation,main:192 - 0 students have pending-approval.
+20:55:08,127  INFO AdminDaoOperation,main:436 - 1 professors in the institute.
+20:55:08,129  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+20:55:15,849  INFO AdminDaoOperation,main:350 - 1 course assigned.
+20:55:15,850  INFO AdminDaoOperation,main:356 - Course with courseCode: 1 is assigned to professor with professorId: amit@gmail.com.
