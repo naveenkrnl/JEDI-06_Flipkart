@@ -72,7 +72,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 				// insert into payment, get reference id and add here
 				UUID referenceId = addPayment(studentId, modeOfPayment, amount);
 				ps.setString(3, referenceId.toString());
-				logger.info("Payment successful, Reference ID: " + referenceId);
+				logger.info("Payment successful, Transaction ID: " + referenceId);
 			} else
 				ps.setString(3, "");
 

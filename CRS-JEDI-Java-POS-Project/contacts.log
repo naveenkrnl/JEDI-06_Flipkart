@@ -132,3 +132,5 @@
 15:04:26,102  INFO AdminDaoOperation,main:320 - 1 course assigned.
 15:04:26,103  INFO AdminDaoOperation,main:326 - Course with courseCode: 1 is assigned to professor with professorId: amit@gmail.com.
 15:11:32,200  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
+19:06:04,503  INFO NotificationDaoOperation,main:75 - Payment successful, Transaction ID: 15293924-9c63-4d49-b48f-2b4bccb6b80f
+19:06:04,524  INFO NotificationDaoOperation,main:92 - Student with id 2 fee has been paid

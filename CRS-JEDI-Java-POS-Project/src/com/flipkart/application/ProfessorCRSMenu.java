@@ -36,9 +36,9 @@ public class ProfessorCRSMenu {
         while(CRSApplication.loggedin)
         {
             StringUtils.printMenu("Professor Access Menu", new String[] {
-                    "View courses",
+                    "View Your Courses",
                     "View Enrolled Students",
-                    "Add grade",
+                    "Add grade for Student",
                     "Logout"
                             },100);
 
@@ -81,7 +81,7 @@ public class ProfessorCRSMenu {
     {
         StringUtils.printHeading("List of Enrolled Students");
         List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-        StringUtils.printTable(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
+        StringUtils.printTable(String.format("%20s %20s  %20s","COURSE CODE","COURSE NAME","STUDENT ID" ));
         try
         {
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
