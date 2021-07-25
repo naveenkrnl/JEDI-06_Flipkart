@@ -7,10 +7,12 @@ import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.constant.Color;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 import com.flipkart.validator.ProfessorValidator;
+import com.flipkart.utils.StringUtils;
 
 /**
  *
@@ -35,14 +37,14 @@ public class ProfessorCRSMenu {
         int input;
         while(CRSApplication.loggedin)
         {
-            System.out.println("*****************************");
-            System.out.println("**********Professor Menu*********");
-            System.out.println("*****************************");
-            System.out.println("1. View Courses");
-            System.out.println("2. View Enrolled Students");
-            System.out.println("3. Add grade");
-            System.out.println("4. Logout");
-            System.out.println("*****************************");
+            StringUtils.printMenu("Professor Access Menu", new String[] {
+                    "View courses",
+                    "View Enrolled Students",
+                    "Add grade",
+                    "Logout"
+                            },100);
+
+            StringUtils.printPrompt();
 
             //input user
             input=sc.nextInt();
@@ -66,7 +68,7 @@ public class ProfessorCRSMenu {
                     CRSApplication.loggedin=false;
                     return;
                 default:
-                    System.err.println("***** Wrong Choice *****");
+                    StringUtils.printErrorMessage("***** Wrong Choice *****");
             }
         }
 
@@ -79,21 +81,22 @@ public class ProfessorCRSMenu {
      */
     public void viewEnrolledStudents(String profId)
     {
+        StringUtils.printHeading("List of Enrolled Students");
         List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-        System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
+        StringUtils.printTable(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
         try
         {
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
             enrolledStudents=professorInterface.viewEnrolledStudents(profId);
             for(EnrolledStudent obj: enrolledStudents)
             {
-                System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+                StringUtils.printTable(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
             }
-
+            StringUtils.printEndLine();
         }
         catch(Exception ex)
         {
-            System.err.println(ex.getMessage()+"Something went wrong, please try again later!");
+            StringUtils.printErrorMessage(ex.getMessage()+"Something went wrong, please try again later!");
         }
     }
 
@@ -103,18 +106,20 @@ public class ProfessorCRSMenu {
      */
     public void getCourses(String profId)
     {
+        StringUtils.printHeading("List of All Courses taught by Professor");
         try
         {
             List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-            System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
+            StringUtils.printTable(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
             for(Course obj: coursesEnrolled)
             {
-                System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
+                StringUtils.printTable(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
             }
+            StringUtils.printEndLine();
         }
         catch(Exception ex)
         {
-            System.err.println("Something went wrong!"+ex.getMessage());
+            StringUtils.printErrorMessage("Something went wrong!"+ex.getMessage());
         }
     }
 
@@ -124,6 +129,7 @@ public class ProfessorCRSMenu {
      */
     public void addGrade(String profId)
     {
+        StringUtils.printHeading("Student Courses Data");
         Scanner sc=new Scanner(System.in);
 
         int studentId;
@@ -132,14 +138,15 @@ public class ProfessorCRSMenu {
         {
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
             enrolledStudents=professorInterface.viewEnrolledStudents(profId);
-            System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
+            StringUtils.printTable(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
             for(EnrolledStudent obj: enrolledStudents)
             {
-                System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+                StringUtils.printTable(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
             }
+            StringUtils.printEndLine();
             List<Course> coursesEnrolled=new ArrayList<Course>();
             coursesEnrolled	=professorInterface.getCourses(profId);
-            System.out.println("----------------Add Grade--------------");
+            StringUtils.printHeading("Add Grade");
             System.out.println("Enter student id");
             studentId=sc.nextInt();
             System.out.println("Enter course code");
@@ -149,21 +156,21 @@ public class ProfessorCRSMenu {
             if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
             {
                 professorInterface.addGrade(studentId, courseCode, grade);
-                System.out.println("Grade added successfully for "+studentId);
+                StringUtils.printSuccessMessage("Grade added successfully for "+studentId);
             }
             else
             {
-                System.out.println("Invalid data entered, try again!");
+               StringUtils.printErrorMessage("Invalid data entered, try again!");
             }
         }
         catch(GradeNotAddedException ex)
         {
-            System.err.println("Grade cannot be added for"+ex.getStudentId());
+            StringUtils.printErrorMessage("Grade cannot be added for"+ex.getStudentId());
 
         }
         catch(SQLException ex)
         {
-            System.err.println("Grade not added, SQL exception occured "+ex.getMessage());
+            StringUtils.printErrorMessage("Grade not added, SQL exception occured "+ex.getMessage());
         }
 
     }

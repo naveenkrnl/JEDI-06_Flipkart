@@ -1,0 +1,39 @@
+21:26:51,241  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
+22:01:44,119  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
+22:12:32,144  INFO AdminDaoOperation,main:363 - 0 courses in catalogId: 1.
+22:12:44,519 ERROR AdminDaoOperation,main:125 - Cannot add or update a child row: a foreign key constraint fails (`crs`.`course`, CONSTRAINT `Course_courseCatalogue_catalogId_fk` FOREIGN KEY (`catalogId`) REFERENCES `coursecatalogue` (`catalogId`))
+22:12:48,128  INFO AdminDaoOperation,main:363 - 0 courses in catalogId: 1.
+22:13:06,304 ERROR AdminDaoOperation,main:125 - Cannot add or update a child row: a foreign key constraint fails (`crs`.`course`, CONSTRAINT `Course_courseCatalogue_catalogId_fk` FOREIGN KEY (`catalogId`) REFERENCES `coursecatalogue` (`catalogId`))
+22:15:17,971  INFO AdminDaoOperation,main:363 - 0 courses in catalogId: 1.
+22:15:21,253  INFO AdminDaoOperation,main:115 - 1 course added
+22:15:21,253  INFO AdminDaoOperation,main:121 - Course with courseCode: 123 is added to catalog.
+22:15:25,933  INFO AdminDaoOperation,main:363 - 1 courses in catalogId: 1.
+22:15:47,527  INFO AdminDaoOperation,main:115 - 1 course added
+22:15:47,527  INFO AdminDaoOperation,main:121 - Course with courseCode: 6 is added to catalog.
+22:16:44,283  INFO AdminDaoOperation,main:230 - 1 user added.
+22:16:44,286  INFO AdminDaoOperation,main:236 - User with userId: q added.
+22:16:44,294  INFO AdminDaoOperation,main:284 - 1 professor added.
+22:16:44,294  INFO AdminDaoOperation,main:290 - Professor with professorId: q added.
+22:16:58,234  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:16:58,239  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:20:23,790  INFO AdminDaoOperation,main:320 - 1 course assigned.
+22:20:23,791  INFO AdminDaoOperation,main:326 - Course with courseCode: 123 is assigned to professor with professorId: q.
+22:20:45,270  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:20:45,278  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:21:46,379  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:21:46,387  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:22:17,846  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:22:17,852  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:23:45,137  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:23:45,147  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:25:52,025  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:25:52,034  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:27:07,633  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:27:07,639  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:28:07,189  INFO AdminDaoOperation,main:406 - 1 professors in the institute.
+22:28:07,197  INFO AdminDaoOperation,main:363 - 2 courses in catalogId: 1.
+22:28:23,706  INFO AdminDaoOperation,main:320 - 1 course assigned.
+22:28:23,706  INFO AdminDaoOperation,main:326 - Course with courseCode: 123 is assigned to professor with professorId: q.
+22:28:31,244  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
+22:51:20,217  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.
+22:52:38,870  INFO AdminDaoOperation,main:162 - 1 students have pending-approval.

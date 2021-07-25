@@ -14,35 +14,33 @@ import com.flipkart.business.StudentInterface;
 import com.flipkart.business.StudentOperation;
 import com.flipkart.business.UserInterface;
 import com.flipkart.business.UserOperation;
+import com.flipkart.constant.Color;
+import com.flipkart.utils.StringUtils;
 
 /**
- *
  * This class is used as the main entry point of the application
  * In main menu to login, register are displayed
- *
  */
 public class CRSApplication {
 
     static boolean loggedin = false;
-    StudentInterface studentInterface=StudentOperation.getInstance();
-    UserInterface userInterface =UserOperation.getInstance();
-    NotificationInterface notificationInterface=NotificationOperation.getInstance();
+    StudentInterface studentInterface = StudentOperation.getInstance();
+    UserInterface userInterface = UserOperation.getInstance();
+    NotificationInterface notificationInterface = NotificationOperation.getInstance();
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        CRSApplication crsApplication=new CRSApplication();
+        CRSApplication crsApplication = new CRSApplication();
         int userInput;
         //create the main menu
         createMainMenu();
-        userInput=sc.nextInt();
-        try
-        {
+        userInput = sc.nextInt();
+        try {
 
             //until user do not exit the application
-            while(userInput!=4)
-            {
-                switch(userInput)
-                {
+            while (userInput != 4) {
+                switch (userInput) {
                     case 1:
                         //login
                         crsApplication.loginUser();
@@ -55,18 +53,14 @@ public class CRSApplication {
                         crsApplication.updatePassword();
                         break;
                     default:
-                        System.out.println("Invalid Input");
+                        StringUtils.printErrorMessage("Invalid Input");
                 }
                 createMainMenu();
-                userInput=sc.nextInt();
+                userInput = sc.nextInt();
             }
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Error occured "+ex);
-        }
-        finally
-        {
+        } catch (Exception ex) {
+            StringUtils.printErrorMessage("Error occured " + ex);
+        } finally {
             sc.close();
         }
     }
@@ -74,40 +68,39 @@ public class CRSApplication {
     /**
      * Method to Create Main Menu
      */
-    public static void createMainMenu()
-    {
-        System.out.println("----------Welcome to Course Management System---------");
-        System.out.println("1. Login");
-        System.out.println("2. Student Registration");
-        System.out.println("3. Update password");
-        System.out.println("4. Exit");
-        System.out.println("Enter user input");
+    public static void createMainMenu() {
+        StringUtils.printMenu("Welcome to Course Management System", new String[]{
+                "Login",
+                "Student Registration",
+                "Change password",
+                "Exit"
+        }, 100);
+
+        StringUtils.printPrompt();
     }
+
 
     /**
      * Method for Login functionality
      */
-    public void loginUser()
-    {
+    public void loginUser() {
         //multiple exceptions are possible
         //invalid credential exception
         //user not found exception
         //user not approved exception
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        String userId,password;
-        try
-        {
-            System.out.println("-----------------Login------------------");
+        String userId, password;
+        try {
+            StringUtils.printHeading("Login Portal", 100);
             System.out.println("Email:");
-            userId=sc.next();
+            userId = sc.next();
             System.out.println("Password:");
-            password=sc.next();
+            password = sc.next();
             loggedin = userInterface.verifyCredentials(userId, password);
             //2 cases
             //true->role->student->approved
-            if(loggedin)
-            {
+            if (loggedin) {
                 DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
                 LocalDateTime myDateObj = LocalDateTime.now();
@@ -115,123 +108,114 @@ public class CRSApplication {
                 String formattedDate = myDateObj.format(myFormatObj);
 
 
-
                 //System.out.println("Welcome "+userId);
-                String role=userInterface.getRole(userId);
-                Role userRole=Role.stringToName(role);
-                switch(userRole)
-                {
+                String role = userInterface.getRole(userId);
+                Role userRole = Role.stringToName(role);
+                switch (userRole) {
                     case ADMIN:
-                        System.out.println(formattedDate + " Login Successful");
-                        AdminCRSMenu adminMenu=new AdminCRSMenu();
+                        StringUtils.printSuccessMessage(formattedDate + " Login Successful as Admin", 100);
+                        AdminCRSMenu adminMenu = new AdminCRSMenu();
                         adminMenu.createMenu();
                         break;
                     case PROFESSOR:
-                        System.out.println(formattedDate + " Login Successful");
-                        ProfessorCRSMenu professorMenu=new ProfessorCRSMenu();
+                        StringUtils.printSuccessMessage(formattedDate + " Login Successful for Professor");
+                        ProfessorCRSMenu professorMenu = new ProfessorCRSMenu();
                         professorMenu.createMenu(userId);
 
                         break;
                     case STUDENT:
 
-                        int studentId=studentInterface.getStudentId(userId);
-                        boolean isApproved=studentInterface.isApproved(studentId);
-                        if(isApproved)
-                        {
-                            System.out.println(formattedDate + " Login Successful");
-                            StudentCRSMenu studentMenu=new StudentCRSMenu();
+                        int studentId = studentInterface.getStudentId(userId);
+                        boolean isApproved = studentInterface.isApproved(studentId);
+                        if (isApproved) {
+                            StringUtils.printSuccessMessage(formattedDate + " Login Successful for Student");
+                            StudentCRSMenu studentMenu = new StudentCRSMenu();
                             studentMenu.create_menu(studentId);
 
-                        }
-                        else
-                        {
-                            System.err.println("Failed to login, you have not been approved by the administration!");
-                            loggedin=false;
+                        } else {
+                            StringUtils.printErrorMessage("Failed to login, you have not been approved by the administration!");
+                            loggedin = false;
                         }
                         break;
                 }
 
 
-            }
-            else
-            {
-                System.err.println("Invalid Credentials!");
+            } else {
+                StringUtils.printErrorMessage("Invalid Credentials!");
             }
 
-        }
-        catch(UserNotFoundException ex)
-        {
-            System.err.println(ex.getMessage());
+        } catch (UserNotFoundException ex) {
+            StringUtils.printErrorMessage(ex.getMessage());
         }
     }
 
     /**
      * Method to help Student register themselves, pending admin approval
      */
-    public void registerStudent()
-    {
-        Scanner sc=new Scanner(System.in);
+    public void registerStudent() {
+        Scanner sc = new Scanner(System.in);
 
-        String userId,name,password,address,country,branchName;
+        String userId, name, password, address, country, branchName;
         Gender gender;
         int genderV, batch;
-        try
-        {
+        try {
             //input all the student details
-            System.out.println("---------------Student Registration-------------");
+            StringUtils.printHeading("Student Registration Portal");
             System.out.println("Name:");
-            name=sc.nextLine();
+            name = sc.nextLine();
             System.out.println("Email:");
-            userId=sc.next();
+            userId = sc.next();
             System.out.println("Password:");
-            password=sc.next();
+            password = sc.next();
             System.out.println("Gender: \t 1: Male \t 2.Female\t 3.Other");
-            genderV=sc.nextInt();
+            genderV = sc.nextInt();
             sc.nextLine();
             System.out.println("Branch:");
-            branchName=sc.nextLine();
+            branchName = sc.nextLine();
             System.out.println("Batch:");
-            batch=sc.nextInt();
+            batch = sc.nextInt();
             sc.nextLine();
             System.out.println("Address:");
-            address=sc.nextLine();
+            address = sc.nextLine();
             System.out.println("Country");
-            country=sc.next();
-            gender=Gender.getName(genderV);
-            int newStudentId=studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
-            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null,0);
+            country = sc.next();
+            gender = Gender.getName(genderV);
+            int newStudentId = studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
+            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0);
 
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Something went wrong! not registered. Please try again" + ex.getMessage());
+        } catch (Exception ex) {
+            StringUtils.printErrorMessage("Something went wrong! not registered. Please try again" + ex.getMessage());
         }
     }
 
     /**
      * Method to update password of User
      */
-    public void updatePassword()
-    {
-        Scanner sc=new Scanner(System.in);
-        String userId,newPassword;
-        try
-        {
-            System.out.println("------------------Update Password--------------------");
-            System.out.println("Email");
-            userId=sc.next();
-            System.out.println("New Password:");
-            newPassword=sc.next();
-            boolean isUpdated=userInterface.updatePassword(userId, newPassword);
-            if(isUpdated)
-                System.out.println("Password updated successfully!");
+    public void updatePassword() {
+        Scanner sc = new Scanner(System.in);
+        String userId, newPassword, password;
+        try {
+            StringUtils.printHeading("Update Password Portal");
+            System.out.println("Email:");
+            userId = sc.next();
+            System.out.println("old Password:");
+            password = sc.next();
+            loggedin = userInterface.verifyCredentials(userId, password);
+            if (loggedin) {
 
-            else
-                System.err.println("Something went wrong, please try again!");
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Error Occured "+ex.getMessage());
+                System.out.println("New Password:");
+                newPassword = sc.next();
+                boolean isUpdated = userInterface.updatePassword(userId, newPassword);
+                if (isUpdated)
+                    StringUtils.printSuccessMessage("Password updated successfully!");
+                else
+                    StringUtils.printErrorMessage("Something went wrong, please try again!");
+            }
+            else{
+                StringUtils.printErrorMessage("Incorrect Password");
+            }
+        } catch (Exception ex) {
+            StringUtils.printErrorMessage("Error Occured " + ex.getMessage());
         }
     }
 }

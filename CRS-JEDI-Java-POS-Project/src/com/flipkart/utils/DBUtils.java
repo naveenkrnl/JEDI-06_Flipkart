@@ -10,12 +10,12 @@ import java.time.format.DateTimeFormatter;
 public class DBUtils {
 
 //    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/CRS";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/crs";
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Database credentials
     static final String USER = "root";
-    static final String PASS = "luicifer";
+    static final String PASS = "root";
 
     public static Connection getConnection() {
         Connection connection = null;
