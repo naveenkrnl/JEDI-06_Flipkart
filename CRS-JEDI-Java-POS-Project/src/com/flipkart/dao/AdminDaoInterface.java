@@ -55,7 +55,7 @@ public interface AdminDaoInterface {
 	 * Approve Student using SQL commands
 	 * 
 	 * @param studentId
-	 * @throws StudentNotFoundException
+	 * @throws StudentNotFoundForApprovalException
 	 */
 	public void approveStudent(int studentId) throws StudentNotFoundForApprovalException;
 
@@ -92,7 +92,7 @@ public interface AdminDaoInterface {
 	/**
 	 * View courses in the catalog
 	 * 
-	 * @param Catalog ID
+	 * @param catalogId
 	 * @return List of courses in the catalog
 	 */
 	public List<Course> viewCourses(int catalogId);
