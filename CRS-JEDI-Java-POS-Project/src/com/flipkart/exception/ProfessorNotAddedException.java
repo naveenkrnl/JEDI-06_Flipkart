@@ -15,7 +15,7 @@ public class ProfessorNotAddedException extends Exception {
 	/**
 	 * Getter function for professorId
 	 * 
-	 * @return
+	 * @return professor id
 	 */
 	public String getUserId() {
 		return this.professorId;

@@ -1,8 +1,6 @@
 package com.flipkart.constant;
 
 /**
- *
- *
  * Enumeration class for Role Types
  *
  */

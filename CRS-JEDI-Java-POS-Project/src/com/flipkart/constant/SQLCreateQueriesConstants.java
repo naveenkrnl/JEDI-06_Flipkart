@@ -1,5 +1,8 @@
 package com.flipkart.constant;
 
+/**
+ * SQL Queries For CRS project To Create DB Schema
+ */
 public class SQLCreateQueriesConstants {
 
     /*

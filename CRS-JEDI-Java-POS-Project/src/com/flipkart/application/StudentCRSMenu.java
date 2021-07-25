@@ -23,9 +23,7 @@ import com.flipkart.business.RegistrationOperation;
 import com.flipkart.utils.StringUtils;
 
 /**
- *
  * The class displays the menu for student client
- *
  */
 public class StudentCRSMenu {
     Scanner sc = new Scanner(System.in);
@@ -37,7 +35,6 @@ public class StudentCRSMenu {
     /**
      * Method to generate Student Menu for course registration, addition, removal
      * and fee payment
-     *
      * @param studentId student id
      */
     public void create_menu(int studentId) {
@@ -95,8 +92,7 @@ public class StudentCRSMenu {
 
     /**
      * Select course for registration
-     *
-     * @param studentId
+     * @param studentId student id
      */
     private void registerCourses(int studentId) {
         if (is_registered) {
@@ -147,8 +143,7 @@ public class StudentCRSMenu {
 
     /**
      * Add course for registration
-     *
-     * @param studentId
+     * @param studentId student id
      */
     private void addCourse(int studentId) {
         if (is_registered) {
@@ -178,8 +173,7 @@ public class StudentCRSMenu {
 
     /**
      * Method to check if student is already registered
-     *
-     * @param studentId
+     * @param studentId student id
      * @return Registration Status
      */
     private boolean getRegistrationStatus(int studentId) {
@@ -193,8 +187,7 @@ public class StudentCRSMenu {
 
     /**
      * Drop Course
-     *
-     * @param studentId
+     * @param studentId student id
      */
     private void dropCourse(int studentId) {
         if (is_registered) {
@@ -224,8 +217,7 @@ public class StudentCRSMenu {
 
     /**
      * View all available Courses
-     *
-     * @param studentId
+     * @param studentId student id
      * @return List of available Courses
      */
     private List<Course> viewCourse(int studentId) {
@@ -255,8 +247,7 @@ public class StudentCRSMenu {
 
     /**
      * View Registered Courses
-     *
-     * @param studentId
+     * @param studentId student id
      * @return List of Registered Courses
      */
     private List<Course> viewRegisteredCourse(int studentId) {
@@ -287,8 +278,7 @@ public class StudentCRSMenu {
 
     /**
      * View grade card for particular student
-     *
-     * @param studentId
+     * @param studentId student id
      */
     public void viewGradeCard(int studentId) {
 
@@ -315,7 +305,6 @@ public class StudentCRSMenu {
                 unGraded.add(studentGrade);
             else
                 graded.add(studentGrade);
-            //
         }
         double total_score = 0;
         if (!graded.isEmpty()) {
@@ -413,5 +402,4 @@ public class StudentCRSMenu {
         }
 
     }
-
 }
