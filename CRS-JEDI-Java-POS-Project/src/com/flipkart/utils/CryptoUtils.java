@@ -33,7 +33,7 @@ public class CryptoUtils {
         String Salt = databasePassword.split("\\$", 2)[0];
         String Pepper = Secrets.getPepper();
         // TODO : If user role Student check if approved
-        return encodedPassword.equals(CryptoUtils.encodeBase64(CryptoUtils.encodeBase64(userPassword + Salt + Pepper)));
+        return encodedPassword.equals(CryptoUtils.encodeBase64(CryptoUtils.hashString(userPassword + Salt + Pepper)));
     }
 
 }
