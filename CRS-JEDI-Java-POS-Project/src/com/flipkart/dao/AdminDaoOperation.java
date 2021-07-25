@@ -456,20 +456,25 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.GET_PROFESSOR_QUERY);
 			preparedStatement.setString(1, NewDetails.getUserId());
 			ResultSet resultSet = preparedStatement.executeQuery();
+			if(!resultSet.next())
+			{
+				System.out.println("Error empty result");
+				throw new UserDetailsNotUpdatedException(NewDetails.getUserId());
+			}
 
-			if (NewDetails.getName().equals("\n"))
+			if (NewDetails.getName().equals(""))
 				NewDetails.setName(resultSet.getString(2));
 
-			if (NewDetails.getDepartment().equals("\n"))
+			if (NewDetails.getDepartment().equals(""))
 				NewDetails.setDepartment(resultSet.getString(4));
 
-			if (NewDetails.getDesignation().equals("\n"))
+			if (NewDetails.getDesignation().equals(""))
 				NewDetails.setDesignation(resultSet.getString(5));
 
-			if (NewDetails.getAddress().equals("\n"))
+			if (NewDetails.getAddress().equals(""))
 				NewDetails.setAddress(resultSet.getString(6));
 
-			if (NewDetails.getCountry().equals("\n"))
+			if (NewDetails.getCountry().equals(""))
 				NewDetails.setCountry(resultSet.getString(7));
 
 			PreparedStatement preparedStatementProf = connection.prepareStatement(SQLQueriesConstants.UPDATE_PROFESSOR);
@@ -514,16 +519,21 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			preparedStatement.setString(1, NewDetails.getUserId());
 			ResultSet resultSet = preparedStatement.executeQuery();
 
-			if (NewDetails.getName().equals("\n"))
+			if(!resultSet.next())
+			{
+				System.out.println("Error empty result");
+				throw new UserDetailsNotUpdatedException(NewDetails.getUserId());
+			}
+			if (NewDetails.getName().equals(""))
 				NewDetails.setName(resultSet.getString(2));
 
-			if (NewDetails.getBranchName().equals("\n"))
+			if (NewDetails.getBranchName().equals(""))
 				NewDetails.setBranchName(resultSet.getString(4));
 
-			if (NewDetails.getAddress().equals("\n"))
+			if (NewDetails.getAddress().equals(""))
 				NewDetails.setAddress(resultSet.getString(5));
 
-			if (NewDetails.getCountry().equals("\n"))
+			if (NewDetails.getCountry().equals(""))
 				NewDetails.setCountry(resultSet.getString(6));
 
 			PreparedStatement preparedStatementStud = connection.prepareStatement(SQLQueriesConstants.UPDATE_STUDENT);

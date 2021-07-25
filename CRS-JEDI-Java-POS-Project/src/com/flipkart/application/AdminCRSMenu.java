@@ -357,7 +357,6 @@ public class AdminCRSMenu {
         professor.setAddress(address);
 
         System.out.println("New Country:");
-
         String country = scanner.nextLine();
         professor.setCountry(country);
 
