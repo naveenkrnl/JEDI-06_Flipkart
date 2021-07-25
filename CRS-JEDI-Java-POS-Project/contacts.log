@@ -131,3 +131,4 @@
 15:03:49,007  INFO AdminDaoOperation,main:363 - 7 courses in catalogId: 1.
 15:04:26,102  INFO AdminDaoOperation,main:320 - 1 course assigned.
 15:04:26,103  INFO AdminDaoOperation,main:326 - Course with courseCode: 1 is assigned to professor with professorId: amit@gmail.com.
+15:11:32,200  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
