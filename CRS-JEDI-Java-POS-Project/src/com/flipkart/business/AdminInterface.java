@@ -33,7 +33,6 @@ public interface AdminInterface {
 	 * @param address  : Address Of the Admin
 	 * @param country : Country Of the Admin
 	 * @return Admin ID
-	 * @throws AdminAccountNotCreatedException
 	 */
 	public int register(String name, String userID, String password, Gender gender, String address,
 						String country) throws AdminAccountNotCreatedException;
@@ -42,8 +41,6 @@ public interface AdminInterface {
 	 * 
 	 * @param courseCode : Course Code
 	 * @param courseList : Courses available in the catalog
-	 * @throws CourseNotFoundException
-	 * @throws CourseNotDeletedException
 	 */
 	public void deleteCourse(String courseCode, List<Course> courseList)
 			throws CourseNotFoundException, CourseNotDeletedException;
@@ -68,7 +65,6 @@ public interface AdminInterface {
 	 * 
 	 * @param studentId : Student ID
 	 * @param studentList List Of Students
-	 * @throws StudentNotFoundForApprovalException
 	 */
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 
@@ -76,8 +72,6 @@ public interface AdminInterface {
 	 * Method to add Professor to DB
 	 * 
 	 * @param professor : Professor Object storing details of a professor
-	 * @throws ProfessorNotAddedException
-	 * @throws UserIdAlreadyInUseException
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 
@@ -86,8 +80,6 @@ public interface AdminInterface {
 	 * 
 	 * @param courseCode : Course Code
 	 * @param professorId : ID Of Professor
-	 * @throws CourseNotFoundException
-	 * @throws UserNotFoundException
 	 */
 	public void assignCourse(String courseCode, String professorId)
 			throws CourseNotFoundException, UserNotFoundException;
