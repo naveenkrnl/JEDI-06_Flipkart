@@ -1,22 +1,19 @@
 package com.flipkart.dao;
 
 // import java.security.DrbgParameters.Reseed;
+
+import com.flipkart.bean.*;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.utils.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.flipkart.bean.Admin;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.Role;
-import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.utils.DBUtils;
 // import com.mysql.cj.xdevapi.Statement;
 
 /**

@@ -1,26 +1,20 @@
 package com.flipkart.application;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Color;
-import com.flipkart.constant.Grade;
-import com.flipkart.dao.AdminDaoInterface;
-import com.flipkart.dao.AdminDaoOperation;
-import com.flipkart.dao.StudentDaoOperation;
-import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
+import com.flipkart.constant.Grade;
+import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.utils.StringUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
@@ -28,8 +22,13 @@ import com.flipkart.utils.StringUtils;
  *
  */
 public class ProfessorCRSMenu {
+    private ProfessorCRSMenu() {
 
-    ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+    }
+
+    static Scanner scanner = new Scanner(System.in);
+
+    static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 
     /**
      * Method to create Professor menu
@@ -38,9 +37,8 @@ public class ProfessorCRSMenu {
      *                         returns displays all the options for the professor,
      *                         and provides navigation
      */
-    public void createMenu(Professor professor) {
+    public static void createMenu(Professor professor) {
         // Display the options available for the Professor
-        Scanner sc = new Scanner(System.in);
 
         int input;
         while (CRSApplication.loggedin) {
@@ -50,7 +48,7 @@ public class ProfessorCRSMenu {
             StringUtils.printPrompt();
 
             // input user
-            input = sc.nextInt();
+            input = scanner.nextInt();
             switch (input) {
                 case 1:
                     // view all the courses taught by the professor
@@ -73,7 +71,7 @@ public class ProfessorCRSMenu {
                     StringUtils.printErrorMessage("***** Wrong Choice *****");
             }
         }
-
+        scanner.close();
     }
 
     /**
@@ -81,7 +79,7 @@ public class ProfessorCRSMenu {
      * 
      * @param professorUserId
      */
-    public void viewEnrolledStudents(int professorUserId) {
+    private static void viewEnrolledStudents(int professorUserId) {
         StringUtils.printHeading("List of Enrolled Students");
         StringUtils.printTable(
                 String.format("%20s %20s %20s %20s", "COURSE CODE", "COURSE CODE", "Student Email", "Student Name"));
@@ -105,7 +103,7 @@ public class ProfessorCRSMenu {
      * 
      * @param professorUserId
      */
-    public void getCourses(int professorUserId) {
+    private static void getCourses(int professorUserId) {
         StringUtils.printHeading("List of All Courses taught by Professor");
         try {
             List<Course> registeredCourses = professorInterface.getCourses(professorUserId);
@@ -120,9 +118,8 @@ public class ProfessorCRSMenu {
      * 
      * @param professorUserId
      */
-    public void addGrade(int professorUserId) {
+    private static void addGrade(int professorUserId) {
         StringUtils.printHeading("Student Courses Data");
-        Scanner sc = new Scanner(System.in);
 
         try {
             List<RegisteredCourse> registeredCourses = professorInterface.viewEnrolledStudents(professorUserId);
@@ -156,11 +153,11 @@ public class ProfessorCRSMenu {
             String gradeStr;
             StringUtils.printHeading("Add Grade");
             System.out.println("Enter students email");
-            email = sc.next();
+            email = scanner.next();
             System.out.println("Enter course code");
-            courseCode = sc.next();
+            courseCode = scanner.next();
             System.out.println("Enter grade[A-F]");
-            gradeStr = sc.next();
+            gradeStr = scanner.next();
             if (Grade.valueOf(gradeStr) == null) {
                 StringUtils.printErrorMessage("Grade Entered Invalid");
                 return;
@@ -212,7 +209,7 @@ public class ProfessorCRSMenu {
      * @param studentUserId
      * @return List of Registered Courses
      */
-    private void viewCourseList(List<Course> courses) {
+    private static void viewCourseList(List<Course> courses) {
         StringUtils.printHeading("List of Courses");
         StringUtils.printTable(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
         for (Course course : courses) {

@@ -1,7 +1,6 @@
 package com.flipkart.bean;
 
 import com.flipkart.constant.Grade;
-import com.flipkart.dao.ProfessorDaoOperation;
 
 /**
  *

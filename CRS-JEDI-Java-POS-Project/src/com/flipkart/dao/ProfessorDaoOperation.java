@@ -1,20 +1,19 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.bean.User;
+import com.flipkart.constant.Grade;
+import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.utils.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Professor;
-// import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.bean.User;
-import com.flipkart.constant.Grade;
-import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.utils.DBUtils;
 
 /**
  * 

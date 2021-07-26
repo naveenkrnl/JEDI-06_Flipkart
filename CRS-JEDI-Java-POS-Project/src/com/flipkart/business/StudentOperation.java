@@ -1,7 +1,6 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Gender;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 

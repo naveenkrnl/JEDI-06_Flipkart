@@ -1,9 +1,9 @@
 package com.flipkart.business;
 
-import java.util.UUID;
-
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
+
+import java.util.UUID;
 
 public interface NotificationInterface {
 

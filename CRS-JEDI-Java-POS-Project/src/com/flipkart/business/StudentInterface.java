@@ -1,7 +1,6 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Gender;
 
 public interface StudentInterface {
 

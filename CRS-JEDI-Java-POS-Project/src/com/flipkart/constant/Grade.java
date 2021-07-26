@@ -1,8 +1,5 @@
 package com.flipkart.constant;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 
  * Enumeration class for Grade

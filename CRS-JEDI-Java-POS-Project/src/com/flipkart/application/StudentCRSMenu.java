@@ -3,33 +3,14 @@
  */
 package com.flipkart.application;
 
-import java.sql.SQLException;
-import java.util.*;
-
-import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.RegisteredCourse;
-import com.flipkart.bean.Student;
-// import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.*;
+import com.flipkart.business.*;
 import com.flipkart.constant.Color;
 import com.flipkart.constant.Grade;
-import com.flipkart.constant.ModeOfPayment;
-import com.flipkart.constant.NotificationType;
 import com.flipkart.dao.AdminDaoOperation;
-import com.flipkart.dao.StudentDaoInterface;
-import com.flipkart.exception.CourseLimitExceedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.SeatNotAvailableException;
-import com.flipkart.business.NotificationInterface;
-import com.flipkart.business.NotificationOperation;
-import com.flipkart.business.ProfessorInterface;
-import com.flipkart.business.ProfessorOperation;
-import com.flipkart.business.RegistrationInterface;
-import com.flipkart.business.RegistrationOperation;
-import com.flipkart.business.StudentInterface;
-import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.StringUtils;
+
+import java.util.*;
 
 /**
  *
@@ -37,12 +18,15 @@ import com.flipkart.utils.StringUtils;
  *
  */
 public class StudentCRSMenu {
-    Scanner sc = new Scanner(System.in);
-    RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
-    ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-    NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    StudentInterface studentInterface = StudentOperation.getInstance();
-    private boolean is_registered;
+    private StudentCRSMenu() {
+
+    }
+
+    static Scanner scanner = new Scanner(System.in);
+    static RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
+    static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+    static NotificationInterface notificationInterface = NotificationOperation.getInstance();
+    static StudentInterface studentInterface = StudentOperation.getInstance();
 
     /**
      * Method to generate Student Menu for course registration, addition, removal
@@ -50,7 +34,7 @@ public class StudentCRSMenu {
      * 
      * @param studentUserId student id
      */
-    public void create_menu(Student student) {
+    public static void create_menu(Student student) {
         System.out.println(student);
         int studentUserId = student.getUserId();
         while (CRSApplication.loggedin) {
@@ -60,7 +44,7 @@ public class StudentCRSMenu {
                     100);
 
             StringUtils.printPrompt();
-            int choice = sc.nextInt();
+            int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
@@ -100,6 +84,7 @@ public class StudentCRSMenu {
                     StringUtils.printErrorMessage("***** Wrong Choice *****");
             }
         }
+        scanner.close();
     }
 
     /**
@@ -107,7 +92,7 @@ public class StudentCRSMenu {
      * 
      * @param studentUserId
      */
-    private void registerCourses(int studentUserId) {
+    private static void registerCourses(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
         if (count >= 6) {
             StringUtils.printErrorMessage(" Registration is already completed");
@@ -125,7 +110,7 @@ public class StudentCRSMenu {
 
                 System.out.println("Enter Course Code : " + (count + 1));
                 System.out.println("Enter 0 to exit");
-                String courseCode = sc.next();
+                String courseCode = scanner.next();
                 if (courseCode.equals("0")) {
                     break;
                 }
@@ -160,7 +145,7 @@ public class StudentCRSMenu {
      * 
      * @param studentUserId
      */
-    private void addCourse(int studentUserId) {
+    private static void addCourse(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
         if (count >= 6) {
             StringUtils.printErrorMessage(" Course Limit Reached");
@@ -169,14 +154,14 @@ public class StudentCRSMenu {
         StringUtils.printHeading("Add Course Portal for Student");
         List<Course> availableCourseList = viewCourse(studentUserId);
 
-        if (availableCourseList == null || availableCourseList.isEmpty()) {
+        if (availableCourseList.isEmpty()) {
             StringUtils.printErrorMessage("No courses are available for registration at this time");
             return;
         }
 
         try {
             System.out.println("Enter Course Code : ");
-            String courseCode = sc.next();
+            String courseCode = scanner.next();
             Course selectedCourse = null;
             for (Course course : availableCourseList) {
                 if (course.getCourseCode().equals(courseCode)) {
@@ -205,7 +190,7 @@ public class StudentCRSMenu {
      * 
      * @param studentUserId
      */
-    private void dropCourse(int studentUserId) {
+    private static void dropCourse(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
         List<Course> registeredCourseList = viewRegisteredCourse(studentUserId);
         if (registeredCourseList == null || registeredCourseList.isEmpty() || count == 0) {
@@ -214,7 +199,7 @@ public class StudentCRSMenu {
         }
         StringUtils.printHeading("Drop Course Portal for Student");
         System.out.println("Enter the Course Code : ");
-        String courseCode = sc.next();
+        String courseCode = scanner.next();
         Course selectedCourse = null;
         for (Course course : registeredCourseList) {
             if (course.getCourseCode().equals(courseCode)) {
@@ -243,7 +228,7 @@ public class StudentCRSMenu {
         // }
     }
 
-    private List<Course> viewCourse(int studentUserId) {
+    private static List<Course> viewCourse(int studentUserId) {
         StringUtils.printHeading("List of Available Courses");
         List<Course> coursesAvailable = null;
         try {
@@ -267,7 +252,7 @@ public class StudentCRSMenu {
      * @param studentUserId
      * @return List of Registered Courses
      */
-    private void viewCourseList(List<Course> courses) {
+    private static void viewCourseList(List<Course> courses) {
         StringUtils.printTable(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 
         for (Course course : courses) {
@@ -282,7 +267,7 @@ public class StudentCRSMenu {
         StringUtils.printEndLine();
     }
 
-    private List<Course> viewRegisteredCourse(int studentUserId) {
+    private static List<Course> viewRegisteredCourse(int studentUserId) {
         StringUtils.printHeading("List of Registered Courses");
         List<Course> coursesRegistered = null;
         try {
@@ -305,7 +290,7 @@ public class StudentCRSMenu {
      * 
      * @param studentUserId
      */
-    private void viewGradeCard(int studentUserId) {
+    private static void viewGradeCard(int studentUserId) {
 
         StringUtils.printHeading("GRADE CARD");
         GradeCard gradeCard = null;
@@ -375,7 +360,7 @@ public class StudentCRSMenu {
         gradeStrToScore.put("EX", 0);
     }
 
-    public int getScore(String grade) {
+    public static int getScore(String grade) {
         if (gradeStrToScore.containsKey(grade))
             return gradeStrToScore.get(grade);
         return 0;
@@ -387,8 +372,8 @@ public class StudentCRSMenu {
      * 
      * @param studentUserId
      */
-    private void make_payment(int studentUserId) {
-
+    private static void make_payment(int studentUserId) {
+        System.out.println(studentUserId);
         // StringUtils.printHeading("Payment Portal");
         // double fee = 0.0;
         // try {

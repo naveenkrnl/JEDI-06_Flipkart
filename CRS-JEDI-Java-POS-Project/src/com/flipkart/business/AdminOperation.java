@@ -1,15 +1,10 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.dao.AdminDaoInterface;
-import com.flipkart.dao.AdminDaoOperation;
-import com.flipkart.dao.ProfessorDaoInterface;
-import com.flipkart.dao.ProfessorDaoOperation;
-import com.flipkart.dao.UserDaoInterface;
-import com.flipkart.dao.UserDaoOperation;
-import com.flipkart.bean.Admin;
+import com.flipkart.dao.*;
 
 import java.util.List;
 

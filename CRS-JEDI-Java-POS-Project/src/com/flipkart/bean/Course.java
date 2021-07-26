@@ -1,7 +1,5 @@
 package com.flipkart.bean;
 
-import com.flipkart.dao.ProfessorDaoOperation;
-
 public class Course {
 	@Override
 	public String toString() {

@@ -1,12 +1,10 @@
 
 package com.flipkart.bean;
 
-import java.time.LocalDateTime;
-
-import javax.print.attribute.standard.DateTimeAtCreation;
-
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+
+import java.time.LocalDateTime;
 
 public class User {
 

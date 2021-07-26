@@ -3,12 +3,11 @@
  */
 package com.flipkart.bean;
 
-import java.time.LocalDateTime;
-
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
-import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
+
+import java.time.LocalDateTime;
 
 public class Professor extends User {
 

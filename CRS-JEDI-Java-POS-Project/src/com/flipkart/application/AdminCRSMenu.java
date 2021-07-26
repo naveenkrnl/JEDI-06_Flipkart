@@ -1,45 +1,35 @@
 package com.flipkart.application;
 
-import java.util.List;
-import java.util.Scanner;
-
-import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Color;
+import com.flipkart.business.*;
 import com.flipkart.constant.Gender;
-import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotFoundException;
-import com.flipkart.business.AdminInterface;
-import com.flipkart.business.AdminOperation;
-import com.flipkart.business.NotificationInterface;
-import com.flipkart.business.NotificationOperation;
-import com.flipkart.business.ProfessorInterface;
-import com.flipkart.business.ProfessorOperation;
 import com.flipkart.utils.StringUtils;
+
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Class that display Admin Client Menu
  */
 public class AdminCRSMenu {
+    private AdminCRSMenu() {
 
-    AdminInterface adminOperation = AdminOperation.getInstance();
-    Scanner scanner = new Scanner(System.in);
-    NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+    }
+
+    static Scanner scanner = new Scanner(System.in);
+
+    static AdminInterface adminOperation = AdminOperation.getInstance();
+    static NotificationInterface notificationInterface = NotificationOperation.getInstance();
+    static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 
     /**
      * Method to Create Admin Menu
      */
-    public void createMenu(Admin admin) {
+    public static void createMenu() {
 
         while (CRSApplication.loggedin) {
 
@@ -90,12 +80,15 @@ public class AdminCRSMenu {
                     StringUtils.printErrorMessage("***** Wrong Choice *****");
             }
         }
+        scanner.close();
+
     }
 
     /**
      * Method to assign Course to a Professor
      */
-    private void assignCourseToProfessor() {
+    private static void assignCourseToProfessor() {
+
         List<Professor> professorList = adminOperation.viewProfessorList();
         if (professorList == null || professorList.isEmpty()) {
             StringUtils.printErrorMessage("No Professors in Portal");
@@ -153,8 +146,7 @@ public class AdminCRSMenu {
     /**
      * Method to add Professor to DB
      */
-    private void addProfessor() {
-
+    private static void addProfessor() {
         Professor professor = new Professor();
         StringUtils.printHeading("Add Professor Portal");
         System.out.println("Enter Professor Name:");
@@ -205,7 +197,7 @@ public class AdminCRSMenu {
      *
      * @return List of Students whose admissions are pending
      */
-    private List<Student> viewPendingAdmissions() {
+    private static List<Student> viewPendingAdmissions() {
 
         List<Student> pendingStudentsList = adminOperation.viewPendingAdmissions();
         if (pendingStudentsList == null || pendingStudentsList.isEmpty()) {
@@ -225,7 +217,7 @@ public class AdminCRSMenu {
     /**
      * Method to approve a Student using Student's ID
      */
-    private void approveStudent() {
+    private static void approveStudent() {
 
         List<Student> studentList = viewPendingAdmissions();
         if (studentList == null || studentList.isEmpty()) {
@@ -259,7 +251,7 @@ public class AdminCRSMenu {
      *
      * @throws CourseNotFoundException
      */
-    private void deleteCourse() {
+    private static void deleteCourse() {
         StringUtils.printHeading("Delete Course Portal");
         List<Course> courseList = viewCoursesInCatalogue();
         if (courseList == null || courseList.isEmpty()) {
@@ -290,9 +282,8 @@ public class AdminCRSMenu {
     /**
      * Method to add Course to catalogue
      */
-    private void addCourseToCatalogue() {
+    private static void addCourseToCatalogue() {
         StringUtils.printHeading("Add Course to Catalogue Portal");
-        List<Course> courseList = viewCoursesInCatalogue();
         Course course = new Course();
         course.setCourseCatalogId(1);
         scanner.nextLine();
@@ -328,7 +319,7 @@ public class AdminCRSMenu {
      *
      * @return List of courses in catalogue
      */
-    private List<Course> viewCoursesInCatalogue() {
+    private static List<Course> viewCoursesInCatalogue() {
         List<Course> courseList = adminOperation.viewCourses(1);
         if (courseList == null || courseList.isEmpty()) {
             System.out.println("No course in the catalogue!");
@@ -344,7 +335,7 @@ public class AdminCRSMenu {
      * @param studentUserId
      * @return List of Registered Courses
      */
-    private void viewCourseList(List<Course> courses) {
+    private static void viewCourseList(List<Course> courses) {
         StringUtils.printHeading("List of Courses");
         StringUtils.printTable(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
         for (Course course : courses) {

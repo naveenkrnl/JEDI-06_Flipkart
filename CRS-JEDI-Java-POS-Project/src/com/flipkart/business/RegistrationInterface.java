@@ -1,9 +1,9 @@
 package com.flipkart.business;
 
-import java.util.List;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
+
+import java.util.List;
 
 public interface RegistrationInterface {
 	public int numOfRegisteredCourses(int studentUserId);

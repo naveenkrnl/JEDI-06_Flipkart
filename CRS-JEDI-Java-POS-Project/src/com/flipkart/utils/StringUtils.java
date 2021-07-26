@@ -2,8 +2,6 @@ package com.flipkart.utils;
 
 import com.flipkart.constant.Color;
 
-import java.util.ArrayList;
-
 public class StringUtils {
     public static final int DEFAULT_WIDTH = 100;
 

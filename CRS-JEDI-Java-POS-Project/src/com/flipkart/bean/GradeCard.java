@@ -2,8 +2,6 @@ package com.flipkart.bean;
 
 import java.util.List;
 
-import com.flipkart.constant.Grade;
-
 public class GradeCard {
 
 	private List<RegisteredCourse> registeredCourses;

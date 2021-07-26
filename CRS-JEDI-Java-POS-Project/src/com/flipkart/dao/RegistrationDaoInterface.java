@@ -1,10 +1,10 @@
 package com.flipkart.dao;
 
-import java.util.List;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.RegisteredCourse;
+
+import java.util.List;
 
 /**
  * Interface for Registration DAO Operation

@@ -1,11 +1,11 @@
 package com.flipkart.business;
 
-import java.util.List;
-
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+
+import java.util.List;
 
 public interface AdminInterface {
 

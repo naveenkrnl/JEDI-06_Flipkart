@@ -1,16 +1,13 @@
 package com.flipkart.business;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
-import com.flipkart.constant.Grade;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
-import com.flipkart.dao.UserDaoInterface;
+
+import java.util.List;
 
 public class RegistrationOperation implements RegistrationInterface {
 
