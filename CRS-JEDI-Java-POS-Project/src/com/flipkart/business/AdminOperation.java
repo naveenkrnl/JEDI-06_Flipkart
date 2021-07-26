@@ -15,7 +15,7 @@ import com.flipkart.validator.AdminValidator;
 /**
  * 
  * 
- * Implementations of Admin Operations
+ * Implementation of admin operations.
  * 
  */
 public class AdminOperation implements AdminInterface {
@@ -28,9 +28,9 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to make AdminOperation Singleton
+	 * Obtain an object of the class.
 	 *
-	 * @return instance of AdminOperation
+	 * @return Instance of the class
 	 */
 	public static AdminOperation getInstance() {
 		if (instance == null) {
@@ -38,19 +38,19 @@ public class AdminOperation implements AdminInterface {
 				instance = new AdminOperation();
 			}
 		}
-		return instance;
+		return instance; // singleton structure
 	}
 
 	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
 	/**
-	 * Method to add Administrative Account
+	 * Add an administrative account
 	 *
-	 * @param name Name
-	 * @param userID User ID
-	 * @param password Password
-	 * @param gender Gender
-	 * @param address Address
-	 * @param country Country
+	 * @param name Name of the admin
+	 * @param userID User ID of the admin
+	 * @param password Password of the admin
+	 * @param gender Gender of the admin
+	 * @param address Address of the admin
+	 * @param country Country of the admin
 	 * @return Admin ID
 	 */
 	@Override
@@ -68,10 +68,10 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to Delete Course from Course Catalog
+	 * Delete a course from the course catalogue.
 	 * 
-	 * @param dropCourseCode Course Code which is to be dropped
-	 * @param courseList : Courses available in the catalog
+	 * @param dropCourseCode Course code of the course to be dropped
+	 * @param courseList : List of all courses available in the catalogue
 	 */
 	@Override
 	public void deleteCourse(String dropCourseCode, List<Course> courseList)
@@ -91,10 +91,10 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to add Course to Course Catalog
+	 * Add a course to the course catalogue.
 	 * 
-	 * @param newCourse : Course object storing details of a course
-	 * @param courseList : Courses available in catalog
+	 * @param newCourse : Store the details of the course to be added
+	 * @param courseList : List of all courses available in catalogue
 	 */
 	@Override
 	public void addCourse(Course newCourse, List<Course> courseList) throws CourseFoundException {
@@ -113,9 +113,9 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to view Students yet to be approved by Admin
+	 * View all students yet to be approved by the admin.
 	 * 
-	 * @return List of Students with pending admissions
+	 * @return List of all students with pending admission.
 	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
@@ -123,10 +123,10 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to approve a Student
-	 * 
-	 * @param studentId Student ID
-	 * @param studentList List Of Students
+	 * Approve a Student for successful registration.
+	 *
+	 * @param studentId : Student ID
+	 * @param studentList List Of students
 	 */
 	@Override
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
@@ -144,9 +144,9 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to add Professor to DB
-	 * 
-	 * @param professor : Professor Object storing details of a professor
+	 * Add a professor to the database.
+	 *
+	 * @param professor : Store the details of the professor to be added
 	 */
 	@Override
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
@@ -160,10 +160,10 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to assign Course to a Professor
-	 * 
-	 * @param courseCode Course Code
-	 * @param professorId Professor ID
+	 * Assign a course to a professor.
+	 *
+	 * @param courseCode : Course code
+	 * @param professorId : ID of the professor
 	 */
 	@Override
 	public void assignCourse(String courseCode, String professorId)
@@ -178,10 +178,10 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * Method to get list of courses in catalog
-	 * 
-	 * @param catalogId Catalog ID
-	 * @return List of courses in catalog
+	 * Get a list of all courses in the catalogue.
+	 *
+	 * @param catalogId: ID of the catalogue
+	 * @return List of courses in the catalogue
 	 */
 	@Override
 	public List<Course> viewCourses(int catalogId) {
@@ -191,9 +191,9 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	/**
-	 * View professor in the institute
-	 * 
-	 * @return List of the professors in the institute
+	 * View a list of all the professors in the institute.
+	 *
+	 * @return List of all professors in the institute
 	 */
 	@Override
 	public List<Professor> viewProfessors() {

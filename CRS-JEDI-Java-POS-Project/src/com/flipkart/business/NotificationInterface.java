@@ -14,23 +14,23 @@ import com.flipkart.constant.NotificationType;
 public interface NotificationInterface {
 
 	/**
-	 * Method to send notification
+	 * Send a notification to the specified student.
 	 * 
-	 * @param type:          type of the notification to be sent
-	 * @param studentId:     student to be notified
-	 * @param modeOfPayment: payment mode used
-	 * @param amount: amount
-	 * @param cardNumber: card number
-	 * @param cvv: cvv
-	 * @return notification id for the record added in the database
+	 * @param type:          Type of the notification to be sent
+	 * @param studentId:     Student to be notified
+	 * @param modeOfPayment: Payment mode used
+	 * @param amount: Amount payable
+	 * @param cardNumber: Card number
+	 * @param cvv: CVV of the card
+	 * @return Notification id for the record added in the database
 	 */
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv);
 
 	/**
-	 * Method to return UUID for a transaction
+	 * Obtain the UUID of a transaction.
 	 * 
-	 * @param notificationId: notification id added in the database
-	 * @return transaction id of the payment
+	 * @param notificationId: Notification id added in the database
+	 * @return Transaction id of the payment
 	 */
 	public UUID getReferenceId(int notificationId);
 }

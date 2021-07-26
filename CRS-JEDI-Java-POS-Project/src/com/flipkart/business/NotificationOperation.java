@@ -13,7 +13,7 @@ import com.flipkart.dao.NotificationDaoOperation;
 /**
  * 
  * 
- * This method implements all the method related to the notification system
+ * Implementation of notification operations.
  */
 public class NotificationOperation implements NotificationInterface {
 
@@ -26,9 +26,9 @@ public class NotificationOperation implements NotificationInterface {
 	}
 
 	/**
-	 * Method to make NotificationDaoOperation Singleton
+	 * Get an instance of the class.
 	 * 
-	 * @return NotificationOperation Instance
+	 * @return Instance of the class
 	 */
 	public static NotificationOperation getInstance() {
 		if (instance == null) {
@@ -41,12 +41,15 @@ public class NotificationOperation implements NotificationInterface {
 	}
 
 	/**
-	 * Method to send notification
-	 * 
-	 * @param type:          type of the notification to be sent
-	 * @param studentId:     student to be notified
-	 * @param modeOfPayment: payment mode used
-	 * @return notification id for the record added in the database
+	 * Send a notification to the specified student.
+	 *
+	 * @param type:          Type of the notification to be sent
+	 * @param studentId:     Student to be notified
+	 * @param modeOfPayment: Payment mode used
+	 * @param amount: Amount payable
+	 * @param cardNumber: Card number
+	 * @param cvv: CVV of the card
+	 * @return Notification id for the record added in the database
 	 */
 	@Override
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv) {
@@ -62,10 +65,10 @@ public class NotificationOperation implements NotificationInterface {
 	}
 
 	/**
-	 * Method to return UUID for a transaction
-	 * 
-	 * @param notificationId: notification id added in the database
-	 * @return transaction id of the payment
+	 * Obtain the UUID of a transaction.
+	 *
+	 * @param notificationId: Notification id added in the database
+	 * @return Transaction id of the payment
 	 */
 	@Override
 	public UUID getReferenceId(int notificationId) {
