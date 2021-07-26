@@ -15,7 +15,14 @@ public enum Gender {
 	}
 
 	public static Gender getName(int val) {
-		return Gender.MALE;
+		switch (val) {
+			case 1:
+				return Gender.MALE;
+			case 2:
+				return Gender.FEMALE;
+			default:
+				return Gender.OTHER;
+		}
 	}
 
 	public static Gender stringToGender(String val) {
@@ -24,7 +31,6 @@ public enum Gender {
 			gender = Gender.MALE;
 		else if (val.equalsIgnoreCase("female"))
 			gender = Gender.FEMALE;
-
 		return gender;
 	}
 }

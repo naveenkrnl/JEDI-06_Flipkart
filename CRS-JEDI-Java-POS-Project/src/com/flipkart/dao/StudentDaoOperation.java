@@ -5,6 +5,8 @@ import com.flipkart.bean.User;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     private static StudentDaoOperation instance = null;
     final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+    static Logger logger = Logger.getLogger("");
 
     private StudentDaoOperation() {
 
@@ -45,20 +48,18 @@ public class StudentDaoOperation implements StudentDaoInterface {
             if (rowsAffected == 0) {
                 userDaoInterface.deleteUserObjectFromUserId(student.getUserId());
                 return false;
-                // TODO : Add exception Student Record Not created
             }
             return true;
 
         } catch (SQLException sqlErr) {
             userDaoInterface.deleteUserObjectFromUserId(student.getUserId());
-            System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
-            sqlErr.printStackTrace();
+            logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
         } finally {
             try {
                 connection.close();
             } catch (SQLException closeErr) {
-                System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
-                closeErr.printStackTrace();
+                logger.error(
+                        String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
             }
         }
         return false;
@@ -73,8 +74,6 @@ public class StudentDaoOperation implements StudentDaoInterface {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()) {
                 return null;
-                // @yaduraj
-                // TODO : Add exception User Record not found
             }
             // userId,branchName,batch,rollNumber,isApproved
             Student student = new Student();
@@ -85,14 +84,13 @@ public class StudentDaoOperation implements StudentDaoInterface {
             student.setApproved(resultSet.getBoolean(5));
             return student;
         } catch (SQLException sqlErr) {
-            System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
-            sqlErr.printStackTrace();
+            logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
         } finally {
             try {
                 connection.close();
             } catch (SQLException closeErr) {
-                System.err.printf("Error in Closing Connection %s\n%s\n", queryToExecute, closeErr.getMessage());
-                closeErr.printStackTrace();
+                logger.error(
+                        String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
             }
         }
         return null;

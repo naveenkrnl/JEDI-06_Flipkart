@@ -6,6 +6,8 @@ import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +23,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 	private static AdminDaoOperation instance = null;
 	final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+	static Logger logger = Logger.getLogger("");
 
 	private AdminDaoOperation() {
 
@@ -51,14 +54,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			return true;
 		} catch (SQLException sqlErr) {
 			userDaoInterface.deleteUserObjectFromUserId(admin.getUserId());
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return false;
@@ -112,14 +116,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			// System.out.println(userList.size() + " students have pending-approval.");
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return userList;
@@ -137,14 +142,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			return row > 0;
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return false;
@@ -188,14 +194,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			// System.out.println(professorList.size() + " professors in the institute.");
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return professorList;
@@ -231,14 +238,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			course.setCourseId(courseFromDB.getCourseId());
 			return true;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return false;
@@ -268,14 +276,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			course.setCourseFee(resultSet.getDouble(6));
 			return course;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return null;
@@ -304,14 +313,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			course.setCourseFee(resultSet.getDouble(6));
 			return course;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return null;
@@ -348,14 +358,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			return true;
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return false;
@@ -383,14 +394,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			}
 			return true;
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return false;
@@ -426,14 +438,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			// + ".");
 
 		} catch (SQLException sqlErr) {
-			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
-			sqlErr.printStackTrace();
+			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException closeErr) {
-				System.err.printf("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage());
-				closeErr.printStackTrace();
+				logger.error(
+						String.format("Error in Closing Connection %s%n%s%n", queryToExecute, closeErr.getMessage()));
+
 			}
 		}
 		return courseList;

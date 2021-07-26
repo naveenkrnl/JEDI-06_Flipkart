@@ -138,7 +138,6 @@ public class CRSApplication {
         } catch (Exception ex) {
             // UserNotFoundException
             StringUtils.printErrorMessage(ex.getMessage());
-            ex.printStackTrace();
         }
     }
 
@@ -207,7 +206,6 @@ public class CRSApplication {
 
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Something went wrong! not registered. Please try again" + ex.getMessage());
-            ex.printStackTrace();
         }
     }
 
@@ -238,7 +236,6 @@ public class CRSApplication {
                 StringUtils.printErrorMessage("Something went wrong, please try again!");
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Error Occurred " + ex.getMessage());
-            ex.printStackTrace();
         }
     }
 }
