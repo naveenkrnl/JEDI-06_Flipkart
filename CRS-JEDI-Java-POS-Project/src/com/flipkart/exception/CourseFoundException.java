@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.exception;
 
 /**
@@ -9,12 +6,11 @@ package com.flipkart.exception;
  * 
  */
 public class CourseFoundException extends Exception {
-	private String courseCode;
+	private final String courseCode;
 
 	/***
 	 * Constructor
-	 * 
-	 * @param courseCode
+	 *
 	 */
 	public CourseFoundException(String courseCode) {
 		this.courseCode = courseCode;

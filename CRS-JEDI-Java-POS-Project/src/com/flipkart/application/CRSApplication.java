@@ -18,12 +18,12 @@ import java.util.Scanner;
  * login, register are displayed
  */
 public class CRSApplication {
-    static boolean loggedin = false;
-    static Scanner scanner = new Scanner(System.in);
-    static StudentInterface studentInterface = StudentOperation.getInstance();
+    static boolean isLoggedIn = false;
+    static final Scanner scanner = new Scanner(System.in);
+    static final StudentInterface studentInterface = StudentOperation.getInstance();
     static AdminInterface adminInterface = AdminOperation.getInstance();
-    static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-    static UserInterface userInterface = UserOperation.getInstance();
+    static final ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+    static final UserInterface userInterface = UserOperation.getInstance();
     static NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
     private CRSApplication() {
@@ -94,11 +94,11 @@ public class CRSApplication {
             String email = scanner.next();
             System.out.println("Password:");
             String password = scanner.next();
-            loggedin = userInterface.verifyCredentials(email, password);
-            System.out.println(loggedin);
+            isLoggedIn = userInterface.verifyCredentials(email, password);
+            System.out.println(isLoggedIn);
             // 2 cases
             // true->role->student->approved
-            if (loggedin) {
+            if (isLoggedIn) {
                 DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
                 LocalDateTime myDateObj = LocalDateTime.now();
@@ -126,7 +126,7 @@ public class CRSApplication {
                         } else {
                             StringUtils.printErrorMessage(
                                     "Failed to login, you have not been approved by the administration!");
-                            loggedin = false;
+                            isLoggedIn = false;
                         }
                         break;
                 }
@@ -194,7 +194,7 @@ public class CRSApplication {
 
             boolean registrationStatus = studentInterface.register(student);
             if (registrationStatus) {
-                StringUtils.printSuccessMessage("Registration Successfull");
+                StringUtils.printSuccessMessage("Registration Successful");
             } else {
                 StringUtils.printErrorMessage("Registration Failed");
             }
@@ -237,7 +237,7 @@ public class CRSApplication {
             else
                 StringUtils.printErrorMessage("Something went wrong, please try again!");
         } catch (Exception ex) {
-            StringUtils.printErrorMessage("Error Occured " + ex.getMessage());
+            StringUtils.printErrorMessage("Error Occurred " + ex.getMessage());
             ex.printStackTrace();
         }
     }

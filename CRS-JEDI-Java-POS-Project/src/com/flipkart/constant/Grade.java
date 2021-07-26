@@ -9,5 +9,5 @@ package com.flipkart.constant;
 // Some changes done in the Grade enum
 
 public enum Grade {
-    A, B, C, D, E, F, NA, EX;
+    A, B, C, D, E, F, NA, EX
 }

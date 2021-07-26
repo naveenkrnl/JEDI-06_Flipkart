@@ -24,7 +24,7 @@ public class Student extends User {
 	private String rollNumber;
 	private int batch;
 	private boolean isApproved;
-	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
+	final StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	public Student() {
 		setRole(Role.STUDENT);

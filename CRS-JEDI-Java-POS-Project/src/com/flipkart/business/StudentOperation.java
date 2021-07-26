@@ -6,7 +6,7 @@ import com.flipkart.dao.StudentDaoOperation;
 
 public class StudentOperation implements StudentInterface {
 
-	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
+	final StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	private StudentOperation() {
 

@@ -35,7 +35,7 @@ public class UserDaoOperation implements UserDaoInterface {
 	public boolean deleteUserObjectFromUserId(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.DELETE_USER_FROM_USER_ID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, userId);
 			int rowsAffected = preparedStatement.executeUpdate();
@@ -63,7 +63,7 @@ public class UserDaoOperation implements UserDaoInterface {
 	public User getUserFromUserId(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_USER_INFO_FROM_USERID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, userId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -111,7 +111,7 @@ public class UserDaoOperation implements UserDaoInterface {
 	public User getUserFromEmail(String email) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_USER_INFO_FROM_EMAIL;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setString(1, email);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -160,7 +160,7 @@ public class UserDaoOperation implements UserDaoInterface {
 	public boolean createDBRecordAndUpdateObject(User user) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_USER_QUERY;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			user.setPassword(CryptoUtils.generateDatabasePassword(user.getPassword()));
 			preparedStatement.setString(1, user.getName());
@@ -200,7 +200,7 @@ public class UserDaoOperation implements UserDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.UPDATE_PASSWORD;
 		// update user set password=? where email = ?
-		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 			statement.setString(1, CryptoUtils.generateDatabasePassword(newPassword));
 			statement.setString(2, email);
 			int row = statement.executeUpdate();

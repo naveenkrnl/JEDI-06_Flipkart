@@ -9,23 +9,24 @@ import java.util.List;
 
 public interface AdminInterface {
 
-	public Admin getAdminFromUserId(int userId);
+	Admin getAdminFromUserId(int userId);
 
-	public List<Course> viewCourses(int courseCatalogId);
+	List<Course> viewCourses(int courseCatalogId);
 
-	public boolean addCourse(Course course);
+	boolean addCourse(Course course);
 
-	public boolean deleteCourse(int courseId);
+	boolean deleteCourse(int courseId);
 
-	public List<Student> viewPendingAdmissions();
+	List<Student> viewPendingAdmissions();
 
-	public boolean approveStudent(int userId);
+	boolean approveStudent(int userId);
 
-	public boolean addProfessor(Professor professor);
+	@SuppressWarnings("UnusedReturnValue")
+	boolean addProfessor(Professor professor);
 
-	public List<Professor> viewProfessorList();
+	List<Professor> viewProfessorList();
 
-	public boolean assignCourseToProfessor(int courseId, int professorUserId);
+	boolean assignCourseToProfessor(int courseId, int professorUserId);
 	// public void deleteCourse(String courseCode, List<Course> courseList);
 
 	// public void addCourse(Course course, List<Course> courseList);

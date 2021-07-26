@@ -18,19 +18,19 @@ import java.util.List;
  */
 public interface ProfessorDaoInterface {
 
-	public boolean createDBRecordAndUpdateObject(Professor professor);
+	boolean createDBRecordAndUpdateObject(Professor professor);
 
-	public Professor getProfessorFromUserIdImpl(int userId);
+	Professor getProfessorFromUserIdImpl(int userId);
 
-	public Professor getProfessorFromUserId(int userId);
+	Professor getProfessorFromUserId(int userId);
 
-	public Professor getProfessorFromEmail(String email);
+	Professor getProfessorFromEmail(String email);
 
-	public List<Course> getCoursesByProfessorUserId(int professorUserId);
+	List<Course> getCoursesByProfessorUserId(int professorUserId);
 
-	public String getProfessorNameByUserId(int userId);
+	String getProfessorNameByUserId(int userId);
 
-	public List<RegisteredCourse> getEnrolledStudents(int professorUserId);
+	List<RegisteredCourse> getEnrolledStudents(int professorUserId);
 
-	public boolean addGradeToStudent(int studentUserId, int courseId, Grade grade);
+	boolean addGradeToStudent(int studentUserId, int courseId, Grade grade);
 }

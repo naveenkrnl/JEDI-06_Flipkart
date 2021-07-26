@@ -7,12 +7,11 @@ package com.flipkart.exception;
  */
 public class GradeNotAddedException extends Exception {
 
-	private int studentId;
+	private final int studentId;
 
 	/**
 	 * Constructor
-	 * 
-	 * @param studentId
+	 *
 	 */
 	public GradeNotAddedException(int studentId) {
 		this.studentId = studentId;
@@ -20,8 +19,7 @@ public class GradeNotAddedException extends Exception {
 
 	/**
 	 * Getter function for studentId
-	 * 
-	 * @return
+	 *
 	 */
 	public int getStudentId() {
 		return studentId;

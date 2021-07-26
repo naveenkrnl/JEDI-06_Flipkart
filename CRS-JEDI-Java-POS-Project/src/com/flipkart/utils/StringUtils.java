@@ -6,9 +6,11 @@ public class StringUtils {
     public static final int DEFAULT_WIDTH = 100;
 
     public static String padding(String input, int maxLength) {
-        while (input.length() < maxLength) {
-            input += ' ';
+        StringBuilder inputBuilder = new StringBuilder(input);
+        while (inputBuilder.length() < maxLength) {
+            inputBuilder.append(' ');
         }
+        input = inputBuilder.toString();
         return input;
     }
 

@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class StudentDaoOperation implements StudentDaoInterface {
 
     private static StudentDaoOperation instance = null;
-    UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+    final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
     private StudentDaoOperation() {
 
@@ -35,7 +35,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
             return false;
         Connection connection = DBUtils.getConnection();
         String queryToExecute = SQLQueriesConstants.ADD_STUDENT;
-        try (PreparedStatement preparedStatementStudent = connection.prepareStatement(queryToExecute);) {
+        try (PreparedStatement preparedStatementStudent = connection.prepareStatement(queryToExecute)) {
             preparedStatementStudent.setInt(1, student.getUserId());
             preparedStatementStudent.setString(2, student.getBranchName());
             preparedStatementStudent.setInt(3, student.getBatch());
@@ -68,7 +68,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
     public Student getStudentFromUserIdImpl(int userId) {
         Connection connection = DBUtils.getConnection();
         String queryToExecute = SQLQueriesConstants.GET_STUDENT_FROM_USERID;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()) {

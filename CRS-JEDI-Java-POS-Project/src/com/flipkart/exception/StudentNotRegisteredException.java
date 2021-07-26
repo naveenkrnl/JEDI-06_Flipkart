@@ -6,7 +6,7 @@ package com.flipkart.exception;
  * 
  */
 public class StudentNotRegisteredException extends Exception {
-	private String studentName;
+	private final String studentName;
 
 	public StudentNotRegisteredException(String studentName) {
 		this.studentName = studentName;
@@ -14,8 +14,7 @@ public class StudentNotRegisteredException extends Exception {
 
 	/**
 	 * getter function for studentName
-	 * 
-	 * @return
+	 *
 	 */
 	public String getStudentName() {
 		return studentName;

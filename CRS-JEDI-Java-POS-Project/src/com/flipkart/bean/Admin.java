@@ -33,7 +33,7 @@ public class Admin extends User {
 		setRole(Role.ADMIN);
 	}
 
-	public boolean isAdmintValidForDatabase() {
+	public boolean isAdminValidForDatabase() {
 		if (getRole() != Role.ADMIN)
 			setRole(Role.ADMIN);
 		return getRole() == Role.ADMIN && isUserValidForDatabase();

@@ -23,7 +23,7 @@ import java.util.List;
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static ProfessorDaoOperation instance = null;
-	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+	final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
 	private ProfessorDaoOperation() {
 
@@ -42,12 +42,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			return false;
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
-		try (PreparedStatement preparedStatementprofessor = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatementProfessor = connection.prepareStatement(queryToExecute)) {
 			// userId, department, designation
-			preparedStatementprofessor.setInt(1, professor.getUserId());
-			preparedStatementprofessor.setString(2, professor.getDepartment());
-			preparedStatementprofessor.setString(3, professor.getDesignation());
-			int rowsAffected = preparedStatementprofessor.executeUpdate();
+			preparedStatementProfessor.setInt(1, professor.getUserId());
+			preparedStatementProfessor.setString(2, professor.getDepartment());
+			preparedStatementProfessor.setString(3, professor.getDesignation());
+			int rowsAffected = preparedStatementProfessor.executeUpdate();
 			if (rowsAffected == 0) {
 				userDaoInterface.deleteUserObjectFromUserId(professor.getUserId());
 				return false;
@@ -165,7 +165,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		List<RegisteredCourse> enrolledStudents = new ArrayList<>();
 		String queryToExecute = SQLQueriesConstants.GET_ALL_REGISTERED_COURSE_IDS_FROM_PROFESSOR_ID;
-		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 			statement.setInt(1, professorUserId);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -198,11 +198,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	public boolean addGradeToStudent(int studentUserId, int courseId, Grade grade) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_GRADE_FROM_STUDENT_ID_AND_COURSE_ID;
-		try (PreparedStatement preparedStatementprofessor = connection.prepareStatement(queryToExecute);) {
-			preparedStatementprofessor.setString(1, grade.toString());
-			preparedStatementprofessor.setInt(2, courseId);
-			preparedStatementprofessor.setInt(3, studentUserId);
-			int rowsAffected = preparedStatementprofessor.executeUpdate();
+		try (PreparedStatement preparedStatementProfessor = connection.prepareStatement(queryToExecute)) {
+			preparedStatementProfessor.setString(1, grade.toString());
+			preparedStatementProfessor.setInt(2, courseId);
+			preparedStatementProfessor.setInt(3, studentUserId);
+			int rowsAffected = preparedStatementProfessor.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
 			}

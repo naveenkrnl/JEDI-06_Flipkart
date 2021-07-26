@@ -6,17 +6,17 @@ import com.flipkart.bean.GradeCard;
 import java.util.List;
 
 public interface RegistrationInterface {
-	public int numOfRegisteredCourses(int studentUserId);
+	int numOfRegisteredCourses(int studentUserId);
 
-	public boolean registerStudentToCourse(int courseId, int studentUserId);
+	boolean registerStudentToCourse(int courseId, int studentUserId);
 
-	public boolean dropCourse(int courseId, int studentUserId);
+	boolean dropCourse(int courseId, int studentUserId);
 
-	public List<Course> viewRegisteredCourses(int studentUserId);
+	List<Course> viewRegisteredCourses(int studentUserId);
 
-	public GradeCard getGradeCardFromStudentUserId(int studentUserId);
+	GradeCard getGradeCardFromStudentUserId(int studentUserId);
 
-	public List<Course> viewAvailableCoursesToStudent(int studentUserId);
+	List<Course> viewAvailableCoursesToStudent(int studentUserId);
 	// public boolean addCourse(String courseCode, int studentId, List<Course>
 	// courseList);
 

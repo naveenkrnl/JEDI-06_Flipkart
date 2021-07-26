@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.exception;
 
 /**
@@ -19,8 +16,7 @@ public class CourseNotAssignedToProfessorException extends Exception {
 
 	/**
 	 * Get courseCode
-	 * 
-	 * @return
+	 *
 	 */
 	public String getCourseCode() {
 		return courseCode;
@@ -28,8 +24,7 @@ public class CourseNotAssignedToProfessorException extends Exception {
 
 	/**
 	 * get Professor id
-	 * 
-	 * @return
+	 *
 	 */
 	public String getProfessorId() {
 		return professorId;
@@ -37,8 +32,7 @@ public class CourseNotAssignedToProfessorException extends Exception {
 
 	/**
 	 * set professor id
-	 * 
-	 * @param professorId
+	 *
 	 */
 	public void setProfessorId(String professorId) {
 		this.professorId = professorId;
@@ -46,8 +40,7 @@ public class CourseNotAssignedToProfessorException extends Exception {
 
 	/**
 	 * set course code
-	 * 
-	 * @param courseCode
+	 *
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;

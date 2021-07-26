@@ -24,7 +24,7 @@ public class SQLQueriesConstants {
     public static final String DELETE_COURSE_FROM_FROM_COURSE_ID = "delete from Course where courseId = ?";
     public static final String GET_COURSE_LIST_FROM_COURSE_CATALOG_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId, courseFee from Course where courseCatalogId = ?";
 
-    // Professsor Queries
+    // Professor Queries
     public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
     public static final String GET_PROFESSOR_FROM_USERID = "select userId, department, designation from professor where userId = ? ";
     public static final String VERIFY_CREDENTIALS = "select password from user where userId = ?";
@@ -57,7 +57,7 @@ public class SQLQueriesConstants {
     public static final String ADD_COURSE = "insert into registeredCourse (studentUserId,courseCode) values ( ? , ? )";
     public static final String INCREMENT_SEAT_QUERY = "update course set seats = seats + 1 where  courseCode = ?;";
     public static final String VIEW_GRADE = "select course.courseCode,course.courseName,registeredCourse.grade from course inner join registeredCourse on course.courseCode = registeredCourse.courseCode where registeredCourse.studentUserId = ?;";
-    public static final String INSERT_PAYMENT = "insert into payment(studentUserId,modeofPayment,referenceId,amount) values(?,?,?,?);";
+    public static final String INSERT_PAYMENT = "insert into payment(studentUserId,modeOfPayment,referenceId,amount) values(?,?,?,?);";
     public static final String INSERT_NOTIFICATION = "insert into notification(studentUserId,type,referenceId) values(?,?,?);";
     public static final String GET_NOTIFICATION = "select * from notification where referenceId = ?;";
     public static final String GET_REGISTRATION_STATUS = " select isRegistered from student where studentUserId = ? ";

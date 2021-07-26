@@ -14,32 +14,32 @@ import java.util.List;
  */
 public interface AdminDaoInterface {
 
-	public boolean createDBRecordAndUpdateObject(Admin admin);
+	boolean createDBRecordAndUpdateObject(Admin admin);
 
-	public Admin getAdminFromUserId(int userId);
+	Admin getAdminFromUserId(int userId);
 
-	public Admin getAdminFromEmail(String email);
+	Admin getAdminFromEmail(String email);
 
-	public List<Student> viewUnapprovedStudents();
+	List<Student> viewUnapprovedStudents();
 
-	public boolean approveStudent(int userId);
+	boolean approveStudent(int userId);
 
-	public void addProfessor(Professor professor);
+	void addProfessor(Professor professor);
 
-	public List<Professor> viewProfessors();
+	List<Professor> viewProfessors();
 
-	public boolean createCourseDBRecordAndUpdateObject(Course course);
+	boolean createCourseDBRecordAndUpdateObject(Course course);
 
-	public Course getCouseFromCourseCodeAndCatalogId(String courseCode, int catalogId);
+	Course getCourseFromCourseCodeAndCatalogId(String courseCode, int catalogId);
 
-	public Course getCouseFromCourseId(int courseId);
+	Course getCourseFromCourseId(int courseId);
 
-	public boolean addCourse(Course course);
+	boolean addCourse(Course course);
 
-	public boolean assignCourseToProfessor(int courseId, int professorUserId);
+	boolean assignCourseToProfessor(int courseId, int professorUserId);
 
-	public boolean deleteCourse(int courseId);
+	boolean deleteCourse(int courseId);
 
-	public List<Course> viewCourses(int courseCatalogId);
+	List<Course> viewCourses(int courseCatalogId);
 
 }

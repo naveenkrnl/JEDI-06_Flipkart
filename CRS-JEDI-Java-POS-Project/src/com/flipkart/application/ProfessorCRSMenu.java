@@ -26,22 +26,19 @@ public class ProfessorCRSMenu {
 
     }
 
-    static Scanner scanner = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
 
-    static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+    static final ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 
     /**
      * Method to create Professor menu
-     * 
-     * @param professorUserId: professor id obtained after logging into the system
-     *                         returns displays all the options for the professor,
-     *                         and provides navigation
+     *
      */
     public static void createMenu(Professor professor) {
         // Display the options available for the Professor
 
         int input;
-        while (CRSApplication.loggedin) {
+        while (CRSApplication.isLoggedIn) {
             StringUtils.printMenu("Professor Access Menu",
                     new String[] { "View courses", "View Enrolled Students", "Add grade", "Logout" }, 100);
 
@@ -65,7 +62,7 @@ public class ProfessorCRSMenu {
                     break;
                 case 4:
                     // logout from the system
-                    CRSApplication.loggedin = false;
+                    CRSApplication.isLoggedIn = false;
                     return;
                 default:
                     StringUtils.printErrorMessage("***** Wrong Choice *****");
@@ -76,8 +73,7 @@ public class ProfessorCRSMenu {
 
     /**
      * Method to view enrolled Students in courses
-     * 
-     * @param professorUserId
+     *
      */
     private static void viewEnrolledStudents(int professorUserId) {
         StringUtils.printHeading("List of Enrolled Students");
@@ -86,7 +82,7 @@ public class ProfessorCRSMenu {
         try {
             List<RegisteredCourse> enrolledStudents = professorInterface.viewEnrolledStudents(professorUserId);
             for (RegisteredCourse registeredCourse : enrolledStudents) {
-                Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(registeredCourse.getCourseId());
+                Course course = AdminDaoOperation.getInstance().getCourseFromCourseId(registeredCourse.getCourseId());
                 Student student = StudentDaoOperation.getInstance()
                         .getStudentFromUserId(registeredCourse.getStudentUserId());
                 StringUtils.printTable(String.format("%20s %20s %20s %20s", course.getCourseCode(),
@@ -100,8 +96,7 @@ public class ProfessorCRSMenu {
 
     /**
      * Method to get list of all Courses Professor has to teach
-     * 
-     * @param professorUserId
+     *
      */
     private static void getCourses(int professorUserId) {
         StringUtils.printHeading("List of All Courses taught by Professor");
@@ -115,8 +110,7 @@ public class ProfessorCRSMenu {
 
     /**
      * Method to help Professor grade a student
-     * 
-     * @param professorUserId
+     *
      */
     private static void addGrade(int professorUserId) {
         StringUtils.printHeading("Student Courses Data");
@@ -132,7 +126,7 @@ public class ProfessorCRSMenu {
                 if (coursesMap.containsKey(registeredCourse.getCourseId()))
                     course = coursesMap.get(registeredCourse.getCourseId());
                 else {
-                    course = AdminDaoOperation.getInstance().getCouseFromCourseId(registeredCourse.getCourseId());
+                    course = AdminDaoOperation.getInstance().getCourseFromCourseId(registeredCourse.getCourseId());
                     coursesMap.put(registeredCourse.getCourseId(), course);
                 }
                 Student student;
@@ -158,10 +152,7 @@ public class ProfessorCRSMenu {
             courseCode = scanner.next();
             System.out.println("Enter grade[A-F]");
             gradeStr = scanner.next();
-            if (Grade.valueOf(gradeStr) == null) {
-                StringUtils.printErrorMessage("Grade Entered Invalid");
-                return;
-            }
+            Grade.valueOf(gradeStr);
             Grade grade = Grade.valueOf(gradeStr);
 
             Student selectedStudent = null;
@@ -187,7 +178,7 @@ public class ProfessorCRSMenu {
                 return;
             }
             if (professorInterface.addGrade(selectedStudent.getUserId(), selectedCourse.getCourseId(), grade)) {
-                StringUtils.printSuccessMessage("Grade Added Sussessfully");
+                StringUtils.printSuccessMessage("Grade Added Successfully");
             } else {
                 StringUtils.printErrorMessage("Grade Addition Failed");
             }
@@ -198,16 +189,14 @@ public class ProfessorCRSMenu {
         }
         // catch ( ex) {
         // //SQLException
-        // StringUtils.printErrorMessage("Grade not added, SQL exception occured " +
+        // StringUtils.printErrorMessage("Grade not added, SQL exception occurred " +
         // ex.getMessage());
         // }
     }
 
     /**
      * View Registered Courses
-     * 
-     * @param studentUserId
-     * @return List of Registered Courses
+     *
      */
     private static void viewCourseList(List<Course> courses) {
         StringUtils.printHeading("List of Courses");

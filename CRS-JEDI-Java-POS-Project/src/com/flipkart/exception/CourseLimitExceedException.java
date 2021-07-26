@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.exception;
 
 /**
@@ -10,7 +7,7 @@ package com.flipkart.exception;
  */
 public class CourseLimitExceedException extends Exception {
 
-	private int num;
+	private final int num;
 
 	/**
 	 * Constructor

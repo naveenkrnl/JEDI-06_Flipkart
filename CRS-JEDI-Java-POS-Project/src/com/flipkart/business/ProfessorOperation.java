@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ProfessorOperation implements ProfessorInterface {
 
-	ProfessorDaoInterface professorDaoInterface = ProfessorDaoOperation.getInstance();
+	final ProfessorDaoInterface professorDaoInterface = ProfessorDaoOperation.getInstance();
 	static ProfessorOperation instance = null;
 
 	ProfessorOperation() {

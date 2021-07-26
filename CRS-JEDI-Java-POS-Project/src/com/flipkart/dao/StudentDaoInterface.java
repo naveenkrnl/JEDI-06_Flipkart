@@ -9,15 +9,15 @@ import com.flipkart.bean.Student;
  */
 public interface StudentDaoInterface {
 
-	public boolean createDBRecordAndUpdateObject(Student student);
+	boolean createDBRecordAndUpdateObject(Student student);
 
-	public Student getStudentFromUserIdImpl(int userId);
+	Student getStudentFromUserIdImpl(int userId);
 
-	public Student getStudentFromUserId(int userId);
+	Student getStudentFromUserId(int userId);
 
-	public Student getStudentFromEmail(String email);
+	Student getStudentFromEmail(String email);
 
-	public int getStudentUserId(String email);
+	int getStudentUserId(String email);
 
-	public boolean isApproved(int userId);
+	boolean isApproved(int userId);
 }

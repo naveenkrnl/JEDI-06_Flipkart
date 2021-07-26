@@ -8,7 +8,7 @@ import com.flipkart.exception.UserNotFoundException;
 
 public class UserOperation implements UserInterface {
 	private static UserOperation instance = null;
-	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+	final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
 	private UserOperation() {
 	}

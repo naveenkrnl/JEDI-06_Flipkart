@@ -11,17 +11,18 @@ import com.flipkart.exception.UserNotFoundException;
  */
 public interface UserDaoInterface {
 
-	public boolean deleteUserObjectFromUserId(int userId);
+	@SuppressWarnings("UnusedReturnValue")
+	boolean deleteUserObjectFromUserId(int userId);
 
-	public User getUserFromUserId(int userId);
+	User getUserFromUserId(int userId);
 
-	public User getUserFromEmail(String email);
+	User getUserFromEmail(String email);
 
-	public boolean createDBRecordAndUpdateObject(User user);
+	boolean createDBRecordAndUpdateObject(User user);
 
-	public boolean updatePassword(String email, String newPassword);
+	boolean updatePassword(String email, String newPassword);
 
-	public boolean verifyCredentials(String email, String password) throws UserNotFoundException;
+	boolean verifyCredentials(String email, String password) throws UserNotFoundException;
 
-	public Role getRole(String email);
+	Role getRole(String email);
 }

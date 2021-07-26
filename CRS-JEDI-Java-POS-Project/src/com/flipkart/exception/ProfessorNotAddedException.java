@@ -6,7 +6,7 @@ package com.flipkart.exception;
  * 
  */
 public class ProfessorNotAddedException extends Exception {
-	private String professorId;
+	private final String professorId;
 
 	public ProfessorNotAddedException(String professorId) {
 		this.professorId = professorId;
@@ -14,8 +14,7 @@ public class ProfessorNotAddedException extends Exception {
 
 	/**
 	 * Getter function for professorId
-	 * 
-	 * @return
+	 *
 	 */
 	public String getUserId() {
 		return this.professorId;

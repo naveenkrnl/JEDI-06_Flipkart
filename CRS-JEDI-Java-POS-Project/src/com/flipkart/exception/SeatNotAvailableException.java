@@ -7,12 +7,11 @@ package com.flipkart.exception;
  */
 public class SeatNotAvailableException extends Exception {
 
-	private String courseCode;
+	private final String courseCode;
 
 	/**
 	 * Constructor
-	 * 
-	 * @param courseCode
+	 *
 	 */
 	public SeatNotAvailableException(String courseCode) {
 		this.courseCode = courseCode;

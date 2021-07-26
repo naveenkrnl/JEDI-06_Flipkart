@@ -5,14 +5,13 @@ public enum Gender {
 
 	private final int gender;
 
-	private Gender(int gender) {
+	Gender(int gender) {
 		this.gender = gender;
 	}
 
 	@Override
 	public String toString() {
-		final String name = name();
-		return name;
+		return name();
 	}
 
 	public static Gender getName(int val) {
@@ -25,8 +24,6 @@ public enum Gender {
 			gender = Gender.MALE;
 		else if (val.equalsIgnoreCase("female"))
 			gender = Gender.FEMALE;
-		else if (val.equalsIgnoreCase("other"))
-			gender = Gender.OTHER;
 
 		return gender;
 	}

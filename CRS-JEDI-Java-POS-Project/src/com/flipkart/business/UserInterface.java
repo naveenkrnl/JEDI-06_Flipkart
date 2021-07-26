@@ -8,10 +8,10 @@ public interface UserInterface {
 
 	boolean updatePassword(String userID, String newPassword);
 
-	public boolean verifyCredentials(String email, String password) throws UserNotFoundException;
+	boolean verifyCredentials(String email, String password) throws UserNotFoundException;
 
-	public Role getRole(String email);
+	Role getRole(String email);
 
-	public User getUserFromEmail(String email);
+	User getUserFromEmail(String email);
 
 }

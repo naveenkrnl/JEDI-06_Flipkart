@@ -17,8 +17,8 @@ import java.util.List;
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	private static RegistrationDaoOperation instance = null;
-	private static AdminDaoInterface adminDaoInterface = AdminDaoOperation.getInstance();
-	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
+	private static final AdminDaoInterface adminDaoInterface = AdminDaoOperation.getInstance();
+	final StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	private RegistrationDaoOperation() {
 	}
@@ -32,7 +32,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public boolean createRegisteredCourseDBRecordAndUpdateObject(RegisteredCourse registeredCourse) {
-		Course course = adminDaoInterface.getCouseFromCourseId(registeredCourse.getCourseId());
+		Course course = adminDaoInterface.getCourseFromCourseId(registeredCourse.getCourseId());
 		if (course == null) {
 			// TODO : Throw Course Not Found
 			return false;
@@ -40,7 +40,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_REGISTERED_COURSE;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 			// studentUserId, courseId, grade
 			preparedStatement.setInt(1, registeredCourse.getStudentUserId());
 			preparedStatement.setInt(2, registeredCourse.getCourseId());
@@ -74,7 +74,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_REGISTERED_COURSE_FROM_STUDENT_ID_AND_COURSE_ID;
 
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, studentUserId);
 			preparedStatement.setInt(2, courseId);
@@ -116,7 +116,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	public RegisteredCourse getRegisteredCourseFromRegisteredCourseId(int registeredCourseId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_REGISTERED_COURSE_FROM_REGISTERED_COURSE_ID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, registeredCourseId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -155,10 +155,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public boolean registerStudentToCourse(int courseId, int studentUserId) {
-		Course course = adminDaoInterface.getCouseFromCourseId(courseId);
+		Course course = adminDaoInterface.getCourseFromCourseId(courseId);
 		if (course == null) {
 			return false;
-			// TODO : Thorw course not found exception
+			// TODO : Throw course not found exception
 		}
 		RegisteredCourse registeredCourse = new RegisteredCourse();
 		registeredCourse.setCourseId(courseId);
@@ -172,7 +172,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.NUMBER_OF_REGISTERED_COURSES_FROM_STUDENT_USER_ID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, studentUserId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -200,7 +200,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	public boolean seatAvailable(int courseId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.NUMBER_OF_STUDENTS_REGISTERED_FROM_COURSE_ID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, courseId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -230,7 +230,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.IS_STUDENT_ALREADY_REGISTERED_TO_COURSE_ID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, courseId);
 			preparedStatement.setInt(2, studentUserId);
@@ -260,7 +260,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.DROP_COURSE_FROM_COURSE_ID_AND_STUDENT_ID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, courseId);
 			preparedStatement.setInt(2, studentUserId);
@@ -290,7 +290,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	public double calculateFeeFromStudentUserId(int studentUserId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.CALCULATE_FEES_FROM_STUDENT_ID;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 
 			preparedStatement.setInt(1, studentUserId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -319,7 +319,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_REGISTERED_COURSES_FROM_STUDENT_USER_ID;
 		List<RegisteredCourse> registeredCourses = new ArrayList<>();
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 			preparedStatement.setInt(1, studentUserId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -356,7 +356,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_COURSES_AVAILABLE_TO_STUDENT_USER_ID;
 		List<Course> availableCourses = new ArrayList<>();
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 			preparedStatement.setInt(1, studentUserId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -389,8 +389,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_ALL_COURSES_REGISTERED_BY_STUDENT_USER_ID;
-		List<Course> registeredCourses = new ArrayList<Course>();
-		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
+		List<Course> registeredCourses = new ArrayList<>();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute)) {
 			preparedStatement.setInt(1, studentUserId);
 			System.err.println(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();

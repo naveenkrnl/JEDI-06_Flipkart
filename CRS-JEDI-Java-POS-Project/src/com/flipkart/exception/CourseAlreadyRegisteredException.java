@@ -7,12 +7,11 @@ package com.flipkart.exception;
  */
 public class CourseAlreadyRegisteredException extends Exception {
 
-	private String courseCode;
+	private final String courseCode;
 
 	/**
 	 * Constructor
-	 * 
-	 * @param courseCode
+	 *
 	 */
 	public CourseAlreadyRegisteredException(String courseCode) {
 		this.courseCode = courseCode;

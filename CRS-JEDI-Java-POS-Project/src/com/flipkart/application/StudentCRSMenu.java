@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.flipkart.application;
 
 import com.flipkart.bean.*;
@@ -22,22 +19,21 @@ public class StudentCRSMenu {
 
     }
 
-    static Scanner scanner = new Scanner(System.in);
-    static RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
-    static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+    static final Scanner scanner = new Scanner(System.in);
+    static final RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
+    static final ProfessorInterface professorInterface = ProfessorOperation.getInstance();
     static NotificationInterface notificationInterface = NotificationOperation.getInstance();
     static StudentInterface studentInterface = StudentOperation.getInstance();
 
     /**
      * Method to generate Student Menu for course registration, addition, removal
      * and fee payment
-     * 
-     * @param studentUserId student id
+     *
      */
     public static void create_menu(Student student) {
         System.out.println(student);
         int studentUserId = student.getUserId();
-        while (CRSApplication.loggedin) {
+        while (CRSApplication.isLoggedIn) {
             StringUtils.printMenu("Student Access Menu",
                     new String[] { "Course Registration", "Add Course", "Drop Course", "View Available Courses",
                             "View Registered Courses", "View grade card", "Make Payment", "Logout" },
@@ -77,7 +73,7 @@ public class StudentCRSMenu {
                     break;
 
                 case 8:
-                    CRSApplication.loggedin = false;
+                    CRSApplication.isLoggedIn = false;
                     return;
 
                 default:
@@ -89,8 +85,7 @@ public class StudentCRSMenu {
 
     /**
      * Select course for registration
-     * 
-     * @param studentUserId
+     *
      */
     private static void registerCourses(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
@@ -105,7 +100,7 @@ public class StudentCRSMenu {
             try {
                 List<Course> courseList = viewCourse(studentUserId);
                 Course selectedCourse = null;
-                if (courseList == null || courseList.isEmpty())
+                if (courseList.isEmpty())
                     return;
 
                 System.out.println("Enter Course Code : " + (count + 1));
@@ -126,7 +121,7 @@ public class StudentCRSMenu {
                 }
                 if (registrationInterface.registerStudentToCourse(selectedCourse.getCourseId(), studentUserId)) {
                     System.out.println(
-                            Color.ANSI_GREEN + "Course " + courseCode + " registered sucessfully." + Color.ANSI_RESET);
+                            Color.ANSI_GREEN + "Course " + courseCode + " registered successfully." + Color.ANSI_RESET);
                     count++;
                 } else {
                     System.err.println(" Registration Failed for Course : " + courseCode);
@@ -142,8 +137,7 @@ public class StudentCRSMenu {
 
     /**
      * Add course for registration
-     * 
-     * @param studentUserId
+     *
      */
     private static void addCourse(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
@@ -187,14 +181,13 @@ public class StudentCRSMenu {
 
     /**
      * Drop Course
-     * 
-     * @param studentUserId
+     *
      */
     private static void dropCourse(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
         List<Course> registeredCourseList = viewRegisteredCourse(studentUserId);
         if (registeredCourseList == null || registeredCourseList.isEmpty() || count == 0) {
-            StringUtils.printErrorMessage(" You have not been registeded in any courses");
+            StringUtils.printErrorMessage(" You have not been registered in any courses");
             return;
         }
         StringUtils.printHeading("Drop Course Portal for Student");
@@ -248,9 +241,7 @@ public class StudentCRSMenu {
 
     /**
      * View Registered Courses
-     * 
-     * @param studentUserId
-     * @return List of Registered Courses
+     *
      */
     private static void viewCourseList(List<Course> courses) {
         StringUtils.printTable(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
@@ -287,8 +278,7 @@ public class StudentCRSMenu {
 
     /**
      * View grade card for particular student
-     * 
-     * @param studentUserId
+     *
      */
     private static void viewGradeCard(int studentUserId) {
 
@@ -323,7 +313,7 @@ public class StudentCRSMenu {
             StringUtils.printTable("Graded Courses : ");
             for (RegisteredCourse RegisteredCourse : graded) {
                 // TODO : Replace with correct value after
-                Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(RegisteredCourse.getCourseId());
+                Course course = AdminDaoOperation.getInstance().getCourseFromCourseId(RegisteredCourse.getCourseId());
                 StringUtils.printTable(
                         String.format("  %-20s %-20s %-20s %-20s", course.getCourseCode(), course.getCourseName(),
                                 RegisteredCourse.getGrade(), getScore(RegisteredCourse.getGrade().toString())));
@@ -333,7 +323,7 @@ public class StudentCRSMenu {
         if (!unGraded.isEmpty()) {
             StringUtils.printTable("Grade Awaited : ");
             for (RegisteredCourse RegisteredCourse : unGraded) {
-                Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(RegisteredCourse.getCourseId());
+                Course course = AdminDaoOperation.getInstance().getCourseFromCourseId(RegisteredCourse.getCourseId());
                 StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", course.getCourseCode(),
                         course.getCourseName(), "NA", "NA"));
             }
@@ -346,7 +336,7 @@ public class StudentCRSMenu {
         StringUtils.printEndLine();
     }
 
-    private static Map<String, Integer> gradeStrToScore;
+    private static final Map<String, Integer> gradeStrToScore;
 
     static {
         gradeStrToScore = new HashMap<>();
@@ -369,8 +359,7 @@ public class StudentCRSMenu {
     /**
      * Make Payment for selected courses. Student is provided with an option to pay
      * the fees and select the mode of payment.
-     * 
-     * @param studentUserId
+     *
      */
     private static void make_payment(int studentUserId) {
         System.out.println(studentUserId);

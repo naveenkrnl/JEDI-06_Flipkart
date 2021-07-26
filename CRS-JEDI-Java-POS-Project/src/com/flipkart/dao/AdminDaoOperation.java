@@ -1,7 +1,5 @@
 package com.flipkart.dao;
 
-// import java.security.DrbgParameters.Reseed;
-
 import com.flipkart.bean.*;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
@@ -14,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-// import com.mysql.cj.xdevapi.Statement;
 
 /**
  * Dao Class Operations for Admin
@@ -23,7 +20,7 @@ import java.util.List;
 public class AdminDaoOperation implements AdminDaoInterface {
 
 	private static AdminDaoOperation instance = null;
-	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+	final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
 	private AdminDaoOperation() {
 
@@ -42,10 +39,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			return false;
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_ADMIN_QUERY;
-		try (PreparedStatement preparedStatementadmin = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatementAdmin = connection.prepareStatement(queryToExecute)) {
 
-			preparedStatementadmin.setInt(1, admin.getUserId());
-			int rowsAffected = preparedStatementadmin.executeUpdate();
+			preparedStatementAdmin.setInt(1, admin.getUserId());
+			int rowsAffected = preparedStatementAdmin.executeUpdate();
 			if (rowsAffected == 0) {
 				userDaoInterface.deleteUserObjectFromUserId(admin.getUserId());
 				return false;
@@ -86,10 +83,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	@Override
 	public List<Student> viewUnapprovedStudents() {
 
-		List<Student> userList = new ArrayList<Student>();
+		List<Student> userList = new ArrayList<>();
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.VIEW_PENDING_ADMISSION_QUERY;
-		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 
 			ResultSet resultSet = statement.executeQuery();
 
@@ -133,7 +130,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	public boolean approveStudent(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
-		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 
 			statement.setInt(1, userId);
 			int row = statement.executeUpdate();
@@ -164,7 +161,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.VIEW_PROFESSOR_QUERY;
 		List<Professor> professorList = new ArrayList<>();
-		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 			ResultSet resultSet = statement.executeQuery();
 
 			// user.name, user.gender, user.address, user.country, user.userId, user.role,
@@ -214,21 +211,21 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			queryToExecute = SQLQueriesConstants.ADD_COURSE_QUERY;
 		}
 
-		try (PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute)) {
+		try (PreparedStatement preparedStatementCourse = connection.prepareStatement(queryToExecute)) {
 			// courseCode, courseName, courseCatalogId, professorUserId
 
-			preparedStatementcourse.setString(1, course.getCourseCode());
-			preparedStatementcourse.setString(2, course.getCourseName());
-			preparedStatementcourse.setInt(3, course.getCourseCatalogId());
-			preparedStatementcourse.setDouble(4, course.getCourseFee());
+			preparedStatementCourse.setString(1, course.getCourseCode());
+			preparedStatementCourse.setString(2, course.getCourseName());
+			preparedStatementCourse.setInt(3, course.getCourseCatalogId());
+			preparedStatementCourse.setDouble(4, course.getCourseFee());
 			if (course.getProfessorUserId() != -1)
-				preparedStatementcourse.setInt(5, course.getProfessorUserId());
-			int rowsAffected = preparedStatementcourse.executeUpdate();
+				preparedStatementCourse.setInt(5, course.getProfessorUserId());
+			int rowsAffected = preparedStatementCourse.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
 				// TODO : Add exception course Record Not created
 			}
-			Course courseFromDB = getCouseFromCourseCodeAndCatalogId(course.getCourseCode(),
+			Course courseFromDB = getCourseFromCourseCodeAndCatalogId(course.getCourseCode(),
 					course.getCourseCatalogId());
 			assert courseFromDB != null;
 			course.setCourseId(courseFromDB.getCourseId());
@@ -248,14 +245,14 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	}
 
 	@Override
-	public Course getCouseFromCourseCodeAndCatalogId(String courseCode, int catalogId) {
+	public Course getCourseFromCourseCodeAndCatalogId(String courseCode, int catalogId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_COURSE_FROM_COURSE_CODE_AND_CATALOG_ID;
-		try (PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatementCourse = connection.prepareStatement(queryToExecute)) {
 
-			preparedStatementcourse.setString(1, courseCode);
-			preparedStatementcourse.setInt(2, catalogId);
-			ResultSet resultSet = preparedStatementcourse.executeQuery();
+			preparedStatementCourse.setString(1, courseCode);
+			preparedStatementCourse.setInt(2, catalogId);
+			ResultSet resultSet = preparedStatementCourse.executeQuery();
 			if (!resultSet.next()) {
 				return null;
 				// TODO : Add exception course Record Not found
@@ -285,13 +282,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	}
 
 	@Override
-	public Course getCouseFromCourseId(int courseId) {
+	public Course getCourseFromCourseId(int courseId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_COURSE_FROM_COURSE_ID;
-		try (PreparedStatement preparedStatementcourse = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement preparedStatementCourse = connection.prepareStatement(queryToExecute)) {
 
-			preparedStatementcourse.setInt(1, courseId);
-			ResultSet resultSet = preparedStatementcourse.executeQuery();
+			preparedStatementCourse.setInt(1, courseId);
+			ResultSet resultSet = preparedStatementCourse.executeQuery();
 			if (!resultSet.next()) {
 				return null;
 				// TODO : Add exception course Record Not found
@@ -331,7 +328,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ASSIGN_COURSE_TO_PROFESSOR_FROM_COURSE_ID;
-		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 
 			statement.setInt(1, professorUserId);
 			statement.setInt(2, courseId);
@@ -372,7 +369,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		String queryToExecute = SQLQueriesConstants.DELETE_COURSE_FROM_FROM_COURSE_ID;
 		try (PreparedStatement statement1 = connection
 				.prepareStatement(SQLQueriesConstants.DELETE_REGISTERED_COURSE_FROM_COURSE_ID);
-				PreparedStatement statement2 = connection.prepareStatement(queryToExecute);) {
+				PreparedStatement statement2 = connection.prepareStatement(queryToExecute)) {
 
 			statement1.setInt(1, courseId);
 			statement1.executeUpdate();
@@ -405,7 +402,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.GET_COURSE_LIST_FROM_COURSE_CATALOG_ID;
 		List<Course> courseList = new ArrayList<>();
-		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
+		try (PreparedStatement statement = connection.prepareStatement(queryToExecute)) {
 
 			// String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
 

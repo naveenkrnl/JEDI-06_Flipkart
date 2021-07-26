@@ -6,7 +6,6 @@ import com.flipkart.bean.Student;
 import com.flipkart.business.*;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
-import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.utils.StringUtils;
 
 import java.util.List;
@@ -20,18 +19,18 @@ public class AdminCRSMenu {
 
     }
 
-    static Scanner scanner = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
 
-    static AdminInterface adminOperation = AdminOperation.getInstance();
+    static final AdminInterface adminOperation = AdminOperation.getInstance();
     static NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+    static final ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 
     /**
      * Method to Create Admin Menu
      */
     public static void createMenu() {
 
-        while (CRSApplication.loggedin) {
+        while (CRSApplication.isLoggedIn) {
 
             StringUtils.printMenu("Administrative Control Menu",
                     new String[] { "View course in catalog", "Add Course to catalog", "Delete Course from catalog",
@@ -73,7 +72,7 @@ public class AdminCRSMenu {
                     break;
 
                 case 8:
-                    CRSApplication.loggedin = false;
+                    CRSApplication.isLoggedIn = false;
                     return;
 
                 default:
@@ -114,7 +113,7 @@ public class AdminCRSMenu {
             }
         }
         if (selectedCourse == null) {
-            StringUtils.printErrorMessage("Course Code does not exist in protal");
+            StringUtils.printErrorMessage("Course Code does not exist in portal");
             return;
         }
 
@@ -128,7 +127,7 @@ public class AdminCRSMenu {
             }
         }
         if (selectedProfessor == null) {
-            StringUtils.printErrorMessage("Professor's User Id does not exist in protal");
+            StringUtils.printErrorMessage("Professor's User Id does not exist in portal");
             return;
         }
         try {
@@ -249,7 +248,6 @@ public class AdminCRSMenu {
     /**
      * Method to delete Course from catalogue
      *
-     * @throws CourseNotFoundException
      */
     private static void deleteCourse() {
         StringUtils.printHeading("Delete Course Portal");
@@ -331,9 +329,7 @@ public class AdminCRSMenu {
 
     /**
      * View Registered Courses
-     * 
-     * @param studentUserId
-     * @return List of Registered Courses
+     *
      */
     private static void viewCourseList(List<Course> courses) {
         StringUtils.printHeading("List of Courses");

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.exception;
 
 /**
@@ -9,7 +6,7 @@ package com.flipkart.exception;
  * 
  */
 public class StudentNotFoundForApprovalException extends Exception {
-	private int studentId;
+	private final int studentId;
 
 	public StudentNotFoundForApprovalException(int studentId) {
 		this.studentId = studentId;
@@ -17,8 +14,7 @@ public class StudentNotFoundForApprovalException extends Exception {
 
 	/**
 	 * Getter function for studentId
-	 * 
-	 * @return
+	 *
 	 */
 	public int getStudentId() {
 		return this.studentId;

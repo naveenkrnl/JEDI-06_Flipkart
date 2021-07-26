@@ -73,7 +73,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 	// {
 	// case REGISTRATION:
 	// System.out.println("Message - "); System.out.println("Registration
-	// successfull. Administration will verify the details and approve it!");
+	// successful. Administration will verify the details and approve it!");
 	// break;
 	// case REGISTRATION_APPROVAL:
 	// System.out.println("Message - "); System.out.println("Student with id
