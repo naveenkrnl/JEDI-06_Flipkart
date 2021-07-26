@@ -28,7 +28,7 @@ public class CryptoUtils {
     public static String generateDatabasePassword(String userPassword) {
         String salt = CryptoUtils.getRandomSalt();
         String pepper = Secrets.getPepper();
-        return String.format("%s$%s", Salt,
+        return String.format("%s$%s", salt,
                 CryptoUtils.encodeBase64(CryptoUtils.hashString(userPassword + salt + pepper)));
     }
 

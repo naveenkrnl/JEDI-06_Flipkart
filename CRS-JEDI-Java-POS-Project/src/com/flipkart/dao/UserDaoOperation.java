@@ -222,8 +222,6 @@ public class UserDaoOperation implements UserDaoInterface {
 		if (user == null) {
 			throw new UserNotFoundException(email);
 		}
-		System.out.println(password);
-		System.out.println(user);
 		return CryptoUtils.verifyPassword(password, user.getPassword());
 	}
 

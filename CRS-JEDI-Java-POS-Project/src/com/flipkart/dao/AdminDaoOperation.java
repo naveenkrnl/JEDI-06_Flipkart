@@ -111,9 +111,6 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				userList.add(student);
 			}
 
-			// System.out.println("Message - ");
-			// System.out.println(userList.size() + " students have pending-approval.");
-
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
 
@@ -188,9 +185,6 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				professor.setDepartment(resultSet.getString(11));
 				professorList.add(professor);
 			}
-
-			// System.out.println("Message - ");
-			// System.out.println(professorList.size() + " professors in the institute.");
 
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
@@ -340,15 +334,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			statement.setInt(2, courseId);
 			int row = statement.executeUpdate();
 
-			// System.out.println("Message - ");
-			// System.out.println(row + " course assigned.");
 			if (row == 0) {
-				// System.err.println(courseId + " not found");
 				return false;
 			}
 
-			// System.out.println("Message - ");
-			// System.out.println("Course with courseCode: " + courseCode
 			// + " is assigned to professor with professorUserId: " + professorUserId +
 			// ".");
 			return true;
@@ -424,8 +413,6 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				courseList.add(course);
 			}
 
-			// System.out.println("Message - ");
-			// System.out.println(courseList.size() + " courses in catalogId: " + catalogId
 			// + ".");
 
 		} catch (SQLException sqlErr) {
