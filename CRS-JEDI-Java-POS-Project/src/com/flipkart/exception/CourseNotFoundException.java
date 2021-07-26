@@ -15,7 +15,7 @@ public class CourseNotFoundException extends Exception {
 	/**
 	 * Getter function for course code
 	 * 
-	 * @return
+	 * @return Course Code of Course
 	 */
 	public String getCourseCode() {
 		return courseCode;

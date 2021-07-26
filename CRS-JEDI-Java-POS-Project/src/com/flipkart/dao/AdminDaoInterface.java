@@ -65,7 +65,6 @@ public interface AdminDaoInterface {
 	 * @param professor
 	 * @throws ProfessorNotAddedException
 	 * @throws UserIdAlreadyInUseException
-	 * @throws UserNotAddedException
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 

@@ -12,7 +12,7 @@ public class SeatNotAvailableException extends Exception {
 	/**
 	 * Constructor
 	 * 
-	 * @param courseCode
+	 * @param courseCode: User Id for User
 	 */
 	public SeatNotAvailableException(String courseCode) {
 		this.courseCode = courseCode;
