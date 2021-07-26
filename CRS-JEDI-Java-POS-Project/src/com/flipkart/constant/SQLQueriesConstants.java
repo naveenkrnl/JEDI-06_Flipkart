@@ -71,4 +71,144 @@ public class SQLQueriesConstants {
     public static final String ADD_USER_QUERY = "insert into User(name, gender, address, country, role, password, email) values (?, ?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_PASSWORD = "update user set password=? where email = ? ";
 
+    /*
+     * Table creation Quieries
+     * 
+     * 
+     * 
+     * CREATE TABLE User (
+     * 
+     * userId int NOT NULL AUTO_INCREMENT,
+     * 
+     * name varchar(255) NOT NULL,
+     * 
+     * email varchar(255) NOT NULL UNIQUE,
+     * 
+     * password varchar(255) NOT NULL, role ENUM('STUDENT', 'PROFESSOR','ADMIN') NOT
+     * NULL ,
+     * 
+     * gender ENUM('MALE', 'FEMALE','OTHER') NOT NULL ,
+     * 
+     * address varchar(255) NOT NULL ,
+     * 
+     * country varchar(255) DEFAULT 'INDIA' NOT NULL ,
+     * 
+     * doj DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+     * 
+     * PRIMARY KEY (userId)
+     * 
+     * );
+     * 
+     * 
+     * 
+     * CREATE TABLE Student (
+     * 
+     * userId int NOT NULL,
+     * 
+     * branchName varchar(255) NOT NULL,
+     * 
+     * batch int NOT NULL,
+     * 
+     * rollNumber varchar(255) NOT NULL,
+     * 
+     * isApproved bool NOT NULL,
+     * 
+     * PRIMARY KEY (userId),
+     * 
+     * FOREIGN KEY (userId) REFERENCES user(userId)
+     * 
+     * );
+     * 
+     * 
+     * 
+     * CREATE TABLE Professor (
+     * 
+     * userId int NOT NULL,
+     * 
+     * department varchar(255) NOT NULL,
+     * 
+     * designation varchar(255) NOT NULL,
+     * 
+     * PRIMARY KEY (userId),
+     * 
+     * FOREIGN KEY (userId) REFERENCES user(userId)
+     * 
+     * );
+     * 
+     * 
+     * 
+     * CREATE TABLE Admin (
+     * 
+     * userId int NOT NULL,
+     * 
+     * PRIMARY KEY (userId),
+     * 
+     * FOREIGN KEY (userId) REFERENCES user(userId)
+     * 
+     * );
+     * 
+     * 
+     * 
+     * CREATE TABLE Payment (
+     * 
+     * id int NOT NULL AUTO_INCREMENT,
+     * 
+     * studentId int NOT NULL,
+     * 
+     * referenceId varchar(255) NOT NULL,
+     * 
+     * amount int NOT NULL,
+     * 
+     * dateOfPayment DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL ,
+     * 
+     * modeOfPayment ENUM('CREDIT_CARD', 'NET_BANKING','DEBIT_CARD') NOT NULL ,
+     * 
+     * PRIMARY KEY (id), FOREIGN KEY (studentId) REFERENCES student(userId)
+     * 
+     * );
+     * 
+     * 
+     * 
+     * CREATE TABLE Course ( courseId int NOT NULL AUTO_INCREMENT,
+     * 
+     * courseCode varchar(255) NOT NULL,
+     * 
+     * courseName varchar(255) NOT NULL,
+     * 
+     * courseFee double NOT NULL,
+     * 
+     * professorUserId int,
+     * 
+     * courseCatalogId int NOT NULL,
+     * 
+     * PRIMARY KEY (courseID),
+     * 
+     * UNIQUE INDEX (courseCode,courseCatalogId),
+     * 
+     * FOREIGN KEY (professorUserId) REFERENCES professor(userId)
+     * 
+     * );
+     * 
+     * 
+     * 
+     * CREATE TABLE RegisteredCourse( registeredCourseId int NOT NULL
+     * AUTO_INCREMENT,
+     * 
+     * studentUserId int NOT NULL,
+     * 
+     * courseID int NOT NULL ,
+     * 
+     * grade ENUM('A', 'B', 'C', 'D', 'E', 'F', 'NA', 'EX') DEFAULT 'NA',
+     * 
+     * PRIMARY KEY (registeredCourseId),
+     * 
+     * UNIQUE INDEX(studentUserId,courseID),
+     * 
+     * FOREIGN KEY (studentUserId) REFERENCES student(userId),
+     * 
+     * FOREIGN KEY (courseID) REFERENCES course(courseID)
+     * 
+     * );
+     */
+
 }
