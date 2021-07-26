@@ -8,6 +8,7 @@ import com.flipkart.constant.Grade;
 import java.util.List;
 
 public interface ProfessorInterface {
+	public Professor getProfessorFromEmail(String email);
 
 	public boolean addGrade(int studentUserId, int courseId, Grade grade);
 

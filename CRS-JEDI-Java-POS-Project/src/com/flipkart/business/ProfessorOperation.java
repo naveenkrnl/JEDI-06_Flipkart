@@ -12,13 +12,26 @@ import com.flipkart.dao.ProfessorDaoOperation;
 public class ProfessorOperation implements ProfessorInterface {
 
 	ProfessorDaoInterface professorDaoInterface = ProfessorDaoOperation.getInstance();
+	static ProfessorOperation instance = null;
 
 	ProfessorOperation() {
 
 	}
 
 	public static ProfessorOperation getInstance() {
-		return new ProfessorOperation();
+		if (instance == null) {
+			instance = new ProfessorOperation();
+		}
+		return instance;
+	}
+
+	@Override
+	public Professor getProfessorFromEmail(String email) {
+		Professor professor = professorDaoInterface.getProfessorFromEmail(email);
+		if (professor == null) {
+			// throw Prof not found
+		}
+		return professor;
 	}
 
 	@Override

@@ -9,7 +9,6 @@ import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperation;
-import com.flipkart.validator.AdminValidator;
 import com.flipkart.bean.Admin;
 
 import java.util.List;

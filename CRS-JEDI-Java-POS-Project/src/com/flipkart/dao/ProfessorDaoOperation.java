@@ -201,8 +201,8 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		String queryToExecute = SQLQueriesConstants.ADD_GRADE_FROM_STUDENT_ID_AND_COURSE_ID;
 		try (PreparedStatement preparedStatementprofessor = connection.prepareStatement(queryToExecute);) {
 			preparedStatementprofessor.setString(1, grade.toString());
-			preparedStatementprofessor.setInt(2, studentUserId);
-			preparedStatementprofessor.setInt(3, courseId);
+			preparedStatementprofessor.setInt(2, courseId);
+			preparedStatementprofessor.setInt(3, studentUserId);
 			int rowsAffected = preparedStatementprofessor.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;

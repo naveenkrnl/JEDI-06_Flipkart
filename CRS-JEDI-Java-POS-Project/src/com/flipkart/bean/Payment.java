@@ -13,7 +13,8 @@ public class Payment {
     private LocalDateTime dateOfPayment;
     private ModeOfPayment modeOfPayment;
 
-    public Payment(String iD, int studentId, String referenceId, int amount, LocalDateTime dateOfPayment, ModeOfPayment modeOfPayment) {
+    public Payment(String iD, int studentId, String referenceId, int amount, LocalDateTime dateOfPayment,
+            ModeOfPayment modeOfPayment) {
         this.iD = iD;
         this.studentId = studentId;
         this.referenceId = referenceId;
@@ -69,6 +70,5 @@ public class Payment {
     public void setModeOfPayment(ModeOfPayment modeOfPayment) {
         this.modeOfPayment = modeOfPayment;
     }
-
 
 }

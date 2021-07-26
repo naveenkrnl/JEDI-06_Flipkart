@@ -2,6 +2,7 @@ package com.flipkart.application;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.flipkart.constant.Gender;
@@ -10,6 +11,7 @@ import com.flipkart.constant.Role;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.dao.UserDaoOperation;
 import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.business.AdminInterface;
@@ -17,6 +19,8 @@ import com.flipkart.business.AdminOperation;
 //import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
+import com.flipkart.business.ProfessorInterface;
+import com.flipkart.business.ProfessorOperation;
 import com.flipkart.business.StudentInterface;
 import com.flipkart.business.StudentOperation;
 import com.flipkart.business.UserInterface;
@@ -33,6 +37,7 @@ public class CRSApplication {
     static boolean loggedin = false;
     StudentInterface studentInterface = StudentOperation.getInstance();
     AdminInterface adminInterface = AdminOperation.getInstance();
+    ProfessorInterface professorInterface = ProfessorOperation.getInstance();
     UserInterface userInterface = UserOperation.getInstance();
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
@@ -46,27 +51,34 @@ public class CRSApplication {
             userInput = sc.nextInt();
             // until user do not exit the application
             while (userInput != 4) {
-                switch (userInput) {
-                    case 1:
-                        // login
-                        crsApplication.loginUser();
-                        break;
-                    case 2:
-                        // student registration
-                        crsApplication.registerStudent();
-                        break;
-                    case 3:
-                        crsApplication.updatePassword();
-                        break;
-                    default:
-                        StringUtils.printErrorMessage("Invalid Input");
+                try {
+                    switch (userInput) {
+                        case 1:
+                            // login
+                            crsApplication.loginUser();
+                            break;
+                        case 2:
+                            // student registration
+                            crsApplication.registerStudent();
+                            break;
+                        case 3:
+                            crsApplication.updatePassword();
+                            break;
+                        default:
+                            StringUtils.printErrorMessage("Invalid Input");
+                    }
+                } catch (InputMismatchException ex) {
+                    StringUtils.printErrorMessage("Invalid Input entered.Please Retry");
+                } catch (Exception ex) {
+                    StringUtils.printErrorMessage("Something Went Wrong.Please Retry");
                 }
                 createMainMenu();
                 userInput = sc.nextInt();
             }
+        } catch (InputMismatchException ex) {
+            StringUtils.printErrorMessage("Invalid Input entered.Please Retry");
         } catch (Exception ex) {
-            StringUtils.printErrorMessage("Error occured " + ex);
-            ex.printStackTrace();
+            StringUtils.printErrorMessage("Something Went Wrong.Please Retry");
         }
     }
 
@@ -118,7 +130,8 @@ public class CRSApplication {
                     case PROFESSOR:
                         StringUtils.printSuccessMessage(formattedDate + " Login Successful for Professor");
                         ProfessorCRSMenu professorMenu = new ProfessorCRSMenu();
-                        professorMenu.createMenu(email);
+                        Professor professor = professorInterface.getProfessorFromEmail(email);
+                        professorMenu.createMenu(professor);
 
                         break;
                     case STUDENT:
@@ -150,7 +163,8 @@ public class CRSApplication {
      * Method to help Student register themselves, pending admin approval
      */
     public void registerStudent() {
-        try (Scanner sc = new Scanner(System.in)) {
+        Scanner sc = new Scanner(System.in);
+        try {
             String email, name, password, address, country, branchName;
             Gender gender;
             int genderV, batch;

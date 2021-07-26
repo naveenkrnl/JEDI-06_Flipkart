@@ -2,15 +2,24 @@ package com.flipkart.application;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.bean.Student;
 import com.flipkart.constant.Color;
+import com.flipkart.constant.Grade;
+import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
-import com.flipkart.validator.ProfessorValidator;
 import com.flipkart.utils.StringUtils;
 
 /**
@@ -25,11 +34,11 @@ public class ProfessorCRSMenu {
     /**
      * Method to create Professor menu
      * 
-     * @param profId: professor id obtained after logging into the system returns
-     *                displays all the options for the professor, and provides
-     *                navigation
+     * @param professorUserId: professor id obtained after logging into the system
+     *                         returns displays all the options for the professor,
+     *                         and provides navigation
      */
-    public void createMenu(String profId) {
+    public void createMenu(Professor professor) {
         // Display the options available for the Professor
         Scanner sc = new Scanner(System.in);
 
@@ -45,16 +54,16 @@ public class ProfessorCRSMenu {
             switch (input) {
                 case 1:
                     // view all the courses taught by the professor
-                    getCourses(profId);
+                    getCourses(professor.getUserId());
                     break;
                 case 2:
                     // view all the enrolled students for the course
-                    viewEnrolledStudents(profId);
+                    viewEnrolledStudents(professor.getUserId());
                     break;
 
                 case 3:
                     // add grade for a student
-                    addGrade(profId);
+                    addGrade(professor.getUserId());
                     break;
                 case 4:
                     // logout from the system
@@ -70,18 +79,20 @@ public class ProfessorCRSMenu {
     /**
      * Method to view enrolled Students in courses
      * 
-     * @param profId
+     * @param professorUserId
      */
-    public void viewEnrolledStudents(String profId) {
+    public void viewEnrolledStudents(int professorUserId) {
         StringUtils.printHeading("List of Enrolled Students");
-        List<Course> coursesEnrolled = professorInterface.getCourses(profId);
-        StringUtils.printTable(String.format("%20s %20s %20s", "COURSE CODE", "COURSE CODE", "Students  enrolled"));
+        StringUtils.printTable(
+                String.format("%20s %20s %20s %20s", "COURSE CODE", "COURSE CODE", "Student Email", "Student Name"));
         try {
-            List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
-            enrolledStudents = professorInterface.viewEnrolledStudents(profId);
-            for (EnrolledStudent obj : enrolledStudents) {
-                StringUtils.printTable(
-                        String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), obj.getStudentId()));
+            List<RegisteredCourse> enrolledStudents = professorInterface.viewEnrolledStudents(professorUserId);
+            for (RegisteredCourse registeredCourse : enrolledStudents) {
+                Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(registeredCourse.getCourseId());
+                Student student = StudentDaoOperation.getInstance()
+                        .getStudentFromUserId(registeredCourse.getStudentUserId());
+                StringUtils.printTable(String.format("%20s %20s %20s %20s", course.getCourseCode(),
+                        course.getCourseName(), student.getEmail(), student.getName()));
             }
             StringUtils.printEndLine();
         } catch (Exception ex) {
@@ -92,19 +103,13 @@ public class ProfessorCRSMenu {
     /**
      * Method to get list of all Courses Professor has to teach
      * 
-     * @param profId
+     * @param professorUserId
      */
-    public void getCourses(String profId) {
+    public void getCourses(int professorUserId) {
         StringUtils.printHeading("List of All Courses taught by Professor");
         try {
-            List<Course> coursesEnrolled = professorInterface.getCourses(profId);
-            StringUtils.printTable(
-                    String.format("%20s %20s %20s", "COURSE CODE", "COURSE NAME", "No. of Students  enrolled"));
-            for (Course obj : coursesEnrolled) {
-                StringUtils.printTable(
-                        String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), 10 - obj.getSeats()));
-            }
-            StringUtils.printEndLine();
+            List<Course> registeredCourses = professorInterface.getCourses(professorUserId);
+            viewCourseList(registeredCourses);
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Something went wrong!" + ex.getMessage());
         }
@@ -113,45 +118,112 @@ public class ProfessorCRSMenu {
     /**
      * Method to help Professor grade a student
      * 
-     * @param profId
+     * @param professorUserId
      */
-    public void addGrade(String profId) {
+    public void addGrade(int professorUserId) {
         StringUtils.printHeading("Student Courses Data");
         Scanner sc = new Scanner(System.in);
 
-        int studentId;
-        String courseCode, grade;
         try {
-            List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
-            enrolledStudents = professorInterface.viewEnrolledStudents(profId);
-            StringUtils.printTable(String.format("%20s %20s %20s", "COURSE CODE", "COURSE NAME", "Student ID"));
-            for (EnrolledStudent obj : enrolledStudents) {
-                StringUtils.printTable(
-                        String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), obj.getStudentId()));
+            List<RegisteredCourse> registeredCourses = professorInterface.viewEnrolledStudents(professorUserId);
+            Map<Integer, Student> registeredStudentsMap = new HashMap<>();
+            Map<Integer, Course> coursesMap = new HashMap<>();
+            StringUtils.printTable(String.format("%20s %20s %20s %20s %20s", "COURSE CODE", "COURSE NAME",
+                    "STUDENT EMAIL", "STUDENT NAME", "GRADE"));
+            for (RegisteredCourse registeredCourse : registeredCourses) {
+                Course course;
+                if (coursesMap.containsKey(registeredCourse.getCourseId()))
+                    course = coursesMap.get(registeredCourse.getCourseId());
+                else {
+                    course = AdminDaoOperation.getInstance().getCouseFromCourseId(registeredCourse.getCourseId());
+                    coursesMap.put(registeredCourse.getCourseId(), course);
+                }
+                Student student;
+                if (registeredStudentsMap.containsKey(registeredCourse.getStudentUserId()))
+                    student = registeredStudentsMap.get(registeredCourse.getStudentUserId());
+                else {
+                    student = StudentDaoOperation.getInstance()
+                            .getStudentFromUserId(registeredCourse.getStudentUserId());
+                    registeredStudentsMap.put(student.getUserId(), student);
+                }
+
+                StringUtils.printTable(String.format("%20s %20s %20s %20s %20s", course.getCourseCode(),
+                        course.getCourseName(), student.getEmail(), student.getName(), registeredCourse.getGrade()));
             }
-            StringUtils.printEndLine();
-            List<Course> coursesEnrolled = new ArrayList<Course>();
-            coursesEnrolled = professorInterface.getCourses(profId);
+
+            String email;
+            String courseCode;
+            String gradeStr;
             StringUtils.printHeading("Add Grade");
-            System.out.println("Enter student id");
-            studentId = sc.nextInt();
+            System.out.println("Enter students email");
+            email = sc.next();
             System.out.println("Enter course code");
             courseCode = sc.next();
-            System.out.println("Enter grade");
-            grade = sc.next();
-            if (ProfessorValidator.isValidStudent(enrolledStudents, studentId)
-                    && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode)) {
-                professorInterface.addGrade(studentId, courseCode, grade);
-                StringUtils.printSuccessMessage("Grade added successfully for " + studentId);
-            } else {
-                StringUtils.printErrorMessage("Invalid data entered, try again!");
+            System.out.println("Enter grade[A-F]");
+            gradeStr = sc.next();
+            if (Grade.valueOf(gradeStr) == null) {
+                StringUtils.printErrorMessage("Grade Entered Invalid");
+                return;
             }
-        } catch (GradeNotAddedException ex) {
-            StringUtils.printErrorMessage("Grade cannot be added for" + ex.getStudentId());
+            Grade grade = Grade.valueOf(gradeStr);
 
-        } catch (SQLException ex) {
-            StringUtils.printErrorMessage("Grade not added, SQL exception occured " + ex.getMessage());
+            Student selectedStudent = null;
+            for (Student student : registeredStudentsMap.values()) {
+                if (student.getEmail().equals(email)) {
+                    selectedStudent = student;
+                    break;
+                }
+            }
+            if (selectedStudent == null) {
+                StringUtils.printErrorMessage("Student Email " + email + " Invalid");
+                return;
+            }
+            Course selectedCourse = null;
+            for (Course course : coursesMap.values()) {
+                if (course.getCourseCode().equals(courseCode)) {
+                    selectedCourse = course;
+                    break;
+                }
+            }
+            if (selectedCourse == null) {
+                StringUtils.printErrorMessage("Course Code " + courseCode + " Invalid");
+                return;
+            }
+            if (professorInterface.addGrade(selectedStudent.getUserId(), selectedCourse.getCourseId(), grade)) {
+                StringUtils.printSuccessMessage("Grade Added Sussessfully");
+            } else {
+                StringUtils.printErrorMessage("Grade Addition Failed");
+            }
+        } catch (Exception ex) {
+            // GradeNotAddedException
+            // StringUtils.printErrorMessage("Grade cannot be added for" +
+            // ex.getStudentId());
         }
+        // catch ( ex) {
+        // //SQLException
+        // StringUtils.printErrorMessage("Grade not added, SQL exception occured " +
+        // ex.getMessage());
+        // }
+    }
 
+    /**
+     * View Registered Courses
+     * 
+     * @param studentUserId
+     * @return List of Registered Courses
+     */
+    private void viewCourseList(List<Course> courses) {
+        StringUtils.printHeading("List of Courses");
+        StringUtils.printTable(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+        for (Course course : courses) {
+            String professorName = "No Professor";
+            Professor professor = professorInterface.getProfessorById(course.getProfessorUserId());
+            if (professor != null)
+                professorName = professor.getName();
+
+            StringUtils.printTable(
+                    String.format("%-20s %-20s %-20s ", course.getCourseCode(), course.getCourseName(), professorName));
+        }
+        StringUtils.printEndLine();
     }
 }

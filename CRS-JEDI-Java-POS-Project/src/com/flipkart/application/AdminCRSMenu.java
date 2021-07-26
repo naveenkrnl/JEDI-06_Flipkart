@@ -330,7 +330,7 @@ public class AdminCRSMenu {
      */
     private List<Course> viewCoursesInCatalogue() {
         List<Course> courseList = adminOperation.viewCourses(1);
-        if (courseList == null || courseList.size() == 0) {
+        if (courseList == null || courseList.isEmpty()) {
             System.out.println("No course in the catalogue!");
             return courseList;
         }

@@ -255,7 +255,7 @@ public class StudentCRSMenu {
 
         if (coursesAvailable == null || coursesAvailable.isEmpty()) {
             StringUtils.printErrorMessage("NO COURSE AVAILABLE");
-            return null;
+            return new ArrayList<>();
         }
         viewCourseList(coursesAvailable);
         return coursesAvailable;
@@ -352,6 +352,11 @@ public class StudentCRSMenu {
                 StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", course.getCourseCode(),
                         course.getCourseName(), "NA", "NA"));
             }
+        }
+        if (!graded.isEmpty()) {
+            StringUtils.printEndLine(false);
+            StringUtils.printTable(
+                    String.format("  %-20s %-20s %-20s %-20s", "", "", "CGPA", total_score / (double) graded.size()));
         }
         StringUtils.printEndLine();
     }

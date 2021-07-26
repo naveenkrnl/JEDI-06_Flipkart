@@ -19,15 +19,14 @@ public enum Gender {
 		return Gender.MALE;
 	}
 
-	public static Gender stringToGender(String val)
-	{
-		Gender gender=Gender.OTHER;
-		if(val.equalsIgnoreCase("male"))
-			gender=Gender.MALE;
-		else if(val.equalsIgnoreCase("female"))
-			gender=Gender.FEMALE;
-		else if(val.equalsIgnoreCase("other"))
-			gender=Gender.OTHER;
+	public static Gender stringToGender(String val) {
+		Gender gender = Gender.OTHER;
+		if (val.equalsIgnoreCase("male"))
+			gender = Gender.MALE;
+		else if (val.equalsIgnoreCase("female"))
+			gender = Gender.FEMALE;
+		else if (val.equalsIgnoreCase("other"))
+			gender = Gender.OTHER;
 
 		return gender;
 	}
