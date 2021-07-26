@@ -153,3 +153,36 @@
 20:55:08,129  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
 20:55:15,849  INFO AdminDaoOperation,main:350 - 1 course assigned.
 20:55:15,850  INFO AdminDaoOperation,main:356 - Course with courseCode: 1 is assigned to professor with professorId: amit@gmail.com.
+09:43:27,721  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
+09:45:01,009  INFO AdminDaoOperation,main:192 - 1 students have pending-approval.
+09:45:08,179  INFO AdminDaoOperation,main:220 - 1 student approved.
+09:45:08,192  INFO NotificationDaoOperation,main:89 - Student with id 4 has been approved!
+09:50:57,955  INFO NotificationDaoOperation,main:75 - Payment successful, Transaction ID: 4d81e059-27e6-468d-abb2-22184ecd9c74
+09:50:57,956  INFO NotificationDaoOperation,main:92 - Student with id 4 fee has been paid
+09:55:48,511  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+09:56:28,744  INFO AdminDaoOperation,main:260 - 1 user added.
+09:56:28,744  INFO AdminDaoOperation,main:266 - User with userId: sreenik@gmail.com added.
+09:56:28,745  INFO AdminDaoOperation,main:314 - 1 professor added.
+09:56:28,746  INFO AdminDaoOperation,main:320 - Professor with professorId: sreenik@gmail.com added.
+09:56:36,837  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+09:56:42,703  INFO AdminDaoOperation,main:436 - 2 professors in the institute.
+09:56:42,705  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+09:56:56,974  INFO AdminDaoOperation,main:350 - 1 course assigned.
+09:56:56,975  INFO AdminDaoOperation,main:356 - Course with courseCode: 134 is assigned to professor with professorId: sreenik@gmail.com.
+09:56:59,222  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+09:57:14,173  INFO AdminDaoOperation,main:393 - 7 courses in catalogId: 1.
+09:57:20,894  INFO AdminDaoOperation,main:145 - 1 course added
+09:57:20,894  INFO AdminDaoOperation,main:151 - Course with courseCode: 199 is added to catalog.
+09:57:23,176  INFO AdminDaoOperation,main:393 - 8 courses in catalogId: 1.
+09:58:03,087  INFO AdminDaoOperation,main:436 - 2 professors in the institute.
+09:58:03,089  INFO AdminDaoOperation,main:393 - 8 courses in catalogId: 1.
+09:58:15,154  INFO AdminDaoOperation,main:350 - 1 course assigned.
+09:58:15,154  INFO AdminDaoOperation,main:356 - Course with courseCode: 199 is assigned to professor with professorId: sreenik@gmail.com.
+09:58:17,121  INFO AdminDaoOperation,main:393 - 8 courses in catalogId: 1.
+09:59:01,465  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
+09:59:39,822  INFO AdminDaoOperation,main:192 - 1 students have pending-approval.
+09:59:47,223  INFO AdminDaoOperation,main:192 - 1 students have pending-approval.
+09:59:51,038  INFO AdminDaoOperation,main:220 - 1 student approved.
+09:59:51,048  INFO NotificationDaoOperation,main:89 - Student with id 5 has been approved!
+10:09:24,109 ERROR UserDaoOperation,main:148 - No operations allowed after connection closed.
+10:12:01,456 ERROR UserDaoOperation,main:148 - No operations allowed after connection closed.
