@@ -14,7 +14,7 @@ public enum Role {
 	/**
 	 * Method to get Role object from String
 	 *
-	 * @param role
+	 * @param role Role
 	 * @return Role object
 	 */
 	public static Role stringToName(String role) {

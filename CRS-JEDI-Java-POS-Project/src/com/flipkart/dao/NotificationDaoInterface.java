@@ -21,6 +21,8 @@ public interface NotificationDaoInterface {
 	 * @param studentId:     student to be notified
 	 * @param modeOfPayment: mode of payment used, defined in enum
 	 * @param amount:	     Amount of Money paid
+	 * @param cardNumber:	 Card Number
+	 * @param cvv:	     	 Cvv
 	 * @return notification id for the record added in the database
 	 * @throws SQLException If Sql Error comes up
 	 */

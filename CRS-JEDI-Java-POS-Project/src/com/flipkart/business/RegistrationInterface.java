@@ -23,6 +23,10 @@ public interface RegistrationInterface {
 	 * @param courseCode Course Code
 	 * @param studentId Student ID
 	 * @param courseList List Of Courses
+	 * @throws CourseNotFoundException If course is not Found
+	 * @throws CourseLimitExceedException If course limit is not found
+	 * @throws SeatNotAvailableException If seat is not available
+	 * @throws SQLException If SQL is not found
 	 * @return boolean indicating if the course is added successfully
 	 */
 	public boolean addCourse(String courseCode, int studentId, List<Course> courseList)
@@ -34,6 +38,8 @@ public interface RegistrationInterface {
 	 * @param courseCode Course Code
 	 * @param studentId Student ID
 	 * @param registeredCourseList List Of Registered Courses
+	 * @throws CourseNotFoundException If Course is not found
+	 * @throws SQLException If SQL is not found
 	 * @return boolean indicating if the course is dropped successfully
 	 */
 	public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList)
@@ -44,6 +50,7 @@ public interface RegistrationInterface {
 	 * 
 	 * @param studentId Student ID
 	 * @return List of courses
+	 * @throws SQLException If SQL is not found
 	 */
 	public List<Course> viewCourses(int studentId) throws SQLException;
 
@@ -52,6 +59,7 @@ public interface RegistrationInterface {
 	 * 
 	 * @param studentId Student ID
 	 * @return List of courses
+	 * @throws SQLException If SQL is not found
 	 */
 	public List<Course> viewRegisteredCourses(int studentId) throws SQLException;
 
@@ -60,6 +68,7 @@ public interface RegistrationInterface {
 	 * 
 	 * @param studentId Student ID
 	 * @return List of Student's Grades
+	 * @throws SQLException If SQL is not found
 	 */
 	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException;
 
@@ -69,6 +78,7 @@ public interface RegistrationInterface {
 	 * 
 	 * @param studentId Student ID
 	 * @return Fee Student has to pay
+	 * @throws SQLException If SQL is not found
 	 */
 	public double calculateFee(int studentId) throws SQLException;
 
@@ -77,6 +87,7 @@ public interface RegistrationInterface {
 	 * 
 	 * @param studentId Student ID
 	 * @return boolean indicating if the student's registration status
+	 * @throws SQLException If SQL is not found
 	 */
 	public boolean getRegistrationStatus(int studentId) throws SQLException;
 
@@ -84,6 +95,7 @@ public interface RegistrationInterface {
 	 * Method to set student registration status
 	 * 
 	 * @param studentId Student ID
+	 * @throws SQLException If SQL is not found
 	 */
 	public void setRegistrationStatus(int studentId) throws SQLException;
 

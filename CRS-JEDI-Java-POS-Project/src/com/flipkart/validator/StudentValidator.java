@@ -20,7 +20,7 @@ public class StudentValidator {
 	 * @param studentId : ID Of the Student
 	 * @param registeredCourseList : List Of registered Courses
 	 * @return Student Registration Status
-	 * @throws CourseNotFoundException
+	 * @throws CourseNotFoundException Course Not Found Exception
 	 */
 	public static boolean isRegistered(String courseCode, int studentId, List<Course> registeredCourseList)
 			throws CourseNotFoundException {

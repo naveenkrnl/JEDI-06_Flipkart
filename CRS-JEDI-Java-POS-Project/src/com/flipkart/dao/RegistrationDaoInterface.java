@@ -35,10 +35,10 @@ public interface RegistrationDaoInterface {
 	 * @param courseCode Course Code
 	 * @param studentId Student Id
 	 * @return boolean indicating if the course is dropped successfully
-	 * @throws CourseNotFoundException
+	 * @throws CourseNotFoundException if course does not exists
 	 * @throws SQLException If a error occurs while accessing the database
 	 */
-	public boolean dropCourse(String courseCode, int studentId) throws SQLException;
+	public boolean dropCourse(String courseCode, int studentId) throws SQLException, CourseNotFoundException;
 
 	/**
 	 * Method to get the list of courses available from course catalogue

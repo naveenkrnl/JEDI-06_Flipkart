@@ -2,6 +2,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.GradeNotAddedException;
 
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ public interface ProfessorInterface {
 	 * @param courseCode Course Code
 	 * @param grade Grade
 	 * @return boolean indicating if grade is added or not
+	 * @throws GradeNotAddedException If course is not Found
 	 */
 	public boolean addGrade(int studentId, String courseCode, String grade) throws GradeNotAddedException;
 
@@ -30,6 +32,7 @@ public interface ProfessorInterface {
 	 * 
 	 * @param profId: professor id
 	 * @return List of enrolled students
+	 * @throws SQLException If course is not Found
 	 */
 	public List<EnrolledStudent> viewEnrolledStudents(String profId) throws SQLException;
 
