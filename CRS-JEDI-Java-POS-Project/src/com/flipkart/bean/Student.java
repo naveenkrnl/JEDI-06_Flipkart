@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 
 public class Student extends User {
@@ -23,6 +24,7 @@ public class Student extends User {
 	private String rollNumber;
 	private int batch;
 	private boolean isApproved;
+	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	public Student() {
 		setRole(Role.STUDENT);
@@ -54,7 +56,7 @@ public class Student extends User {
 	}
 
 	public String getrollNumber() {
-		if (rollNumber.length() == 0)
+		if (rollNumber == null || rollNumber.length() == 0)
 			rollNumber = "BE/" + getUserId() + "/" + getBatch();
 		return rollNumber;
 	}
@@ -92,7 +94,7 @@ public class Student extends User {
 	public Student(User user) {
 		super(user.getName(), user.getGender(), user.getAddress(), user.getCountry(), user.getUserId(), Role.STUDENT,
 				user.getPassword(), user.getEmail(), user.getDoj());
-		Student student = StudentDaoOperation.getStudentFromUserIdImpl(user.getUserId());
+		Student student = studentDaoInterface.getStudentFromUserIdImpl(user.getUserId());
 		setUserId(student.getUserId());
 		setBranchName(student.getBranchName());
 		setBatch(student.getBatch());

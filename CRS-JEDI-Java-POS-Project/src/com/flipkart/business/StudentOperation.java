@@ -1,11 +1,26 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
+import com.flipkart.dao.StudentDaoInterface;
+import com.flipkart.dao.StudentDaoOperation;
 
 public class StudentOperation implements StudentInterface {
 
+	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
+
 	private StudentOperation() {
 
+	}
+
+	@Override
+	public Student getStudentFromStudentUserId(int studentUserId) {
+		return studentDaoInterface.getStudentFromUserId(studentUserId);
+	}
+
+	@Override
+	public Student getStudentFromEmail(String email) {
+		return studentDaoInterface.getStudentFromEmail(email);
 	}
 
 	public static StudentOperation getInstance() {
@@ -14,10 +29,8 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	@Override
-	public int register(String name, String userId, String password, Gender gender, int batch, String branch,
-			String address, String country) {
-		System.out.println("Function register called from StudentOperation");
-		return 0;
+	public boolean register(Student student) {
+		return studentDaoInterface.createDBRecordAndUpdateObject(student);
 	}
 
 	@Override
@@ -31,7 +44,5 @@ public class StudentOperation implements StudentInterface {
 	public boolean isApproved(int studentId) {
 		System.out.println("Function isApproved called from StudentOperation");
 		return true;
-
 	}
-
 }

@@ -10,6 +10,7 @@ import com.flipkart.bean.User;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtils;
 import com.flipkart.utils.CryptoUtils;
 
@@ -115,6 +116,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			preparedStatement.setString(1, email);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
+				// throw
 				return null;
 				// @yaduraj
 				// TODO : Add exception User Record not delete
@@ -221,16 +223,19 @@ public class UserDaoOperation implements UserDaoInterface {
 	}
 
 	@Override
-	public boolean verifyCredentials(String email, String password) {
-		User user = UserDaoOperation.getInstance().getUserFromEmail(email);
-		if (user == null)
-			return false;
+	public boolean verifyCredentials(String email, String password) throws UserNotFoundException {
+		User user = getUserFromEmail(email);
+		if (user == null) {
+			throw new UserNotFoundException(email);
+		}
+		System.out.println(password);
+		System.out.println(user);
 		return CryptoUtils.verifyPassword(password, user.getPassword());
 	}
 
 	@Override
 	public Role getRole(String email) {
-		User user = UserDaoOperation.getInstance().getUserFromEmail(email);
+		User user = getUserFromEmail(email);
 		if (user == null)
 			return null;
 		return user.getRole();

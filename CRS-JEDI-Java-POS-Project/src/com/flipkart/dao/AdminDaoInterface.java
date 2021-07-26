@@ -23,7 +23,7 @@ public interface AdminDaoInterface {
 
 	public List<Student> viewUnapprovedStudents();
 
-	public void approveStudent(int userId);
+	public boolean approveStudent(int userId);
 
 	public void addProfessor(Professor professor);
 

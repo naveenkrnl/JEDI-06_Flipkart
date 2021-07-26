@@ -18,6 +18,8 @@ import com.flipkart.utils.DBUtils;
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	private static RegistrationDaoOperation instance = null;
+	private static AdminDaoInterface adminDaoInterface = AdminDaoOperation.getInstance();
+	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	private RegistrationDaoOperation() {
 	}
@@ -31,7 +33,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public boolean createRegisteredCourseDBRecordAndUpdateObject(RegisteredCourse registeredCourse) {
-		Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(registeredCourse.getCourseId());
+		Course course = adminDaoInterface.getCouseFromCourseId(registeredCourse.getCourseId());
 		if (course == null) {
 			// TODO : Throw Course Not Found
 			return false;
@@ -43,7 +45,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			// studentUserId, courseId, grade
 			preparedStatement.setInt(1, registeredCourse.getStudentUserId());
 			preparedStatement.setInt(2, registeredCourse.getCourseId());
-			preparedStatement.setString(3, Grade.NOT_GRADED.toString());
+			preparedStatement.setString(3, Grade.NA.toString());
 			int rowsAffected = preparedStatement.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
@@ -154,14 +156,14 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public boolean registerStudentToCourse(int courseId, int studentUserId) {
-		Course course = AdminDaoOperation.getInstance().getCouseFromCourseId(courseId);
+		Course course = adminDaoInterface.getCouseFromCourseId(courseId);
 		if (course == null) {
 			return false;
 			// TODO : Thorw course not found exception
 		}
 		RegisteredCourse registeredCourse = new RegisteredCourse();
 		registeredCourse.setCourseId(courseId);
-		registeredCourse.setGrade(Grade.NOT_GRADED);
+		registeredCourse.setGrade(Grade.NA);
 		registeredCourse.setStudentUserId(studentUserId);
 		return createRegisteredCourseDBRecordAndUpdateObject(registeredCourse);
 	}
@@ -346,7 +348,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		}
 		GradeCard gradeCard = new GradeCard();
 		gradeCard.setRegisteredCourses(registeredCourses);
-		gradeCard.setStudent(StudentDaoOperation.getInstance().getStudentFromUserId(studentUserId));
+		gradeCard.setStudent(studentDaoInterface.getStudentFromUserId(studentUserId));
 		return gradeCard;
 	}
 
@@ -391,6 +393,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		List<Course> registeredCourses = new ArrayList<Course>();
 		try (PreparedStatement preparedStatement = connection.prepareStatement(queryToExecute);) {
 			preparedStatement.setInt(1, studentUserId);
+			System.err.println(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Course course = new Course();

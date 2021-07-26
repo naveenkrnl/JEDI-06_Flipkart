@@ -1,17 +1,19 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.RegisteredCourse;
+import com.flipkart.constant.Grade;
 
 import java.util.List;
 
 public interface ProfessorInterface {
 
-	public boolean addGrade(int studentId, String courseCode, String grade);
+	public boolean addGrade(int studentUserId, int courseId, Grade grade);
 
-	public List<RegisteredCourse> viewEnrolledStudents(String profId);
+	public List<RegisteredCourse> viewEnrolledStudents(int professorUserId);
 
-	public List<Course> getCourses(String profId);
+	public List<Course> getCourses(int professorUserId);
 
-	public String getProfessorById(String profId);
+	public Professor getProfessorById(int professorUserId);
 }

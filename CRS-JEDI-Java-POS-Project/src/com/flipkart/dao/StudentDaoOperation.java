@@ -16,6 +16,7 @@ import com.flipkart.utils.DBUtils;
 public class StudentDaoOperation implements StudentDaoInterface {
 
     private static StudentDaoOperation instance = null;
+    UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
     private StudentDaoOperation() {
 
@@ -30,7 +31,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     @Override
     public boolean createDBRecordAndUpdateObject(Student student) {
-        if (!UserDaoOperation.getInstance().createDBRecordAndUpdateObject(student))
+        if (!userDaoInterface.createDBRecordAndUpdateObject(student))
             return false;
         Connection connection = DBUtils.getConnection();
         String queryToExecute = SQLQueriesConstants.ADD_STUDENT;
@@ -42,14 +43,14 @@ public class StudentDaoOperation implements StudentDaoInterface {
             preparedStatementStudent.setBoolean(5, false);
             int rowsAffected = preparedStatementStudent.executeUpdate();
             if (rowsAffected == 0) {
-                UserDaoOperation.getInstance().deleteUserObjectFromUserId(student.getUserId());
+                userDaoInterface.deleteUserObjectFromUserId(student.getUserId());
                 return false;
                 // TODO : Add exception Student Record Not created
             }
             return true;
 
         } catch (SQLException sqlErr) {
-            UserDaoOperation.getInstance().deleteUserObjectFromUserId(student.getUserId());
+            userDaoInterface.deleteUserObjectFromUserId(student.getUserId());
             System.err.printf("Error in Executing Query %s\n%s\n", queryToExecute, sqlErr.getMessage());
             sqlErr.printStackTrace();
         } finally {
@@ -100,7 +101,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     @Override
     public Student getStudentFromUserId(int userId) {
-        User user = UserDaoOperation.getInstance().getUserFromUserId(userId);
+        User user = userDaoInterface.getUserFromUserId(userId);
         if (user == null)
             return null;
         return new Student(user);
@@ -109,7 +110,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     @Override
     public Student getStudentFromEmail(String email) {
-        User user = UserDaoOperation.getInstance().getUserFromEmail(email);
+        User user = userDaoInterface.getUserFromEmail(email);
         if (user == null)
             return null;
         return new Student(user);
@@ -117,7 +118,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     @Override
     public int getStudentUserId(String email) {
-        User user = UserDaoOperation.getInstance().getUserFromEmail(email);
+        User user = userDaoInterface.getUserFromEmail(email);
         if (user == null)
             return -1;
         return user.getUserId();
@@ -125,7 +126,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     @Override
     public boolean isApproved(int userId) {
-        Student student = StudentDaoOperation.getInstance().getStudentFromUserId(userId);
+        Student student = getStudentFromUserId(userId);
         if (student == null)
             return false;
         return student.isApproved();

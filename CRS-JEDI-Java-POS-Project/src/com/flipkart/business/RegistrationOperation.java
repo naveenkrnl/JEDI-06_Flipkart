@@ -6,18 +6,84 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.constant.Grade;
+import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
+import com.flipkart.dao.UserDaoInterface;
 
 public class RegistrationOperation implements RegistrationInterface {
 
-	RegistrationDaoOperation registrationDaoOperation = RegistrationDaoOperation.getInstance();
+	RegistrationDaoInterface registrationDaoOperation = RegistrationDaoOperation.getInstance();
+	StudentInterface studentInterface = StudentOperation.getInstance();
+	AdminDaoInterface adminDaoInterface = AdminDaoOperation.getInstance();
+	static RegistrationOperation instance = null;
 
 	private RegistrationOperation() {
 	}
 
 	public static RegistrationOperation getInstance() {
-		System.out.println("Function getInstance called RegistrationOperation");
-		return null;
+		if (instance == null) {
+			instance = new RegistrationOperation();
+		}
+		return instance;
+	}
+
+	@Override
+	public int numOfRegisteredCourses(int studentUserId) {
+		return registrationDaoOperation.numOfRegisteredCourses(studentUserId);
+	}
+
+	@Override
+	public boolean registerStudentToCourse(int courseId, int studentUserId) {
+		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
+			System.err.println("Usernotfound");
+		}
+		if (adminDaoInterface.getCouseFromCourseId(courseId) == null) {
+			System.err.println("course not found");
+		}
+		if (registrationDaoOperation.numOfRegisteredCourses(studentUserId) >= 6) {
+			System.err.println("course limit already rechead");
+		}
+		if (!registrationDaoOperation.seatAvailable(courseId)) {
+			System.err.println("course limit rechead");
+		}
+		return registrationDaoOperation.registerStudentToCourse(courseId, studentUserId);
+	}
+
+	@Override
+	public boolean dropCourse(int courseId, int studentUserId) {
+		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
+			System.err.println("Usernotfound");
+		}
+		if (adminDaoInterface.getCouseFromCourseId(courseId) == null) {
+			System.err.println("course not found");
+		}
+		return registrationDaoOperation.dropCourseFromCourseIdAndStudentId(courseId, studentUserId);
+	}
+
+	@Override
+	public List<Course> viewRegisteredCourses(int studentUserId) {
+		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
+			System.err.println("Usernotfound");
+		}
+		return registrationDaoOperation.viewRegisteredCoursesForStudent(studentUserId);
+	}
+
+	@Override
+	public List<Course> viewAvailableCoursesToStudent(int studentUserId) {
+		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
+			System.err.println("Usernotfound");
+		}
+		return registrationDaoOperation.viewAvailableCoursesToStudent(studentUserId);
+	}
+
+	@Override
+	public GradeCard getGradeCardFromStudentUserId(int studentUserId) {
+		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
+			System.err.println("Usernotfound");
+		}
+		return registrationDaoOperation.getGradeCardFromStudentUserId(studentUserId);
 	}
 
 	// @Override
@@ -102,21 +168,6 @@ public class RegistrationOperation implements RegistrationInterface {
 	// }
 
 	// return GradeCard;
-	// }
-
-	// @Override
-	// public List<Course> viewCourses(int studentId) {
-
-	// List<Course> Courses = null;
-
-	// try {
-	// Courses = registrationDaoOperation.viewCourses(studentId);
-	// } catch (SQLException e) {
-	// System.err.println(e.getMessage());
-	// return null;
-	// }
-
-	// return Courses;
 	// }
 
 	// @Override

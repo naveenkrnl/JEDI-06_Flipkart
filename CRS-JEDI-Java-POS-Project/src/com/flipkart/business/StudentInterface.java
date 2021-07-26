@@ -1,13 +1,17 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 
 public interface StudentInterface {
-	
 
-	public int register(String name,String userID,String password,Gender gender,int batch,String branch,String address,String country);
+	public boolean register(Student student);
 
 	public int getStudentId(String userId);
 
-    public boolean isApproved(int studentId);
+	public boolean isApproved(int studentId);
+
+	public Student getStudentFromStudentUserId(int studentUserId);
+
+	public Student getStudentFromEmail(String email);
 }

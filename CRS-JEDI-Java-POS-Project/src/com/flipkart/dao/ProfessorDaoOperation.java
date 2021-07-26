@@ -24,6 +24,7 @@ import com.flipkart.utils.DBUtils;
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static ProfessorDaoOperation instance = null;
+	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
 	private ProfessorDaoOperation() {
 
@@ -38,7 +39,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	@Override
 	public boolean createDBRecordAndUpdateObject(Professor professor) {
-		if (!UserDaoOperation.getInstance().createDBRecordAndUpdateObject(professor))
+		if (!userDaoInterface.createDBRecordAndUpdateObject(professor))
 			return false;
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
@@ -49,14 +50,14 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			preparedStatementprofessor.setString(3, professor.getDesignation());
 			int rowsAffected = preparedStatementprofessor.executeUpdate();
 			if (rowsAffected == 0) {
-				UserDaoOperation.getInstance().deleteUserObjectFromUserId(professor.getUserId());
+				userDaoInterface.deleteUserObjectFromUserId(professor.getUserId());
 				return false;
 				// TODO : Add exception professor Record Not created
 			}
 			return true;
 
 		} catch (SQLException sqlErr) {
-			UserDaoOperation.getInstance().deleteUserObjectFromUserId(professor.getUserId());
+			userDaoInterface.deleteUserObjectFromUserId(professor.getUserId());
 			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
@@ -105,7 +106,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	@Override
 	public Professor getProfessorFromUserId(int userId) {
-		User user = UserDaoOperation.getInstance().getUserFromUserId(userId);
+		User user = userDaoInterface.getUserFromUserId(userId);
 		if (user == null)
 			return null;
 		return new Professor(user);
@@ -114,7 +115,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	@Override
 	public Professor getProfessorFromEmail(String email) {
-		User user = UserDaoOperation.getInstance().getUserFromEmail(email);
+		User user = userDaoInterface.getUserFromEmail(email);
 		if (user == null)
 			return null;
 		return new Professor(user);
@@ -154,7 +155,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	@Override
 	public String getProfessorNameByUserId(int userId) {
-		User user = UserDaoOperation.getInstance().getUserFromUserId(userId);
+		User user = userDaoInterface.getUserFromUserId(userId);
 		if (user == null)
 			return null;
 		return user.getName();

@@ -26,6 +26,7 @@ import com.flipkart.utils.DBUtils;
 public class AdminDaoOperation implements AdminDaoInterface {
 
 	private static AdminDaoOperation instance = null;
+	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
 	private AdminDaoOperation() {
 
@@ -40,7 +41,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 	@Override
 	public boolean createDBRecordAndUpdateObject(Admin admin) {
-		if (!UserDaoOperation.getInstance().createDBRecordAndUpdateObject(admin))
+		if (!userDaoInterface.createDBRecordAndUpdateObject(admin))
 			return false;
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.ADD_ADMIN_QUERY;
@@ -49,13 +50,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			preparedStatementadmin.setInt(1, admin.getUserId());
 			int rowsAffected = preparedStatementadmin.executeUpdate();
 			if (rowsAffected == 0) {
-				UserDaoOperation.getInstance().deleteUserObjectFromUserId(admin.getUserId());
+				userDaoInterface.deleteUserObjectFromUserId(admin.getUserId());
 				return false;
 				// TODO : Add exception admin Record Not created
 			}
 			return true;
 		} catch (SQLException sqlErr) {
-			UserDaoOperation.getInstance().deleteUserObjectFromUserId(admin.getUserId());
+			userDaoInterface.deleteUserObjectFromUserId(admin.getUserId());
 			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
 			sqlErr.printStackTrace();
 		} finally {
@@ -71,7 +72,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 	@Override
 	public Admin getAdminFromUserId(int userId) {
-		User user = UserDaoOperation.getInstance().getUserFromUserId(userId);
+		User user = userDaoInterface.getUserFromUserId(userId);
 		if (user == null)
 			return null;
 		return new Admin(user);
@@ -79,7 +80,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 	@Override
 	public Admin getAdminFromEmail(String email) {
-		User user = UserDaoOperation.getInstance().getUserFromEmail(email);
+		User user = userDaoInterface.getUserFromEmail(email);
 		if (user == null)
 			return null;
 		return new Admin(user);
@@ -132,24 +133,14 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	}
 
 	@Override
-	public void approveStudent(int userId) {
+	public boolean approveStudent(int userId) {
 		Connection connection = DBUtils.getConnection();
 		String queryToExecute = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
 		try (PreparedStatement statement = connection.prepareStatement(queryToExecute);) {
 
 			statement.setInt(1, userId);
 			int row = statement.executeUpdate();
-
-			// System.out.println("Message - ");
-			// System.out.println(row + " student approved.");
-			if (row == 0) {
-				// System.err.println("Student with userId: " + userId + " not found.");
-				return;
-				// TODO : Added exception Student was not approved
-			}
-
-			// System.out.println("Message - ");
-			// System.out.println("Student with userId: " + userId + " approved by admin.");
+			return row > 0;
 
 		} catch (SQLException sqlErr) {
 			System.err.printf("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage());
@@ -162,6 +153,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				closeErr.printStackTrace();
 			}
 		}
+		return false;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
+import com.flipkart.exception.UserNotFoundException;
 
 /**
  * 
@@ -20,7 +21,7 @@ public interface UserDaoInterface {
 
 	public boolean updatePassword(String email, String newPassword);
 
-	public boolean verifyCredentials(String email, String password);
+	public boolean verifyCredentials(String email, String password) throws UserNotFoundException;
 
 	public Role getRole(String email);
 }

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
 
 public class Professor extends User {
@@ -39,8 +40,7 @@ public class Professor extends User {
 	public Professor(User user) {
 		super(user.getName(), user.getGender(), user.getAddress(), user.getCountry(), user.getUserId(), Role.PROFESSOR,
 				user.getPassword(), user.getEmail(), user.getDoj());
-
-		Professor professor = ProfessorDaoOperation.getProfessorFromUserIdImpl(user.getUserId());
+		Professor professor = ProfessorDaoOperation.getInstance().getProfessorFromUserIdImpl(user.getUserId());
 		setUserId(professor.getUserId());
 		setDesignation(professor.getDesignation());
 		setDepartment(professor.getDepartment());

@@ -26,6 +26,7 @@ public class Course {
 
 	public Course() {
 		professorUserId = -1;
+		courseFee = 500;
 	}
 
 	public String getCourseName() {
@@ -50,10 +51,6 @@ public class Course {
 
 	public void setCourseCatalogId(int courseCatalogId) {
 		this.courseCatalogId = courseCatalogId;
-	}
-
-	public Professor getProfessor() {
-		return ProfessorDaoOperation.getProfessorFromUserId(getProfessorUserId());
 	}
 
 	public int getCourseId() {
