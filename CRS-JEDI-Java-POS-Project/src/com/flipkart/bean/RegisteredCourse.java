@@ -14,10 +14,6 @@ public class RegisteredCourse {
 	private int courseId;
 	private Grade grade;
 
-	public RegisteredCourse() {
-
-	}
-
 	public int getRegisteredCourseId() {
 		return registeredCourseId;
 	}

@@ -7,6 +7,7 @@ import com.flipkart.dao.StudentDaoOperation;
 public class StudentOperation implements StudentInterface {
 
 	final StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
+	static StudentOperation instance = null;
 
 	private StudentOperation() {
 
@@ -23,25 +24,14 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	public static StudentOperation getInstance() {
-		System.out.println("Function getInstance called from StudentOperation");
-		return new StudentOperation();
+		if (instance == null) {
+			instance = new StudentOperation();
+		}
+		return instance;
 	}
 
 	@Override
 	public boolean register(Student student) {
 		return studentDaoInterface.createDBRecordAndUpdateObject(student);
-	}
-
-	@Override
-	public int getStudentId(String userId) {
-		System.out.println("Function getStudentId called from StudentOperation");
-		return 0;
-
-	}
-
-	@Override
-	public boolean isApproved(int studentId) {
-		System.out.println("Function isApproved called from StudentOperation");
-		return true;
 	}
 }

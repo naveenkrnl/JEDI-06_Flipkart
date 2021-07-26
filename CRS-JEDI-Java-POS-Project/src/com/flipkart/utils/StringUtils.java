@@ -3,6 +3,11 @@ package com.flipkart.utils;
 import com.flipkart.constant.Color;
 
 public class StringUtils {
+
+    private StringUtils() {
+
+    }
+
     public static final int DEFAULT_WIDTH = 100;
 
     public static String padding(String input, int maxLength) {

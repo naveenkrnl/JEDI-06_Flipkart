@@ -27,20 +27,4 @@ public interface AdminInterface {
 	List<Professor> viewProfessorList();
 
 	boolean assignCourseToProfessor(int courseId, int professorUserId);
-	// public void deleteCourse(String courseCode, List<Course> courseList);
-
-	// public void addCourse(Course course, List<Course> courseList);
-
-	// public List<Student> viewPendingAdmissions();
-
-	// public void approveStudent(int studentId, List<Student>
-	// unapprovedStudentList);
-
-	// public boolean assignCourse(int courseId, int professorUserId);
-
-	// public void assignCourse(String courseCode, String professorId);
-
-	// public List<Course> viewCourses(int catalogId);
-
-	// public List<Professor> viewProfessors();
 }

@@ -20,6 +20,7 @@ public class UserOperation implements UserInterface {
 		return instance;
 	}
 
+	@Override
 	public User getUserFromEmail(String email) {
 		return userDaoInterface.getUserFromEmail(email);
 	}
