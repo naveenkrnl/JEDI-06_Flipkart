@@ -51,7 +51,6 @@ public class SQLQueriesConstants {
     public static final String GET_COURSES_AVAILABLE_TO_STUDENT_USER_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId, courseFee from course where (courseId not in (select courseId from registeredCourse where studentUserId = ?)) and ((select count(*) from registeredCourse where courseId = course.courseId) < 10)";
     public static final String GET_ALL_COURSES_REGISTERED_BY_STUDENT_USER_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId, courseFee from course where courseId in (select courseId from registeredCourse where studentUserId = ?)";
 
-    // Still left
     public static final String VIEW_REGISTERED_COURSES = " select * from course inner join registeredCourse on course.courseCode = registeredCourse.courseCode where registeredCourse.studentUserId = ?";
     public static final String CHECK_COURSE_AVAILABILITY = " select courseCode from registeredCourse where studentUserId = ? ";
     public static final String DECREMENT_COURSE_SEATS = "update course set seats = seats-1 where courseCode = ? ";
