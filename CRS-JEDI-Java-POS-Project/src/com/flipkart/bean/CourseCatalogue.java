@@ -20,7 +20,7 @@ public class CourseCatalogue {
     /**
      * Method to set catalog Id
      *
-     * @param catalogId
+     * @param catalogId Catalog Id of Course Catalogue
      */
     public void setCatalogId(String catalogId) {
         this.catalogId = catalogId;
@@ -38,7 +38,7 @@ public class CourseCatalogue {
     /**
      * Method to set name
      *
-     * @param name
+     * @param name Name of Course Catalogue
      */
     public void setName(String name) {
         this.name = name;
