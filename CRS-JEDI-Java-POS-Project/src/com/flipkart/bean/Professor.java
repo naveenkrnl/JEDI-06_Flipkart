@@ -1,13 +1,9 @@
-/**
- * 
- */
 package com.flipkart.bean;
 
 import java.util.Date;
 
 /**
-
- *
+ * Professor Class
  */
 public class Professor extends User {
 	private String department;
@@ -37,7 +33,7 @@ public class Professor extends User {
 
 	/**
 	 * 
-	 * @return departmet
+	 * @return department
 	 */
 	public String getDepartment() {
 		return department;

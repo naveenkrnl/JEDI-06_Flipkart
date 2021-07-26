@@ -5,10 +5,7 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
 /**
- * 
- * 
  * User Class
- *
  */
 public abstract class User {
 	private String userId;
@@ -53,7 +50,7 @@ public abstract class User {
 	/**
 	 * Method to set Gender of user
 	 * 
-	 * @param gender
+	 * @param gender: Gender Of The User
 	 */
 	public void setGender(Gender gender) {
 		this.gender = gender;
@@ -71,7 +68,7 @@ public abstract class User {
 	/**
 	 * Method to set Address of user
 	 * 
-	 * @param address
+	 * @param address: Address of the user
 	 */
 	public void setAddress(String address) {
 		this.address = address;
@@ -89,7 +86,7 @@ public abstract class User {
 	/**
 	 * Method to set country user is staying in
 	 * 
-	 * @param country
+	 * @param country: User's Country
 	 */
 	public void setCountry(String country) {
 		this.country = country;
@@ -114,7 +111,7 @@ public abstract class User {
 	/**
 	 * Method to set User's Id
 	 * 
-	 * @param userId
+	 * @param userId: User's ID
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
@@ -132,7 +129,7 @@ public abstract class User {
 	/**
 	 * Method to set User's Name
 	 * 
-	 * @param name
+	 * @param name: Name of the user
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -150,7 +147,7 @@ public abstract class User {
 	/**
 	 * Method to set User's Role
 	 * 
-	 * @param role
+	 * @param role: User Role
 	 */
 	public void setRole(Role role) {
 		this.role = role;
@@ -168,7 +165,7 @@ public abstract class User {
 	/**
 	 * Method to set User's Password
 	 * 
-	 * @param password
+	 * @param password: password
 	 */
 	public void setPassword(String password) {
 		this.password = password;

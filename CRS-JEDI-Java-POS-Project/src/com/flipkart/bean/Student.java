@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.bean;
 
 import com.flipkart.constant.Gender;
@@ -61,7 +58,7 @@ public class Student extends User {
 	/**
 	 * Method to set Branch Name of Student
 	 * 
-	 * @param branchName
+	 * @param branchName: Branch Name
 	 */
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
@@ -79,7 +76,7 @@ public class Student extends User {
 	/**
 	 * Method to set Student Id
 	 * 
-	 * @param studentId
+	 * @param studentId: Id Of Student
 	 */
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
@@ -97,7 +94,7 @@ public class Student extends User {
 	/**
 	 * Method to set Batch of student
 	 * 
-	 * @param batch
+	 * @param batch: Batch Number
 	 */
 	public void setBatch(int batch) {
 		this.batch = batch;
@@ -114,8 +111,8 @@ public class Student extends User {
 
 	/**
 	 * Method to set approval status of student
-	 * 
-	 * @return Approval Status
+	 *
+	 * @param isApproved: If Student is approved
 	 */
 	public void setApproved(boolean isApproved) {
 		this.isApproved = isApproved;

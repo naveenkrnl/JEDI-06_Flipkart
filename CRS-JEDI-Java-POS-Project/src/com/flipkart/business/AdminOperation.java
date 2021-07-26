@@ -29,6 +29,8 @@ public class AdminOperation implements AdminInterface {
 
 	/**
 	 * Method to make AdminOperation Singleton
+	 *
+	 * @return instance of AdminOperation
 	 */
 	public static AdminOperation getInstance() {
 		if (instance == null) {
@@ -43,21 +45,19 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to add Administrative Account
 	 *
-	 * @param name
-	 * @param userID
-	 * @param password
-	 * @param gender
-	 * @param address
-	 * @param country
+	 * @param name Name
+	 * @param userID User ID
+	 * @param password Password
+	 * @param gender Gender
+	 * @param address Address
+	 * @param country Country
 	 * @return Admin ID
-	 * @throws AdminAccountNotCreatedException
 	 */
 	@Override
 	public int register(String name, String userID, String password, Gender gender, String address,
 						String country) throws AdminAccountNotCreatedException{
 		int adminId = 0;
 		try {
-			// call the DAO class, and add the admin record to the DB
 			User admin = new Admin(userID, name, Role.ADMIN, password, gender, address, country);
 			adminId = adminDaoOperation.addAdmin(admin) ;
 
@@ -70,9 +70,8 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * 
-	 * @param dropCourseCode
+	 * @param dropCourseCode Course Code which is to be dropped
 	 * @param courseList : Courses available in the catalog
-	 * @throws CourseNotFoundException
 	 */
 	@Override
 	public void deleteCourse(String dropCourseCode, List<Course> courseList)
@@ -94,9 +93,8 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to add Course to Course Catalog
 	 * 
-	 * @param newCourse     : Course object storing details of a course
+	 * @param newCourse : Course object storing details of a course
 	 * @param courseList : Courses available in catalog
-	 * @throws CourseFoundException
 	 */
 	@Override
 	public void addCourse(Course newCourse, List<Course> courseList) throws CourseFoundException {
@@ -127,16 +125,13 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to approve a Student
 	 * 
-	 * @param studentId
-	 * @param studentList
-	 * @throws StudentNotFoundForApprovalException
+	 * @param studentId Student ID
+	 * @param studentList List Of Students
 	 */
 	@Override
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
 
 		if (!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
-			// logger.error("studentId: " + studentId + " is already
-			// approvet/not-present!");
 			throw new StudentNotFoundForApprovalException(studentId);
 		}
 
@@ -152,7 +147,6 @@ public class AdminOperation implements AdminInterface {
 	 * Method to add Professor to DB
 	 * 
 	 * @param professor : Professor Object storing details of a professor
-	 * @throws ProfessorNotAddedException
 	 */
 	@Override
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
@@ -168,9 +162,8 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to assign Course to a Professor
 	 * 
-	 * @param courseCode
-	 * @param professorId
-	 * @throws CourseNotFoundException
+	 * @param courseCode Course Code
+	 * @param professorId Professor ID
 	 */
 	@Override
 	public void assignCourse(String courseCode, String professorId)
@@ -187,7 +180,7 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to get list of courses in catalog
 	 * 
-	 * @param catalogId
+	 * @param catalogId Catalog ID
 	 * @return List of courses in catalog
 	 */
 	@Override

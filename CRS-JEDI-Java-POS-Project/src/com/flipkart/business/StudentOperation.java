@@ -29,11 +29,10 @@ public class StudentOperation implements StudentInterface {
 	/**
 	 * Method to make StudentOperation Singleton
 	 * 
-	 * @return
+	 * @return StudentOperation Instance
 	 */
 	public static StudentOperation getInstance() {
 		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
 			synchronized (StudentOperation.class) {
 				instance = new StudentOperation();
 			}
@@ -45,23 +44,21 @@ public class StudentOperation implements StudentInterface {
 	 * Method to register a student, although student can't login until it's
 	 * approved by admin
 	 * 
-	 * @param name
-	 * @param userID
-	 * @param password
-	 * @param gender
-	 * @param batch
-	 * @param branch
-	 * @param address
-	 * @param country
+	 * @param name Name
+	 * @param userId User ID
+	 * @param password Password
+	 * @param gender Gender
+	 * @param batch Batch number
+	 * @param branch Branch
+	 * @param address Address of the student
+	 * @param country Country Of the student
 	 * @return Student ID
-	 * @throws StudentNotRegisteredException
 	 */
 	@Override
 	public int register(String name, String userId, String password, Gender gender, int batch, String branch,
 			String address, String country) throws StudentNotRegisteredException {
 		int studentId;
 		try {
-			// call the DAO class, and add the student record to the DB
 			Student newStudent = new Student(userId, name, Role.STUDENT, password, gender, address, country, branch, 0,
 					batch, false);
 			studentId = studentDaoInterface.addStudent(newStudent);
@@ -75,7 +72,7 @@ public class StudentOperation implements StudentInterface {
 	/**
 	 * Method to get Student ID from User ID
 	 * 
-	 * @param userId
+	 * @param userId User ID
 	 * @return Student ID
 	 */
 	@Override
@@ -87,7 +84,7 @@ public class StudentOperation implements StudentInterface {
 	/**
 	 * Method to check if student is approved by Admin or not
 	 * 
-	 * @param studentId
+	 * @param studentId Student ID
 	 * @return boolean indicating if student is approved
 	 */
 	@Override

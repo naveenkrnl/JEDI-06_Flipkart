@@ -42,7 +42,7 @@ public class StudentGrade {
 	/**
 	 * Method to set Course Code
 	 * 
-	 * @param courseCode
+	 * @param courseCode: Course Code
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
@@ -60,7 +60,7 @@ public class StudentGrade {
 	/**
 	 * Method to set Course Name
 	 * 
-	 * @param courseName
+	 * @param courseName: Course Name
 	 */
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
@@ -78,7 +78,7 @@ public class StudentGrade {
 	/**
 	 * Method to set grade
 	 * 
-	 * @param grade
+	 * @param grade: Grade
 	 */
 	public void setGrade(String grade) {
 		this.grade = grade;

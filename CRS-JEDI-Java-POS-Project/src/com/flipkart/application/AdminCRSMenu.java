@@ -4,6 +4,7 @@ import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -20,6 +21,7 @@ import com.flipkart.utils.StringUtils;
  */
 public class AdminCRSMenu {
 
+
     AdminInterface adminOperation = AdminOperation.getInstance();
     UserInterface userOperation = UserOperation.getInstance();
     Scanner scanner = new Scanner(System.in);
@@ -32,19 +34,18 @@ public class AdminCRSMenu {
 
         while (CRSApplication.loggedin) {
 
-            StringUtils.printMenu("Administrative Control Menu",
-                    new String[] {
-                            "View course in catalog",
-                            "Add Course to catalog",
-                            "Delete Course from catalog",
-                            "Approve Students",
-                            "View Pending Admission",
-                            "Add Professor",
-                            "Assign Courses To Professor",
-                            "Update User Details",
-                            "Logout"
-                                    },
-                    100);
+
+            StringUtils.printMenu("Administrative Control Menu", new String[]{
+                    "View course Catalogue",
+                    "Add New Course to Catalogue",
+                    "Delete Course from Catalogue",
+                    "Approve Student Registration",
+                    "View Pending Student Approvals",
+                    "Add New Professor",
+                    "Assign Courses To Professor",
+                    "Update User Details",
+                    "Logout"
+            }, 100);
 
             StringUtils.printPrompt();
 
@@ -101,8 +102,7 @@ public class AdminCRSMenu {
         StringUtils.printHeading("List of Professors Available");
         StringUtils.printTable(String.format("%20s  %20s  %20s ", "ProfessorId", "Name", "Designation"));
         for (Professor professor : professorList) {
-            StringUtils.printTable(String.format("%20s  %20s  %20s ", professor.getUserId(), professor.getName(),
-                    professor.getDesignation()));
+            StringUtils.printTable(String.format("%20s  %20s  %20s ", professor.getUserId(), professor.getName(), professor.getDesignation()));
         }
         StringUtils.printEndLine();
 
@@ -180,7 +180,6 @@ public class AdminCRSMenu {
 
     /**
      * Method to view Students who are yet to be approved
-     *
      * @return List of Students whose admissions are pending
      */
     private List<Student> viewPendingAdmissions() {
@@ -192,8 +191,7 @@ public class AdminCRSMenu {
         StringUtils.printHeading("Students Pending for Approval");
         StringUtils.printTable(String.format("%20s  %20s  %20s  %20s", "UserId", "StudentId", "Name", "Gender"));
         for (Student student : pendingStudentsList) {
-            StringUtils.printTable(String.format("%20s  %20d  %20s  %20s", student.getUserId(), student.getStudentId(),
-                    student.getName(), student.getGender().toString()));
+            StringUtils.printTable(String.format("%20s  %20d  %20s  %20s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
         }
         StringUtils.printEndLine();
         return pendingStudentsList;
@@ -214,9 +212,8 @@ public class AdminCRSMenu {
 
         try {
             adminOperation.approveStudent(studentUserIdApproval, studentList);
-            // send notification from system
-            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,
-                    0);
+            //send notification from system
+            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
 
         } catch (StudentNotFoundForApprovalException e) {
             StringUtils.printErrorMessage(e.getMessage());

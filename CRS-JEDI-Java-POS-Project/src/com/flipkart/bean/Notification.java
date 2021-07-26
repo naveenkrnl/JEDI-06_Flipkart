@@ -3,10 +3,7 @@ package com.flipkart.bean;
 import com.flipkart.constant.NotificationType;
 
 /**
- * 
- * 
  * Class that sends notification for different events
- *
  */
 public class Notification {
 	private int notificationId;
@@ -50,7 +47,7 @@ public class Notification {
 	/**
 	 * Method to set Student Id of student enrolled in the course
 	 * 
-	 * @param studentId
+	 * @param studentId: Id Of The Student
 	 */
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
@@ -68,7 +65,7 @@ public class Notification {
 	/**
 	 * Method to set Notification Type
 	 * 
-	 * @param type
+	 * @param type: Type Of The Notification
 	 */
 	public void setType(NotificationType type) {
 		this.type = type;
@@ -86,7 +83,7 @@ public class Notification {
 	/**
 	 * Method to set Reference Id
 	 * 
-	 * @param referenceId
+	 * @param referenceId: Reference Id
 	 */
 	public void setReferenceId(String referenceId) {
 		this.referenceId = referenceId;

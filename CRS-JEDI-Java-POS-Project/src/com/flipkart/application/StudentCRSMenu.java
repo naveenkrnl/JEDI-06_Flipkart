@@ -5,6 +5,8 @@ package com.flipkart.application;
 
 import java.sql.SQLException;
 import java.util.*;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
@@ -22,32 +24,40 @@ import com.flipkart.business.RegistrationInterface;
 import com.flipkart.business.RegistrationOperation;
 import com.flipkart.utils.StringUtils;
 
+
 /**
  *
- * The class displays the menu for student client
+ *  The class displays the menu for student client
  *
  */
 public class StudentCRSMenu {
     Scanner sc = new Scanner(System.in);
     RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
     ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-    NotificationInterface notificationInterface = NotificationOperation.getInstance();
+    NotificationInterface notificationInterface=NotificationOperation.getInstance();
     private boolean is_registered;
 
     /**
-     * Method to generate Student Menu for course registration, addition, removal
-     * and fee payment
+     * Method to generate Student Menu for course registration, addition, removal and fee payment
      *
      * @param studentId student id
      */
-    public void create_menu(int studentId) {
+    public void create_menu(int studentId)
+    {
 
         is_registered = getRegistrationStatus(studentId);
-        while (CRSApplication.loggedin) {
-            StringUtils.printMenu("Student Access Menu",
-                    new String[]{"Course Registration", "Add Course", "Drop Course", "View Available Courses",
-                            "View Registered Courses", "View grade card", "Make Payment", "Logout"},
-                    100);
+        while (CRSApplication.loggedin)
+        {
+            StringUtils.printMenu("Student Access Menu", new String[]{
+                    "Register for Courses",
+                    "Add New Course to Semester" ,
+                    "Drop Course from Semester",
+                    "View Available Courses",
+                    "View Registered Courses",
+                    "View Semester Grade Card" ,
+                    "Pay Fees for Courses",
+                    "Logout"
+                            },100);
 
             StringUtils.printPrompt();
 
@@ -93,43 +103,51 @@ public class StudentCRSMenu {
         }
     }
 
+
     /**
      * Select course for registration
-     *
+     * @param studentId student id
      * @param studentId
-     */
-    private void registerCourses(int studentId) {
-        if (is_registered) {
+     * */
+    private void registerCourses(int studentId)
+    {
+        if(is_registered)
+        {
             StringUtils.printErrorMessage(" Registration is already completed");
             return;
         }
 
         int count = 0;
         StringUtils.printHeading("Course Registration Portal");
-        while (count < 6) {
-            try {
-                List<Course> courseList = viewCourse(studentId);
+        while(count < 6)
+        {
+            try
+            {
+                List<Course> courseList=viewCourse(studentId);
 
-                if (courseList == null)
+                if(courseList==null)
                     return;
 
-                System.out.println("Enter Course Code : " + (count + 1));
+                System.out.println("Enter Course Code : " + (count+1));
                 System.out.println("Enter 0 to exit");
                 String courseCode = sc.next();
 
-                if (courseCode.equals("0")) {
+                if (courseCode.equals("0")){
                     break;
                 }
 
-                if (registrationInterface.addCourse(courseCode, studentId, courseList)) {
-                    System.out.println(
-                            Color.ANSI_GREEN + "Course " + courseCode + " registered sucessfully." + Color.ANSI_RESET);
+                if(registrationInterface.addCourse(courseCode,studentId,courseList))
+                {
+                    System.out.println(Color.ANSI_GREEN + "Course " + courseCode + " registered sucessfully." + Color.ANSI_RESET);
                     count++;
-                } else {
+                }
+                else
+                {
                     System.err.println(" You have already registered for Course : " + courseCode);
                 }
-            } catch (CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException
-                    | SQLException e) {
+            }
+            catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
+            {
                 StringUtils.printErrorMessage(e.getMessage());
             }
         }
@@ -137,9 +155,12 @@ public class StudentCRSMenu {
         StringUtils.printSuccessMessage("Registration Successful");
         is_registered = true;
 
-        try {
+        try
+        {
             registrationInterface.setRegistrationStatus(studentId);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             StringUtils.printErrorMessage(e.getMessage());
         }
 
@@ -150,42 +171,56 @@ public class StudentCRSMenu {
      *
      * @param studentId
      */
-    private void addCourse(int studentId) {
-        if (is_registered) {
+    private void addCourse(int studentId)
+    {
+        if(is_registered)
+        {
             StringUtils.printHeading("Add Course Portal for Student");
 
-            List<Course> availableCourseList = viewCourse(studentId);
+            List<Course> availableCourseList=viewCourse(studentId);
 
-            if (availableCourseList == null)
+            if(availableCourseList==null)
                 return;
 
-            try {
-                System.out.println("Enter Course Code : ");
+            try
+            {
+                System.out.println("Enter Course Code : " );
                 String courseCode = sc.next();
-                if (registrationInterface.addCourse(courseCode, studentId, availableCourseList)) {
+                if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
+                {
                     StringUtils.printSuccessMessage(" You have successfully registered for Course : " + courseCode);
-                } else {
+                }
+                else
+                {
                     StringUtils.printErrorMessage(" You have already registered for Course : " + courseCode);
                 }
-            } catch (CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException
-                    | SQLException e) {
+            }
+            catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
+            {
                 StringUtils.printErrorMessage(e.getMessage());
             }
-        } else {
-            StringUtils.printErrorMessage("Please complete registration for courses");
+        }
+        else
+        {
+           StringUtils.printErrorMessage("Please complete registration for courses");
         }
     }
 
     /**
      * Method to check if student is already registered
      *
+     * @param studentId student id
      * @param studentId
      * @return Registration Status
      */
-    private boolean getRegistrationStatus(int studentId) {
-        try {
+    private boolean getRegistrationStatus(int studentId)
+    {
+        try
+        {
             return registrationInterface.getRegistrationStatus(studentId);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             StringUtils.printErrorMessage(e.getMessage());
         }
         return false;
@@ -194,60 +229,77 @@ public class StudentCRSMenu {
     /**
      * Drop Course
      *
+     * @param studentId student id
      * @param studentId
      */
-    private void dropCourse(int studentId) {
-        if (is_registered) {
+    private void dropCourse(int studentId)
+    {
+        if(is_registered)
+        {
             StringUtils.printHeading("Drop Course Portal for Student");
-            List<Course> registeredCourseList = viewRegisteredCourse(studentId);
+            List<Course> registeredCourseList=viewRegisteredCourse(studentId);
 
-            if (registeredCourseList == null)
+            if(registeredCourseList==null)
                 return;
 
             System.out.println("Enter the Course Code : ");
             String courseCode = sc.next();
 
-            try {
-                registrationInterface.dropCourse(courseCode, studentId, registeredCourseList);
+            try
+            {
+                registrationInterface.dropCourse(courseCode, studentId,registeredCourseList);
                 StringUtils.printSuccessMessage("You have successfully dropped Course : " + courseCode);
 
-            } catch (CourseNotFoundException e) {
+            }
+            catch(CourseNotFoundException e)
+            {
                 StringUtils.printErrorMessage("You have not registered for course : " + e.getCourseCode());
-            } catch (SQLException e) {
+            }
+            catch (SQLException e)
+            {
 
                 StringUtils.printErrorMessage(e.getMessage());
             }
-        } else {
-            StringUtils.printErrorMessage("Please complete registration for Courses");
+        }
+        else
+        {
+           StringUtils.printErrorMessage("Please complete registration for Courses");
         }
     }
 
     /**
      * View all available Courses
      *
+     * @param studentId student id
      * @param studentId
      * @return List of available Courses
      */
-    private List<Course> viewCourse(int studentId) {
+    private List<Course> viewCourse(int studentId)
+    {
         StringUtils.printHeading("List of Available Courses");
-        List<Course> course_available = null;
-        try {
+        List<Course> course_available=null;
+        try
+        {
             course_available = registrationInterface.viewCourses(studentId);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
 
-            StringUtils.printErrorMessage(e.getMessage());
+           StringUtils.printErrorMessage(e.getMessage());
         }
 
-        if (course_available.isEmpty()) {
+
+        if(course_available.isEmpty())
+        {
             StringUtils.printErrorMessage("NO COURSE AVAILABLE");
             return null;
         }
 
-        StringUtils.printTable(
-                String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
-        for (Course obj : course_available) {
-            StringUtils.printTable(String.format("%-20s %-20s %-20s %-20s", obj.getCourseCode(), obj.getCourseName(),
-                    obj.getInstructorId(), obj.getSeats()));
+
+        StringUtils.printTable(String.format("%-20s %-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
+        for(Course obj : course_available)
+        {
+            StringUtils.printTable(String.format("%-20s %-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
         }
         StringUtils.printEndLine();
         return course_available;
@@ -256,30 +308,37 @@ public class StudentCRSMenu {
     /**
      * View Registered Courses
      *
+     * @param studentId student id
      * @param studentId
      * @return List of Registered Courses
      */
-    private List<Course> viewRegisteredCourse(int studentId) {
+    private List<Course> viewRegisteredCourse(int studentId)
+    {
         StringUtils.printHeading("List of Registered Courses");
-        List<Course> course_registered = null;
-        try {
+        List<Course> course_registered=null;
+        try
+        {
             course_registered = registrationInterface.viewRegisteredCourses(studentId);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
 
             StringUtils.printErrorMessage(e.getMessage());
         }
 
-        if (course_registered.isEmpty()) {
-            StringUtils.printErrorMessage("You haven't registered for any course");
+        if(course_registered.isEmpty())
+        {
+           StringUtils.printErrorMessage("You haven't registered for any course");
             return null;
         }
 
-        StringUtils.printTable(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+       StringUtils.printTable(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 
-        for (Course obj : course_registered) {
+        for(Course obj : course_registered)
+        {
 
-            StringUtils.printTable(String.format("%-20s %-20s %-20s ", obj.getCourseCode(), obj.getCourseName(),
-                    professorInterface.getProfessorById(obj.getInstructorId())));
+
+           StringUtils.printTable(String.format("%-20s %-20s %-20s ",obj.getCourseCode(), obj.getCourseName(),professorInterface.getProfessorById(obj.getInstructorId())));
         }
         StringUtils.printEndLine();
         return course_registered;
@@ -288,35 +347,43 @@ public class StudentCRSMenu {
     /**
      * View grade card for particular student
      *
+     * @param studentId student id
      * @param studentId
      */
-    public void viewGradeCard(int studentId) {
+    private void viewGradeCard(int studentId) {
 
         StringUtils.printHeading("GRADE CARD");
-        List<StudentGrade> grade_card = null;
+        List<StudentGrade> gradeCard = null;
         try {
-            grade_card = registrationInterface.viewGradeCard(studentId);
+            gradeCard = registrationInterface.viewGradeCard(studentId);
         } catch (SQLException e) {
 
             StringUtils.printErrorMessage(e.getMessage());
         }
 
-        if (grade_card.isEmpty()) {
+        if (gradeCard.isEmpty()) {
             StringUtils.printErrorMessage("You haven't registered for any course");
             return;
         }
 
         StringUtils
                 .printTable(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
-        List<StudentGrade> graded = new ArrayList<>();
-        List<StudentGrade> unGraded = new ArrayList<>();
-        for (StudentGrade studentGrade : grade_card) {
-            if (studentGrade.getGrade() == null)
-                unGraded.add(studentGrade);
-            else
-                graded.add(studentGrade);
-            //
-        }
+//
+//        JAVA 8 Feature
+//        Before
+//        List<StudentGrade> graded = new ArrayList<>();
+//        List<StudentGrade> unGraded = new ArrayList<>();
+//        for (StudentGrade studentGrade : gradeCard) {
+//            if (studentGrade.getGrade() == null)
+//                unGraded.add(studentGrade);
+//            else
+//                graded.add(studentGrade);
+//        }
+//
+//      After -
+        List<StudentGrade> graded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() != null; }).collect(Collectors.toList());
+        List<StudentGrade> unGraded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() == null; }).collect(Collectors.toList());
+
         double total_score = 0;
         if (!graded.isEmpty()) {
             StringUtils.printTable("Graded Courses : ");
@@ -328,16 +395,15 @@ public class StudentCRSMenu {
         }
         if (!unGraded.isEmpty()) {
             StringUtils.printTable("Grade Awaited : ");
-            for (StudentGrade studentGrade : unGraded) {
-                StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
-                        studentGrade.getCourseName(), "NA", "NA"));
-            }
-
+            // JAVA 8 Feature ForEach
+            unGraded.forEach(studentGrade -> StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
+                    studentGrade.getCourseName(), "NA", "NA")));
         }
-        if (!graded.isEmpty()) {
+        if(!graded.isEmpty())
+        {
             StringUtils.printEndLine(false);
-            StringUtils.printTable(
-                    String.format("  %-20s %-20s %-20s %-20s", " ", " ", " CGPA", total_score / (double) graded.size()));
+            StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", "",
+                    "", "CGPA", total_score/(double)graded.size()));
         }
         StringUtils.printEndLine();
     }
@@ -361,48 +427,66 @@ public class StudentCRSMenu {
             return gradeStrToScore.get(grade);
         return 0;
     }
-
     /**
-     * Make Payment for selected courses. Student is provided with an option to pay
-     * the fees and select the mode of payment.
+     * Make Payment for selected courses.
+     * Student is provided with an option to pay the fees and select the mode of payment.
      *
      * @param studentId
      */
-    private void make_payment(int studentId) {
+    private void make_payment(int studentId)
+    {
 
         StringUtils.printHeading("Payment Portal");
-        double fee = 0.0;
-        try {
-            fee = registrationInterface.calculateFee(studentId);
-        } catch (SQLException e) {
+        double fee =0.0;
+        try
+        {
+            fee=registrationInterface.calculateFee(studentId);
+        }
+        catch (SQLException e)
+        {
 
             StringUtils.printErrorMessage(e.getMessage());
         }
 
-        if (fee == 0.0) {
+        if(fee == 0.0)
+        {
             StringUtils.printErrorMessage("You have not  registered for any courses yet");
-        } else {
+        }
+        else
+        {
 
             System.out.println("Your total fee  = " + fee);
             System.out.println("Want to continue Fee Payment(y/n)");
             String ch = sc.next();
-            if (ch.equals("y")) {
+            if(ch.equals("y"))
+            {
                 System.out.println("Select Mode of Payment:");
 
                 int index = 1;
-                for (ModeOfPayment mode : ModeOfPayment.values()) {
+                for(ModeOfPayment mode : ModeOfPayment.values())
+                {
                     System.out.println(index + " " + mode);
                     index = index + 1;
                 }
 
                 ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
-
-                if (mode == null)
+                String temp = sc.nextLine();
+                if(mode == null)
                     StringUtils.printErrorMessage("Invalid Input");
-                else {
-                    try {
-                        notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
-                    } catch (Exception e) {
+                else
+                {
+                    System.out.println("Please Enter The 16 digit Card Number:");
+                    String cardNumber = sc.nextLine();
+
+                    System.out.println("Please Enter your CVV Number");
+                    String cvv = sc.nextLine();
+
+                    try
+                    {
+                        notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee, cardNumber, cvv);
+                    }
+                    catch (Exception e)
+                    {
 
                         StringUtils.printErrorMessage(e.getMessage());
                     }
@@ -413,5 +497,6 @@ public class StudentCRSMenu {
         }
 
     }
-
 }
+
+

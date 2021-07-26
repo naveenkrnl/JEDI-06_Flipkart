@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.exception;
 
 /**
@@ -15,7 +12,7 @@ public class UserNotFoundException extends Exception {
 	/***
 	 * Getter function for UserId
 	 * 
-	 * @param userId
+	 * @param userId: User Id of User
 	 */
 	public UserNotFoundException(String userId) {
 		this.userId = userId;

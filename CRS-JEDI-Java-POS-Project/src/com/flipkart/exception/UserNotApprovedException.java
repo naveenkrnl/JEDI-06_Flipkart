@@ -11,7 +11,7 @@ public class UserNotApprovedException extends Exception {
 	/**
 	 * Constructor
 	 * 
-	 * @param userId
+	 * @param userId: User Id of User
 	 */
 	public UserNotApprovedException(String userId) {
 		this.userId = userId;
@@ -20,7 +20,7 @@ public class UserNotApprovedException extends Exception {
 	/**
 	 * Getter for userId
 	 * 
-	 * @return
+	 * @return User Id for User
 	 */
 	public String getUserId() {
 		return userId;

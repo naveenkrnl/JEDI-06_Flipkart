@@ -5,16 +5,13 @@ package com.flipkart.exception;
 
 /**
  * Exception to check if course is already present in catalog
- *
- * 
  */
 public class CourseFoundException extends Exception {
 	private String courseCode;
 
 	/***
 	 * Constructor
-	 * 
-	 * @param courseCode
+	 * @param courseCode Course Code of Course
 	 */
 	public CourseFoundException(String courseCode) {
 		this.courseCode = courseCode;

@@ -14,7 +14,7 @@ public enum Gender {
 	/**
 	 * Parameterized Constructor
 	 *
-	 * @param gender
+	 * @param gender Gender Of The User
 	 */
 	private Gender(int gender) {
 		this.gender = gender;
@@ -34,7 +34,7 @@ public enum Gender {
 	/**
 	 * Method to get Gender object depending upon user input
 	 *
-	 * @param val
+	 * @param val : Name
 	 * @return Gender object
 	 */
 	public static Gender getName(int val) {
@@ -54,7 +54,7 @@ public enum Gender {
 	/**
 	 * Method to convert String to Gender object
 	 *
-	 * @param val
+	 * @param val Value
 	 * @return Gender object
 	 */
 	public static Gender stringToGender(String val) {

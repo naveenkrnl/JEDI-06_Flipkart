@@ -6,8 +6,6 @@ import com.flipkart.dao.UserDaoOperation;
 import com.flipkart.exception.UserNotFoundException;
 
 /**
- * 
- * 
  * Implementations of User Operations
  *
  */
@@ -23,7 +21,7 @@ public class UserOperation implements UserInterface {
 	/**
 	 * Method to make UserOperation Singleton
 	 * 
-	 * @return
+	 * @return UserOperation
 	 */
 	public static UserOperation getInstance() {
 		if (instance == null) {
@@ -38,8 +36,8 @@ public class UserOperation implements UserInterface {
 	/**
 	 * Method to update password of a user
 	 * 
-	 * @param userID
-	 * @param newPassword
+	 * @param userID ID Of the user
+	 * @param newPassword New password
 	 * @return boolean indicating if the password is updated successfully
 	 */
 	@Override
@@ -50,13 +48,12 @@ public class UserOperation implements UserInterface {
 	/**
 	 * Method to verify User credentials
 	 * 
-	 * @param userID
-	 * @param password
+	 * @param userID ID Of The User
+	 * @param password Password Of The User
 	 * @return boolean indicating if user exists in the database
 	 */
 	@Override
 	public boolean verifyCredentials(String userID, String password) throws UserNotFoundException {
-		// DAO class
 		try {
 			return userDaoInterface.verifyCredentials(userID, password);
 		} finally {
@@ -67,7 +64,7 @@ public class UserOperation implements UserInterface {
 	/**
 	 * Method to get role of a specific User
 	 * 
-	 * @param userId
+	 * @param userId ID Of The User
 	 * @return Role of the User
 	 */
 	@Override

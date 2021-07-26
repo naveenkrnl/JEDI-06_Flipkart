@@ -22,67 +22,67 @@ public interface RegistrationDaoInterface {
 	/**
 	 * Method to add course in database
 	 * 
-	 * @param courseCode
-	 * @param studentId
+	 * @param courseCode Course Code
+	 * @param studentId Student Id
 	 * @return boolean indicating if the course is added successfully
-	 * @throws SQLException
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public boolean addCourse(String courseCode, int studentId) throws SQLException;
 
 	/**
 	 * Drop Course selected by student
 	 * 
-	 * @param courseCode
-	 * @param studentId
+	 * @param courseCode Course Code
+	 * @param studentId Student Id
 	 * @return boolean indicating if the course is dropped successfully
-	 * @throws CourseNotFoundException
-	 * @throws SQLException
+	 * @throws CourseNotFoundException if course does not exists
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
-	public boolean dropCourse(String courseCode, int studentId) throws SQLException;
+	public boolean dropCourse(String courseCode, int studentId) throws SQLException, CourseNotFoundException;
 
 	/**
-	 * Method to get the list of courses available from course catalog
+	 * Method to get the list of courses available from course catalogue
 	 * 
-	 * @param studentId
-	 * @return list of Courses
-	 * @throws SQLException
+	 * @param studentId Student Id
+	 * @return list of Courses available in Course Catalogue
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public List<Course> viewCourses(int studentId) throws SQLException;
 
 	/**
 	 * Method to View list of Registered Courses
 	 * 
-	 * @param studentId
-	 * @return list of Registered Courses
-	 * @throws SQLException
+	 * @param studentId Student Id
+	 * @return list of Registered Courses of the student
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public List<Course> viewRegisteredCourses(int studentId) throws SQLException;
 
 	/**
 	 * Method to view grade card of the student
 	 * 
-	 * @param studentId
-	 * @return Grade Card
-	 * @throws SQLException
+	 * @param studentId Student Id
+	 * @return Grade Card of the student
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException;
 
 	/**
-	 * Method to retrieve fee for the selected courses from the database and
-	 * calculate total fee
+	 * Method to retrieve fees for the selected courses from the database and
+	 * calculate total fees
 	 * 
-	 * @param studentId
-	 * @return Fee Student has to pay
-	 * @throws SQLException
+	 * @param studentId Student Id
+	 * @return Fees Student has to pay
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public double calculateFee(int studentId) throws SQLException;
 
 	/**
 	 * Check if seat is available for that particular course
 	 * 
-	 * @param courseCode
-	 * @return seat availability status
-	 * @throws SQLException
+	 * @param courseCode Course Code
+	 * @return seat availability status of the given course
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public boolean seatAvailable(String courseCode) throws SQLException;
 
@@ -90,36 +90,36 @@ public interface RegistrationDaoInterface {
 	 * Method to get the list of courses registered by the student Number of
 	 * registered courses for a student
 	 * 
-	 * @param studentId
+	 * @param studentId Student Id
 	 * @return Number of registered Courses
-	 * @throws SQLException
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public int numOfRegisteredCourses(int studentId) throws SQLException;
 
 	/**
 	 * Method checks if the student is registered for that course
 	 * 
-	 * @param courseCode
-	 * @param studentId
-	 * @return Students registration status
-	 * @throws SQLException
+	 * @param courseCode Course Code
+	 * @param studentId Student Id
+	 * @return Student's registration status for the given course
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public boolean isRegistered(String courseCode, int studentId) throws SQLException;
 
 	/**
 	 * Method to get student registration status
 	 * 
-	 * @param studentId
-	 * @return Student's registration status
-	 * @throws SQLException
+	 * @param studentId Student Id
+	 * @return Student's registration status for the semester
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public boolean getRegistrationStatus(int studentId) throws SQLException;
 
 	/**
 	 * Method to set student registration status
 	 * 
-	 * @param studentId
-	 * @throws SQLException
+	 * @param studentId Student Id
+	 * @throws SQLException If a error occurs while accessing the database
 	 */
 	public void setRegistrationStatus(int studentId) throws SQLException;
 

@@ -15,7 +15,7 @@ public class StudentNotRegisteredException extends Exception {
 	/**
 	 * getter function for studentName
 	 * 
-	 * @return
+	 * @return Student Name
 	 */
 	public String getStudentName() {
 		return studentName;

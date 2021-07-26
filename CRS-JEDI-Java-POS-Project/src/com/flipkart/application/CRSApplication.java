@@ -86,10 +86,7 @@ public class CRSApplication {
      * Method for Login functionality
      */
     public void loginUser() {
-        //multiple exceptions are possible
-        //invalid credential exception
-        //user not found exception
-        //user not approved exception
+
         Scanner sc = new Scanner(System.in);
 
         String userId, password;
@@ -151,6 +148,9 @@ public class CRSApplication {
         }
     }
 
+    /**
+     * Method to Register Admin
+     */
     public void registerAdmin() {
         Scanner sc = new Scanner(System.in);
         StringUtils.printHeading("Enter root password");
@@ -220,7 +220,7 @@ public class CRSApplication {
             country = sc.next();
             gender = Gender.getName(genderV);
             int newStudentId = studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
-            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0);
+            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
 
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Something went wrong! not registered. Please try again" + ex.getMessage());

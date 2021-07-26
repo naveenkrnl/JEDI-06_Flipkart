@@ -13,26 +13,25 @@ public interface UserDaoInterface {
 	/**
 	 * Method to verify credentials of Users from DataBase
 	 * 
-	 * @param userId
-	 * @param password
-	 * @return Verify credentials operation status
-	 * @throws UserNotFoundException
+	 * @param userId User Id
+	 * @param password Password
+	 * @return Returns true is User Credentials are verified, else false
+	 * @throws UserNotFoundException If the given userid is not present in the database
 	 */
 	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException;
 
 	/**
 	 * Method to update password of user in DataBase
 	 * 
-	 * @param userID
-	 * @return Update Password operation Status
+	 * @param userID User Id
+	 * @return Returns true if User password is updated else returns false
 	 */
-	// TODO Duplicate Function. Please remove it if its not necessary
 	public boolean updatePassword(String userID);
 
 	/**
 	 * Method to get Role of User from DataBase
 	 * 
-	 * @param userId
+	 * @param userId User Id
 	 * @return Role
 	 */
 	public String getRole(String userId);
@@ -40,9 +39,9 @@ public interface UserDaoInterface {
 	/**
 	 * Method to update password of user in DataBase
 	 * 
-	 * @param userID
-	 * @param newPassword
-	 * @return Update Password operation Status
+	 * @param userID User Id
+	 * @param newPassword New password for the user
+	 * @return Returns true if User password is updated else returns false
 	 */
 	public boolean updatePassword(String userID, String newPassword);
 
