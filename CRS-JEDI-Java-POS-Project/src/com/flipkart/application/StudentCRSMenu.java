@@ -399,6 +399,13 @@ public class StudentCRSMenu {
                         studentGrade.getCourseName(), "NA", "NA"));
             }
         }
+        if(!graded.isEmpty())
+        {
+            StringUtils.printEndLine(false);
+            StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", "",
+                    "", "CGPA", total_score/(double)graded.size()));
+        }
+        StringUtils.printEndLine();
     }
 
     private static Map<String, Integer> gradeStrToScore;
