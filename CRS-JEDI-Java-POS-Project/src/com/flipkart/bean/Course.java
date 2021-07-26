@@ -45,7 +45,7 @@ public class Course {
 	/**
 	 * Method to set Course Code
 	 *
-	 * @param courseCode
+	 * @param courseCode Course code of Course
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
@@ -63,7 +63,7 @@ public class Course {
 	/**
 	 * Method to set Course Name
 	 *
-	 * @param courseName
+	 * @param courseName Course Name of Course
 	 */
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;

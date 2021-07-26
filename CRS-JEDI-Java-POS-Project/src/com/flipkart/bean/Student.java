@@ -111,6 +111,8 @@ public class Student extends User {
 
 	/**
 	 * Method to set approval status of student
+	 *
+	 * @param isApproved: If Student is approved
 	 */
 	public void setApproved(boolean isApproved) {
 		this.isApproved = isApproved;
