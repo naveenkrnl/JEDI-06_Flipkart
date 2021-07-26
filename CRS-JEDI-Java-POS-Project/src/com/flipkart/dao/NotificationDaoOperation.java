@@ -57,7 +57,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 	 * @throws SQLException
 	 */
 	@Override
-	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount)
+	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv)
 			throws SQLException {
 		int notificationId = 0;
 		Connection connection = DBUtils.getConnection();
@@ -68,13 +68,18 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, studentId);
 			ps.setString(2, type.toString());
+
 			if (type == NotificationType.PAYMENT) {
 				// insert into payment, get reference id and add here
 				UUID referenceId = addPayment(studentId, modeOfPayment, amount);
 				ps.setString(3, referenceId.toString());
+				ps.setString(4,cardNumber);
+				ps.setString(5,cvv);
 				logger.info("Payment successful, Transaction ID: " + referenceId);
 			} else
 				ps.setString(3, "");
+				ps.setString(4,"");
+				ps.setString(5,"");
 
 			ps.executeUpdate();
 			ResultSet results = ps.getGeneratedKeys();
