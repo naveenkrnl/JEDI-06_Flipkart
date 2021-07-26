@@ -220,7 +220,7 @@ public class CRSApplication {
             country = sc.next();
             gender = Gender.getName(genderV);
             int newStudentId = studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
-            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0);
+            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
 
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Something went wrong! not registered. Please try again" + ex.getMessage());

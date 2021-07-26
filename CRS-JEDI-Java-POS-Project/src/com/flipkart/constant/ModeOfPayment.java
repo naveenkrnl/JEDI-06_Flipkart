@@ -6,7 +6,7 @@ package com.flipkart.constant;
  */
 public enum ModeOfPayment {
 
-	CREDIT_CARD, NET_BANKING, DEBIT_CARD;
+	CREDIT_CARD, DEBIT_CARD;
 
 	/**
 	 * Method to get Mode of Payment
@@ -19,8 +19,6 @@ public enum ModeOfPayment {
 			case 1:
 				return ModeOfPayment.CREDIT_CARD;
 			case 2:
-				return ModeOfPayment.NET_BANKING;
-			case 3:
 				return ModeOfPayment.DEBIT_CARD;
 			default:
 				return null;

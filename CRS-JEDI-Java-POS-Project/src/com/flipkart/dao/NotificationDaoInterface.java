@@ -24,6 +24,6 @@ public interface NotificationDaoInterface {
 	 * @return notification id for the record added in the database
 	 * @throws SQLException
 	 */
-	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount)
+	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv)
 			throws SQLException;
 }

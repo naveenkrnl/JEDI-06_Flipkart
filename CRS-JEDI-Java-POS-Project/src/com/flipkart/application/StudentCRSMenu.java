@@ -455,14 +455,20 @@ public class StudentCRSMenu {
                 }
 
                 ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
-
+                String temp = sc.nextLine();
                 if(mode == null)
                     StringUtils.printErrorMessage("Invalid Input");
                 else
                 {
+                    System.out.println("Please Enter The 16 digit Card Number:");
+                    String cardNumber = sc.nextLine();
+
+                    System.out.println("Please Enter your CVV Number");
+                    String cvv = sc.nextLine();
+
                     try
                     {
-                        notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
+                        notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee, cardNumber, cvv);
                     }
                     catch (Exception e)
                     {

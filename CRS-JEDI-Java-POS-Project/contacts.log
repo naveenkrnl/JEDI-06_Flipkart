@@ -186,3 +186,9 @@
 09:59:51,048  INFO NotificationDaoOperation,main:89 - Student with id 5 has been approved!
 10:09:24,109 ERROR UserDaoOperation,main:148 - No operations allowed after connection closed.
 10:12:01,456 ERROR UserDaoOperation,main:148 - No operations allowed after connection closed.
+11:23:29,862  INFO NotificationDaoOperation,main:75 - Payment successful, Transaction ID: fc789856-c13b-40b2-9cff-b6130fd3a6bb
+11:23:29,867  INFO NotificationDaoOperation,main:92 - Student with id 2 fee has been paid
+11:25:19,308 ERROR NotificationOperation,main:58 - Error occured No value specified for parameter 5
+11:27:03,485 ERROR NotificationOperation,main:58 - Error occured No value specified for parameter 5
+11:30:54,915  INFO NotificationDaoOperation,main:77 - Payment successful, Transaction ID: ee3b2f7a-7adf-4346-b418-85fc3ace7f86
+11:30:54,920 ERROR NotificationOperation,main:58 - Error occured Parameter index out of range (4 > number of parameters, which is 3).

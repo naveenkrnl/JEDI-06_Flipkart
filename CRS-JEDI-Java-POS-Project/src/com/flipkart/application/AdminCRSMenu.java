@@ -215,7 +215,7 @@ public class AdminCRSMenu {
         try {
             adminOperation.approveStudent(studentUserIdApproval, studentList);
             //send notification from system
-            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0);
+            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
 
         } catch (StudentNotFoundForApprovalException e) {
             StringUtils.printErrorMessage(e.getMessage());
