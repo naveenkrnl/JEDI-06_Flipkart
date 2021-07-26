@@ -37,7 +37,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	public boolean createRegisteredCourseDBRecordAndUpdateObject(RegisteredCourse registeredCourse) {
 		Course course = adminDaoInterface.getCourseFromCourseId(registeredCourse.getCourseId());
 		if (course == null) {
-			// TODO : Throw Course Not Found
 			return false;
 		}
 
@@ -51,7 +50,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			int rowsAffected = preparedStatement.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
-				// TODO : Add exception Course Registration failed
 			}
 			RegisteredCourse registeredCourseFromDB = getRegisteredCourseFromStudentIdAndCourseId(
 					registeredCourse.getStudentUserId(), registeredCourse.getCourseId());
@@ -86,7 +84,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			if (!resultSet.next()) {
 				return null;
 				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 
 			// registeredCourseId, studentUserId, courseId, grade
@@ -128,7 +125,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			if (!resultSet.next()) {
 				return null;
 				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 
 			// registeredCourseId, studentUserId, courseId, grade
@@ -164,7 +160,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 		Course course = adminDaoInterface.getCourseFromCourseId(courseId);
 		if (course == null) {
 			return false;
-			// TODO : Throw course not found exception
 		}
 		RegisteredCourse registeredCourse = new RegisteredCourse();
 		registeredCourse.setCourseId(courseId);
@@ -185,7 +180,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			if (!resultSet.next()) {
 				return 0;
 				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			return resultSet.getInt(1);
 		} catch (SQLException sqlErr) {
@@ -214,7 +208,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			if (!resultSet.next()) {
 				return true;
 				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			return resultSet.getInt(1) < 10;
 		} catch (SQLException sqlErr) {
@@ -246,7 +239,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			if (!resultSet.next()) {
 				return false;
 				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			return resultSet.getInt(1) == 0;
 		} catch (SQLException sqlErr) {
@@ -277,7 +269,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			if (rowsAffected == 0) {
 				return false;
 				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			return true;
 		} catch (SQLException sqlErr) {
@@ -307,7 +298,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			if (!resultSet.next()) {
 				return 0;
 				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			return resultSet.getDouble(1);
 		} catch (SQLException sqlErr) {

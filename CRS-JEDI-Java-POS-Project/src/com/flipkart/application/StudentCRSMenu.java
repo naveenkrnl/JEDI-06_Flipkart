@@ -312,7 +312,6 @@ public class StudentCRSMenu {
         if (!graded.isEmpty()) {
             StringUtils.printTable("Graded Courses : ");
             for (RegisteredCourse RegisteredCourse : graded) {
-                // TODO : Replace with correct value after
                 Course course = AdminDaoOperation.getInstance().getCourseFromCourseId(RegisteredCourse.getCourseId());
                 StringUtils.printTable(
                         String.format("  %-20s %-20s %-20s %-20s", course.getCourseCode(), course.getCourseName(),

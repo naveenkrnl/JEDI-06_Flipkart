@@ -54,7 +54,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			if (rowsAffected == 0) {
 				userDaoInterface.deleteUserObjectFromUserId(professor.getUserId());
 				return false;
-				// TODO : Add exception professor Record Not created
 			}
 			return true;
 
@@ -83,8 +82,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
 				return null;
-				// @yaduraj
-				// TODO : Add exception User Record not found
 			}
 			// userId, department, designation
 			Professor professor = new Professor();

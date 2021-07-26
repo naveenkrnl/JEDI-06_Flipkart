@@ -44,8 +44,6 @@ public class UserDaoOperation implements UserDaoInterface {
 			int rowsAffected = preparedStatement.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
-				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			return true;
 		} catch (SQLException sqlErr) {
@@ -73,8 +71,6 @@ public class UserDaoOperation implements UserDaoInterface {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
 				return null;
-				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			// userId, name, email, password, role, gender, address, country, doj
 			// int userId = resultSet.getInt(1);
@@ -123,8 +119,6 @@ public class UserDaoOperation implements UserDaoInterface {
 			if (!resultSet.next()) {
 				// throw
 				return null;
-				// @yaduraj
-				// TODO : Add exception User Record not delete
 			}
 			// userId, name, email, password, role, gender, address, country, doj
 			int userId = resultSet.getInt(1);
@@ -179,8 +173,6 @@ public class UserDaoOperation implements UserDaoInterface {
 			int rowsAffected = preparedStatement.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
-				// @yaduraj
-				// TODO : Add exception User Record not created
 			}
 			User userFromDB = getUserFromEmail(user.getEmail());
 			assert userFromDB != null;

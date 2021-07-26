@@ -26,7 +26,6 @@ public class DBUtils {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;
         } catch (SQLException se) {
-            // TODO : Exception print with custom message
             se.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();

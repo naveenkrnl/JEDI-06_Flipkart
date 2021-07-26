@@ -49,7 +49,6 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			if (rowsAffected == 0) {
 				userDaoInterface.deleteUserObjectFromUserId(admin.getUserId());
 				return false;
-				// TODO : Add exception admin Record Not created
 			}
 			return true;
 		} catch (SQLException sqlErr) {
@@ -230,7 +229,6 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			int rowsAffected = preparedStatementCourse.executeUpdate();
 			if (rowsAffected == 0) {
 				return false;
-				// TODO : Add exception course Record Not created
 			}
 			Course courseFromDB = getCourseFromCourseCodeAndCatalogId(course.getCourseCode(),
 					course.getCourseCatalogId());
@@ -263,7 +261,6 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			ResultSet resultSet = preparedStatementCourse.executeQuery();
 			if (!resultSet.next()) {
 				return null;
-				// TODO : Add exception course Record Not found
 			}
 			// courseId, courseCode, courseName, professorUserId, courseCatalogId, courseFee
 
@@ -300,7 +297,6 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			ResultSet resultSet = preparedStatementCourse.executeQuery();
 			if (!resultSet.next()) {
 				return null;
-				// TODO : Add exception course Record Not found
 			}
 			// courseId, courseCode, courseName, professorUserId, courseCatalogId
 
