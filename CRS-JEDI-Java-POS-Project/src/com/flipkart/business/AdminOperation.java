@@ -29,6 +29,8 @@ public class AdminOperation implements AdminInterface {
 
 	/**
 	 * Method to make AdminOperation Singleton
+	 *
+	 * @return instance of AdminOperation
 	 */
 	public static AdminOperation getInstance() {
 		if (instance == null) {

@@ -19,6 +19,9 @@ public interface NotificationInterface {
 	 * @param type:          type of the notification to be sent
 	 * @param studentId:     student to be notified
 	 * @param modeOfPayment: payment mode used
+	 * @param amount: amount
+	 * @param cardNumber: card number
+	 * @param cvv: cvv
 	 * @return notification id for the record added in the database
 	 */
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv);
