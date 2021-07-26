@@ -58,8 +58,8 @@ public interface AdminDaoInterface {
 
 	/**
 	 * Add professor using SQL commands
-	 * 
-	 * @param professor Profess Object
+	 *
+	 * @param professor Professor Object
 	 * @throws ProfessorNotAddedException If professor is not Found
 	 * @throws UserIdAlreadyInUseException If ProfessId is Already in Use
 	 */

@@ -22,17 +22,16 @@ public interface ProfessorDaoInterface {
 
 	/**
 	 * Method to view list of enrolled Students using SQL Commands
-	 * 
-	 * @param profId:     professor id
+	 *
+	 * @param profId: professor id
 	 * @return return the enrolled students for the corresponding professor and
-	 *          course code.
 	 */
 	public List<EnrolledStudent> getEnrolledStudents(String profId);
 
 	/**
 	 * Method to Grade a student using SQL Commands
-	 * 
-	 * @param studentId:     professor id
+	 *
+	 * @param studentId: professor id
 	 * @param courseCode: course code for the corresponding
 	 * @return returns the status after adding the grade
 	 */

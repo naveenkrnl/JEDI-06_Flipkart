@@ -10,7 +10,7 @@ public class CourseAssignedException extends Exception {
 
     /***
      * Constructor
-     * @param courseCode
+     * @param courseCode Course Code of Course
      */
     public CourseAssignedException(String courseCode) {
         this.courseCode = courseCode;

@@ -3,7 +3,7 @@ package com.flipkart.exception;
 /**
  * Exception to check if course is already registered by student
  *
- * 
+ *
  */
 public class CourseAlreadyRegisteredException extends Exception {
 
@@ -12,7 +12,7 @@ public class CourseAlreadyRegisteredException extends Exception {
 	/**
 	 * Constructor
 	 * 
-	 * @param courseCode
+	 * @param courseCode: Course Code of Course
 	 */
 	public CourseAlreadyRegisteredException(String courseCode) {
 		this.courseCode = courseCode;
