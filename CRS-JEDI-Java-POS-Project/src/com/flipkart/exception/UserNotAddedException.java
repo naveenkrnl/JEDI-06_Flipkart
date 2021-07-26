@@ -15,7 +15,7 @@ public class UserNotAddedException extends Exception {
 	/**
 	 * Getter function for UserId
 	 * 
-	 * @return
+	 * @return User Id for User
 	 */
 	public String getUserId() {
 		return this.userId;

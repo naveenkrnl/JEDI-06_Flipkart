@@ -9,12 +9,19 @@ import com.flipkart.constant.Gender;
 import com.flipkart.exception.*;
 
 /**
- * 
- * 
+ *
+ *
  * Interface for Admin Operations
  * 
  */
 public interface AdminInterface {
+
+	/**
+	 * Method to demonstrate admin operation performed
+	 */
+	default public void demonstrate(){
+		System.out.println("Admin Operation performed");
+	}
 
 	/**
 	 * Method to add Admin Account

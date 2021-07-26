@@ -12,7 +12,7 @@ public class GradeNotAddedException extends Exception {
 	/**
 	 * Constructor
 	 * 
-	 * @param studentId
+	 * @param studentId: Student Id of Student
 	 */
 	public GradeNotAddedException(int studentId) {
 		this.studentId = studentId;
@@ -21,7 +21,7 @@ public class GradeNotAddedException extends Exception {
 	/**
 	 * Getter function for studentId
 	 * 
-	 * @return
+	 * @return Student ID
 	 */
 	public int getStudentId() {
 		return studentId;
