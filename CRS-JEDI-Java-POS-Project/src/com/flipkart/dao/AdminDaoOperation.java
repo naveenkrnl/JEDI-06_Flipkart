@@ -17,25 +17,14 @@ import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 
 
-/**
- * Dao Class Operations for Admin
- * 
- */
 public class AdminDaoOperation implements AdminDaoInterface{
 
 	private static volatile AdminDaoOperation instance = null;
 	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 	private PreparedStatement statement = null;
-	
-	/**
-	 * Default Constructor
-	 */
+
 	private AdminDaoOperation(){}
-	
-	/**
-	 * Method to make AdminDaoOperation Singleton
-	 * @return
-	 */
+
 	public static AdminDaoOperation getInstance()
 	{
 		if(instance == null)
@@ -49,13 +38,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	
 	Connection connection = DBUtils.getConnection();
 
-	/**
-	 * Method to add student to database
-	 *
-	 * @param admin: User object containing all the fields for admin
-	 * @return Admin id if admin account is created else 0
-	 * @throws AdminAccountNotCreatedException
-	 */
 	@Override
 	public int addAdmin(User admin) throws AdminAccountNotCreatedException {
 		Connection connection = DBUtils.getConnection();
@@ -89,12 +71,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		return adminId;
 	}
 
-	/**
-	 * Delete Course using SQL commands
-	 * @param courseCode
-	 * @throws CourseNotFoundException
-	 * @throws CourseNotDeletedException 
-	 */
 	@Override
 	public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException{
 		
@@ -122,11 +98,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	/**
-	 * Add Course using SQL commands
-	 * @param course
-	 * @throws CourseFoundException
-	 */
 	@Override
 	public void addCourse(Course course) throws CourseFoundException{
 		
@@ -159,10 +130,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	/**
-	 * Fetch Students yet to approved using SQL commands
-	 * @return List of Students yet to approved
-	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
 		
@@ -201,11 +168,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	/**
-	 * Approve Student using SQL commands
-	 * @param studentId
-	 * @throws StudentNotFoundForApprovalException
-	 */
 	@Override
 	public void approveStudent(int studentId) throws StudentNotFoundForApprovalException {
 		
@@ -233,12 +195,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	/**
-	 * Method to add user using SQL commands
-	 * @param user
-	 * @throws UserNotAddedException
-	 * @throws UserIdAlreadyInUseException 
-	 */
 	@Override
 	public void addUser(User user) throws UserNotAddedException, UserIdAlreadyInUseException{
 		
@@ -274,12 +230,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	/**
-	 * Add professor using SQL commands
-	 * @param professor
-	 * @throws UserIdAlreadyInUseException 
-	 * @throws ProfessorNotAddedException 
-	 */
 	@Override
 	public void addProfessor(Professor professor) throws UserIdAlreadyInUseException, ProfessorNotAddedException {
 		
@@ -328,13 +278,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 	
-	/**
-	 * Assign courses to Professor using SQL commands
-	 * @param courseCode
-	 * @param professorId
-	 * @throws CourseNotFoundException
-	 * @throws UserNotFoundException 
-	 */
 	@Override
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException{
 		
@@ -364,11 +307,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 	
-	/**
-	 * View courses in the catalog
-	 * @param catalogId
-	 * @return List of courses in the catalog
-	 */
 	public List<Course> viewCourses(int catalogId) {
 		
 		statement = null;
@@ -402,10 +340,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 	
-	/**
-	 * View professor in the institute
-	 * @return List of the professors in the institute  
-	 */
 	@Override
 	public List<Professor> viewProfessors() {
 		

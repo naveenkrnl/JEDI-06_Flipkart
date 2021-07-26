@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.dao;
 
 import java.util.List;
@@ -23,24 +20,24 @@ public interface AdminDaoInterface {
 	 *
 	 * @param admin: User object containing all the fields for admin
 	 * @return Admin id if admin account is created else 0
-	 * @throws AdminAccountNotCreatedException
+	 * @throws AdminAccountNotCreatedException If Admin Account can not be created
 	 */
 	public int addAdmin(User admin) throws AdminAccountNotCreatedException;
 
 	/**
 	 * Delete Course using SQL commands
 	 * 
-	 * @param courseCode
-	 * @throws CourseNotFoundException
-	 * @throws CourseNotDeletedException
+	 * @param courseCode Course Code
+	 * @throws CourseNotFoundException If course is Not Found
+	 * @throws CourseNotDeletedException If Course is Not Deleted
 	 */
 	public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException;
 
 	/**
 	 * Add Course using SQL commands
 	 * 
-	 * @param course
-	 * @throws CourseFoundException
+	 * @param course Course Object
+	 * @throws CourseFoundException Course Is not Found
 	 */
 	public void addCourse(Course course) throws CourseFoundException;
 
@@ -54,37 +51,36 @@ public interface AdminDaoInterface {
 	/**
 	 * Approve Student using SQL commands
 	 * 
-	 * @param studentId
-	 * @throws StudentNotFoundForApprovalException
+	 * @param studentId Student Id
+	 * @throws StudentNotFoundForApprovalException If student is not found for approval
 	 */
 	public void approveStudent(int studentId) throws StudentNotFoundForApprovalException;
 
 	/**
 	 * Add professor using SQL commands
 	 * 
-	 * @param professor
-	 * @throws ProfessorNotAddedException
-	 * @throws UserIdAlreadyInUseException
-	 * @throws UserNotAddedException
+	 * @param professor Profess Object
+	 * @throws ProfessorNotAddedException If professor is not Found
+	 * @throws UserIdAlreadyInUseException If ProfessId is Already in Use
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 
 	/**
 	 * Method to add user using SQL commands
 	 * 
-	 * @param user
-	 * @throws UserNotAddedException
-	 * @throws UserIdAlreadyInUseException
+	 * @param user User Object
+	 * @throws UserNotAddedException If User is not added
+	 * @throws UserIdAlreadyInUseException If user Id is Already in Use
 	 */
 	public void addUser(User user) throws UserNotAddedException, UserIdAlreadyInUseException;
 
 	/**
 	 * Assign courses to Professor using SQL commands
 	 * 
-	 * @param courseCode
-	 * @param professorId
-	 * @throws CourseNotFoundException
-	 * @throws UserNotFoundException
+	 * @param courseCode Course Code
+	 * @param professorId Professor Id
+	 * @throws CourseNotFoundException If course is not Found
+	 * @throws UserNotFoundException If user is not Found
 	 */
 	public void assignCourse(String courseCode, String professorId)
 			throws CourseNotFoundException, UserNotFoundException;
@@ -92,7 +88,7 @@ public interface AdminDaoInterface {
 	/**
 	 * View courses in the catalog
 	 * 
-	 * @param catalogId
+	 * @param catalogId Catalog Id
 	 * @return List of courses in the catalog
 	 */
 	public List<Course> viewCourses(int catalogId);

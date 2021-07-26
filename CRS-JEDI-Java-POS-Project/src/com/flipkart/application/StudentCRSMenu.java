@@ -6,6 +6,7 @@ package com.flipkart.application;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
@@ -352,29 +353,36 @@ public class StudentCRSMenu {
     private void viewGradeCard(int studentId) {
 
         StringUtils.printHeading("GRADE CARD");
-        List<StudentGrade> grade_card = null;
+        List<StudentGrade> gradeCard = null;
         try {
-            grade_card = registrationInterface.viewGradeCard(studentId);
+            gradeCard = registrationInterface.viewGradeCard(studentId);
         } catch (SQLException e) {
 
             StringUtils.printErrorMessage(e.getMessage());
         }
 
-        if (grade_card.isEmpty()) {
+        if (gradeCard.isEmpty()) {
             StringUtils.printErrorMessage("You haven't registered for any course");
             return;
         }
 
         StringUtils
                 .printTable(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
-        List<StudentGrade> graded = new ArrayList<>();
-        List<StudentGrade> unGraded = new ArrayList<>();
-        for (StudentGrade studentGrade : grade_card) {
-            if (studentGrade.getGrade() == null)
-                unGraded.add(studentGrade);
-            else
-                graded.add(studentGrade);
-        }
+
+        //JAVA 8 Feature
+        //Before
+//        List<StudentGrade> graded = new ArrayList<>();
+//        List<StudentGrade> unGraded = new ArrayList<>();
+//        for (StudentGrade studentGrade : gradeCard) {
+//            if (studentGrade.getGrade() == null)
+//                unGraded.add(studentGrade);
+//            else
+//                graded.add(studentGrade);
+//        }
+        //After
+        List<StudentGrade> graded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() != null; }).collect(Collectors.toList());
+        List<StudentGrade> unGraded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() == null; }).collect(Collectors.toList());
+
         double total_score = 0;
         if (!graded.isEmpty()) {
             StringUtils.printTable("Graded Courses : ");
