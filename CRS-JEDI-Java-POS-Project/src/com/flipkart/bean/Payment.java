@@ -25,7 +25,7 @@ public class Payment {
     /**
      * Method set Reference Id
      *
-     * @param referenceId
+     * @param referenceId refernence id of transaction
      */
     public void setReferenceId(String referenceId) {
         this.referenceId = referenceId;
@@ -43,7 +43,7 @@ public class Payment {
     /**
      * Method to set amount
      *
-     * @param amount
+     * @param amount Amount of payment
      */
     public void setAmount(String amount) {
         this.amount = amount;
@@ -61,7 +61,7 @@ public class Payment {
     /**
      * Method to set date of payment
      *
-     * @param dateOfPayment
+     * @param dateOfPayment Date of payment
      */
     public void setDateOfPayment(String dateOfPayment) {
         this.dateOfPayment = dateOfPayment;
@@ -79,7 +79,7 @@ public class Payment {
     /**
      * Method to set mode of payment
      *
-     * @param modeOfPayment
+     * @param modeOfPayment mode of payment
      */
     public void setModeOfPayment(String modeOfPayment) {
         this.modeOfPayment = modeOfPayment;
@@ -97,7 +97,7 @@ public class Payment {
     /**
      * Method to set student Id
 
-     * @param studentId
+     * @param studentId Student Id of student
      */
     public void setStudentId(int studentId) {
         this.studentId = studentId;

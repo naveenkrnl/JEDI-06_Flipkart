@@ -368,9 +368,9 @@ public class StudentCRSMenu {
 
         StringUtils
                 .printTable(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
-
-        //JAVA 8 Feature
-        //Before
+//
+//        JAVA 8 Feature
+//        Before
 //        List<StudentGrade> graded = new ArrayList<>();
 //        List<StudentGrade> unGraded = new ArrayList<>();
 //        for (StudentGrade studentGrade : gradeCard) {
@@ -379,7 +379,8 @@ public class StudentCRSMenu {
 //            else
 //                graded.add(studentGrade);
 //        }
-        //After
+//
+//      After -
         List<StudentGrade> graded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() != null; }).collect(Collectors.toList());
         List<StudentGrade> unGraded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() == null; }).collect(Collectors.toList());
 
@@ -394,10 +395,8 @@ public class StudentCRSMenu {
         }
         if (!unGraded.isEmpty()) {
             StringUtils.printTable("Grade Awaited : ");
-            for (StudentGrade studentGrade : unGraded) {
-                StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
-                        studentGrade.getCourseName(), "NA", "NA"));
-            }
+            unGraded.forEach(studentGrade -> StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
+                    studentGrade.getCourseName(), "NA", "NA")));
         }
         if(!graded.isEmpty())
         {
