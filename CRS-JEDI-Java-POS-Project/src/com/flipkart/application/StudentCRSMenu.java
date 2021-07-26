@@ -455,7 +455,7 @@ public class StudentCRSMenu {
                 }
 
                 ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
-
+                String temp = sc.nextLine();
                 if(mode == null)
                     StringUtils.printErrorMessage("Invalid Input");
                 else

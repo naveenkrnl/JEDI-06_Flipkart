@@ -71,15 +71,12 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 
 			if (type == NotificationType.PAYMENT) {
 				// insert into payment, get reference id and add here
-				UUID referenceId = addPayment(studentId, modeOfPayment, amount);
+				UUID referenceId = addPayment(studentId, modeOfPayment, amount,cardNumber,cvv);
 				ps.setString(3, referenceId.toString());
-				ps.setString(4,cardNumber);
-				ps.setString(5,cvv);
+
 				logger.info("Payment successful, Transaction ID: " + referenceId);
 			} else
 				ps.setString(3, "");
-				ps.setString(4,"");
-				ps.setString(5,"");
 
 			ps.executeUpdate();
 			ResultSet results = ps.getGeneratedKeys();
@@ -112,7 +109,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 	 * @return: reference id of the transaction
 	 * @throws SQLException
 	 */
-	public UUID addPayment(int studentId, ModeOfPayment modeOfPayment, double amount) throws SQLException {
+	public UUID addPayment(int studentId, ModeOfPayment modeOfPayment, double amount, String CardNumber, String cvv) throws SQLException {
 		UUID referenceId;
 		Connection connection = DBUtils.getConnection();
 		try {
@@ -124,6 +121,8 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 			statement.setString(2, modeOfPayment.toString());
 			statement.setString(3, referenceId.toString());
 			statement.setDouble(4, amount);
+			statement.setString(5,CardNumber);
+			statement.setString(6,cvv);
 			statement.executeUpdate();
 			// check if record is added
 		} catch (SQLException ex) {
