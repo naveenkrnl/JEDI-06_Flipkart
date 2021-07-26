@@ -395,6 +395,7 @@ public class StudentCRSMenu {
         }
         if (!unGraded.isEmpty()) {
             StringUtils.printTable("Grade Awaited : ");
+            // JAVA 8 Feature ForEach
             unGraded.forEach(studentGrade -> StringUtils.printTable(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
                     studentGrade.getCourseName(), "NA", "NA")));
         }
