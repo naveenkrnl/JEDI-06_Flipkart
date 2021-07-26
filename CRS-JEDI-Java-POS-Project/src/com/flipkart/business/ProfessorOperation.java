@@ -3,7 +3,6 @@ package com.flipkart.business;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.dao.ProfessorDaoInterface;
@@ -28,7 +27,7 @@ public class ProfessorOperation implements ProfessorInterface {
 	/**
 	 * Method to make ProfessorOperation Singleton
 	 * 
-	 * @return
+	 * @return ProfessorOperation Instance
 	 */
 	public static ProfessorOperation getInstance() {
 		if (instance == null) {
@@ -43,11 +42,10 @@ public class ProfessorOperation implements ProfessorInterface {
 	/**
 	 * Method to grade a Student
 	 * 
-	 * @param studentId
-	 * @param courseCode
-	 * @param grade
+	 * @param studentId Student ID
+	 * @param courseCode Course Code
+	 * @param grade Grade
 	 * @return boolean indicating if grade is added or not
-	 * @throws GradeNotAddedException
 	 */
 	@Override
 	public boolean addGrade(int studentId, String courseCode, String grade) throws GradeNotAddedException {
@@ -84,8 +82,6 @@ public class ProfessorOperation implements ProfessorInterface {
 	 */
 	@Override
 	public List<Course> getCourses(String profId) {
-		// call the DAO class
-		// get the courses for the professor
 		List<Course> coursesOffered = new ArrayList<Course>();
 		try {
 			coursesOffered = professorDAOInterface.getCoursesByProfessor(profId);
@@ -98,7 +94,7 @@ public class ProfessorOperation implements ProfessorInterface {
 	/**
 	 * Method to get the professor name with ID
 	 * 
-	 * @param profId
+	 * @param profId Professor ID
 	 * @return Professor name
 	 */
 	@Override

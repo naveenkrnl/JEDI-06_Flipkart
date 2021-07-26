@@ -18,11 +18,10 @@ public interface ProfessorInterface {
 	/**
 	 * Method to grade a Student
 	 * 
-	 * @param studentId
-	 * @param courseCode
-	 * @param grade
+	 * @param studentId Student ID
+	 * @param courseCode Course Code
+	 * @param grade Grade
 	 * @return boolean indicating if grade is added or not
-	 * @throws GradeNotAddedException
 	 */
 	public boolean addGrade(int studentId, String courseCode, String grade) throws GradeNotAddedException;
 
@@ -45,7 +44,7 @@ public interface ProfessorInterface {
 	/**
 	 * Method to get the professor name with ID
 	 * 
-	 * @param profId
+	 * @param profId Professor ID
 	 * @return Professor name
 	 */
 	public String getProfessorById(String profId);

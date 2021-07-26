@@ -28,7 +28,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to make Registration Operation Singleton
 	 * 
-	 * @return
+	 * @return RegistrationOperation Instance
 	 */
 	public static RegistrationOperation getInstance() {
 		if (instance == null) {
@@ -44,14 +44,10 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to add Course selected by student
 	 * 
-	 * @param courseCode
-	 * @param studentId
+	 * @param courseCode Course Code
+	 * @param studentId Student ID
 	 * @param availableCourseList List Of Available Courses
 	 * @return boolean indicating if the course is added successfully
-	 * @throws CourseNotFoundException
-	 * @throws SeatNotAvailableException
-	 * @throws CourseLimitExceedException
-	 * @throws SQLException
 	 */
 	@Override
 	public boolean addCourse(String courseCode, int studentId, List<Course> availableCourseList)
@@ -74,12 +70,10 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to drop Course selected by student
 	 * 
-	 * @param courseCode
-	 * @param studentId
-	 * @param registeredCourseList
+	 * @param courseCode Course Code
+	 * @param studentId Student ID
+	 * @param registeredCourseList List Of Registered Courses
 	 * @return boolean indicating if the course is dropped successfully
-	 * @throws CourseNotFoundException
-	 * @throws SQLException
 	 */
 	@Override
 	public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList)
@@ -96,9 +90,8 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * Method for Fee Calculation for selected courses Fee calculation for selected
 	 * courses
 	 * 
-	 * @param studentId
+	 * @param studentId Student ID
 	 * @return Fee Student has to pay
-	 * @throws SQLException
 	 */
 	@Override
 	public double calculateFee(int studentId) throws SQLException {
@@ -108,9 +101,8 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to view grade card for students
 	 * 
-	 * @param studentId
+	 * @param studentId Student ID
 	 * @return List of Student's Grades
-	 * @throws SQLException
 	 */
 	@Override
 	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException {
@@ -120,9 +112,8 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to view the list of available courses
 	 * 
-	 * @param studentId
+	 * @param studentId Student ID
 	 * @return List of courses
-	 * @throws SQLException
 	 */
 	@Override
 	public List<Course> viewCourses(int studentId) throws SQLException {
@@ -132,9 +123,8 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to view the list of courses registered by the student
 	 * 
-	 * @param studentId
+	 * @param studentId Student ID
 	 * @return List of courses
-	 * @throws SQLException
 	 */
 	@Override
 	public List<Course> viewRegisteredCourses(int studentId) throws SQLException {
@@ -144,9 +134,8 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to check student registration status
 	 * 
-	 * @param studentId
+	 * @param studentId Student ID
 	 * @return boolean indicating if the student's registration status
-	 * @throws SQLException
 	 */
 	@Override
 	public boolean getRegistrationStatus(int studentId) throws SQLException {
@@ -156,8 +145,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to set student registration status
 	 * 
-	 * @param studentId
-	 * @throws SQLException
+	 * @param studentId Student ID
 	 */
 	@Override
 	public void setRegistrationStatus(int studentId) throws SQLException {

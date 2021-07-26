@@ -28,7 +28,7 @@ public class NotificationOperation implements NotificationInterface {
 	/**
 	 * Method to make NotificationDaoOperation Singleton
 	 * 
-	 * @return
+	 * @return NotificationOperation Instance
 	 */
 	public static NotificationOperation getInstance() {
 		if (instance == null) {
@@ -56,7 +56,7 @@ public class NotificationOperation implements NotificationInterface {
 			notificationId = notificationDaoInterface.sendNotification(type, studentId, modeOfPayment, amount, cardNumber, cvv);
 
 		} catch (SQLException ex) {
-			logger.error("Error occured " + ex.getMessage());
+			logger.error("Error occurred " + ex.getMessage());
 		}
 		return notificationId;
 	}
