@@ -19,7 +19,7 @@ public class UserNotApprovedException extends Exception {
 
 	/**
 	 * Getter for userId
-	 * 
+	 *
 	 * @return User Id for User
 	 */
 	public String getUserId() {

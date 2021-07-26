@@ -10,7 +10,6 @@ import com.flipkart.exception.*;
 
 /**
  *
- *
  * Interface for Admin Operations
  * 
  */
@@ -77,7 +76,7 @@ public interface AdminInterface {
 	 * Method to add Professor to DB
 	 * 
 	 * @param professor : Professor Object storing details of a professor
-	 * @throws ProfessorNotAddedException If profesor is not found
+	 * @throws ProfessorNotAddedException If professor is not found
 	 * @throws UserIdAlreadyInUseException If user id is already in use
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
@@ -113,6 +112,7 @@ public interface AdminInterface {
 	 *
 	 * @param NewDetails
 	 * @return boolean
+	 * @throws UserDetailsNotUpdatedException If the user details are not updated
 	 */
 	public void updateProfessor(Professor NewDetails) throws UserDetailsNotUpdatedException;
 
@@ -121,6 +121,7 @@ public interface AdminInterface {
 	 *
 	 * @param NewDetails
 	 * @return boolean
+	 * @throws UserDetailsNotUpdatedException If the user details are not updated
 	 */
 	public void updateStudent(Student NewDetails) throws UserDetailsNotUpdatedException;
 }

@@ -5,8 +5,7 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserNotFoundException;
 
 /**
- * 
- * 
+ *
  * Interface for User Operations
  *
  */

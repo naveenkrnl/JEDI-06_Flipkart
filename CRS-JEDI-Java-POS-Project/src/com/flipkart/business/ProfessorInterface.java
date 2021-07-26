@@ -9,8 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * 
- * 
+ *
  * Interface for Professor Operations
  * 
  */

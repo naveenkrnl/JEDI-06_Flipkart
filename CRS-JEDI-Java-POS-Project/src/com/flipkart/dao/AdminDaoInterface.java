@@ -103,16 +103,14 @@ public interface AdminDaoInterface {
 	/**
 	 * Update records of Professor
 	 *
-	 * @param NewDetails
-	 * @return boolean
+	 * @param NewDetails Professor object containing the new professor details
 	 */
 	public void updateProfessor(Professor NewDetails) throws UserDetailsNotUpdatedException;
 
 	/**
 	 * Update records of Student
 	 *
-	 * @param NewDetails
-	 * @return boolean
+	 * @param NewDetails Student object containing the new student details
 	 */
 	public void updateStudent(Student NewDetails) throws UserDetailsNotUpdatedException;
 

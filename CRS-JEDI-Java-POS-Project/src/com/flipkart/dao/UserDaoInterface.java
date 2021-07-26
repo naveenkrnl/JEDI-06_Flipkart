@@ -47,7 +47,9 @@ public interface UserDaoInterface {
 
 	/**
 	 * Method to check if a user exists
-	 * @param userID
+	 *
+	 * @param userID User Id
+	 * @param role Role of the user
 	 * @return boolean indicating if user exists in the database
 	 */
 	public boolean checkExistence(String userID, String role);

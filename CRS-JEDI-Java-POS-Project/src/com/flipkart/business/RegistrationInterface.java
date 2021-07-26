@@ -10,8 +10,7 @@ import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
 
 /**
- * 
- * 
+ *
  * Interface for Registration Operation
  * 
  */
@@ -26,7 +25,7 @@ public interface RegistrationInterface {
 	 * @throws CourseNotFoundException If course is not Found
 	 * @throws CourseLimitExceedException If course limit is not found
 	 * @throws SeatNotAvailableException If seat is not available
-	 * @throws SQLException If SQL is not found
+	 * @throws SQLException If an error occurs while accessing the database
 	 * @return boolean indicating if the course is added successfully
 	 */
 	public boolean addCourse(String courseCode, int studentId, List<Course> courseList)

@@ -44,16 +44,32 @@
 15:18:52,407  INFO AdminDaoOperation,main:145 - 1 course added
 15:18:52,408  INFO AdminDaoOperation,main:151 - Course with courseCode: 1234 is added to catalog.
 15:19:43,710  INFO NotificationDaoOperation,main:86 - Registration successfull. Administration will verify the details and approve it!
-17:02:27,551  INFO AdminDaoOperation,main:192 - 2 students have pending-approval.
-17:02:34,513  INFO AdminDaoOperation,main:220 - 1 student approved.
-17:02:34,545  INFO NotificationDaoOperation,main:89 - Student with id 2 has been approved!
-19:11:21,736 ERROR AdminDaoOperation,main:490 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from user natural join Professor where userId = 'q'' at line 1
-19:41:32,947  INFO AdminDaoOperation,main:192 - 1 students have pending-approval.
-19:51:02,157 ERROR AdminDaoOperation,main:550 - Illegal operation on empty result set.
-19:54:10,776 ERROR AdminDaoOperation,main:550 - Before start of result set
-20:02:34,456 ERROR AdminDaoOperation,main:497 - Before start of result set
-20:04:31,643 ERROR AdminDaoOperation,main:497 - Before start of result set
-20:05:39,173 ERROR AdminDaoOperation,main:500 - Before start of result set
-20:09:00,750 ERROR AdminDaoOperation,main:497 - Before start of result set
-23:24:45,632 ERROR AdminDaoOperation,main:551 - Before start of result set
-23:28:18,889 ERROR AdminDaoOperation,main:553 - Before start of result set
+16:15:38,785  INFO AdminDaoOperation,main:159 - 1 students have pending-approval.
+17:23:49,199  INFO AdminDaoOperation,main:331 - 3 courses in catalogId: 1.
+17:23:56,671  INFO AdminDaoOperation,main:331 - 3 courses in catalogId: 1.
+17:24:05,136  INFO AdminDaoOperation,main:116 - 1 course added
+17:24:05,136  INFO AdminDaoOperation,main:122 - Course with courseCode: 2018 is added to catalog.
+17:24:15,676  INFO AdminDaoOperation,main:331 - 4 courses in catalogId: 1.
+17:24:23,611  INFO AdminDaoOperation,main:85 - 1 entries deleted.
+17:24:23,612  INFO AdminDaoOperation,main:91 - Course with courseCode: 6 deleted.
+17:24:28,722  INFO AdminDaoOperation,main:331 - 3 courses in catalogId: 1.
+17:25:24,432  INFO AdminDaoOperation,main:159 - 1 students have pending-approval.
+17:25:28,564  INFO AdminDaoOperation,main:182 - 1 student approved.
+17:25:28,601  INFO NotificationDaoOperation,main:67 - Student with id 3 has been approved!
+17:25:36,764  INFO AdminDaoOperation,main:159 - 0 students have pending-approval.
+17:26:04,867  INFO AdminDaoOperation,main:216 - 1 user added.
+17:26:04,868  INFO AdminDaoOperation,main:222 - User with userId: gmail added.
+17:26:04,875  INFO AdminDaoOperation,main:264 - 1 professor added.
+17:26:04,875  INFO AdminDaoOperation,main:270 - Professor with professorId: gmail added.
+17:26:14,724  INFO AdminDaoOperation,main:370 - 5 professors in the institute.
+17:26:14,726  INFO AdminDaoOperation,main:331 - 3 courses in catalogId: 1.
+17:26:37,600  INFO AdminDaoOperation,main:293 - 1 course assigned.
+17:26:37,600  INFO AdminDaoOperation,main:299 - Course with courseCode: 2018 is assigned to professor with professorId: gmail.
+17:26:46,639  INFO AdminDaoOperation,main:331 - 3 courses in catalogId: 1.
+17:28:42,167  INFO AdminDaoOperation,main:370 - 5 professors in the institute.
+17:28:42,171  INFO AdminDaoOperation,main:331 - 3 courses in catalogId: 1.
+17:31:15,216  INFO AdminDaoOperation,main:293 - 1 course assigned.
+17:31:15,216  INFO AdminDaoOperation,main:299 - Course with courseCode: 123 is assigned to professor with professorId: q.
+17:36:48,347 ERROR NotificationOperation,main:41 - Error occurred Unknown column 'cardNumber' in 'field list'
+17:37:30,911 ERROR NotificationOperation,main:41 - Error occurred Unknown column 'cardNumber' in 'field list'
+17:38:13,366  INFO NotificationDaoOperation,main:64 - Registration successfull. Administration will verify the details and approve it!

@@ -10,11 +10,6 @@ import com.flipkart.constant.NotificationType;
 import com.flipkart.dao.NotificationDaoInterface;
 import com.flipkart.dao.NotificationDaoOperation;
 
-/**
- * 
- * 
- * This method implements all the method related to the notification system
- */
 public class NotificationOperation implements NotificationInterface {
 
 	private static volatile NotificationOperation instance = null;
@@ -25,11 +20,6 @@ public class NotificationOperation implements NotificationInterface {
 
 	}
 
-	/**
-	 * Method to make NotificationDaoOperation Singleton
-	 * 
-	 * @return NotificationOperation Instance
-	 */
 	public static NotificationOperation getInstance() {
 		if (instance == null) {
 			// This is a synchronized block, when multiple threads will access this instance
@@ -40,14 +30,6 @@ public class NotificationOperation implements NotificationInterface {
 		return instance;
 	}
 
-	/**
-	 * Method to send notification
-	 * 
-	 * @param type:          type of the notification to be sent
-	 * @param studentId:     student to be notified
-	 * @param modeOfPayment: payment mode used
-	 * @return notification id for the record added in the database
-	 */
 	@Override
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv) {
 		int notificationId = 0;
@@ -61,12 +43,6 @@ public class NotificationOperation implements NotificationInterface {
 		return notificationId;
 	}
 
-	/**
-	 * Method to return UUID for a transaction
-	 * 
-	 * @param notificationId: notification id added in the database
-	 * @return transaction id of the payment
-	 */
 	@Override
 	public UUID getReferenceId(int notificationId) {
 		// TODO Auto-generated method stub

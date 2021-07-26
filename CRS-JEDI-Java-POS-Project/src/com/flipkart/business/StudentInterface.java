@@ -6,8 +6,7 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import java.sql.SQLException;
 
 /**
- * 
- * 
+ *
  * Interface for Student Operations
  *
  */

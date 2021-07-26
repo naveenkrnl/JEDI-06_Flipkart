@@ -12,12 +12,6 @@ import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.validator.AdminValidator;
 
-/**
- * 
- * 
- * Implementations of Admin Operations
- * 
- */
 public class AdminOperation implements AdminInterface {
 
 	private static Logger logger = Logger.getLogger(AdminOperation.class);
@@ -27,11 +21,6 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * Method to make AdminOperation Singleton
-	 *
-	 * @return instance of AdminOperation
-	 */
 	public static AdminOperation getInstance() {
 		if (instance == null) {
 			synchronized (AdminOperation.class) {
@@ -42,17 +31,7 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
-	/**
-	 * Method to add Administrative Account
-	 *
-	 * @param name Name
-	 * @param userID User ID
-	 * @param password Password
-	 * @param gender Gender
-	 * @param address Address
-	 * @param country Country
-	 * @return Admin ID
-	 */
+
 	@Override
 	public int register(String name, String userID, String password, Gender gender, String address,
 						String country) throws AdminAccountNotCreatedException{
@@ -67,12 +46,6 @@ public class AdminOperation implements AdminInterface {
 		return adminId;
 	}
 
-	/**
-	 * Method to Delete Course from Course Catalog
-	 * 
-	 * @param dropCourseCode Course Code which is to be dropped
-	 * @param courseList : Courses available in the catalog
-	 */
 	@Override
 	public void deleteCourse(String dropCourseCode, List<Course> courseList)
 			throws CourseNotFoundException, CourseNotDeletedException {
@@ -90,12 +63,6 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * Method to add Course to Course Catalog
-	 * 
-	 * @param newCourse : Course object storing details of a course
-	 * @param courseList : Courses available in catalog
-	 */
 	@Override
 	public void addCourse(Course newCourse, List<Course> courseList) throws CourseFoundException {
 
@@ -112,22 +79,11 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * Method to view Students yet to be approved by Admin
-	 * 
-	 * @return List of Students with pending admissions
-	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
 		return adminDaoOperation.viewPendingAdmissions();
 	}
 
-	/**
-	 * Method to approve a Student
-	 * 
-	 * @param studentId Student ID
-	 * @param studentList List Of Students
-	 */
 	@Override
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
 
@@ -143,11 +99,6 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * Method to add Professor to DB
-	 * 
-	 * @param professor : Professor Object storing details of a professor
-	 */
 	@Override
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
 
@@ -159,12 +110,6 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * Method to assign Course to a Professor
-	 * 
-	 * @param courseCode Course Code
-	 * @param professorId Professor ID
-	 */
 	@Override
 	public void assignCourse(String courseCode, String professorId)
 			throws CourseNotFoundException, UserNotFoundException {
@@ -177,12 +122,6 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * Method to get list of courses in catalog
-	 * 
-	 * @param catalogId Catalog ID
-	 * @return List of courses in catalog
-	 */
 	@Override
 	public List<Course> viewCourses(int catalogId) {
 
@@ -190,11 +129,6 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * View professor in the institute
-	 * 
-	 * @return List of the professors in the institute
-	 */
 	@Override
 	public List<Professor> viewProfessors() {
 
@@ -202,24 +136,12 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	/**
-	 * Update records of Professor
-	 *
-	 * @param NewDetails
-	 * @return boolean
-	 */
 	@Override
 	public void updateProfessor(Professor NewDetails) throws UserDetailsNotUpdatedException {
 
 		adminDaoOperation.updateProfessor(NewDetails);
 	}
 
-	/**
-	 * Update records of Student
-	 *
-	 * @param NewDetails
-	 * @return boolean
-	 */
 	@Override
 	public void updateStudent(Student NewDetails) throws UserDetailsNotUpdatedException {
 

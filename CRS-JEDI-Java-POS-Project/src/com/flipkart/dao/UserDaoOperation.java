@@ -112,12 +112,7 @@ public class UserDaoOperation implements UserDaoInterface {
 		}
 		return null;
 	}
-	/**
-	 * Method to check if a user exists
-	 *
-	 * @param userID
-	 * @return boolean indicating if user exists in the database
-	 */
+
 	@Override
 	public boolean checkExistence(String userID, String role){
 		Connection connection = DBUtils.getConnection();
