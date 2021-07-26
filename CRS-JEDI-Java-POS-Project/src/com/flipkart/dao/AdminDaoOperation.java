@@ -382,13 +382,8 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			statement1.executeUpdate();
 
 			statement2.setInt(1, courseId);
-			int row = statement2.executeUpdate();
-			// System.err.println(row + " entries deleted.");
-			if (row == 0) {
-				// System.err.println(courseCode + " not in catalog!");
-				return false;
-			}
-			return true;
+			int rowsAffected = statement2.executeUpdate();
+			return rowsAffected != 0;
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
 

@@ -26,11 +26,11 @@ public enum Gender {
 	}
 
 	public static Gender stringToGender(String val) {
-		Gender gender = Gender.OTHER;
+		Gender genderObj = Gender.OTHER;
 		if (val.equalsIgnoreCase("male"))
-			gender = Gender.MALE;
+			genderObj = Gender.MALE;
 		else if (val.equalsIgnoreCase("female"))
-			gender = Gender.FEMALE;
-		return gender;
+			genderObj = Gender.FEMALE;
+		return genderObj;
 	}
 }

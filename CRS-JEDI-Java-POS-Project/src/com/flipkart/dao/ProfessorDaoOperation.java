@@ -207,10 +207,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			preparedStatementProfessor.setInt(2, courseId);
 			preparedStatementProfessor.setInt(3, studentUserId);
 			int rowsAffected = preparedStatementProfessor.executeUpdate();
-			if (rowsAffected == 0) {
-				return false;
-			}
-			return true;
+			return rowsAffected != 0;
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
 

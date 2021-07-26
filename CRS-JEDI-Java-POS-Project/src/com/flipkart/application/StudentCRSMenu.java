@@ -30,7 +30,7 @@ public class StudentCRSMenu {
      * and fee payment
      *
      */
-    public static void create_menu(Student student) {
+    public static void createMenu(Student student) {
         System.out.println(student);
         int studentUserId = student.getUserId();
         while (CRSApplication.isLoggedIn) {
@@ -308,7 +308,7 @@ public class StudentCRSMenu {
             else
                 graded.add(RegisteredCourse);
         }
-        double total_score = 0;
+        double totalScore = 0;
         if (!graded.isEmpty()) {
             StringUtils.printTable("Graded Courses : ");
             for (RegisteredCourse RegisteredCourse : graded) {
@@ -316,7 +316,7 @@ public class StudentCRSMenu {
                 StringUtils.printTable(
                         String.format("  %-20s %-20s %-20s %-20s", course.getCourseCode(), course.getCourseName(),
                                 RegisteredCourse.getGrade(), getScore(RegisteredCourse.getGrade().toString())));
-                total_score += getScore(RegisteredCourse.getGrade().toString());
+                totalScore += getScore(RegisteredCourse.getGrade().toString());
             }
         }
         if (!unGraded.isEmpty()) {
@@ -330,7 +330,7 @@ public class StudentCRSMenu {
         if (!graded.isEmpty()) {
             StringUtils.printEndLine(false);
             StringUtils.printTable(
-                    String.format("  %-20s %-20s %-20s %-20s", "", "", "CGPA", total_score / (double) graded.size()));
+                    String.format("  %-20s %-20s %-20s %-20s", "", "", "CGPA", totalScore / (double) graded.size()));
         }
         StringUtils.printEndLine();
     }

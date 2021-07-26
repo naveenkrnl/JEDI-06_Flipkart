@@ -42,10 +42,7 @@ public class UserDaoOperation implements UserDaoInterface {
 
 			preparedStatement.setInt(1, userId);
 			int rowsAffected = preparedStatement.executeUpdate();
-			if (rowsAffected == 0) {
-				return false;
-			}
-			return true;
+			return rowsAffected != 0;
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
 
@@ -203,10 +200,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			statement.setString(1, CryptoUtils.generateDatabasePassword(newPassword));
 			statement.setString(2, email);
 			int row = statement.executeUpdate();
-			if (row == 1)
-				return true;
-			else
-				return false;
+			return row == 1;
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
 

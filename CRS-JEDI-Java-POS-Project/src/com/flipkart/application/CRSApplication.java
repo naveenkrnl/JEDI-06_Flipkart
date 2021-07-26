@@ -122,7 +122,7 @@ public class CRSApplication {
                         Student student = studentInterface.getStudentFromEmail(email);
                         if (student.isApproved()) {
                             StringUtils.printSuccessMessage(formattedDate + " Login Successful for Student");
-                            StudentCRSMenu.create_menu(student);
+                            StudentCRSMenu.createMenu(student);
                         } else {
                             StringUtils.printErrorMessage(
                                     "Failed to login, you have not been approved by the administration!");
