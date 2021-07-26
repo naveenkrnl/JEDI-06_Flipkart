@@ -192,3 +192,5 @@
 11:27:03,485 ERROR NotificationOperation,main:58 - Error occured No value specified for parameter 5
 11:30:54,915  INFO NotificationDaoOperation,main:77 - Payment successful, Transaction ID: ee3b2f7a-7adf-4346-b418-85fc3ace7f86
 11:30:54,920 ERROR NotificationOperation,main:58 - Error occured Parameter index out of range (4 > number of parameters, which is 3).
+14:30:29,126  INFO NotificationDaoOperation,main:53 - Payment successful, Transaction ID: 98960916-79ce-42ec-bba0-15b3409f4510
+14:30:29,135  INFO NotificationDaoOperation,main:70 - Student with id 2 fee has been paid

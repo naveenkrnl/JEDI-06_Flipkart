@@ -24,18 +24,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	private static volatile ProfessorDaoOperation instance = null;
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
-	/**
-	 * Default Constructor
-	 */
+
 	private ProfessorDaoOperation() {
 
 	}
 
-	/**
-	 * Method to make ProfessorDaoOperation Singleton
-	 * 
-	 * @return
-	 */
+
 	public static ProfessorDaoOperation getInstance() {
 		if (instance == null) {
 			// This is a synchronized block, when multiple threads will access this instance
@@ -46,12 +40,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return instance;
 	}
 
-	/**
-	 * Method to get Courses by Professor Id using SQL Commands
-	 * 
-	 * @param profId, prof id of the professor
-	 * @return get the courses offered by the professor.
-	 */
+
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
 		Connection connection = DBUtils.getConnection();
@@ -80,13 +69,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	}
 
-	/**
-	 * Method to view list of enrolled Students using SQL Commands
-	 * 
-	 * @param profId: professor id
-	 * @return: return the enrolled students for the corresponding professor and
-	 *          course code.
-	 */
+
 	@Override
 	public List<EnrolledStudent> getEnrolledStudents(String profId) {
 		Connection connection = DBUtils.getConnection();
@@ -114,14 +97,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return enrolledStudents;
 	}
 
-	/**
-	 * Method to Grade a student using SQL Commands
-	 * 
-	 * @param studentId:     student id
-	 * @param courseCode: course code for the corresponding
-	 * @param grade : grade to be given
-	 * @return: returns the status after adding the grade
-	 */
+
 	public Boolean addGrade(int studentId, String courseCode, String grade) {
 		Connection connection = DBUtils.getConnection();
 		try {
@@ -150,12 +126,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return false;
 	}
 
-	/**
-	 * Method to Get professor name by id
-	 * 
-	 * @param profId : professor id
-	 * @return Professor Id in string
-	 */
+
 	@Override
 	public String getProfessorById(String profId) {
 		String prof_Name = null;
