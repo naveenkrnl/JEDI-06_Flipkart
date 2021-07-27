@@ -6,6 +6,10 @@ import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
+import com.flipkart.exception.CourseLimitExceedException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.SeatNotAvailableException;
+import com.flipkart.exception.UserNotFoundException;
 
 import java.util.List;
 
@@ -32,53 +36,55 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public boolean registerStudentToCourse(int courseId, int studentUserId) {
+	public boolean registerStudentToCourse(int courseId, int studentUserId) throws UserNotFoundException,
+			CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException {
 		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
-			System.err.println("User Not found");
+			throw new UserNotFoundException(studentUserId);
 		}
-		if (adminDaoInterface.getCourseFromCourseId(courseId) == null) {
-			System.err.println("course not found");
+		Course course = adminDaoInterface.getCourseFromCourseId(courseId);
+		if (course == null) {
+			throw new CourseNotFoundException(Integer.toString(courseId));
 		}
 		if (registrationDaoOperation.numOfRegisteredCourses(studentUserId) >= 6) {
-			System.err.println("course limit already reached");
+			throw new CourseLimitExceedException(6);
 		}
 		if (!registrationDaoOperation.seatAvailable(courseId)) {
-			System.err.println("course limit reached");
+			throw new SeatNotAvailableException(course.getCourseCode());
 		}
 		return registrationDaoOperation.registerStudentToCourse(courseId, studentUserId);
 	}
 
 	@Override
-	public boolean dropCourse(int courseId, int studentUserId) {
+	public boolean dropCourse(int courseId, int studentUserId) throws UserNotFoundException, CourseNotFoundException {
 		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
-			System.err.println("User Not found");
+			throw new UserNotFoundException(studentUserId);
 		}
 		if (adminDaoInterface.getCourseFromCourseId(courseId) == null) {
-			System.err.println("course not found");
+			throw new CourseNotFoundException(Integer.toString(courseId));
 		}
 		return registrationDaoOperation.dropCourseFromCourseIdAndStudentId(courseId, studentUserId);
 	}
 
 	@Override
-	public List<Course> viewRegisteredCourses(int studentUserId) {
+	public List<Course> viewRegisteredCourses(int studentUserId) throws UserNotFoundException {
 		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
-			System.err.println("User Not found");
+			throw new UserNotFoundException(studentUserId);
 		}
 		return registrationDaoOperation.viewRegisteredCoursesForStudent(studentUserId);
 	}
 
 	@Override
-	public List<Course> viewAvailableCoursesToStudent(int studentUserId) {
+	public List<Course> viewAvailableCoursesToStudent(int studentUserId) throws UserNotFoundException {
 		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
-			System.err.println("User Not found");
+			throw new UserNotFoundException(studentUserId);
 		}
 		return registrationDaoOperation.viewAvailableCoursesToStudent(studentUserId);
 	}
 
 	@Override
-	public GradeCard getGradeCardFromStudentUserId(int studentUserId) {
+	public GradeCard getGradeCardFromStudentUserId(int studentUserId) throws UserNotFoundException {
 		if (studentInterface.getStudentFromStudentUserId(studentUserId) == null) {
-			System.err.println("User Not found");
+			throw new UserNotFoundException(studentUserId);
 		}
 		return registrationDaoOperation.getGradeCardFromStudentUserId(studentUserId);
 	}

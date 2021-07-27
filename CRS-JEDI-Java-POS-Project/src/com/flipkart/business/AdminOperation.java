@@ -5,6 +5,9 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.*;
+import com.flipkart.exception.CourseAlreadyRegisteredException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
 
 import java.util.List;
 
@@ -23,10 +26,10 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public Admin getAdminFromUserId(int userId) {
+	public Admin getAdminFromUserId(int userId) throws UserNotFoundException {
 		Admin admin = adminDaoOperation.getAdminFromUserId(userId);
 		if (admin == null) {
-			// throw User not found
+			throw new UserNotFoundException(Integer.toString(userId));
 		}
 		return admin;
 	}
@@ -37,10 +40,10 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public boolean addCourse(Course course) {
+	public boolean addCourse(Course course) throws CourseAlreadyRegisteredException {
 		if (adminDaoOperation.getCourseFromCourseCodeAndCatalogId(course.getCourseCode(),
 				course.getCourseCatalogId()) != null) {
-			// throw CourseFoundException
+			throw new CourseAlreadyRegisteredException(course.getCourseCode());
 		}
 		return adminDaoOperation.addCourse(course);
 	}
@@ -61,9 +64,9 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public boolean addProfessor(Professor professor) {
+	public boolean addProfessor(Professor professor) throws UserIdAlreadyInUseException {
 		if (userDaoOperation.getUserFromUserId(professor.getUserId()) != null) {
-			// throw UserIdInUse;
+			throw new UserIdAlreadyInUseException(professor.getEmail());
 		}
 		return professorDaoOperation.createDBRecordAndUpdateObject(professor);
 	}

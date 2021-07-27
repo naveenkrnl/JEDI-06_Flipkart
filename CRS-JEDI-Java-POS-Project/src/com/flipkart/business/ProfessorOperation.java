@@ -6,6 +6,7 @@ import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.constant.Grade;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
+import com.flipkart.exception.UserNotFoundException;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class ProfessorOperation implements ProfessorInterface {
 	}
 
 	@Override
-	public Professor getProfessorFromEmail(String email) {
+	public Professor getProfessorFromEmail(String email) throws UserNotFoundException {
 		Professor professor = professorDaoInterface.getProfessorFromEmail(email);
 		if (professor == null) {
-			// throw Prof not found
+			throw new UserNotFoundException(email);
 		}
 		return professor;
 	}

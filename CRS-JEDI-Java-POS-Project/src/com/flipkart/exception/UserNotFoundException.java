@@ -7,13 +7,18 @@ package com.flipkart.exception;
  */
 public class UserNotFoundException extends Exception {
 
-	private final String userId;
+	private String email = "";
+	private int userId = 0;
 
 	/***
 	 * Getter function for UserId
 	 *
 	 */
-	public UserNotFoundException(String userId) {
+	public UserNotFoundException(String email) {
+		this.email = email;
+	}
+
+	public UserNotFoundException(int userId) {
 		this.userId = userId;
 	}
 
@@ -22,7 +27,10 @@ public class UserNotFoundException extends Exception {
 	 */
 	@Override
 	public String getMessage() {
-		return "User with userId: " + userId + " not found.";
+		if (email != null && !email.isEmpty())
+			return "User with email: " + email + " not found.";
+		else
+			return "User with userId: " + userId + " not found.";
 	}
 
 }
