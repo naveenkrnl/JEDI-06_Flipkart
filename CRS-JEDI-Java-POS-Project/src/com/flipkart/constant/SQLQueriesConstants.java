@@ -153,7 +153,7 @@ public class SQLQueriesConstants {
      * 
      * id int NOT NULL AUTO_INCREMENT,
      * 
-     * studentId int NOT NULL,
+     * studentUserId int NOT NULL,
      * 
      * referenceId varchar(255) NOT NULL,
      * 
@@ -161,15 +161,30 @@ public class SQLQueriesConstants {
      * 
      * dateOfPayment DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL ,
      * 
-     * modeOfPayment ENUM('CREDIT_CARD', 'NET_BANKING','DEBIT_CARD') NOT NULL ,
+     * modeOfPayment ENUM('CREDIT_CARD','NET_BANKING','DEBIT_CARD') NOT NULL ,
      * 
-     * PRIMARY KEY (id), FOREIGN KEY (studentId) REFERENCES student(userId)
+     * PRIMARY KEY (id), FOREIGN KEY (studentUserId) REFERENCES student(userId)
      * 
      * );
      * 
      * 
      * 
-     * CREATE TABLE Course ( courseId int NOT NULL AUTO_INCREMENT,
+     * CREATE TABLE Notification (
+     * 
+     * id int NOT NULL AUTO_INCREMENT,
+     * 
+     * paymentId int, message varchar(255),
+     * 
+     * timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL , PRIMARY KEY (id),
+     * 
+     * FOREIGN KEY (paymentId) REFERENCES Payment (id)
+     * 
+     * );
+     * 
+     * 
+     * CREATE TABLE Course (
+     * 
+     * courseId int NOT NULL AUTO_INCREMENT,
      * 
      * courseCode varchar(255) NOT NULL,
      * 
@@ -191,8 +206,9 @@ public class SQLQueriesConstants {
      * 
      * 
      * 
-     * CREATE TABLE RegisteredCourse( registeredCourseId int NOT NULL
-     * AUTO_INCREMENT,
+     * CREATE TABLE RegisteredCourse(
+     * 
+     * registeredCourseId int NOT NULL AUTO_INCREMENT,
      * 
      * studentUserId int NOT NULL,
      * 
