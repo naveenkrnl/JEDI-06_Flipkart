@@ -266,11 +266,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			preparedStatement.setInt(1, courseId);
 			preparedStatement.setInt(2, studentUserId);
 			int rowsAffected = preparedStatement.executeUpdate();
-			if (rowsAffected == 0) {
-				return false;
-				// @yaduraj
-			}
-			return true;
+			return rowsAffected != 0;
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));
 

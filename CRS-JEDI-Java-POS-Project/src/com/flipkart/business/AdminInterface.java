@@ -12,11 +12,11 @@ import java.util.List;
 
 public interface AdminInterface {
 
-	public Admin getAdminFromUserId(int userId) throws UserNotFoundException;
+	Admin getAdminFromUserId(int userId) throws UserNotFoundException;
 
 	List<Course> viewCourses(int courseCatalogId);
 
-	public boolean addCourse(Course course) throws CourseAlreadyRegisteredException;
+	boolean addCourse(Course course) throws CourseAlreadyRegisteredException;
 
 	boolean deleteCourse(int courseId);
 
@@ -25,7 +25,7 @@ public interface AdminInterface {
 	boolean approveStudent(int userId);
 
 	@SuppressWarnings("UnusedReturnValue")
-	public boolean addProfessor(Professor professor) throws UserIdAlreadyInUseException;
+    boolean addProfessor(Professor professor) throws UserIdAlreadyInUseException;
 
 	List<Professor> viewProfessorList();
 

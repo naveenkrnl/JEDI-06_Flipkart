@@ -9,7 +9,7 @@ import com.flipkart.exception.UserNotFoundException;
 import java.util.List;
 
 public interface ProfessorInterface {
-	public Professor getProfessorFromEmail(String email) throws UserNotFoundException;
+	Professor getProfessorFromEmail(String email) throws UserNotFoundException;
 
 	boolean addGrade(int studentUserId, int courseId, Grade grade);
 

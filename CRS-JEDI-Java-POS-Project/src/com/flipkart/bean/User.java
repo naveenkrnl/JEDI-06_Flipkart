@@ -136,9 +136,7 @@ public class User {
 			return false;
 		if (gender == null)
 			return false;
-		if (role == null)
-			return false;
-		return true;
-	}
+        return role != null;
+    }
 
 }

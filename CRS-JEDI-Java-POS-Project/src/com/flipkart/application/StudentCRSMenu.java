@@ -397,7 +397,7 @@ public class StudentCRSMenu {
                 payment.setCardNumber(cardNmber);
                 payment.setCvv(cvv);
                 payment.setExpiry(expiry);
-                payment.setReferenceId(CryptoUtils.encodeBase64(CryptoUtils.getRandomSalt().toString()));
+                payment.setReferenceId(CryptoUtils.encodeBase64(CryptoUtils.getRandomSalt()));
                 Notification notification = new Notification();
                 notification.setMessage("Payment for Rs" + fee + " Completed Successfully");
                 notificationInterface.createPaymentNotification(payment, notification);

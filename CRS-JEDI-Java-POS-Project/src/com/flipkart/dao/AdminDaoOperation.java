@@ -334,13 +334,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			statement.setInt(2, courseId);
 			int row = statement.executeUpdate();
 
-			if (row == 0) {
-				return false;
-			}
+			return row != 0;
 
 			// + " is assigned to professor with professorUserId: " + professorUserId +
 			// ".");
-			return true;
 
 		} catch (SQLException sqlErr) {
 			logger.error(String.format("Error in Executing Query %s%n%s%n", queryToExecute, sqlErr.getMessage()));

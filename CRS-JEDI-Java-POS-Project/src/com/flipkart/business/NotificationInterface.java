@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface NotificationInterface {
 
-    public boolean createPaymentNotification(Payment payment, Notification notification);
+    boolean createPaymentNotification(Payment payment, Notification notification);
 }

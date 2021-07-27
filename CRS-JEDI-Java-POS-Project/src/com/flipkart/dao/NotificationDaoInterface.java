@@ -17,7 +17,7 @@ import com.flipkart.bean.Payment;
  */
 public interface NotificationDaoInterface {
 
-	public boolean createPaymentDBRow(Payment payment);
+	boolean createPaymentDBRow(Payment payment);
 
-	public boolean createPaymentNotification(Payment payment, Notification notification);
+	boolean createPaymentNotification(Payment payment, Notification notification);
 }
