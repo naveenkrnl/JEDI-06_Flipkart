@@ -33,8 +33,8 @@ public class StudentCRSMenu {
         int studentUserId = student.getUserId();
         while (CRSApplication.isLoggedIn) {
             StringUtils.printMenu("Student Access Menu",
-                    new String[]{"Course Registration", "Add Course", "Drop Course", "View Available Courses",
-                            "View Registered Courses", "View grade card", "Make Payment", "Logout"},
+                    new String[] { "Course Registration", "Add Course", "Drop Course", "View Available Courses",
+                            "View Registered Courses", "View grade card", "Make Payment", "Logout" },
                     100);
 
             StringUtils.printPrompt();
@@ -124,8 +124,6 @@ public class StudentCRSMenu {
                     System.err.println(" Registration Failed for Course : " + courseCode);
                 }
             } catch (Exception e) {
-                // CourseNotFoundException | CourseLimitExceedException |
-                // SeatNotAvailableException| SQLException
                 StringUtils.printErrorMessage(e.getMessage());
             }
         }
@@ -169,8 +167,6 @@ public class StudentCRSMenu {
                 StringUtils.printErrorMessage(" Registration for Course : " + courseCode + " failed");
             }
         } catch (Exception e) {
-            // CourseNotFoundException | CourseLimitExceedException |
-            // SeatNotAvailableException | SQLException
             StringUtils.printErrorMessage(e.getMessage());
         }
     }
@@ -206,14 +202,8 @@ public class StudentCRSMenu {
                 StringUtils.printErrorMessage("You have not registered for course : " + courseCode);
 
         } catch (Exception e) {
-            // CourseNotFoundException
-            // StringUtils.printErrorMessage("You have not registered for course : " +
-            // e.getCourseCode());
+            StringUtils.printErrorMessage(e.getMessage());
         }
-        // catch (Exception e) {
-        // // SQLException
-        // StringUtils.printErrorMessage(e.getMessage());
-        // }
     }
 
     private static List<Course> viewCourse(int studentUserId) {
@@ -222,7 +212,6 @@ public class StudentCRSMenu {
         try {
             coursesAvailable = registrationInterface.viewAvailableCoursesToStudent(studentUserId);
         } catch (Exception e) {
-            // SQLException
             StringUtils.printErrorMessage(e.getMessage());
         }
 
@@ -280,7 +269,6 @@ public class StudentCRSMenu {
         try {
             gradeCard = registrationInterface.getGradeCardFromStudentUserId(studentUserId);
         } catch (Exception e) {
-            // SQLException
             StringUtils.printErrorMessage(e.getMessage());
         }
 

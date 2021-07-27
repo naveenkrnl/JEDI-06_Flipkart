@@ -1,14 +1,10 @@
 package com.flipkart.application;
 
-import com.flipkart.bean.Notification;
-import com.flipkart.bean.Payment;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.business.*;
 import com.flipkart.constant.Gender;
-import com.flipkart.constant.ModeOfPayment;
-import com.flipkart.dao.NotificationDaoOperation;
 import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.utils.StringUtils;
 

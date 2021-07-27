@@ -2,8 +2,6 @@ package com.flipkart.bean;
 
 import java.time.LocalDateTime;
 
-import com.flipkart.constant.NotificationType;
-
 public class Notification {
 
 	private int id;
