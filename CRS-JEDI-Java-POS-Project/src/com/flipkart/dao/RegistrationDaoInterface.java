@@ -12,27 +12,27 @@ import java.util.List;
  */
 public interface RegistrationDaoInterface {
 
-	boolean createRegisteredCourseDBRecordAndUpdateObject(RegisteredCourse registeredCourse);
+	public boolean createRegisteredCourseDBRecordAndUpdateObject(RegisteredCourse registeredCourse);
 
-	RegisteredCourse getRegisteredCourseFromStudentIdAndCourseId(int studentUserId, int courseId);
+	public RegisteredCourse getRegisteredCourseFromStudentIdAndCourseId(int studentUserId, int courseId);
 
-	RegisteredCourse getRegisteredCourseFromRegisteredCourseId(int registeredCourseId);
+	public RegisteredCourse getRegisteredCourseFromRegisteredCourseId(int registeredCourseId);
 
-	boolean registerStudentToCourse(int courseId, int studentUserId);
+	public boolean registerStudentToCourse(int courseId, int studentUserId);
 
-	int numOfRegisteredCourses(int studentUserId);
+	public int numOfRegisteredCourses(int studentUserId);
 
-	boolean seatAvailable(int courseId);
+	public boolean seatAvailable(int courseId);
 
-	boolean isStudentAlreadyRegisteredToCourseId(int courseId, int studentUserId);
+	public boolean isStudentAlreadyRegisteredToCourseId(int courseId, int studentUserId);
 
-	boolean dropCourseFromCourseIdAndStudentId(int courseId, int studentUserId);
+	public boolean dropCourseFromCourseIdAndStudentId(int courseId, int studentUserId);
 
-	double calculateFeeFromStudentUserId(int studentUserId);
+	public GradeCard getGradeCardFromStudentUserId(int studentUserId);
 
-	GradeCard getGradeCardFromStudentUserId(int studentUserId);
+	public List<Course> viewAvailableCoursesToStudent(int studentUserId);
 
-	List<Course> viewAvailableCoursesToStudent(int studentUserId);
+	public List<Course> viewRegisteredCoursesForStudent(int studentUserId);
 
-	List<Course> viewRegisteredCoursesForStudent(int studentUserId);
+	public double calculateFeeFromStudentUserId(int studentUserId);
 }

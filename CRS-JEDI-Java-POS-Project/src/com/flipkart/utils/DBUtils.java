@@ -5,29 +5,39 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class DBUtils {
-    private DBUtils() {
+    static Properties prop = new Properties();
+    static InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
+    static String DB_URL;
+    static String USER;
+    static String PASS;
 
+    private DBUtils() {
     }
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/CRS";
-    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    static {
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DB_URL = prop.getProperty("url");
+        USER = prop.getProperty("user");
+        PASS = prop.getProperty("password");
+    }
 
-    // Database credentials
-    static final String USER = "root";
-    static final String PASS = "root";
+    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            // Class.forName(JDBC_DRIVER);
+
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            return connection;
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return connection;

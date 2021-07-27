@@ -4,15 +4,16 @@ import com.flipkart.bean.*;
 import com.flipkart.business.*;
 import com.flipkart.constant.Color;
 import com.flipkart.constant.Grade;
+import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.utils.CryptoUtils;
 import com.flipkart.utils.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- *
  * The class displays the menu for student client
- *
  */
 public class StudentCRSMenu {
     private StudentCRSMenu() {
@@ -22,21 +23,19 @@ public class StudentCRSMenu {
     static final Scanner scanner = new Scanner(System.in);
     static final RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
     static final ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-    static NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    static StudentInterface studentInterface = StudentOperation.getInstance();
+    static final NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
     /**
      * Method to generate Student Menu for course registration, addition, removal
      * and fee payment
-     *
      */
     public static void createMenu(Student student) {
         System.out.println(student);
         int studentUserId = student.getUserId();
         while (CRSApplication.isLoggedIn) {
             StringUtils.printMenu("Student Access Menu",
-                    new String[] { "Course Registration", "Add Course", "Drop Course", "View Available Courses",
-                            "View Registered Courses", "View grade card", "Make Payment", "Logout" },
+                    new String[]{"Course Registration", "Add Course", "Drop Course", "View Available Courses",
+                            "View Registered Courses", "View grade card", "Make Payment", "Logout"},
                     100);
 
             StringUtils.printPrompt();
@@ -69,7 +68,7 @@ public class StudentCRSMenu {
                     break;
 
                 case 7:
-                    make_payment(studentUserId);
+                    makePayment(studentUserId);
                     break;
 
                 case 8:
@@ -85,7 +84,6 @@ public class StudentCRSMenu {
 
     /**
      * Select course for registration
-     *
      */
     private static void registerCourses(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
@@ -137,7 +135,6 @@ public class StudentCRSMenu {
 
     /**
      * Add course for registration
-     *
      */
     private static void addCourse(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
@@ -181,7 +178,6 @@ public class StudentCRSMenu {
 
     /**
      * Drop Course
-     *
      */
     private static void dropCourse(int studentUserId) {
         int count = registrationInterface.numOfRegisteredCourses(studentUserId);
@@ -241,7 +237,6 @@ public class StudentCRSMenu {
 
     /**
      * View Registered Courses
-     *
      */
     private static void viewCourseList(List<Course> courses) {
         StringUtils.printTable(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
@@ -278,7 +273,6 @@ public class StudentCRSMenu {
 
     /**
      * View grade card for particular student
-     *
      */
     private static void viewGradeCard(int studentUserId) {
 
@@ -300,14 +294,15 @@ public class StudentCRSMenu {
         StringUtils
                 .printTable(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
         List<RegisteredCourse> registeredCourses = gradeCard.getRegisteredCourses();
-        List<RegisteredCourse> graded = new ArrayList<>();
-        List<RegisteredCourse> unGraded = new ArrayList<>();
-        for (RegisteredCourse RegisteredCourse : registeredCourses) {
-            if (RegisteredCourse.getGrade() == null || RegisteredCourse.getGrade() == Grade.NA)
-                unGraded.add(RegisteredCourse);
-            else
-                graded.add(RegisteredCourse);
-        }
+
+        List<RegisteredCourse> graded = registeredCourses.stream().filter((RegisteredCourse registeredCourse) -> {
+            return registeredCourse.getGrade() != null && registeredCourse.getGrade() != Grade.NA;
+        }).collect(Collectors.toList());
+
+        List<RegisteredCourse> unGraded = registeredCourses.stream().filter((RegisteredCourse registeredCourse) -> {
+            return registeredCourse.getGrade() == null || registeredCourse.getGrade() == Grade.NA;
+        }).collect(Collectors.toList());
+
         double totalScore = 0;
         if (!graded.isEmpty()) {
             StringUtils.printTable("Graded Courses : ");
@@ -358,52 +353,57 @@ public class StudentCRSMenu {
     /**
      * Make Payment for selected courses. Student is provided with an option to pay
      * the fees and select the mode of payment.
-     *
      */
-    private static void make_payment(int studentUserId) {
-        System.out.println(studentUserId);
-        // StringUtils.printHeading("Payment Portal");
-        // double fee = 0.0;
-        // try {
-        // fee = registrationInterface.calculateFee(studentUserId);
-        // } catch (Exception e) {
-        // // SQLException
-        // StringUtils.printErrorMessage(e.getMessage());
-        // }
+    private static void makePayment(int studentUserId) {
+        StringUtils.printHeading("Payment Portal");
+        double fee = 0.0;
+        try {
+            fee = registrationInterface.calculateFeeFromStudentUserId(studentUserId);
+        } catch (Exception e) {
+            // SQLException
+            StringUtils.printErrorMessage(e.getMessage());
+        }
 
-        // if (fee == 0.0) {
-        // StringUtils.printErrorMessage("You have not registered for any courses yet");
-        // } else {
+        if (fee == 0.0) {
+            StringUtils.printErrorMessage("You have not registered for any courses yet");
+        } else {
+            System.out.println("Your total fee = " + fee);
+            System.out.println("Want to continue Fee Payment(y/n)");
+            String ch = scanner.next();
+            if (ch.equals("y")) {
+                System.out.println("Select Mode of Payment:");
+                int index = 1;
+                for (ModeOfPayment mode : ModeOfPayment.values()) {
+                    System.out.println(index + " " + mode);
+                    index = index + 1;
+                }
+                int idx = scanner.nextInt();
+                idx--;
+                if (idx >= ModeOfPayment.values().length) {
+                    StringUtils.printErrorMessage("Invalid Input");
+                    return;
+                }
+                System.out.println("Enter CardNumber : ");
+                String cardNmber = scanner.next();
+                System.out.println("Enter CVV : ");
+                String cvv = scanner.next();
 
-        // System.out.println("Your total fee = " + fee);
-        // System.out.println("Want to continue Fee Payment(y/n)");
-        // String ch = sc.next();
-        // if (ch.equals("y")) {
-        // System.out.println("Select Mode of Payment:");
+                System.out.println("Enter Expiry : ");
+                String expiry = scanner.next();
 
-        // int index = 1;
-        // for (ModeOfPayment mode : ModeOfPayment.values()) {
-        // System.out.println(index + " " + mode);
-        // index = index + 1;
-        // }
-
-        // ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
-
-        // if (mode == null)
-        // StringUtils.printErrorMessage("Invalid Input");
-        // else {
-        // try {
-        // notificationInterface.sendNotification(NotificationType.PAYMENT,
-        // studentUserId, mode, fee);
-        // } catch (Exception e) {
-
-        // StringUtils.printErrorMessage(e.getMessage());
-        // }
-        // }
-        // }
-
-        // }
-
+                Payment payment = new Payment();
+                payment.setAmount(fee);
+                payment.setModeOfPayment(ModeOfPayment.getModeOfPayment(idx));
+                payment.setStudentUserId(studentUserId);
+                payment.setCardNumber(cardNmber);
+                payment.setCvv(cvv);
+                payment.setExpiry(expiry);
+                payment.setReferenceId(CryptoUtils.encodeBase64(CryptoUtils.getRandomSalt().toString()));
+                Notification notification = new Notification();
+                notification.setMessage("Payment for Rs" + fee + " Completed Successfully");
+                notificationInterface.createPaymentNotification(payment, notification);
+                StringUtils.printSuccessMessage(notification.getMessage());
+            }
+        }
     }
-
 }

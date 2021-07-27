@@ -46,10 +46,12 @@ public class SQLQueriesConstants {
     public static final String NUMBER_OF_STUDENTS_REGISTERED_FROM_COURSE_ID = "select count(*) from registeredCourse where courseId = ?";
     public static final String IS_STUDENT_ALREADY_REGISTERED_TO_COURSE_ID = " select count(*) from registeredCourse where courseId = ? and studentUserId = ? ";
     public static final String DROP_COURSE_FROM_COURSE_ID_AND_STUDENT_ID = "delete from registeredCourse where courseId = ? AND studentUserId = ?";
-    public static final String CALCULATE_FEES_FROM_STUDENT_ID = "select sum(courseFee) from course where courseId in (select courseId from registeredCourse where studentUserId = ?) and ";
+    public static final String CALCULATE_FEES_FROM_STUDENT_ID = "select sum(courseFee) from course where courseId in (select courseId from registeredCourse where studentUserId = ?)";
     public static final String GET_REGISTERED_COURSES_FROM_STUDENT_USER_ID = "select registeredCourseId, studentUserId, courseId, grade from registeredCourse where studentUserId = ?";
     public static final String GET_COURSES_AVAILABLE_TO_STUDENT_USER_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId, courseFee from course where (courseId not in (select courseId from registeredCourse where studentUserId = ?)) and ((select count(*) from registeredCourse where courseId = course.courseId) < 10)";
     public static final String GET_ALL_COURSES_REGISTERED_BY_STUDENT_USER_ID = "select courseId, courseCode, courseName, professorUserId, courseCatalogId, courseFee from course where courseId in (select courseId from registeredCourse where studentUserId = ?)";
+    public static final String ADD_PAYMENT_ROW = "insert into payment(studentUserId,referenceId,amount,modeOfPayment,cardNumber,cvv,expiry) values(?,?,?,?,?,?,?)";
+    public static final String ADD_NOTIFICATION_ROW = "insert into notification(paymentId,message) values(?,?)";
 
     public static final String VIEW_REGISTERED_COURSES = " select * from course inner join registeredCourse on course.courseCode = registeredCourse.courseCode where registeredCourse.studentUserId = ?";
     public static final String CHECK_COURSE_AVAILABILITY = " select courseCode from registeredCourse where studentUserId = ? ";

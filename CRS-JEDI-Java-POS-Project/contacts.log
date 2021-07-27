@@ -1,0 +1,3 @@
+14:03:03,119 ERROR RegistrationDaoOperation,main:304 - Error in Executing Query select sum(courseFee) from course where courseId in (select courseId from registeredCourse where studentUserId = ?) and 
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+

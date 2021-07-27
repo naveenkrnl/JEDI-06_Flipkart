@@ -23,7 +23,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 
 	private static AdminDaoOperation instance = null;
 	final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
-	static Logger logger = Logger.getLogger("");
+	static Logger logger = Logger.getLogger(AdminDaoOperation.class.getName());
 
 	private AdminDaoOperation() {
 

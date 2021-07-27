@@ -26,7 +26,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static ProfessorDaoOperation instance = null;
 	final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
-	static Logger logger = Logger.getLogger("");
+	static Logger logger = Logger.getLogger(ProfessorDaoOperation.class.getName());
 
 	private ProfessorDaoOperation() {
 

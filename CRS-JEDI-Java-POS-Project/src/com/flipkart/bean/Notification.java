@@ -1,45 +1,45 @@
 package com.flipkart.bean;
 
+import java.time.LocalDateTime;
+
 import com.flipkart.constant.NotificationType;
 
 public class Notification {
-	private final int notificationId;
-	private int rollNumber;
-	private NotificationType type;
-	private String referenceId;
 
-	public Notification(int notificationId, int rollNumber, NotificationType type, String referenceId) {
-		this.notificationId = notificationId;
-		this.rollNumber = rollNumber;
-		this.type = type;
-		this.referenceId = referenceId;
+	private int id;
+	private int paymentId;
+	private String message;
+	private LocalDateTime timestamp;
+
+	public int getId() {
+		return id;
 	}
 
-	public int getNotificationId() {
-		return notificationId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getRollNumber() {
-		return rollNumber;
+	public int getPaymentId() {
+		return paymentId;
 	}
 
-	public void setRollNumber(int rollNumber) {
-		this.rollNumber = rollNumber;
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
 	}
 
-	public NotificationType getType() {
-		return type;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setType(NotificationType type) {
-		this.type = type;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
-	public String getReferenceId() {
-		return referenceId;
+	public LocalDateTime getTimestamp() {
+		return timestamp;
 	}
 
-	public void setReferenceId(String referenceId) {
-		this.referenceId = referenceId;
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 }

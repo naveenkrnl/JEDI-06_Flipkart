@@ -88,4 +88,9 @@ public class RegistrationOperation implements RegistrationInterface {
 		}
 		return registrationDaoOperation.getGradeCardFromStudentUserId(studentUserId);
 	}
+
+	@Override
+	public double calculateFeeFromStudentUserId(int studentUserId) {
+		return registrationDaoOperation.calculateFeeFromStudentUserId(studentUserId);
+	}
 }

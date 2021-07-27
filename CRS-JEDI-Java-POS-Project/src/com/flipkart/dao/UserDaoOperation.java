@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  */
 public class UserDaoOperation implements UserDaoInterface {
 	private static UserDaoOperation instance = null;
-	static Logger logger = Logger.getLogger("");
+	static Logger logger = Logger.getLogger(UserDaoOperation.class.getName());
 
 	private UserDaoOperation() {
 	}

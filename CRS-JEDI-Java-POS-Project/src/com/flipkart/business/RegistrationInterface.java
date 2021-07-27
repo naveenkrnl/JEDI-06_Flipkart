@@ -23,4 +23,6 @@ public interface RegistrationInterface {
 
 	public GradeCard getGradeCardFromStudentUserId(int studentUserId) throws UserNotFoundException;
 
+	public double calculateFeeFromStudentUserId(int studentUserId);
+
 }

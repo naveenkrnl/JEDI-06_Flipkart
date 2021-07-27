@@ -19,7 +19,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
     private static StudentDaoOperation instance = null;
     final UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
-    static Logger logger = Logger.getLogger("");
+    static Logger logger = Logger.getLogger(StudentDaoOperation.class.getName());
 
     private StudentDaoOperation() {
 
@@ -129,5 +129,4 @@ public class StudentDaoOperation implements StudentDaoInterface {
             return false;
         return student.isApproved();
     }
-
 }

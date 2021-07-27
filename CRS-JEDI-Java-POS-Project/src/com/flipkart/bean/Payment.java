@@ -6,29 +6,30 @@ import java.time.LocalDateTime;
 
 public class Payment {
 
-    private String iD;
-    private int studentId;
+    private int id;
+    private int studentUserId;
     private String referenceId;
-    private int amount;
+    private double amount;
     private LocalDateTime dateOfPayment;
     private ModeOfPayment modeOfPayment;
+    private String cardNumber;
+    private String cvv;
+    private String expiry;
 
-    public Payment(String iD, int studentId, String referenceId, int amount, LocalDateTime dateOfPayment,
-            ModeOfPayment modeOfPayment) {
-        this.iD = iD;
-        this.studentId = studentId;
-        this.referenceId = referenceId;
-        this.amount = amount;
-        this.dateOfPayment = dateOfPayment;
-        this.modeOfPayment = modeOfPayment;
+    public int getId() {
+        return id;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public int getStudentUserId() {
+        return studentUserId;
+    }
+
+    public void setStudentUserId(int studentUserId) {
+        this.studentUserId = studentUserId;
     }
 
     public String getReferenceId() {
@@ -39,11 +40,11 @@ public class Payment {
         this.referenceId = referenceId;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -63,4 +64,33 @@ public class Payment {
         this.modeOfPayment = modeOfPayment;
     }
 
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
+
+    public String getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(String expiry) {
+        this.expiry = expiry;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment [amount=" + amount + ", dateOfPayment=" + dateOfPayment + ", id=" + id + ", modeOfPayment="
+                + modeOfPayment + ", referenceId=" + referenceId + ", studentUserId=" + studentUserId + "]";
+    }
 }

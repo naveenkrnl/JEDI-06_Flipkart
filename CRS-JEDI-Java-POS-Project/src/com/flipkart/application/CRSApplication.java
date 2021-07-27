@@ -1,10 +1,14 @@
 package com.flipkart.application;
 
+import com.flipkart.bean.Notification;
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.business.*;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.dao.NotificationDaoOperation;
 import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.utils.StringUtils;
 
@@ -31,6 +35,7 @@ public class CRSApplication {
     }
 
     public static void main(String[] args) {
+
         try {
             int userInput;
             // create the main menu
@@ -197,12 +202,6 @@ public class CRSApplication {
             } else {
                 StringUtils.printErrorMessage("Registration Failed");
             }
-
-            // int newStudentId = studentInterface.register(name, userId, password, gender,
-            // batch, branchName, address,
-            // country);
-            // notificationInterface.sendNotification(NotificationType.REGISTRATION,
-            // newStudentId, null, 0);
 
         } catch (Exception ex) {
             StringUtils.printErrorMessage("Something went wrong! not registered. Please try again" + ex.getMessage());

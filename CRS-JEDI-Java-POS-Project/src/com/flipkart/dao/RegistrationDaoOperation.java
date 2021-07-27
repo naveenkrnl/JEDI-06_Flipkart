@@ -21,7 +21,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	private static RegistrationDaoOperation instance = null;
 	private static final AdminDaoInterface adminDaoInterface = AdminDaoOperation.getInstance();
 	final StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
-	static Logger logger = Logger.getLogger("");
+	static Logger logger = Logger.getLogger(RegistrationDaoOperation.class.getName());
 
 	private RegistrationDaoOperation() {
 	}
