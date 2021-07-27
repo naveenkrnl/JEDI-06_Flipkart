@@ -110,7 +110,6 @@ public class CRSApplication {
 
                 String formattedDate = myDateObj.format(myFormatObj);
 
-                System.out.println("Welcome " + email);
                 User user = userInterface.getUserFromEmail(email);
                 switch (user.getRole()) {
                     case ADMIN:

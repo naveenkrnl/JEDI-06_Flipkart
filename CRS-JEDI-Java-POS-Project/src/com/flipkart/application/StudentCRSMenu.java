@@ -30,7 +30,6 @@ public class StudentCRSMenu {
      * and fee payment
      */
     public static void createMenu(Student student) {
-        System.out.println(student);
         int studentUserId = student.getUserId();
         while (CRSApplication.isLoggedIn) {
             StringUtils.printMenu("Student Access Menu",
