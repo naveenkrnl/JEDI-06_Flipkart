@@ -14,6 +14,7 @@ public class ApplicationConfig extends ResourceConfig {
         register(HelloController.class);
         register(AdminRESTAPIController.class);
         register(UserRESTAPIController.class);
+        register(ProfessorRESTAPIController.class);
 
 
     }
