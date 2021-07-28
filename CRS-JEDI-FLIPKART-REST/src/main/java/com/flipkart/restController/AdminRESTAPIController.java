@@ -25,7 +25,6 @@ import java.util.List;
 @Path("/admin")
 public class AdminRESTAPIController {
 
-
     AdminInterface adminOperation = AdminOperation.getInstance();
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
@@ -43,7 +42,6 @@ public class AdminRESTAPIController {
         System.out.println(user.getPassword());
         return javax.ws.rs.core.Response.status(200).entity("Login successful").build();
     }
-
 
     /**
      * Method to add Professor to DB
@@ -88,12 +86,16 @@ public class AdminRESTAPIController {
      * Method to delete Course from catalogue
      * @param courseCode Course Code
      */
-    private Response deleteCourse(String courseCode) {
+    @DELETE
+    @Path("/deleteCourse")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteCourse(Course course) {
 
         List<Course> courseList = viewCoursesInCatalogue();
 
         try {
-            adminOperation.deleteCourse(courseCode, courseList);
+            adminOperation.deleteCourse(course.getCourseCode(), courseList);
         } catch (CourseNotFoundException | CourseNotDeletedException e) {
             return Response.status(500).entity("Operation Failed. Error: "+ e.getMessage()).build();
         }
@@ -106,6 +108,8 @@ public class AdminRESTAPIController {
      */
     @PUT
     @Path("/approveStudent")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response approveStudent(int studentUserIdApproval) {
 
 
@@ -113,7 +117,6 @@ public class AdminRESTAPIController {
         if (studentList.size() == 0) {
             return Response.status(500).entity("No Student Left to Approve").build();
         }
-        StringUtils.printHeading("Approve Student Portal");
 
         try {
             adminOperation.approveStudent(studentUserIdApproval, studentList);
@@ -167,6 +170,13 @@ public class AdminRESTAPIController {
        return Response.status(200).entity("Course added to the Catalogue").build();
     }
 
+    @GET
+    @Path("/viewPendingAdmissions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Student> viewPendingAdmissions() {
+        List<Student> pendingStudentsList = adminOperation.viewPendingAdmissions();
+        return pendingStudentsList;
+    }
 }
 
 
