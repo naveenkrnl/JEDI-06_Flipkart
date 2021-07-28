@@ -25,6 +25,11 @@ public class ProfessorRESTAPIController {
     final static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
     final static UserInterface userInterface = UserOperation.getInstance();
 
+    /**
+     * Method to fetch courses taught by the professor
+     * @param profId: User Id of the professor
+     * @return List of courses taught by the professor
+     */
     @Path("/getCourses")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -46,6 +51,11 @@ public class ProfessorRESTAPIController {
         }
     }
 
+    /**
+     * Method to fetch list of students enrolled in professor's courses
+     * @param profId: User Id of the professor
+     * @return List of enrolled students
+     */
     @Path("/getEnrolledStudents")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -68,6 +78,15 @@ public class ProfessorRESTAPIController {
         }
     }
 
+    /**
+     * Method to add student's grade
+     * @param profId: User Id of the professor
+     * @param password: Password
+     * @param studentId: Student Id
+     * @param courseCode: Course Code
+     * @param grade: Grade
+     * @return Success/failure of grade addition
+     */
     @Path("/addGrade")
     @PUT
     @Produces({MediaType.APPLICATION_JSON})

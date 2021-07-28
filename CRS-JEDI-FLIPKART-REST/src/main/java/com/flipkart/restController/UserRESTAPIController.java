@@ -23,6 +23,11 @@ public class UserRESTAPIController {
     final static NotificationInterface notificationInterface = NotificationOperation.getInstance();
     final static AdminInterface adminInterface = AdminOperation.getInstance();
 
+    /**
+     * Method for user login
+     * @param user: User object containing user details from client
+     * @return Success/failure of user login
+     */
     @Path("/login")
     @POST
     @Produces("text/plain")
@@ -66,6 +71,11 @@ public class UserRESTAPIController {
         }
     }
 
+    /**
+     * Method for student registration
+     * @param student: Student object containing student details passed from the admin
+     * @return Success/failure of student registration
+     */
     @Path("/studentRegistration")
     @POST
     @Produces("text/plain")
@@ -121,7 +131,13 @@ public class UserRESTAPIController {
         }
     }
 
-
+    /**
+     * Method to update password
+     * @param userId: User Id
+     * @param newPassword: new password
+     * @param oldPassword: old password
+     * @return Success/failure of password change
+     */
     @Path("/updatePassword")
     @PUT
     @Produces("text/plain")
@@ -161,7 +177,11 @@ public class UserRESTAPIController {
     }
 
 
-
+    /**
+     * Method for admin registration
+     * @param admin: Admin object passed from the client
+     * @return Success/failure of admin registration
+     */
     @Path("/adminRegistration")
     @POST
     @Produces("text/plain")
