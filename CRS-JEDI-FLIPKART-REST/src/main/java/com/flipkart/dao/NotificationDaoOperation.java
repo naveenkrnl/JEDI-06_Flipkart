@@ -36,7 +36,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv)
 			throws SQLException {
 		int notificationId = 0;
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		try {
 			// INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId)
 			// values(?,?,?);";
@@ -79,7 +79,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 
 	public UUID addPayment(int studentId, ModeOfPayment modeOfPayment, double amount, String CardNumber, String cvv) throws SQLException {
 		UUID referenceId;
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		try {
 			referenceId = UUID.randomUUID();
 			// INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId)
