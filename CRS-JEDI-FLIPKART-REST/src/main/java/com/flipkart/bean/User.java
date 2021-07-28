@@ -171,4 +171,16 @@ public class User {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId='" + userId + '\'' +
+				", name='" + name + '\'' +
+				", role=" + role +
+				", password='" + password + '\'' +
+				", gender=" + gender +
+				", address='" + address + '\'' +
+				", country='" + country + '\'' +
+				'}';
+	}
 }
