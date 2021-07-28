@@ -8,11 +8,13 @@ import com.flipkart.constant.Color;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.NotificationDaoOperation;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.StringUtils;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,15 +22,13 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Path("/student")
 public class StudentRESTAPIController {
 
+    // Global Declarations Required by Methods
     private static Map<String, Integer> gradeStrToScore;
 
     static {
@@ -52,90 +52,107 @@ public class StudentRESTAPIController {
     RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
     ProfessorInterface professorInterface = ProfessorOperation.getInstance();
     NotificationInterface notificationInterface=NotificationOperation.getInstance();
-//    private boolean is_registered;
+    private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
 
 
-    @Path("/login")
-    @POST
-    @Produces("text/plain")
-    public Response loginUser(User user) {
-        System.out.println(user.getUserId());
-        System.out.println(user.getPassword());
-        return Response.status(200).entity("Login successful").build();
-    }
-
+    /**
+     * Handle API request for Registering for Courses
+     * @param courseIds: Course Ids List
+     * @param studentId: ID of Student
+     * @return Success/Failure of Registration
+     */
     @Path("/registerCourses")
     @POST
-    @Produces("text/plain")
-    public void registerCourses(@QueryParam("studentId") int studentId,
-                                @QueryParam("courseIds") List<String> courseIds)
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response registerCourses(List<String> courseIds,@QueryParam("studentId") int studentId)
     {
+
+        // If courses selected are not 6, during start of semester
         if (courseIds.size() != 6)
         {
-            System.err.println("Please enter exactly 6 courses");
-            return;
+            return Response.status(406).entity("Select 6 Courses from Course Catalogue").build();
         }
 
-        boolean is_registered = getRegistrationStatus(studentId);
+        // If user is always registered
+        boolean is_registered = false;
+        try
+        {
+            is_registered = registrationInterface.getRegistrationStatus(studentId);
+        }
+        catch (SQLException e)
+        {
+            logger.error(e.getMessage());
+        }
+
         if(is_registered)
         {
-            System.err.println(" Registration is already completed");
-            return;
+            return Response.status(403).entity("Student is Already Registered").build();
         }
-
-        int count = 0;
-        StringUtils.printHeading("Course Registration Portal");
-        for (String courseId : courseIds)
-        {
-            List<Course> courseList = null;
-            try
-            {
-                courseList = registrationInterface.viewCourses(studentId);
-            }
-            catch(SQLException e)
-            {
-                System.err.println("Course list not available");
-            }
-
-            try
-            {
-                if(registrationInterface.addCourse(courseId,studentId,courseList))
-                {
-                    System.out.println("Course " + courseId + " registered successfully.");
-                    count++;
-                }
-                else
-                {
-                    System.err.println(" You have already registered for Course : " + courseId);
-                }
-            }
-            catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
-            {
-                System.err.println(e.getMessage());
-            }
-        }
-
-        System.out.println("Registration Successful");
-//        is_registered = true;
+        List<Course> courseList = null;
 
         try
         {
+            courseList = registrationInterface.viewCourses(studentId);
+        }
+        catch(SQLException e)
+        {
+            return Response.status(404).entity("No course Available for Registration").build();
+        }
+
+        Set<String> courseSet = new HashSet<String>();
+        for (String courseId : courseIds)
+        {
+            if(courseSet.contains(courseId)){
+                return Response.status(403).entity("A course has been entered multiple times").build();
+            }
+
+            try
+            {
+                registrationInterface.addCourse(courseId,studentId,courseList);
+            }
+            catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
+            {
+                logger.error(e.getMessage());
+                return Response.status(500).entity("Some Error Occurred. Please try again after some time.").build();
+            }
+            courseSet.add(courseId);
+        }
+
+        try
+        {
+            // Mark the Student Registered for semester
             registrationInterface.setRegistrationStatus(studentId);
         }
         catch (SQLException e)
         {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
+            return Response.status(500).entity("Some Error Occurred. Please try again after some time.").build();
         }
-
+        return Response.status(200).entity("Courses Registration for Student Successful").build();
     }
 
+    /**
+     * Handle API request for Adding a New Course
+     * @param courseId: Course Id of Course to be added
+     * @param studentId: ID of Student
+     * @return Success/Failure of Adding the Course
+     */
     @Path("/addCourse")
     @POST
-    @Produces("text/plain")
-    public void addCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") String courseId)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") String courseId)
     {
-        boolean is_registered = getRegistrationStatus(studentId);
+        boolean is_registered = false;
+        try
+        {
+            is_registered = registrationInterface.getRegistrationStatus(studentId);
+        }
+        catch (SQLException e)
+        {
+            logger.error(e.getMessage());
+        }
         if(is_registered)
         {
             List<Course> availableCourseList = null;
@@ -145,39 +162,47 @@ public class StudentRESTAPIController {
             }
             catch (SQLException e)
             {
-                StringUtils.printErrorMessage(e.getMessage());
+                logger.error(e.getMessage());
+                return Response.status(500).entity("Some Error Occurred").build();
             }
 
             if(availableCourseList == null)
-                return;
+                return Response.status(404).entity("No Courses Available").build();
 
             try
             {
                 if(registrationInterface.addCourse(courseId, studentId,availableCourseList))
                 {
-                    StringUtils.printSuccessMessage(" You have successfully registered for Course : " + courseId);
+                    return Response.status(200).entity("Course added").build();
                 }
                 else
                 {
-                    StringUtils.printErrorMessage(" You have already registered for Course : " + courseId);
+                    return Response.status(403).entity("You have already registered for this course").build();
                 }
             }
             catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
             {
-                StringUtils.printErrorMessage(e.getMessage());
+                logger.error(e.getMessage());
+                return Response.status(500).entity("Some Error Occurred").build();
             }
         }
         else
         {
-            StringUtils.printErrorMessage("Please complete registration for courses");
+            return Response.status(403).entity("Please complete semester registration first").build();
         }
     }
 
-    @Path("/viewRegisteredCourse")
+    /**
+     * Handle API request for Getting List of Registered Courses for a Student
+     * @param studentId: ID of Student
+     * @return List of Registered Courses
+     */
+    @Path("/viewRegisteredCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewRegisteredCourse(@QueryParam("studentId") int studentId)
+    public List<Course> viewRegisteredCourses(@QueryParam("studentId") int studentId)
     {
+
         List<Course> coursesRegistered=null;
         try
         {
@@ -185,8 +210,8 @@ public class StudentRESTAPIController {
         }
         catch (SQLException e)
         {
-
-            StringUtils.printErrorMessage(e.getMessage());
+            logger.error(e.getMessage());
+            return null;
         }
 
         if(coursesRegistered.isEmpty())
@@ -198,26 +223,23 @@ public class StudentRESTAPIController {
         return coursesRegistered;
     }
 
-    @Path("/viewCourse")
+    /**
+     * Handle API request for Getting Available Courses in the Catalogue
+     * @param studentId: ID of Student
+     * @return List of Available Courses
+     */
+    @Path("/viewCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> viewCourse(@QueryParam("studentId") int studentId) throws SQLException {
         return registrationInterface.viewCourses(studentId);
     }
 
-    private boolean getRegistrationStatus(int studentId)
-    {
-        try
-        {
-            return registrationInterface.getRegistrationStatus(studentId);
-        }
-        catch (SQLException e)
-        {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
-
+    /**
+     * Handle API request for Getting Grade Card
+     * @param studentId: ID of Student
+     * @return Grade Card of Student
+     */
     @Path("/viewGradeCard")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -227,21 +249,27 @@ public class StudentRESTAPIController {
         try {
             gradeCard = registrationInterface.viewGradeCard(studentId);
         } catch (SQLException e) {
-
-            StringUtils.printErrorMessage(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         if (gradeCard.isEmpty()) {
-            StringUtils.printErrorMessage("You haven't registered for any course");
+            logger.error("You haven't registered for any course");
         }
 
         return gradeCard;
     }
-
+    /**
+     * Handle API request for Making Payment
+     * @param studentId: ID of Student
+     * @param modeOfPayment: Mode of Payment
+     * @param cardNumber: Card Number
+     * @param cvv: CVV of card
+     * @return Success/Failure of Payment Request
+     */
     @Path("/makePayment")
     @POST
-    @Produces("text/plain")
-    public void makePayment(@QueryParam("studentId") int studentId,
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response makePayment(@QueryParam("studentId") int studentId,
                             @QueryParam("modeOfPayment") int modeOfPayment,
                             @QueryParam("cardNumber") String cardNumber,
                             @QueryParam("cvv") String cvv)
@@ -254,12 +282,13 @@ public class StudentRESTAPIController {
         }
         catch (SQLException e)
         {
-            StringUtils.printErrorMessage(e.getMessage());
+            logger.error(e.getMessage());
+            return Response.status(500).entity("Some Error Occurred").build();
         }
 
         if(fee == 0.0)
         {
-            StringUtils.printErrorMessage("You have not  registered for any courses yet");
+            return Response.status(403).entity("No pending fees").build();
         }
         else
         {
@@ -270,8 +299,10 @@ public class StudentRESTAPIController {
             catch (Exception e)
             {
 
-                StringUtils.printErrorMessage(e.getMessage());
-            }
+                logger.error(e.getMessage());
+                return Response.status(500).entity("Some Error Occurred").build();            }
         }
+        return Response.status(200).entity("Fees Paid").build();
     }
+
 }

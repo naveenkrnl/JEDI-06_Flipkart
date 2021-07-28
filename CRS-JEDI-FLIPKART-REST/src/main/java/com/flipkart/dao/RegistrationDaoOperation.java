@@ -264,7 +264,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			logger.error(e.getMessage());
 		}
 		return availableCourseList;
-
 	}
 
 	@Override
