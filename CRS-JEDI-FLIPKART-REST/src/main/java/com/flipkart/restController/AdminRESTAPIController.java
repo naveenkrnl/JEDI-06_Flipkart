@@ -2,6 +2,7 @@ package com.flipkart.restController;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
@@ -10,6 +11,11 @@ import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.*;
 import com.flipkart.utils.StringUtils;
 
+import com.flipkart.business.NotificationInterface;
+import com.flipkart.business.NotificationOperation;
+import com.flipkart.constant.NotificationType;
+import com.flipkart.exception.*;
+import com.flipkart.utils.StringUtils;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,6 +24,11 @@ import java.util.List;
 
 @Path("/admin")
 public class AdminRESTAPIController {
+
+
+    AdminInterface adminOperation = AdminOperation.getInstance();
+    NotificationInterface notificationInterface = NotificationOperation.getInstance();
+
     @GET
     @Produces("text/plain")
     public String hello() {
@@ -33,7 +44,6 @@ public class AdminRESTAPIController {
         return javax.ws.rs.core.Response.status(200).entity("Login successful").build();
     }
 
-    AdminInterface adminOperation = AdminOperation.getInstance();
 
     /**
      * Method to add Professor to DB
@@ -52,7 +62,6 @@ public class AdminRESTAPIController {
         return Response.status(200).entity("Operation Successful").build();
 
     }
-
 
     /**
      * Method to assign Course to a Professor
@@ -73,6 +82,52 @@ public class AdminRESTAPIController {
             return Response.status(501).entity(e.getMessage()).build();
         }
         return Response.status(200).entity("Professor assigned successfully").build();
+    }
+
+    /**
+     * Method to delete Course from catalogue
+     * @param courseCode Course Code
+     */
+    private Response deleteCourse(String courseCode) {
+
+        List<Course> courseList = viewCoursesInCatalogue();
+
+        try {
+            adminOperation.deleteCourse(courseCode, courseList);
+        } catch (CourseNotFoundException | CourseNotDeletedException e) {
+            return Response.status(500).entity("Operation Failed. Error: "+ e.getMessage()).build();
+        }
+
+        return Response.status(200).entity("Operation Successful. Course is Deleted.").build();
+    }
+
+    /**
+     * Method to approve a Student using Student's ID
+     */
+    @PUT
+    @Path("/approveStudent")
+    public Response approveStudent(int studentUserIdApproval) {
+
+
+        List<Student> studentList = viewPendingAdmissions();
+        if (studentList.size() == 0) {
+            return Response.status(500).entity("No Student Left to Approve").build();
+        }
+        StringUtils.printHeading("Approve Student Portal");
+
+        try {
+            adminOperation.approveStudent(studentUserIdApproval, studentList);
+            //send notification from system
+            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
+
+        } catch (StudentNotFoundForApprovalException e) {
+            return Response.status(500).entity("Operation Failed. Error: "+e.getMessage()).build();
+        }
+        catch (Exception e) {
+            return Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
+        }
+
+        return Response.status(200).entity("Operation Successful. Student Approved").build();
     }
 
     /**
@@ -111,6 +166,7 @@ public class AdminRESTAPIController {
         }
        return Response.status(200).entity("Course added to the Catalogue").build();
     }
+
 }
 
 
