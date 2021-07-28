@@ -1,19 +1,19 @@
 package com.flipkart.restController;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.User;
+import com.flipkart.business.AdminInterface;
+import com.flipkart.business.AdminOperation;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.*;
 import com.flipkart.utils.StringUtils;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path("/admin")
@@ -33,31 +33,7 @@ public class AdminRESTAPIController {
         return javax.ws.rs.core.Response.status(200).entity("Login successful").build();
     }
 
-
-//    /**
-//     * Method to add Administrative Account
-//     *
-//     * @param name Name
-//     * @param userID User ID
-//     * @param password Password
-//     * @param gender Gender
-//     * @param address Address
-//     * @param country Country
-//     * @return Admin ID
-//     */
-//
-//    public int register(String name, String userID, String password, Gender gender, String address,
-//                        String country) throws AdminAccountNotCreatedException {
-//        int adminId = 0;
-//        try {
-//            User admin = new Admin(userID, name, Role.ADMIN, password, gender, address, country);
-//            adminId = adminDaoOperation.addAdmin(admin) ;
-//
-//        } catch (AdminAccountNotCreatedException ex) {
-//            throw ex;
-//        }
-//        return adminId;
-//    }
+    AdminInterface adminOperation = AdminOperation.getInstance();
 
     /**
      * Method to add Professor to DB
@@ -66,11 +42,8 @@ public class AdminRESTAPIController {
     @Path("/addProfessor")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addProfessor(Professor professor) {
-
-        AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
-
         try {
-            adminDaoOperation.addProfessor(professor);
+            adminOperation.addProfessor(professor);
 
         } catch (ProfessorNotAddedException | UserIdAlreadyInUseException e) {
             StringUtils.printErrorMessage(e.getMessage());
@@ -80,4 +53,64 @@ public class AdminRESTAPIController {
 
     }
 
+
+    /**
+     * Method to assign Course to a Professor
+     */
+    @PUT
+    @Path("/assignCourseToProfessor")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response assignCourseToProfessor(Course course) {
+        try {
+            String courseCode = course.getCourseCode();
+            String userId = course.getInstructorId();
+            System.out.println(courseCode + " " + userId);
+            adminOperation.assignCourse(courseCode, userId);
+
+        } catch (CourseNotFoundException | UserNotFoundException e) {
+
+            return Response.status(501).entity(e.getMessage()).build();
+        }
+        return Response.status(200).entity("Professor assigned successfully").build();
+    }
+
+    /**
+     * Method to display courses in catalogue
+     *
+     */
+    @GET
+    @Path("/viewCoursesInCatalogue")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Course> viewCoursesInCatalogue() {
+        List<Course> courseList = adminOperation.viewCourses(1);
+        if (courseList.size() == 0) {
+            return courseList;
+        }
+
+        courseList.forEach((course)->{
+            if (course.getInstructorId() == null || course.getInstructorId().isEmpty())
+                course.setInstructorId("No Professor");
+        });
+        return  courseList;
+    }
+
+    /**
+     * Method to add Course to catalogue
+     */
+    @PUT
+    @Path("/addCourseToCatalogue")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addCourseToCatalogue(Course course) {
+
+        try {
+            adminOperation.addCourse(course, viewCoursesInCatalogue());
+        } catch (CourseFoundException e) {
+           return Response.status(500).entity(e.getMessage()).build();
+        }
+       return Response.status(200).entity("Course added to the Catalogue").build();
+    }
 }
+
+
