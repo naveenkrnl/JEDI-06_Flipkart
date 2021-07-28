@@ -34,7 +34,7 @@ public class DBUtils {
 //        password=Something@123
         DB_URL = "jdbc:mysql://localhost:3307/crs?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
         USER = "root";
-        PASS = "root";
+        PASS = "Something@123";
         try {
             System.out.println("connection");
             Class.forName("com.mysql.cj.jdbc.Driver");
