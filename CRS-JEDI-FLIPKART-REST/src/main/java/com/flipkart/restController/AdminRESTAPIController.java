@@ -3,19 +3,14 @@ package com.flipkart.restController;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
 import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
-import com.flipkart.dao.AdminDaoInterface;
-import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.*;
 import com.flipkart.utils.StringUtils;
 
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.constant.NotificationType;
-import com.flipkart.exception.*;
-import com.flipkart.utils.StringUtils;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -28,23 +23,10 @@ public class AdminRESTAPIController {
     AdminInterface adminOperation = AdminOperation.getInstance();
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
-    @GET
-    @Produces("text/plain")
-    public String hello() {
-        return "Hello, I am admin!";
-    }
-
-    @Path("/login")
-    @POST
-    @Produces("text/plain")
-    public javax.ws.rs.core.Response loginUser(User user) {
-        System.out.println(user.getUserId());
-        System.out.println(user.getPassword());
-        return javax.ws.rs.core.Response.status(200).entity("Login successful").build();
-    }
-
     /**
      * Method to add Professor to DB
+     * @param professor: Professor object containing details passed from the client
+     * @return Success/Failure of addition of professor
      */
     @POST
     @Path("/addProfessor")
@@ -63,6 +45,8 @@ public class AdminRESTAPIController {
 
     /**
      * Method to assign Course to a Professor
+     * @param course: Course object containing details passed from the client
+     * @return Success/failure of professor assignment
      */
     @PUT
     @Path("/assignCourseToProfessor")
@@ -77,14 +61,15 @@ public class AdminRESTAPIController {
 
         } catch (CourseNotFoundException | UserNotFoundException e) {
 
-            return Response.status(501).entity(e.getMessage()).build();
+            Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
         }
-        return Response.status(200).entity("Professor assigned successfully").build();
+        return Response.status(200).entity("Operation Successful").build();
     }
 
     /**
      * Method to delete Course from catalogue
-     * @param courseCode Course Code
+     *  @param course: Course object containing details passed from the client
+     *  @return Success/failure of course deletion
      */
     @DELETE
     @Path("/deleteCourse")
@@ -105,6 +90,8 @@ public class AdminRESTAPIController {
 
     /**
      * Method to approve a Student using Student's ID
+     * @param studentUserIdApproval: Student Id of student to approve
+     * @return Success/failure of student approval
      */
     @PUT
     @Path("/approveStudent")
@@ -135,7 +122,7 @@ public class AdminRESTAPIController {
 
     /**
      * Method to display courses in catalogue
-     *
+     * @return List of courses in the catalogue
      */
     @GET
     @Path("/viewCoursesInCatalogue")
@@ -155,6 +142,8 @@ public class AdminRESTAPIController {
 
     /**
      * Method to add Course to catalogue
+     * @param course: Course object containing details passed from the client
+     * @return Success/failure of addition of course to the catalogue
      */
     @PUT
     @Path("/addCourseToCatalogue")
@@ -165,11 +154,15 @@ public class AdminRESTAPIController {
         try {
             adminOperation.addCourse(course, viewCoursesInCatalogue());
         } catch (CourseFoundException e) {
-           return Response.status(500).entity(e.getMessage()).build();
+            return Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
         }
-       return Response.status(200).entity("Course added to the Catalogue").build();
+       return Response.status(200).entity("Operation Successful").build();
     }
 
+    /**
+     * Method to view student who are pending admin approval
+     * @return List of students who are pending approval
+     */
     @GET
     @Path("/viewPendingAdmissions")
     @Produces(MediaType.APPLICATION_JSON)
