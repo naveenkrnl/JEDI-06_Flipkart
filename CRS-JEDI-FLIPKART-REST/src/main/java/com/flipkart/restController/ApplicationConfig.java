@@ -11,10 +11,8 @@ public class ApplicationConfig extends ResourceConfig {
 //        register(UserRestAPI.class);
 //        register(ProfessorRestAPI.class);
 //        register(AdminRestAPI.class);
-        register(HelloController.class);
         register(AdminRESTAPIController.class);
         register(UserRESTAPIController.class);
-        register(ProfessorRESTAPIController.class);
 
 
     }
