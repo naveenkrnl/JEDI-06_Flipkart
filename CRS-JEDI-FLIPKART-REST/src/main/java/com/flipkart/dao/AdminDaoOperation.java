@@ -36,11 +36,11 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		return instance;
 	}
 	
-	Connection connection = DBUtils.getConnection();
+	DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 
 	@Override
 	public int addAdmin(User admin) throws AdminAccountNotCreatedException {
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		int adminId = 0;
 		try {
 			// open db connection

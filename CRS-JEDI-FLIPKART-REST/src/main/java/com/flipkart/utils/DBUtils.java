@@ -15,31 +15,34 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBUtils {
-    static Properties prop = new Properties();
-    static InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
+//    static final Properties prop = new Properties();
+//    static final InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("config.properties");
     static String DB_URL;
     static String USER;
     static String PASS;
-
-    static {
-        try {
-            prop.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        DB_URL = prop.getProperty("url");
-        USER = prop.getProperty("user");
-        PASS = prop.getProperty("password");
-    }
-
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public static Connection getConnection() {
+    public Connection getConnection() {
         Connection connection = null;
+//        try {
+//            prop.load(inputStream);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        url=jdbc:mysql://localhost:3306/crs
+//        user=root
+//        password=Something@123
+        DB_URL = "jdbc:mysql://localhost:3306/crs?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
+        USER = "root";
+        PASS = "Something@123";
         try {
-
+            System.out.println("connection");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
-        } catch (SQLException e) {
+
+            System.out.println(connection);
+
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
