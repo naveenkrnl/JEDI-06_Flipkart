@@ -1,10 +1,5 @@
 package com.flipkart;
 
-/**
- * Hello world!
- *
- */
-
 import com.flipkart.bean.User;
 import com.flipkart.controller.*;
 import io.dropwizard.Application;
