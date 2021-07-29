@@ -66,8 +66,19 @@ public class StudentRESTAPIController {
     @POST
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerCourses(List<String> courseIds,@QueryParam("studentId") int studentId)
+    public Response registerCourses(List<String> courseIds, @QueryParam("studentId") String studentId)
     {
+        int studentIdInt;
+
+        //convert studentId to int
+        try
+        {
+            studentIdInt = Integer.parseInt(studentId);
+        }
+        catch(NumberFormatException e)
+        {
+            return Response.status(500).entity("Please enter an integer for student id").build();
+        }
 
         // If courses selected are not 6, during start of semester
         if (courseIds.size() != 6)
@@ -79,7 +90,7 @@ public class StudentRESTAPIController {
         boolean is_registered = false;
         try
         {
-            is_registered = registrationInterface.getRegistrationStatus(studentId);
+            is_registered = registrationInterface.getRegistrationStatus(studentIdInt);
         }
         catch (SQLException e)
         {
@@ -94,7 +105,7 @@ public class StudentRESTAPIController {
 
         try
         {
-            courseList = registrationInterface.viewCourses(studentId);
+            courseList = registrationInterface.viewCourses(studentIdInt);
         }
         catch(SQLException e)
         {
@@ -110,7 +121,7 @@ public class StudentRESTAPIController {
 
             try
             {
-                registrationInterface.addCourse(courseId,studentId,courseList);
+                registrationInterface.addCourse(courseId, studentIdInt, courseList);
             }
             catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
             {
@@ -123,7 +134,7 @@ public class StudentRESTAPIController {
         try
         {
             // Mark the Student Registered for semester
-            registrationInterface.setRegistrationStatus(studentId);
+            registrationInterface.setRegistrationStatus(studentIdInt);
         }
         catch (SQLException e)
         {
@@ -142,12 +153,24 @@ public class StudentRESTAPIController {
     @Path("/addCourse")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") String courseId)
+    public Response addCourse(@QueryParam("studentId") String studentId, @QueryParam("courseId") String courseId)
     {
+        int studentIdInt;
+
+        //convert studentId to int
+        try
+        {
+            studentIdInt = Integer.parseInt(studentId);
+        }
+        catch(NumberFormatException e)
+        {
+            return Response.status(500).entity("Please enter an integer for student id").build();
+        }
+
         boolean is_registered = false;
         try
         {
-            is_registered = registrationInterface.getRegistrationStatus(studentId);
+            is_registered = registrationInterface.getRegistrationStatus(studentIdInt);
         }
         catch (SQLException e)
         {
@@ -158,7 +181,7 @@ public class StudentRESTAPIController {
             List<Course> availableCourseList = null;
             try
             {
-                availableCourseList = registrationInterface.viewCourses(studentId);
+                availableCourseList = registrationInterface.viewCourses(studentIdInt);
             }
             catch (SQLException e)
             {
@@ -171,7 +194,7 @@ public class StudentRESTAPIController {
 
             try
             {
-                if(registrationInterface.addCourse(courseId, studentId,availableCourseList))
+                if(registrationInterface.addCourse(courseId, studentIdInt,availableCourseList))
                 {
                     return Response.status(200).entity("Course added").build();
                 }
@@ -201,12 +224,24 @@ public class StudentRESTAPIController {
     @Path("/dropCourse")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response dropCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") String courseId)
+    public Response dropCourse(@QueryParam("studentId") String studentId, @QueryParam("courseId") String courseId)
     {
+        int studentIdInt;
+
+        //convert studentId to int
+        try
+        {
+            studentIdInt = Integer.parseInt(studentId);
+        }
+        catch(NumberFormatException e)
+        {
+            return Response.status(500).entity("Please enter an integer for student id").build();
+        }
+
         boolean is_registered = false;
         try
         {
-            is_registered = registrationInterface.getRegistrationStatus(studentId);
+            is_registered = registrationInterface.getRegistrationStatus(studentIdInt);
         }
         catch (SQLException e)
         {
@@ -219,7 +254,7 @@ public class StudentRESTAPIController {
             List<Course> availableCourseList = null;
             try
             {
-                availableCourseList = registrationInterface.viewRegisteredCourses(studentId);
+                availableCourseList = registrationInterface.viewRegisteredCourses(studentIdInt);
             }
             catch (SQLException e)
             {
@@ -232,9 +267,9 @@ public class StudentRESTAPIController {
 
             try
             {
-                if(registrationInterface.dropCourse(courseId, studentId,availableCourseList))
+                if(registrationInterface.dropCourse(courseId, studentIdInt,availableCourseList))
                 {
-                    return Response.status(200).entity("Course Droped Succcessfully").build();
+                    return Response.status(200).entity("Course Dropped Successfully").build();
                 }
                 else
                 {
@@ -261,13 +296,24 @@ public class StudentRESTAPIController {
     @Path("/viewRegisteredCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewRegisteredCourses(@QueryParam("studentId") int studentId)
+    public List<Course> viewRegisteredCourses(@QueryParam("studentId") String studentId)
     {
+        int studentIdInt;
 
+        //convert studentId to int
+        try
+        {
+            studentIdInt = Integer.parseInt(studentId);
+        }
+        catch(NumberFormatException e)
+        {
+            logger.error("Please enter an integer for student id");
+            return null;
+        }
         List<Course> coursesRegistered=null;
         try
         {
-            coursesRegistered = registrationInterface.viewRegisteredCourses(studentId);
+            coursesRegistered = registrationInterface.viewRegisteredCourses(studentIdInt);
         }
         catch (SQLException e)
         {
@@ -292,8 +338,18 @@ public class StudentRESTAPIController {
     @Path("/viewAvailableCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewCourse(@QueryParam("studentId") int studentId) throws SQLException {
-        return registrationInterface.viewCourses(studentId);
+    public List<Course> viewCourse(@QueryParam("studentId") String studentId) throws SQLException {
+        int studentIdInt;
+        try
+        {
+            studentIdInt = Integer.parseInt(studentId);
+        }
+        catch(NumberFormatException e)
+        {
+            logger.error("Please enter an integer for student id");
+            return null;
+        }
+        return registrationInterface.viewCourses(studentIdInt);
     }
 
     /**
@@ -304,11 +360,24 @@ public class StudentRESTAPIController {
     @Path("/viewGradeCard")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<StudentGrade> viewGradeCard(@QueryParam("studentId") int studentId)
+    public List<StudentGrade> viewGradeCard(@QueryParam("studentId") String studentId)
     {
+        int studentIdInt;
+
+        //convert studentId to int
+        try
+        {
+            studentIdInt = Integer.parseInt(studentId);
+        }
+        catch(NumberFormatException e)
+        {
+            logger.error("Please enter an integer for student id");
+            return null;
+        }
+
         List<StudentGrade> gradeCard = null;
         try {
-            gradeCard = registrationInterface.viewGradeCard(studentId);
+            gradeCard = registrationInterface.viewGradeCard(studentIdInt);
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
@@ -330,16 +399,31 @@ public class StudentRESTAPIController {
     @Path("/makePayment")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response makePayment(@QueryParam("studentId") int studentId,
-                            @QueryParam("modeOfPayment") int modeOfPayment,
+    public Response makePayment(@QueryParam("studentId") String studentId,
+                            @QueryParam("modeOfPayment") String modeOfPayment,
                             @QueryParam("cardNumber") String cardNumber,
                             @QueryParam("cvv") String cvv)
     {
+        int studentIdInt;
+        int modeOfPaymentInt;
+        if (studentId.length() == 0 || modeOfPayment.length() == 0 || cardNumber.length() == 0 || cvv.length() == 0)
+            return Response.status(500).entity("Input cannot be empty").build();
+
+        //convert studentId to int
+        try
+        {
+            studentIdInt = Integer.parseInt(studentId);
+            modeOfPaymentInt = Integer.parseInt(modeOfPayment);
+        }
+        catch(NumberFormatException e)
+        {
+            return Response.status(500).entity("An input was expected to be an integer, found string").build();
+        }
 
         double fee = 0.0;
         try
         {
-            fee = registrationInterface.calculateFee(studentId);
+            fee = registrationInterface.calculateFee(studentIdInt);
         }
         catch (SQLException e)
         {
@@ -355,7 +439,7 @@ public class StudentRESTAPIController {
         {
             try
             {
-                notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, ModeOfPayment.getModeofPayment(modeOfPayment), fee, cardNumber, cvv);
+                notificationInterface.sendNotification(NotificationType.PAYMENT, studentIdInt, ModeOfPayment.getModeofPayment(modeOfPaymentInt), fee, cardNumber, cvv);
             }
             catch (Exception e)
             {
