@@ -18,7 +18,6 @@
 /Users/naveen.arora/projects/JDI-06_Flipkart/CRS-JEDI-FLIPKART-DROPWIZARD/src/main/java/com/flipkart/utils/DBUtils.java
 /Users/naveen.arora/projects/JDI-06_Flipkart/CRS-JEDI-FLIPKART-DROPWIZARD/src/main/java/com/flipkart/exception/UserIdAlreadyInUseException.java
 /Users/naveen.arora/projects/JDI-06_Flipkart/CRS-JEDI-FLIPKART-DROPWIZARD/src/main/java/com/flipkart/exception/UserNotAddedException.java
-/Users/naveen.arora/projects/JDI-06_Flipkart/CRS-JEDI-FLIPKART-DROPWIZARD/src/main/java/com/flipkart/controller/HelloRestController.java
 /Users/naveen.arora/projects/JDI-06_Flipkart/CRS-JEDI-FLIPKART-DROPWIZARD/src/main/java/com/flipkart/constant/Gender.java
 /Users/naveen.arora/projects/JDI-06_Flipkart/CRS-JEDI-FLIPKART-DROPWIZARD/src/main/java/com/flipkart/controller/UserRESTAPIController.java
 /Users/naveen.arora/projects/JDI-06_Flipkart/CRS-JEDI-FLIPKART-DROPWIZARD/src/main/java/com/flipkart/exception/ProfessorNotAddedException.java

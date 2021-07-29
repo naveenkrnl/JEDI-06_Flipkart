@@ -29,7 +29,6 @@ public class App extends Application<Configuration> {
         LOGGER.info("Registering REST resources");
 
         //  Registeration of all services
-        e.jersey().register(new HelloRestController());
         e.jersey().register(new AdminRESTAPIController());
         e.jersey().register(new ProfessorRESTAPIController());
         e.jersey().register(new StudentRESTAPIController());

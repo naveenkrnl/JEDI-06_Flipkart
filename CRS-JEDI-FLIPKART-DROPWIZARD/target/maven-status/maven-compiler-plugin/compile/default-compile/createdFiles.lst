@@ -34,7 +34,6 @@ com/flipkart/constant/ModeOfPayment.class
 com/flipkart/business/NotificationInterface.class
 com/flipkart/exception/AdminAccountNotCreatedException.class
 com/flipkart/dao/NotificationDaoOperation$1.class
-com/flipkart/controller/HelloRestController.class
 com/flipkart/exception/CourseLimitExceedException.class
 com/flipkart/bean/StudentGrade.class
 com/flipkart/controller/UserRESTAPIController.class
