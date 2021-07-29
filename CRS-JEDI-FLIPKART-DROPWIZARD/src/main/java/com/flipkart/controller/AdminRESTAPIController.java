@@ -5,6 +5,8 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
 import com.flipkart.exception.*;
 import com.flipkart.utils.StringUtils;
 import com.flipkart.business.NotificationInterface;
@@ -31,6 +33,31 @@ public class AdminRESTAPIController {
     @Path("/addProfessor")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addProfessor(Professor professor) {
+
+        professor.setRole(Role.PROFESSOR);
+
+        String userId = professor.getUserId();
+        String name = professor.getName();
+        String password = professor.getPassword();
+        String address = professor.getAddress();
+        String country = professor.getCountry();
+        Gender gender = professor.getGender();
+
+        //Input validation req?
+        if (userId == null || userId.trim().length() == 0) {
+            return Response.status(400).entity("UserId can not be empty").build();
+        } else if (name == null || name.trim().length() == 0) {
+            return Response.status(400).entity("Name can not be empty").build();
+        } else if (password == null || password.trim().length() == 0) {
+            return Response.status(400).entity("Password can not be empty").build();
+        } else if (address == null || address.trim().length() == 0) {
+            return Response.status(400).entity("Address can not be empty").build();
+        } else if (country == null || country.trim().length() == 0) {
+            return Response.status(400).entity("Country can not be empty").build();
+        } else if (gender == null) {
+            return Response.status(400).entity("Gender entered is not valid").build();
+        }
+
         try {
             adminOperation.addProfessor(professor);
 
@@ -54,6 +81,13 @@ public class AdminRESTAPIController {
         try {
             String courseCode = course.getCourseCode();
             String userId = course.getInstructorId();
+
+            if(courseCode == null || courseCode.trim().length() == 0) {
+                return Response.status(400).entity("Error: Course Code can not be empty").build();
+            } else if( userId ==null || userId.trim().length()==0) {
+                return Response.status(400).entity("Error: User Id can not be empty").build();
+            }
+
             System.out.println(courseCode + " " + userId);
             adminOperation.assignCourse(courseCode, userId);
 
