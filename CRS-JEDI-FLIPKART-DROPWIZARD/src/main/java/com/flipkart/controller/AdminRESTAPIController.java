@@ -7,7 +7,6 @@ import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
 import com.flipkart.exception.*;
 import com.flipkart.utils.StringUtils;
-
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.constant.NotificationType;
@@ -89,15 +88,26 @@ public class AdminRESTAPIController {
 
     /**
      * Method to approve a Student using Student's ID
-     * @param studentUserIdApproval: Student Id of student to approve
+     * @param studentId: Student Id of student to approve
      * @return Success/failure of student approval
      */
     @PUT
     @Path("/approveStudent")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response approveStudent(int studentUserIdApproval) {
+    public Response approveStudent(@QueryParam("studentId") String studentId) {
 
+        if (studentId == null || studentId.trim().length() == 0) {
+            return Response.status(400).entity("Error: Student ID can not be empty.").build();
+        }
+
+        int studentUserIdApproval;
+        try {
+             studentUserIdApproval = Integer.parseInt(studentId);
+        }
+        catch (Exception e) {
+            return Response.status(400).entity("Error: Student ID should be an Integer.").build();
+        }
 
         List<Student> studentList = viewPendingAdmissions();
         if (studentList.size() == 0) {
