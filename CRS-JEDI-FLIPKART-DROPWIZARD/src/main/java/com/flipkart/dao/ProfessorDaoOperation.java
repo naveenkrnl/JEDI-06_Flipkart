@@ -24,11 +24,9 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	private static volatile ProfessorDaoOperation instance = null;
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
-
 	private ProfessorDaoOperation() {
 
 	}
-
 
 	public static ProfessorDaoOperation getInstance() {
 		if (instance == null) {
@@ -40,10 +38,10 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return instance;
 	}
 
-
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		List<Course> courseList = new ArrayList<Course>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_COURSES);
@@ -69,10 +67,10 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	}
 
-
 	@Override
 	public List<EnrolledStudent> getEnrolledStudents(String profId) {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
@@ -97,9 +95,9 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return enrolledStudents;
 	}
 
-
 	public Boolean addGrade(int studentId, String courseCode, String grade) {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.ADD_GRADE);
 
@@ -126,11 +124,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return false;
 	}
 
-
 	@Override
 	public String getProfessorById(String profId) {
 		String prof_Name = null;
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_PROF_NAME);
 

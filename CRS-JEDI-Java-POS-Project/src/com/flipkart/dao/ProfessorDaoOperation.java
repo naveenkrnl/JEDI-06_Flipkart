@@ -24,11 +24,9 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	private static volatile ProfessorDaoOperation instance = null;
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
-
 	private ProfessorDaoOperation() {
 
 	}
-
 
 	public static ProfessorDaoOperation getInstance() {
 		if (instance == null) {
@@ -39,7 +37,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		return instance;
 	}
-
 
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
@@ -69,7 +66,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	}
 
-
 	@Override
 	public List<EnrolledStudent> getEnrolledStudents(String profId) {
 		Connection connection = DBUtils.getConnection();
@@ -96,7 +92,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		return enrolledStudents;
 	}
-
 
 	public Boolean addGrade(int studentId, String courseCode, String grade) {
 		Connection connection = DBUtils.getConnection();
@@ -125,7 +120,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		return false;
 	}
-
 
 	@Override
 	public String getProfessorById(String profId) {

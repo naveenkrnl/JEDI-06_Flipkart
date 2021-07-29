@@ -35,7 +35,7 @@ public class UserOperation implements UserInterface {
 	/**
 	 * Method to update password of a user
 	 * 
-	 * @param userID ID Of the user
+	 * @param userID      ID Of the user
 	 * @param newPassword New password
 	 * @return boolean indicating if the password is updated successfully
 	 */
@@ -47,7 +47,7 @@ public class UserOperation implements UserInterface {
 	/**
 	 * Method to verify User credentials
 	 * 
-	 * @param userID ID Of The User
+	 * @param userID   ID Of The User
 	 * @param password Password Of The User
 	 * @return boolean indicating if user exists in the database
 	 */

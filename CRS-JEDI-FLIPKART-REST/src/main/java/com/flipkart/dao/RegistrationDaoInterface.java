@@ -23,7 +23,7 @@ public interface RegistrationDaoInterface {
 	 * Method to add course in database
 	 * 
 	 * @param courseCode Course Code
-	 * @param studentId Student Id
+	 * @param studentId  Student Id
 	 * @return boolean indicating if the course is added successfully
 	 * @throws SQLException If a error occurs while accessing the database
 	 */
@@ -33,10 +33,11 @@ public interface RegistrationDaoInterface {
 	 * Drop Course selected by student
 	 * 
 	 * @param courseCode Course Code
-	 * @param studentId Student Id
+	 * @param studentId  Student Id
 	 * @return boolean indicating if the course is dropped successfully
 	 * @throws CourseNotFoundException if course does not exists
-	 * @throws SQLException If a error occurs while accessing the database
+	 * @throws SQLException            If a error occurs while accessing the
+	 *                                 database
 	 */
 	public boolean dropCourse(String courseCode, int studentId) throws SQLException, CourseNotFoundException;
 
@@ -100,7 +101,7 @@ public interface RegistrationDaoInterface {
 	 * Method checks if the student is registered for that course
 	 * 
 	 * @param courseCode Course Code
-	 * @param studentId Student Id
+	 * @param studentId  Student Id
 	 * @return Student's registration status for the given course
 	 * @throws SQLException If a error occurs while accessing the database
 	 */

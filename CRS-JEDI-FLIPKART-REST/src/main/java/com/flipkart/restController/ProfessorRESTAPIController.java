@@ -27,15 +27,14 @@ public class ProfessorRESTAPIController {
 
     /**
      * Method to fetch courses taught by the professor
+     * 
      * @param profId: User Id of the professor
      * @return List of courses taught by the professor
      */
     @Path("/getCourses")
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response getCourses(
-            @NotNull
-            @QueryParam("profId") String profId) {
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response getCourses(@NotNull @QueryParam("profId") String profId) {
         String roleStr = userInterface.getRole(profId);
         if (roleStr == null) {
             return Response.status(401).entity(profId + " is not a Registered").build();
@@ -53,15 +52,14 @@ public class ProfessorRESTAPIController {
 
     /**
      * Method to fetch list of students enrolled in professor's courses
+     * 
      * @param profId: User Id of the professor
      * @return List of enrolled students
      */
     @Path("/getEnrolledStudents")
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response getEnrolledStudents(
-            @NotNull
-            @QueryParam("profId") String profId) {
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response getEnrolledStudents(@NotNull @QueryParam("profId") String profId) {
         String roleStr = userInterface.getRole(profId);
         if (roleStr == null) {
             return Response.status(401).entity(profId + " is not a Registered").build();
@@ -80,27 +78,20 @@ public class ProfessorRESTAPIController {
 
     /**
      * Method to add student's grade
-     * @param profId: User Id of the professor
-     * @param password: Password
-     * @param studentId: Student Id
+     * 
+     * @param profId:     User Id of the professor
+     * @param password:   Password
+     * @param studentId:  Student Id
      * @param courseCode: Course Code
-     * @param grade: Grade
+     * @param grade:      Grade
      * @return Success/failure of grade addition
      */
     @Path("/addGrade")
     @PUT
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response addGrade(
-            @NotNull
-            @QueryParam("profId") String profId,
-            @NotNull
-            @QueryParam("password") String password,
-            @NotNull
-            @QueryParam("studentId") int studentId,
-            @NotNull
-            @QueryParam("courseCode") String courseCode,
-            @NotNull
-            @QueryParam("grade") Grade grade) {
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response addGrade(@NotNull @QueryParam("profId") String profId,
+            @NotNull @QueryParam("password") String password, @NotNull @QueryParam("studentId") int studentId,
+            @NotNull @QueryParam("courseCode") String courseCode, @NotNull @QueryParam("grade") Grade grade) {
 
         try {
             boolean loggedin = userInterface.verifyCredentials(profId, password);

@@ -44,8 +44,8 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to add Course selected by student
 	 * 
-	 * @param courseCode Course Code
-	 * @param studentId Student ID
+	 * @param courseCode          Course Code
+	 * @param studentId           Student ID
 	 * @param availableCourseList List Of Available Courses
 	 * @return boolean indicating if the course is added successfully
 	 */
@@ -70,8 +70,8 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to drop Course selected by student
 	 * 
-	 * @param courseCode Course Code
-	 * @param studentId Student ID
+	 * @param courseCode           Course Code
+	 * @param studentId            Student ID
 	 * @param registeredCourseList List Of Registered Courses
 	 * @return boolean indicating if the course is dropped successfully
 	 */

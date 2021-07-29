@@ -17,7 +17,6 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
-
 public class StudentDaoOperation implements StudentDaoInterface {
 
 	private static volatile StudentDaoOperation instance = null;
@@ -39,7 +38,8 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public int addStudent(Student student) throws StudentNotRegisteredException {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		int studentId = 0;
 		try {
 			// open db connection
@@ -84,7 +84,8 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public int getStudentId(String userId) {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_STUDENT_ID);
 			statement.setString(1, userId);
@@ -103,7 +104,8 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public boolean isApproved(int studentId) {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.IS_APPROVED);
 			statement.setInt(1, studentId);

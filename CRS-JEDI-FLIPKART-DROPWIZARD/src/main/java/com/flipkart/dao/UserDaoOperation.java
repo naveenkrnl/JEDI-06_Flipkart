@@ -31,7 +31,8 @@ public class UserDaoOperation implements UserDaoInterface {
 
 	@Override
 	public boolean updatePassword(String userId, String newPassword) {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.UPDATE_PASSWORD);
 
@@ -57,7 +58,8 @@ public class UserDaoOperation implements UserDaoInterface {
 
 	@Override
 	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			// open db connection
 			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.VERIFY_CREDENTIALS);
@@ -91,7 +93,8 @@ public class UserDaoOperation implements UserDaoInterface {
 
 	@Override
 	public String getRole(String userId) {
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ROLE);
 			statement.setString(1, userId);

@@ -11,6 +11,7 @@ public class CourseFoundException extends Exception {
 
 	/***
 	 * Constructor
+	 * 
 	 * @param courseCode Course Code of Course
 	 */
 	public CourseFoundException(String courseCode) {

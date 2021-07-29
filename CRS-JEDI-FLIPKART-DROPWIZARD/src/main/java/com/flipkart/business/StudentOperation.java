@@ -43,14 +43,14 @@ public class StudentOperation implements StudentInterface {
 	 * Method to register a student, although student can't login until it's
 	 * approved by admin
 	 * 
-	 * @param name Name
-	 * @param userId User ID
+	 * @param name     Name
+	 * @param userId   User ID
 	 * @param password Password
-	 * @param gender Gender
-	 * @param batch Batch number
-	 * @param branch Branch
-	 * @param address Address of the student
-	 * @param country Country Of the student
+	 * @param gender   Gender
+	 * @param batch    Batch number
+	 * @param branch   Branch
+	 * @param address  Address of the student
+	 * @param country  Country Of the student
 	 * @return Student ID
 	 */
 	@Override

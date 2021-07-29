@@ -24,7 +24,7 @@ public class Admin extends User {
      * @param country:  user country
      */
     public Admin(String userId, String name, Role role, String password, Gender gender, String address,
-                 String country) {
+            String country) {
         super(userId, name, role, password, gender, address, country);
     }
 

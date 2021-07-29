@@ -47,7 +47,7 @@ public class CryptoUtils {
     }
 
     /**
-     * @param userPassword User Password
+     * @param userPassword     User Password
      * @param databasePassword Password Stored in database
      * @return boolean
      */

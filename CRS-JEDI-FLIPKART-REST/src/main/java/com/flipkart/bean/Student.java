@@ -120,11 +120,7 @@ public class Student extends User {
 
 	@Override
 	public String toString() {
-		return super.toString()  + "\nStudent{" +
-				"branchName='" + branchName + '\'' +
-				", studentId=" + studentId +
-				", batch=" + batch +
-				", isApproved=" + isApproved +
-				'}';
+		return super.toString() + "\nStudent{" + "branchName='" + branchName + '\'' + ", studentId=" + studentId
+				+ ", batch=" + batch + ", isApproved=" + isApproved + '}';
 	}
 }

@@ -33,10 +33,11 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 	}
 
 	@Override
-	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv)
-			throws SQLException {
+	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount,
+			String cardNumber, String cvv) throws SQLException {
 		int notificationId = 0;
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			// INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId)
 			// values(?,?,?);";
@@ -47,7 +48,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 
 			if (type == NotificationType.PAYMENT) {
 				// insert into payment, get reference id and add here
-				UUID referenceId = addPayment(studentId, modeOfPayment, amount,cardNumber,cvv);
+				UUID referenceId = addPayment(studentId, modeOfPayment, amount, cardNumber, cvv);
 				ps.setString(3, referenceId.toString());
 
 				logger.info("Payment successful, Transaction ID: " + referenceId);
@@ -76,10 +77,11 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 		return notificationId;
 	}
 
-
-	public UUID addPayment(int studentId, ModeOfPayment modeOfPayment, double amount, String CardNumber, String cvv) throws SQLException {
+	public UUID addPayment(int studentId, ModeOfPayment modeOfPayment, double amount, String CardNumber, String cvv)
+			throws SQLException {
 		UUID referenceId;
-		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection connection = connectionObj.getConnection();
 		try {
 			referenceId = UUID.randomUUID();
 			// INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId)
@@ -89,8 +91,8 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 			statement.setString(2, modeOfPayment.toString());
 			statement.setString(3, referenceId.toString());
 			statement.setDouble(4, amount);
-			statement.setString(5,CardNumber);
-			statement.setString(6,cvv);
+			statement.setString(5, CardNumber);
+			statement.setString(6, cvv);
 			statement.executeUpdate();
 			// check if record is added
 		} catch (SQLException ex) {

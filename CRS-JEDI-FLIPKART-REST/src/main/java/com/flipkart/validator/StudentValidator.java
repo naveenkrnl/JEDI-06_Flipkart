@@ -16,8 +16,8 @@ public class StudentValidator {
 	 * Method to validate if student is already registered for this particular
 	 * course (courseCode) or not
 	 *
-	 * @param courseCode : Code of the Course
-	 * @param studentId : ID Of the Student
+	 * @param courseCode           : Code of the Course
+	 * @param studentId            : ID Of the Student
 	 * @param registeredCourseList : List Of registered Courses
 	 * @return Student Registration Status
 	 * @throws CourseNotFoundException Course Not Found Exception
@@ -36,7 +36,7 @@ public class StudentValidator {
 	/**
 	 * Method to validate if courseCode is valid or not
 	 *
-	 * @param courseCode : Code Of the Course
+	 * @param courseCode          : Code Of the Course
 	 * @param availableCourseList : List of available courses
 	 * @return courseCode is valid or not
 	 */

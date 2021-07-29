@@ -2,6 +2,7 @@
  *
  */
 package com.flipkart.exception;
+
 /**
  * Exception to check if course is already present in catalog
  */
@@ -10,6 +11,7 @@ public class CourseAssignedException extends Exception {
 
     /***
      * Constructor
+     * 
      * @param courseCode Course Code of Course
      */
     public CourseAssignedException(String courseCode) {

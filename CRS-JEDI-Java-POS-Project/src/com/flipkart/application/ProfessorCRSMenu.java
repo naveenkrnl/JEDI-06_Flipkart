@@ -19,156 +19,138 @@ import com.flipkart.utils.StringUtils;
  */
 public class ProfessorCRSMenu {
 
-
-    ProfessorInterface professorInterface=ProfessorOperation.getInstance();
+    ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 
     /**
      * Method to create Professor menu
-     * @param profId: professor id obtained after logging into the system
-     * It displays all the options for the professor, and provides navigation
+     * 
+     * @param profId: professor id obtained after logging into the system It
+     *                displays all the options for the professor, and provides
+     *                navigation
      */
-    public void createMenu(String profId)
-    {
-        //Display the options available for the Professor
-        Scanner sc=new Scanner(System.in);
+    public void createMenu(String profId) {
+        // Display the options available for the Professor
+        Scanner sc = new Scanner(System.in);
 
         int input;
-        while(CRSApplication.loggedin)
-        {
-            StringUtils.printMenu("Professor Access Menu", new String[] {
-                    "View Your Courses",
-                    "View Enrolled Students",
-                    "Add grade for Student",
-                    "Logout"
-                            },100);
+        while (CRSApplication.loggedin) {
+            StringUtils.printMenu("Professor Access Menu",
+                    new String[] { "View Your Courses", "View Enrolled Students", "Add grade for Student", "Logout" },
+                    100);
 
             StringUtils.printPrompt();
 
-            //input user
-            input=sc.nextInt();
-            switch(input)
-            {
+            // input user
+            input = sc.nextInt();
+            switch (input) {
                 case 1:
-                    //view all the courses taught by the professor
+                    // view all the courses taught by the professor
                     getCourses(profId);
                     break;
                 case 2:
-                    //view all the enrolled students for the course
+                    // view all the enrolled students for the course
                     viewEnrolledStudents(profId);
                     break;
 
                 case 3:
-                    //add grade for a student
+                    // add grade for a student
                     addGrade(profId);
                     break;
                 case 4:
-                    //logout from the system
-                    CRSApplication.loggedin=false;
+                    // logout from the system
+                    CRSApplication.loggedin = false;
                     return;
                 default:
                     StringUtils.printErrorMessage("***** Wrong Choice *****");
             }
         }
 
-
     }
 
     /**
      * Method to view enrolled Students in courses
+     * 
      * @param profId: professor id obtained after logging into the system
      */
-    public void viewEnrolledStudents(String profId)
-    {
+    public void viewEnrolledStudents(String profId) {
         StringUtils.printHeading("List of Enrolled Students");
-        List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-        StringUtils.printTable(String.format("%20s %20s  %20s","COURSE CODE","COURSE NAME","STUDENT ID" ));
-        try
-        {
-            List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
-            enrolledStudents=professorInterface.viewEnrolledStudents(profId);
-            for(EnrolledStudent obj: enrolledStudents)
-            {
-                StringUtils.printTable(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+        List<Course> coursesEnrolled = professorInterface.getCourses(profId);
+        StringUtils.printTable(String.format("%20s %20s  %20s", "COURSE CODE", "COURSE NAME", "STUDENT ID"));
+        try {
+            List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
+            enrolledStudents = professorInterface.viewEnrolledStudents(profId);
+            for (EnrolledStudent obj : enrolledStudents) {
+                StringUtils.printTable(
+                        String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), obj.getStudentId()));
             }
             StringUtils.printEndLine();
-        }
-        catch(Exception ex)
-        {
-            StringUtils.printErrorMessage(ex.getMessage()+"Something went wrong, please try again later!");
+        } catch (Exception ex) {
+            StringUtils.printErrorMessage(ex.getMessage() + "Something went wrong, please try again later!");
         }
     }
 
     /**
      * Method to get list of all Courses Professor has to teach
+     * 
      * @param profId: professor id obtained after logging into the system
      */
-    public void getCourses(String profId)
-    {
+    public void getCourses(String profId) {
         StringUtils.printHeading("List of All Courses taught by Professor");
-        try
-        {
-            List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-            StringUtils.printTable(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
-            for(Course obj: coursesEnrolled)
-            {
-                StringUtils.printTable(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
+        try {
+            List<Course> coursesEnrolled = professorInterface.getCourses(profId);
+            StringUtils.printTable(
+                    String.format("%20s %20s %20s", "COURSE CODE", "COURSE NAME", "No. of Students  enrolled"));
+            for (Course obj : coursesEnrolled) {
+                StringUtils.printTable(
+                        String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), 10 - obj.getSeats()));
             }
             StringUtils.printEndLine();
-        }
-        catch(Exception ex)
-        {
-            StringUtils.printErrorMessage("Something went wrong!"+ex.getMessage());
+        } catch (Exception ex) {
+            StringUtils.printErrorMessage("Something went wrong!" + ex.getMessage());
         }
     }
 
     /**
      * Method to help Professor grade a student
+     * 
      * @param profId: professor id obtained after logging into the system
      */
-    public void addGrade(String profId)
-    {
+    public void addGrade(String profId) {
         StringUtils.printHeading("Student Courses Data");
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         int studentId;
-        String courseCode,grade;
-        try
-        {
-            List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
-            enrolledStudents=professorInterface.viewEnrolledStudents(profId);
-            StringUtils.printTable(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
-            for(EnrolledStudent obj: enrolledStudents)
-            {
-                StringUtils.printTable(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+        String courseCode, grade;
+        try {
+            List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
+            enrolledStudents = professorInterface.viewEnrolledStudents(profId);
+            StringUtils.printTable(String.format("%20s %20s %20s", "COURSE CODE", "COURSE NAME", "Student ID"));
+            for (EnrolledStudent obj : enrolledStudents) {
+                StringUtils.printTable(
+                        String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), obj.getStudentId()));
             }
             StringUtils.printEndLine();
-            List<Course> coursesEnrolled=new ArrayList<Course>();
-            coursesEnrolled	=professorInterface.getCourses(profId);
+            List<Course> coursesEnrolled = new ArrayList<Course>();
+            coursesEnrolled = professorInterface.getCourses(profId);
             StringUtils.printHeading("Add Grade");
             System.out.println("Enter student id");
-            studentId=sc.nextInt();
+            studentId = sc.nextInt();
             System.out.println("Enter course code");
-            courseCode=sc.next();
+            courseCode = sc.next();
             System.out.println("Enter grade");
-            grade=sc.next();
-            if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
-            {
+            grade = sc.next();
+            if (ProfessorValidator.isValidStudent(enrolledStudents, studentId)
+                    && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode)) {
                 professorInterface.addGrade(studentId, courseCode, grade);
-                StringUtils.printSuccessMessage("Grade added successfully for "+studentId);
+                StringUtils.printSuccessMessage("Grade added successfully for " + studentId);
+            } else {
+                StringUtils.printErrorMessage("Invalid data entered, try again!");
             }
-            else
-            {
-               StringUtils.printErrorMessage("Invalid data entered, try again!");
-            }
-        }
-        catch(GradeNotAddedException ex)
-        {
-            StringUtils.printErrorMessage("Grade cannot be added for"+ex.getStudentId());
+        } catch (GradeNotAddedException ex) {
+            StringUtils.printErrorMessage("Grade cannot be added for" + ex.getStudentId());
 
-        }
-        catch(SQLException ex)
-        {
-            StringUtils.printErrorMessage("Grade not added, SQL exception occurred "+ex.getMessage());
+        } catch (SQLException ex) {
+            StringUtils.printErrorMessage("Grade not added, SQL exception occurred " + ex.getMessage());
         }
 
     }

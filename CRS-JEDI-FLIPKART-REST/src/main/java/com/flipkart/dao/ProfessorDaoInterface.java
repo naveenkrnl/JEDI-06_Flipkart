@@ -31,9 +31,9 @@ public interface ProfessorDaoInterface {
 	/**
 	 * Method to Grade a student using SQL Commands
 	 *
-	 * @param studentId: professor id
+	 * @param studentId:  professor id
 	 * @param courseCode: course code for the corresponding
-	 * @param grade: grade to be added
+	 * @param grade:      grade to be added
 	 * @return returns the status after adding the grade
 	 */
 	public Boolean addGrade(int studentId, String courseCode, String grade);

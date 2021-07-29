@@ -17,14 +17,14 @@ public interface StudentInterface {
 	 * Method to register a student, although student can't login until it's
 	 * approved by admin
 	 * 
-	 * @param name Name Of the Student
-	 * @param userID User ID
+	 * @param name     Name Of the Student
+	 * @param userID   User ID
 	 * @param password Password
-	 * @param gender Gender
-	 * @param batch Batch number
-	 * @param branch Branch name
-	 * @param address Address of the student
-	 * @param country Country
+	 * @param gender   Gender
+	 * @param batch    Batch number
+	 * @param branch   Branch name
+	 * @param address  Address of the student
+	 * @param country  Country
 	 * @return Student ID
 	 * @throws StudentNotRegisteredException If Student is not registered
 	 */

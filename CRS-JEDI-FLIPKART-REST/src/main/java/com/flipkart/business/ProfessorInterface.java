@@ -19,9 +19,9 @@ public interface ProfessorInterface {
 	/**
 	 * Method to grade a Student
 	 * 
-	 * @param studentId Student ID
+	 * @param studentId  Student ID
 	 * @param courseCode Course Code
-	 * @param grade Grade
+	 * @param grade      Grade
 	 * @return boolean indicating if grade is added or not
 	 * @throws GradeNotAddedException If course is not Found
 	 */

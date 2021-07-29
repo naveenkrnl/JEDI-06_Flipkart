@@ -14,7 +14,7 @@ public interface UserInterface {
 	/**
 	 * Method to update password of a user
 	 * 
-	 * @param userID User ID
+	 * @param userID      User ID
 	 * @param newPassword New Password Of The User
 	 * @return boolean indicating if the password is updated successfully
 	 */
@@ -23,7 +23,7 @@ public interface UserInterface {
 	/**
 	 * Method to verify User credentials
 	 * 
-	 * @param userID User ID
+	 * @param userID   User ID
 	 * @param password Password of the user
 	 * @return boolean indicating if user exists in the database
 	 * @throws UserNotFoundException If Student is not registered

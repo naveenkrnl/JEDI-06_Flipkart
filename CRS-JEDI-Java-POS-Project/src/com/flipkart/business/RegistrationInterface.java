@@ -21,12 +21,12 @@ public interface RegistrationInterface {
 	 * Method to add Course selected by student
 	 * 
 	 * @param courseCode Course Code
-	 * @param studentId Student ID
+	 * @param studentId  Student ID
 	 * @param courseList List Of Courses
-	 * @throws CourseNotFoundException If course is not Found
+	 * @throws CourseNotFoundException    If course is not Found
 	 * @throws CourseLimitExceedException If course limit is not found
-	 * @throws SeatNotAvailableException If seat is not available
-	 * @throws SQLException If SQL is not found
+	 * @throws SeatNotAvailableException  If seat is not available
+	 * @throws SQLException               If SQL is not found
 	 * @return boolean indicating if the course is added successfully
 	 */
 	public boolean addCourse(String courseCode, int studentId, List<Course> courseList)
@@ -35,11 +35,11 @@ public interface RegistrationInterface {
 	/**
 	 * Method to drop Course selected by student
 	 * 
-	 * @param courseCode Course Code
-	 * @param studentId Student ID
+	 * @param courseCode           Course Code
+	 * @param studentId            Student ID
 	 * @param registeredCourseList List Of Registered Courses
 	 * @throws CourseNotFoundException If Course is not found
-	 * @throws SQLException If SQL is not found
+	 * @throws SQLException            If SQL is not found
 	 * @return boolean indicating if the course is dropped successfully
 	 */
 	public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList)

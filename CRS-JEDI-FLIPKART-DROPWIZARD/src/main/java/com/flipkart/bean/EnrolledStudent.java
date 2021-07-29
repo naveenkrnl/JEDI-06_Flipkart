@@ -67,7 +67,7 @@ public class EnrolledStudent {
 	 * 
 	 * @param courseCode: course code
 	 * @param courseName: Name of the course
-	 * @param studentId: Id of the Student
+	 * @param studentId:  Id of the Student
 	 */
 	public EnrolledStudent(String courseCode, String courseName, int studentId) {
 		super();

@@ -11,21 +11,23 @@ import java.util.Date;
  */
 public class Admin extends User {
 	private Date dateOfJoining;
+
 	/**
 	 * Parameterized Constructor
 	 *
-	 * @param userId:     email address of the user
-	 * @param name:       user full name
-	 * @param role:       role among student, professor, admin
-	 * @param password:   user password
-	 * @param gender:     gender
-	 * @param address:    address of the user
-	 * @param country:    user country
+	 * @param userId:   email address of the user
+	 * @param name:     user full name
+	 * @param role:     role among student, professor, admin
+	 * @param password: user password
+	 * @param gender:   gender
+	 * @param address:  address of the user
+	 * @param country:  user country
 	 */
 	public Admin(String userId, String name, Role role, String password, Gender gender, String address,
-				   String country) {
+			String country) {
 		super(userId, name, role, password, gender, address, country);
 	}
+
 	/**
 	 * Method to get Date of joining
 	 * 

@@ -28,7 +28,7 @@ public interface AdminDaoInterface {
 	 * Delete Course using SQL commands
 	 * 
 	 * @param courseCode Course Code
-	 * @throws CourseNotFoundException If course is Not Found
+	 * @throws CourseNotFoundException   If course is Not Found
 	 * @throws CourseNotDeletedException If Course is Not Deleted
 	 */
 	public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException;
@@ -52,7 +52,8 @@ public interface AdminDaoInterface {
 	 * Approve Student using SQL commands
 	 * 
 	 * @param studentId Student Id
-	 * @throws StudentNotFoundForApprovalException If student is not found for approval
+	 * @throws StudentNotFoundForApprovalException If student is not found for
+	 *                                             approval
 	 */
 	public void approveStudent(int studentId) throws StudentNotFoundForApprovalException;
 
@@ -60,7 +61,7 @@ public interface AdminDaoInterface {
 	 * Add professor using SQL commands
 	 *
 	 * @param professor Professor Object
-	 * @throws ProfessorNotAddedException If professor is not Found
+	 * @throws ProfessorNotAddedException  If professor is not Found
 	 * @throws UserIdAlreadyInUseException If ProfessId is Already in Use
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
@@ -69,7 +70,7 @@ public interface AdminDaoInterface {
 	 * Method to add user using SQL commands
 	 * 
 	 * @param user User Object
-	 * @throws UserNotAddedException If User is not added
+	 * @throws UserNotAddedException       If User is not added
 	 * @throws UserIdAlreadyInUseException If user Id is Already in Use
 	 */
 	public void addUser(User user) throws UserNotAddedException, UserIdAlreadyInUseException;
@@ -77,10 +78,10 @@ public interface AdminDaoInterface {
 	/**
 	 * Assign courses to Professor using SQL commands
 	 * 
-	 * @param courseCode Course Code
+	 * @param courseCode  Course Code
 	 * @param professorId Professor Id
 	 * @throws CourseNotFoundException If course is not Found
-	 * @throws UserNotFoundException If user is not Found
+	 * @throws UserNotFoundException   If user is not Found
 	 */
 	public void assignCourse(String courseCode, String professorId)
 			throws CourseNotFoundException, UserNotFoundException;

@@ -12,10 +12,11 @@ public interface UserDaoInterface {
 	/**
 	 * Method to verify credentials of Users from DataBase
 	 * 
-	 * @param userId User Id
+	 * @param userId   User Id
 	 * @param password Password
 	 * @return Returns true is User Credentials are verified, else false
-	 * @throws UserNotFoundException If the given userid is not present in the database
+	 * @throws UserNotFoundException If the given userid is not present in the
+	 *                               database
 	 */
 	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException;
 
@@ -38,7 +39,7 @@ public interface UserDaoInterface {
 	/**
 	 * Method to update password of user in DataBase
 	 * 
-	 * @param userID User Id
+	 * @param userID      User Id
 	 * @param newPassword New password for the user
 	 * @return Returns true if User password is updated else returns false
 	 */

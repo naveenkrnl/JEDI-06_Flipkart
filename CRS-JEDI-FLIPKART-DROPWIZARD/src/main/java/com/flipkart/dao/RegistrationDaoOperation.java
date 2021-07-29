@@ -47,7 +47,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public boolean addCourse(String courseCode, int studentId) throws SQLException {
 
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.ADD_COURSE);
@@ -73,7 +74,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public int numOfRegisteredCourses(int studentId) throws SQLException {
 
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 
 		int count = 0;
 		try {
@@ -104,7 +106,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public boolean seatAvailable(String courseCode) throws SQLException {
 
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.GET_SEATS);
 			stmt.setString(1, courseCode);
@@ -127,7 +130,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public boolean isRegistered(String courseCode, int studentId) throws SQLException {
 
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 
 		boolean check = false;
 		try {
@@ -154,7 +158,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public boolean dropCourse(String courseCode, int studentId) throws SQLException {
 
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.DROP_COURSE_QUERY);
@@ -183,7 +188,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public double calculateFee(int studentId) throws SQLException {
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 		double fee = 0;
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.CALCULATE_FEES);
@@ -207,7 +213,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException {
 
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 		List<StudentGrade> grade_List = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_GRADE);
@@ -238,7 +245,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	public List<Course> viewCourses(int studentId) throws SQLException {
 
 		List<Course> availableCourseList = new ArrayList<>();
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 		System.out.println((conn));
 		BasicConfigurator.configure();
 
@@ -269,7 +277,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	@Override
 	public List<Course> viewRegisteredCourses(int studentId) throws SQLException {
 
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 		List<Course> registeredCourseList = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_REGISTERED_COURSES);
@@ -295,7 +304,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public boolean getRegistrationStatus(int studentId) throws SQLException {
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 		boolean status = false;
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.GET_REGISTRATION_STATUS);
@@ -317,7 +327,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	@Override
 	public void setRegistrationStatus(int studentId) throws SQLException {
-		DBUtils connectionObj = new DBUtils(); Connection conn = connectionObj.getConnection();
+		DBUtils connectionObj = new DBUtils();
+		Connection conn = connectionObj.getConnection();
 		try {
 			stmt = conn.prepareStatement(SQLQueriesConstants.SET_REGISTRATION_STATUS);
 			stmt.setInt(1, studentId);

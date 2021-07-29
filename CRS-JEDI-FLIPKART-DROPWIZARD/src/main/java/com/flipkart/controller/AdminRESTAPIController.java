@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-
 @Path("/admin")
 public class AdminRESTAPIController {
 
@@ -25,6 +24,7 @@ public class AdminRESTAPIController {
 
     /**
      * Method to add Professor to DB
+     * 
      * @param professor: Professor object containing details passed from the client
      * @return Success/Failure of addition of professor
      */
@@ -37,13 +37,14 @@ public class AdminRESTAPIController {
 
         } catch (ProfessorNotAddedException | UserIdAlreadyInUseException e) {
             StringUtils.printErrorMessage(e.getMessage());
-            return Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
+            return Response.status(500).entity("Operation Failed. " + e.getMessage()).build();
         }
         return Response.status(200).entity("Operation Successful").build();
     }
 
     /**
      * Method to assign Course to a Professor
+     * 
      * @param course: Course object containing details passed from the client
      * @return Success/failure of professor assignment
      */
@@ -60,15 +61,16 @@ public class AdminRESTAPIController {
 
         } catch (CourseNotFoundException | UserNotFoundException e) {
 
-            Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
+            Response.status(500).entity("Operation Failed. " + e.getMessage()).build();
         }
         return Response.status(200).entity("Operation Successful").build();
     }
 
     /**
      * Method to delete Course from catalogue
-     *  @param course: Course object containing details passed from the client
-     *  @return Success/failure of course deletion
+     * 
+     * @param course: Course object containing details passed from the client
+     * @return Success/failure of course deletion
      */
     @DELETE
     @Path("/deleteCourse")
@@ -81,7 +83,7 @@ public class AdminRESTAPIController {
         try {
             adminOperation.deleteCourse(course.getCourseCode(), courseList);
         } catch (CourseNotFoundException | CourseNotDeletedException e) {
-            return Response.status(500).entity("Operation Failed. Error: "+ e.getMessage()).build();
+            return Response.status(500).entity("Operation Failed. Error: " + e.getMessage()).build();
         }
 
         return Response.status(200).entity("Operation Successful. Course is Deleted.").build();
@@ -89,6 +91,7 @@ public class AdminRESTAPIController {
 
     /**
      * Method to approve a Student using Student's ID
+     * 
      * @param studentUserIdApproval: Student Id of student to approve
      * @return Success/failure of student approval
      */
@@ -98,7 +101,6 @@ public class AdminRESTAPIController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response approveStudent(int studentUserIdApproval) {
 
-
         List<Student> studentList = viewPendingAdmissions();
         if (studentList.size() == 0) {
             return Response.status(500).entity("No Student Left to Approve").build();
@@ -106,14 +108,14 @@ public class AdminRESTAPIController {
 
         try {
             adminOperation.approveStudent(studentUserIdApproval, studentList);
-            //send notification from system
-            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
+            // send notification from system
+            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,
+                    0, null, null);
 
         } catch (StudentNotFoundForApprovalException e) {
-            return Response.status(500).entity("Operation Failed. Error: "+e.getMessage()).build();
-        }
-        catch (Exception e) {
-            return Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
+            return Response.status(500).entity("Operation Failed. Error: " + e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(500).entity("Operation Failed. " + e.getMessage()).build();
         }
 
         return Response.status(200).entity("Operation Successful. Student Approved").build();
@@ -121,6 +123,7 @@ public class AdminRESTAPIController {
 
     /**
      * Method to display courses in catalogue
+     * 
      * @return List of courses in the catalogue
      */
     @GET
@@ -132,15 +135,16 @@ public class AdminRESTAPIController {
             return courseList;
         }
 
-        courseList.forEach((course)->{
+        courseList.forEach((course) -> {
             if (course.getInstructorId() == null || course.getInstructorId().isEmpty())
                 course.setInstructorId("No Professor");
         });
-        return  courseList;
+        return courseList;
     }
 
     /**
      * Method to add Course to catalogue
+     * 
      * @param course: Course object containing details passed from the client
      * @return Success/failure of addition of course to the catalogue
      */
@@ -153,13 +157,14 @@ public class AdminRESTAPIController {
         try {
             adminOperation.addCourse(course, viewCoursesInCatalogue());
         } catch (CourseFoundException e) {
-            return Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
+            return Response.status(500).entity("Operation Failed. " + e.getMessage()).build();
         }
-       return Response.status(200).entity("Operation Successful").build();
+        return Response.status(200).entity("Operation Successful").build();
     }
 
     /**
      * Method to view student who are pending admin approval
+     * 
      * @return List of students who are pending approval
      */
     @GET
@@ -170,5 +175,3 @@ public class AdminRESTAPIController {
         return pendingStudentsList;
     }
 }
-
-

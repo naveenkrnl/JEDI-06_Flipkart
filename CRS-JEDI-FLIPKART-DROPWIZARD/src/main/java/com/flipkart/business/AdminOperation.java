@@ -42,24 +42,25 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
+
 	/**
 	 * Method to add Administrative Account
 	 *
-	 * @param name Name
-	 * @param userID User ID
+	 * @param name     Name
+	 * @param userID   User ID
 	 * @param password Password
-	 * @param gender Gender
-	 * @param address Address
-	 * @param country Country
+	 * @param gender   Gender
+	 * @param address  Address
+	 * @param country  Country
 	 * @return Admin ID
 	 */
 	@Override
-	public int register(String name, String userID, String password, Gender gender, String address,
-						String country) throws AdminAccountNotCreatedException{
+	public int register(String name, String userID, String password, Gender gender, String address, String country)
+			throws AdminAccountNotCreatedException {
 		int adminId = 0;
 		try {
 			User admin = new Admin(userID, name, Role.ADMIN, password, gender, address, country);
-			adminId = adminDaoOperation.addAdmin(admin) ;
+			adminId = adminDaoOperation.addAdmin(admin);
 
 		} catch (AdminAccountNotCreatedException ex) {
 			throw ex;
@@ -71,7 +72,7 @@ public class AdminOperation implements AdminInterface {
 	 * Method to Delete Course from Course Catalog
 	 * 
 	 * @param dropCourseCode Course Code which is to be dropped
-	 * @param courseList : Courses available in the catalog
+	 * @param courseList     : Courses available in the catalog
 	 */
 	@Override
 	public void deleteCourse(String dropCourseCode, List<Course> courseList)
@@ -93,7 +94,7 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to add Course to Course Catalog
 	 * 
-	 * @param newCourse : Course object storing details of a course
+	 * @param newCourse  : Course object storing details of a course
 	 * @param courseList : Courses available in catalog
 	 */
 	@Override
@@ -125,7 +126,7 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to approve a Student
 	 * 
-	 * @param studentId Student ID
+	 * @param studentId   Student ID
 	 * @param studentList List Of Students
 	 */
 	@Override
@@ -162,7 +163,7 @@ public class AdminOperation implements AdminInterface {
 	/**
 	 * Method to assign Course to a Professor
 	 * 
-	 * @param courseCode Course Code
+	 * @param courseCode  Course Code
 	 * @param professorId Professor ID
 	 */
 	@Override

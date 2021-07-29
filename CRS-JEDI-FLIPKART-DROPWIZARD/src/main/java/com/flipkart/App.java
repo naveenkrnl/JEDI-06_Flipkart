@@ -23,7 +23,7 @@ public class App extends Application<Configuration> {
     public void run(Configuration c, Environment e) throws Exception {
         LOGGER.info("Registering REST resources");
 
-        //  Registeration of all services
+        // Registeration of all services
         e.jersey().register(new AdminRESTAPIController());
         e.jersey().register(new ProfessorRESTAPIController());
         e.jersey().register(new StudentRESTAPIController());

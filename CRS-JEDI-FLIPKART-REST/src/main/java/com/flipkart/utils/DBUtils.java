@@ -15,8 +15,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBUtils {
-//    static final Properties prop = new Properties();
-//    static final InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("config.properties");
+    // static final Properties prop = new Properties();
+    // static final InputStream inputStream =
+    // DBUtils.class.getClassLoader().getResourceAsStream("config.properties");
     static String DB_URL;
     static String USER;
     static String PASS;
@@ -24,14 +25,14 @@ public class DBUtils {
 
     public Connection getConnection() {
         Connection connection = null;
-//        try {
-//            prop.load(inputStream);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        url=jdbc:mysql://localhost:3306/crs
-//        user=root
-//        password=Something@123
+        // try {
+        // prop.load(inputStream);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
+        // url=jdbc:mysql://localhost:3306/crs
+        // user=root
+        // password=Something@123
         DB_URL = "jdbc:mysql://localhost:3306/crs?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
         USER = "root";
         PASS = "Something@123";
@@ -52,5 +53,3 @@ public class DBUtils {
         return LocalDateTime.parse(str, formatter);
     }
 }
-
-

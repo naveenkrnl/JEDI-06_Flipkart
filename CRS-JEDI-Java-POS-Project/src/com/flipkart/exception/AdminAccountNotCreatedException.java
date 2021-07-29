@@ -1,9 +1,8 @@
 package com.flipkart.exception;
 
-public class AdminAccountNotCreatedException extends Exception{
+public class AdminAccountNotCreatedException extends Exception {
 
-    public AdminAccountNotCreatedException()
-    {
+    public AdminAccountNotCreatedException() {
     }
 
     @Override

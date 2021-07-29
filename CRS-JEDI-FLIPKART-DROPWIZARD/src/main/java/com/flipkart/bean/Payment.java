@@ -1,8 +1,7 @@
 package com.flipkart.bean;
 
-
 /**
-    Payment Bean Class
+ * Payment Bean Class
  *
  */
 public class Payment {
@@ -96,11 +95,11 @@ public class Payment {
 
     /**
      * Method to set student Id
-
+     * 
      * @param studentId Student Id of student
      */
     public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 
-    }
+}

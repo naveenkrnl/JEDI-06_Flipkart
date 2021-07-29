@@ -15,8 +15,8 @@ import com.flipkart.utils.Secrets;
 import com.flipkart.utils.StringUtils;
 
 /**
- * This class is used as the main entry point of the application
- * In main menu to login, register are displayed
+ * This class is used as the main entry point of the application In main menu to
+ * login, register are displayed
  */
 public class CRSApplication {
 
@@ -30,27 +30,27 @@ public class CRSApplication {
         Scanner sc = new Scanner(System.in);
         CRSApplication crsApplication = new CRSApplication();
         int userInput;
-        //create the main menu
+        // create the main menu
         createMainMenu();
         userInput = sc.nextInt();
         try {
 
-            //until user do not exit the application
+            // until user do not exit the application
             while (userInput != 5) {
                 switch (userInput) {
                     case 1:
-                        //login
+                        // login
                         crsApplication.loginUser();
                         break;
                     case 2:
-                        //student registration
+                        // student registration
                         crsApplication.registerStudent();
                         break;
                     case 3:
                         crsApplication.updatePassword();
                         break;
                     case 4:
-                        //student registration
+                        // student registration
                         crsApplication.registerAdmin();
                         break;
                     default:
@@ -70,17 +70,12 @@ public class CRSApplication {
      * Method to Create Main Menu
      */
     public static void createMainMenu() {
-        StringUtils.printMenu("Welcome to Course Management System", new String[]{
-                "Login",
-                "Student Registration",
-                "Change password",
-                "Admin Account Creation",
-                "Exit"
-        }, 100);
+        StringUtils.printMenu("Welcome to Course Management System",
+                new String[] { "Login", "Student Registration", "Change password", "Admin Account Creation", "Exit" },
+                100);
 
         StringUtils.printPrompt();
     }
-
 
     /**
      * Method for Login functionality
@@ -97,8 +92,8 @@ public class CRSApplication {
             System.out.println("Password:");
             password = sc.next();
             loggedin = userInterface.verifyCredentials(userId, password);
-            //2 cases
-            //true->role->student->approved
+            // 2 cases
+            // true->role->student->approved
             if (loggedin) {
                 DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
@@ -106,8 +101,7 @@ public class CRSApplication {
 
                 String formattedDate = myDateObj.format(myFormatObj);
 
-
-                //System.out.println("Welcome "+userId);
+                // System.out.println("Welcome "+userId);
                 String role = userInterface.getRole(userId);
                 Role userRole = Role.stringToName(role);
                 switch (userRole) {
@@ -132,12 +126,12 @@ public class CRSApplication {
                             studentMenu.create_menu(studentId);
 
                         } else {
-                            StringUtils.printErrorMessage("Failed to login, you have not been approved by the administration!");
+                            StringUtils.printErrorMessage(
+                                    "Failed to login, you have not been approved by the administration!");
                             loggedin = false;
                         }
                         break;
                 }
-
 
             } else {
                 StringUtils.printErrorMessage("Invalid Credentials!");
@@ -156,8 +150,7 @@ public class CRSApplication {
         StringUtils.printHeading("Enter root password");
         String rt_pwd = sc.nextLine();
 
-        if(!rt_pwd.equals(Secrets.ROOT_PASSWORD))
-        {
+        if (!rt_pwd.equals(Secrets.ROOT_PASSWORD)) {
             StringUtils.printErrorMessage("Incorrect Password! Access Denied");
             return;
         }
@@ -165,7 +158,7 @@ public class CRSApplication {
         Gender gender;
         int genderV;
         try {
-            //input all the student details
+            // input all the student details
             StringUtils.printHeading("Administrative Account Creation Portal");
             System.out.println("Name:");
             name = sc.nextLine();
@@ -181,13 +174,14 @@ public class CRSApplication {
             System.out.println("Country");
             country = sc.next();
             gender = Gender.getName(genderV);
-            int admin= adminInterface.register(name, userId, password, gender, address, country);
+            int admin = adminInterface.register(name, userId, password, gender, address, country);
         } catch (AdminAccountNotCreatedException ex) {
             StringUtils.printErrorMessage("Something went wrong! not registered. Please try again\n" + ex.getMessage());
             return;
         }
         StringUtils.printSuccessMessage("Administrative Account Successfully Created!");
     }
+
     /**
      * Method to help Student register themselves, pending admin approval
      */
@@ -198,7 +192,7 @@ public class CRSApplication {
         Gender gender;
         int genderV, batch;
         try {
-            //input all the student details
+            // input all the student details
             StringUtils.printHeading("Student Registration Portal");
             System.out.println("Name:");
             name = sc.nextLine();
@@ -219,7 +213,8 @@ public class CRSApplication {
             System.out.println("Country");
             country = sc.next();
             gender = Gender.getName(genderV);
-            int newStudentId = studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
+            int newStudentId = studentInterface.register(name, userId, password, gender, batch, branchName, address,
+                    country);
             notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
 
         } catch (Exception ex) {
@@ -251,8 +246,7 @@ public class CRSApplication {
                     StringUtils.printSuccessMessage("Password updated successfully!");
                 else
                     StringUtils.printErrorMessage("Something went wrong, please try again!");
-            }
-            else{
+            } else {
                 StringUtils.printErrorMessage("Incorrect Password");
             }
         } catch (Exception ex) {
