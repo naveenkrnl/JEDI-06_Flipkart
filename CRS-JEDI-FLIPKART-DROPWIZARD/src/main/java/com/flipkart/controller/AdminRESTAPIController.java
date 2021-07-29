@@ -78,15 +78,17 @@ public class AdminRESTAPIController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response assignCourseToProfessor(Course course) {
-        try {
-            String courseCode = course.getCourseCode();
-            String userId = course.getInstructorId();
 
-            if(courseCode == null || courseCode.trim().length() == 0) {
-                return Response.status(400).entity("Error: Course Code can not be empty").build();
-            } else if( userId ==null || userId.trim().length()==0) {
-                return Response.status(400).entity("Error: User Id can not be empty").build();
-            }
+        String courseCode = course.getCourseCode();
+        String userId = course.getInstructorId();
+
+        if(courseCode == null || courseCode.trim().length() == 0) {
+            return Response.status(400).entity("Error: Course Code can not be empty").build();
+        } else if( userId ==null || userId.trim().length()==0) {
+            return Response.status(400).entity("Error: User Id can not be empty").build();
+        }
+
+        try {
 
             System.out.println(courseCode + " " + userId);
             adminOperation.assignCourse(courseCode, userId);
@@ -108,6 +110,12 @@ public class AdminRESTAPIController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteCourse(Course course) {
+
+        String courseCode = course.getCourseCode();
+
+        if(courseCode == null || courseCode.trim().length() == 0) {
+            return Response.status(400).entity("Error: Course Code can not be empty").build();
+        }
 
         List<Course> courseList = viewCoursesInCatalogue();
 
