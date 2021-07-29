@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.flipkart.utils.CryptoUtils;
 import org.apache.log4j.Logger;
 
 import com.flipkart.constant.SQLQueriesConstants;
@@ -66,11 +67,7 @@ public class UserDaoOperation implements UserDaoInterface {
 
 			if (!resultSet.next())
 				throw new UserNotFoundException(userId);
-			else if (password.equals(resultSet.getString("password"))) {
-				return true;
-			} else {
-				return false;
-			}
+			return CryptoUtils.verifyPassword(password, resultSet.getString("password"));
 
 		} catch (SQLException ex) {
 			logger.info("Something went wrong, please try again! " + ex.getMessage());

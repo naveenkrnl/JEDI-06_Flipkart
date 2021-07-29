@@ -8,6 +8,7 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.utils.CryptoUtils;
 
 //import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -117,7 +118,7 @@ public class UserRESTAPIController {
 
         userId = userId.trim();
         name = name.trim();
-        password = password.trim();
+        password = CryptoUtils.generateDatabasePassword(password.trim());
         address = address.trim();
         country = country.trim();
         branchName = branchName.trim();
