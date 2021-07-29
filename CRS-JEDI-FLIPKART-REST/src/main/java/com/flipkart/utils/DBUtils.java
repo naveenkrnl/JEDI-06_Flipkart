@@ -32,7 +32,7 @@ public class DBUtils {
 //        url=jdbc:mysql://localhost:3306/crs
 //        user=root
 //        password=Something@123
-        DB_URL = "jdbc:mysql://localhost:3307/crs?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
+        DB_URL = "jdbc:mysql://localhost:3306/crs?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
         USER = "root";
         PASS = "Something@123";
         try {

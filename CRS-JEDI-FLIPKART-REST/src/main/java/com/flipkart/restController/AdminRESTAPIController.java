@@ -37,10 +37,9 @@ public class AdminRESTAPIController {
 
         } catch (ProfessorNotAddedException | UserIdAlreadyInUseException e) {
             StringUtils.printErrorMessage(e.getMessage());
-            Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
+            return Response.status(500).entity("Operation Failed. "+e.getMessage()).build();
         }
         return Response.status(200).entity("Operation Successful").build();
-
     }
 
     /**

@@ -193,6 +193,67 @@ public class StudentRESTAPIController {
     }
 
     /**
+     * Handle API request for Adding a New Course
+     * @param courseId: Course Id of Course to be added
+     * @param studentId: ID of Student
+     * @return Success/Failure of Adding the Course
+     */
+    @Path("/dropCourse")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response dropCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") String courseId)
+    {
+        boolean is_registered = false;
+        try
+        {
+            is_registered = registrationInterface.getRegistrationStatus(studentId);
+        }
+        catch (SQLException e)
+        {
+            logger.error(e.getMessage());
+        }
+        if(is_registered)
+        {
+
+
+            List<Course> availableCourseList = null;
+            try
+            {
+                availableCourseList = registrationInterface.viewRegisteredCourses(studentId);
+            }
+            catch (SQLException e)
+            {
+                logger.error(e.getMessage());
+                return Response.status(500).entity("Some Error Occurred").build();
+            }
+
+            if(availableCourseList == null)
+                return Response.status(404).entity("No Courses Available").build();
+
+            try
+            {
+                if(registrationInterface.dropCourse(courseId, studentId,availableCourseList))
+                {
+                    return Response.status(200).entity("Course Droped Succcessfully").build();
+                }
+                else
+                {
+                    return Response.status(403).entity("You are not registered for this course").build();
+                }
+            }
+            catch(CourseNotFoundException | SQLException e)
+            {
+                logger.error(e.getMessage());
+                return Response.status(500).entity("Some Error Occurred").build();
+            }
+        }
+        else
+        {
+            return Response.status(403).entity("Please complete semester registration first").build();
+        }
+    }
+
+    /**
      * Handle API request for Getting List of Registered Courses for a Student
      * @param studentId: ID of Student
      * @return List of Registered Courses
@@ -228,7 +289,7 @@ public class StudentRESTAPIController {
      * @param studentId: ID of Student
      * @return List of Available Courses
      */
-    @Path("/viewCourses")
+    @Path("/viewAvailableCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> viewCourse(@QueryParam("studentId") int studentId) throws SQLException {
