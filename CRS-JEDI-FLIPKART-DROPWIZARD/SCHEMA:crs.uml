@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>4ab997e2-6b07-40c6-8f37-c207b7b26fbe.SCHEMA:crs</OriginalElement>
+  <nodes>
+    <node x="0.0" y="916.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Admin</node>
+    <node x="585.25" y="0.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Professor</node>
+    <node x="334.0" y="640.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Notification</node>
+    <node x="787.0" y="640.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.courseCatalogue</node>
+    <node x="169.75" y="160.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Student</node>
+    <node x="0.0" y="386.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Payment</node>
+    <node x="582.75" y="149.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Course</node>
+    <node x="0.0" y="640.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.User</node>
+    <node x="462.0" y="419.0">4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.registeredcourse</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.registeredcourse" target="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Student">
+      <point x="-74.25" y="-71.5" />
+      <point x="536.25" y="361.0" />
+      <point x="323.5" y="361.0" />
+      <point x="51.25" y="82.5" />
+    </edge>
+    <edge source="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.registeredcourse" target="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Course">
+      <point x="74.25" y="-71.5" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Payment" target="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Student">
+      <point x="0.0" y="-104.5" />
+      <point x="-51.25" y="82.5" />
+    </edge>
+    <edge source="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Course" target="4ab997e2-6b07-40c6-8f37-c207b7b26fbe.TABLE:crs.Professor">
+      <point x="0.0" y="-93.5" />
+      <point x="0.0" y="49.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8989898989898989" x="471.50000000000006" y="485.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
